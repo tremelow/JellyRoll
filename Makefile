@@ -1,7 +1,7 @@
 .PHONY: all viewpdf pdf clean
 
 TARGET       = main
-SOURCE_FILES = $(TARGET).tex $(wildcard */*.tex) stopcover.tex
+SOURCE_FILES = $(TARGET).tex $(wildcard */*.tex)
 BIB_FILES    = $(wildcard biblio/*.bib)
 FIGURES      = $(wildcard Chapitre*/figures/*)
 
