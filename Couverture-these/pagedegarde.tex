@@ -22,24 +22,23 @@
 %Inscrivez ici votre sp\'{e}cialit\'{e} (voir liste des sp\'{e}cialit\'{e}s sur le site de votre \'{e}cole doctorale)
 %Indicate the domain (see list of domains in your ecole doctorale)
 \spec{Sp\'{e}cialit\'{e} : \textit{(voir liste des sp\'{e}cialit\'{e}s)}}
-%background image of the front cover
 \usepackage{eso-pic}
-               \newcommand\BackgroundIm{
-               \put(0,0){
-               \parbox[b][43cm]{48cm}{%
-               \vfill
-              % \centering
-               \includegraphics[height=21cm,width=33cm,
-               keepaspectratio]{./Couverture-these/MathSTIC/image-fond-MATHSTIC-garde.png}% image de fond UR1
-               \vfill
-               }}}
-               
+
+
 \begin{document}
 % La page de garde est en français
 % The front cover is in French
 \selectlanguage{french}
 
-\AddToShipoutPicture*{\BackgroundIm}
+%background image of the front cover
+\AddToShipoutPicture*{%
+    \put(0,0){%
+    \parbox[b][43cm]{48cm}{%
+    \vfill
+    \includegraphics[height=21cm,width=33cm,
+               keepaspectratio]{./Couverture-these/MathSTIC/image-fond-MATHSTIC-garde.png}% image de fond UR1
+    \vfill
+}}}
 %Attention : le pr\'{e}nom doit être en minuscules (Jean) et le NOM en majuscules (BRITTEF) 
 %Attention : the first name in small letters and the name in Capital letters 
 \author{Pr\'{e}nom NOM }
@@ -47,16 +46,16 @@
 %Give the complete title of the thesis, if necessary on several lines
 \title{Titre de la th\`{e}se }
 \lesoustitre{Sous-titre de la th\`{e}se}
-\lieu{ Lieu  }
 %Indiquer la date et le lieu de soutenance de la th\`{e}se 
 %indicates the date and the place of the defense 
-\date{\date \textcolor}
+\date{ Date }
+\lieu{ Lieu  }
 %Indiquer le nom du (ou des) laboratoire (s) dans le(s)quel(s) le travail de th\`{e}se a \'{e}t\'{e} effectu\'{e}, indiquer aussi si souhait\'{e} le nom de la (les) facult\'{e}(s) (UFR, \'{e}cole(s), Institut(s), Centre(s)...), son (leurs) adresse(s)... 
 %Indicates the name (or names) of research laboratories where the work has been done as well as (if desired) the names of faculties (UFR, Schools, institution...
 \uniterecherche{Unit\'{e} de recherche : }
 %Indiquer le Numero de th\`{e}se, si cela est opportun, ou faire disparaitre cet item de la couverture 
 %Indicate the number of the thesis if there is one.
-\numthese {Th\`{e}se N° :  }
+\numthese{Th\`{e}se N° :  }
 %Indiquer le Pr\'{e}nom en minuscules et le Nom en majuscules, le titre de la personne et l’\'{e}tablissement dans lequel il effectue sa recherche  
 %Indicates the first name on small letters and the Names on capital letters, the person's title and the institution where he/she belongs to.
 %Exemples :  Examples :
@@ -114,8 +113,6 @@
 }
 }
 
-
-\date{\today} %date de soutenance :P
 
 
 \maketitle

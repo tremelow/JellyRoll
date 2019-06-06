@@ -26,7 +26,8 @@
 
 \RequirePackage[utf8]{inputenc} 
 \RequirePackage[english,frenchb]{babel} % Last language is the default, use \selectlanguage{english} to switch
-\RequirePackage{ifpdf, color}
+\RequirePackage{ifpdf}
+\RequirePackage[usenames,dvipsnames]{color} % pour les couleurs
 \RequirePackage{textcomp}
 \RequirePackage{titlesec}
 \RequirePackage{parcolumns}
@@ -59,7 +60,6 @@
 %pdftitle={titre du document}, pdfauthor={auteur}, pdfcreator={PdfLaTeX}, pdfkeywords={mots-cl\'{e}}, pdfsubject={sujet du document}
 
 \RequirePackage{framed} % utilise pour coloriser les encarts
-\RequirePackage{color} % pour les couleurs
 
 \onehalfspacing %Interligne 1,5
 

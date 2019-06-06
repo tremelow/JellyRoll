@@ -21,7 +21,7 @@ viewpdf: pdf
 
 pdf: $(TARGET).pdf
 
-$(TARGET).pdf: $(SOURCE_FILES) $(BIB_FILES) $(FIGURES)
+$(TARGET).pdf: $(SOURCE_FILES) $(BIB_FILES) $(FIGURES) these-ubl.cls
 	pdflatex -interaction=nonstopmode -jobname=$(TARGET) $(SOURCE_FILES)
 	biber $(TARGET)
 	pdflatex -interaction=nonstopmode -jobname=$(TARGET) $(SOURCE_FILES) # For biber

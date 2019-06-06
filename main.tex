@@ -5,6 +5,7 @@
 \documentclass{these-ubl} 
 \usepackage{biblatex}
 \addbibresource{./biblio/biblio.bib}
+
 \geometry{vmargin=4.0cm}
 \input{./Couverture-these/pagedegarde} % page de garde UR1
 
@@ -12,21 +13,20 @@
 % Select the content language following this line
 \selectlanguage{french}
 
-%\clearemptydoublepage
 %inclusion du chapitre remerciement (acknowledgement)
 %input acknowledgement chapter 
-\input{./Acknowledgement/acknowledgement}
 \clearemptydoublepage
+\input{./Acknowledgement/acknowledgement}
+
 % Ne pas oublier cette commande qui g\'{e}n\`{e}re la page de couverture avant
 %This command will generate the front cover
+\clearemptydoublepage
 \frontmatter 
 \renewcommand{\contentsname}{Table of Contents}
 \tableofcontents %sommaire %table of content
 
-
+\clearemptydoublepage
 \input{./Introduction/introduction}
-\clearemptydoublepage
-\clearemptydoublepage
 %\shorttableofcontents{Sommaire}{0}
 %
 % Mettre ici votre chapitre d'Introduction, le cas \'{e}ch\'{e}ant
@@ -46,7 +46,6 @@
 % 
 \clearemptydoublepage
 \input{./Chapitre2/chapitre2}
-\clearemptydoublepage
 %
 %
 % D\'{e}-commenter pour ins\'{e}rer les autres chapitres, ici votre chapitre X
@@ -55,6 +54,7 @@
 %\input{./Chapitrex/chapitrex}
 %\clearemptydoublepage
 % 
+\clearemptydoublepage
 \backmatter
 \input{./Conclusion/conclusion}
 %%------------%%
@@ -68,7 +68,8 @@
 %\bibliographystyle{acm}
 %Nom du fichier bibliographie \`{a} utiliser "biblio".
 %Name of the bibliography file to use "biblio" 
-%\bibliography{./biblio/biblio} 
+%\bibliography{./biblio/biblio}
+\clearemptydoublepage
 \phantomsection % To have a correct link in the table of contents
 \addcontentsline{toc}{chapter}{Bibliography}
 
