@@ -25,7 +25,7 @@
 \LoadClass[twoside,multicol,12pt,a4paper]{report}	% notez le "twoside", essentiellement pour alterner les en-tete et pieds de page gauche et droit si on veut utliser les fancyhead. 
 
 \RequirePackage[utf8]{inputenc} 
-\RequirePackage[english,frenchb]{babel}
+\RequirePackage[english,frenchb]{babel} % Last language is the default, use \selectlanguage{english} to switch
 \RequirePackage{ifpdf, color}
 \RequirePackage{textcomp}
 \RequirePackage{titlesec}
@@ -64,7 +64,7 @@
 
 \RequirePackage{ifthen} % Entrer valeurs bool\'{e}ennes et autres options
 \providecommand{\keywordsF}[1]{\textbf{Mot cl\'{e}s : } #1} %mots cl\'{e}s en Français
-\providecommand{\keywordsE}[1]{\textbf{Keywords : } #1} %mots cl\'{e}s en Anglais
+\providecommand{\keywordsE}[1]{\textbf{Keywords: } #1} %mots cl\'{e}s en Anglais
 \RequirePackage{csquotes} % Assurer les guillemets français
 \frenchspacing
 \FrenchFootnotes
