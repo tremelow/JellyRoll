@@ -197,19 +197,12 @@
 %%%%%%%%%%%%%%%% TITRE THESE PAGE DE GARDE %%%%%%%%%%%%%%%%
 
 %logo universite
-
 \newcommand*{\logouniversite}[1]{\gdef\@logouniversite{#1}}
 \logouniversite{}
-
-\newcommand*{\scalelogouniversite}[1]{\gdef\@scalelogouniversite{#1}}
-\scalelogouniversite{}
 
 % Logo Labo
 \newcommand*{\logoetablissement}[1]{\gdef\@logoetablissement{#1}}
 \logoetablissement{}
-
-\newcommand*{\scalelogoetablissement}[1]{\gdef\@scalelogoetablissement{#1}}
-\scalelogoetablissement{}
 
 % Nom de l'universite
 \newcommand*{\nomdeuniversite}[1]{\gdef\@nomdeuniversite{#1}}
@@ -286,53 +279,47 @@
 	\begin{tikzpicture}[remember picture,overlay,line width=0mm]
   \draw [draw=white,fill=white]
     (current page.north west) rectangle (\paperwidth,1);
-  \node[xshift=0\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
-  \includegraphics[scale=\@scalelogouniversite]{\@logouniversite}
+  \node[xshift=0.04\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
+  \includegraphics[width=5cm]{\@logouniversite}
   };
   \node[xshift=.6\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
-  \includegraphics[scale=\@scalelogoetablissement]{\@logoetablissement}
+  \includegraphics[width=5cm]{\@logoetablissement}
   };
    \node at (current page.center)
-{\parbox{19cm}{
+{\parbox{17.6cm}{
 
-	\vspace{4.2cm}
-	
-		 \sffamily \begin{huge} \textbf{T}H\`{E}SE DE DOCTORAT DE \end{huge} \\ \@nomdeuniversite
+\vspace{4.2cm}
+\sffamily
+{\Huge \textsc{Th\`{e}se de doctorat de}} \\
 
 
 %\begin{huge}
 %\ding{167}
 %\end{huge}
 
-\vspace{2.9cm}
+\vspace{2.2cm}
 
-{\setlength{\baselineskip}{0.9\baselineskip} \@unite \\
-\@ubl \\
+{\setlength{\baselineskip}{0.9\baselineskip} {\large \@unite} \\
+{\textsc{\@ubl}} \\
 \par}
 \vspace{0.01cm}
 {\setlength{\baselineskip}{0.7\baselineskip}
-\@ecoledoc \\
+{\textsc{\@ecoledoc}} \\
 \textit{\@nomecole} \\
 \@spec
 
 
-
-\hspace{0.9cm}
-Par 
-\vspace{0.2cm}
+\vspace{0.5cm}
+\hspace{0.6cm}Par \vspace{0.3cm}
 \par}
-		\hspace{0.9cm}\begin{huge}
-			  « \textbf{\@author } »  \vspace{0.3cm}
-		\end{huge}
-		
-		\hspace{0.9cm} \begin{large}
-	\indent « \textbf{\@title} » \vspace{0.3cm}
-	\end{large}
+\hspace{0.6cm}{\LARGE\textbf{\@author}} \vspace{0.5cm}
+
+{\Large\textbf{\@title}} \vspace{0.5cm}
 	
-\hspace{0.9cm} «\@lesoustitre »  \vspace{0.3cm}
-\begin{spacing}{0.6}
-	\small \textbf{Th\`{e}se pr\'{e}sent\'{e}e et soutenue \`{a}} \textsc{\@lieu}, le \@date \\
-	  \small \textbf{\@uniterecherche} \\ 
+{\large{\@lesoustitre}} \vspace{0.5cm}
+\begin{spacing}{1}
+	\small \textbf{Th\`{e}se pr\'{e}sent\'{e}e et soutenue \`{a} \@lieu, le \@date} \\
+	\small \textbf{\@uniterecherche} \\
 	\small \textbf{\@numthese}
 \end{spacing}
 \vspace{1.1cm}
