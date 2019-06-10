@@ -62,53 +62,37 @@
 %%%- Charg\'{e} de recherche, INSERM, HDR, Universit\'{e} de Tours  
  %S’il n’y a pas de co-direction, faire disparaitre cet item de la couverture  
  %In there is no co-director, remove the item from the cover
- 
-\rapporteur{
-{\setlength{\baselineskip}{0.5\baselineskip} 
-\begin{description}
-\item Pr\'{e}nom Nom Fonction et \'{e}tablissement d'exercice
-\item Pr\'{e}nom Nom Fonction et \'{e}tablissement d'exercice
-\item Pr\'{e}nom Nom Fonction et \'{e}tablissement d'exercice
-\end{description}
-}
-}
-\jury{
-{\setlength{\baselineskip}{0.5\baselineskip} 
-%\hspace{0.8cm}
-\textcolor{mathSTIC-Color}{\textit{Attention, en cas d’absence d’un des membres du Jury le jour de la soutenance,  la composition ne comprend que les membres pr\'{e}sents }}
-\begin{description}
-\item Pr\'{e}sident : \hspace{0.75cm} Pr\'{e}nom Nom Fonction et \'{e}tablissement d'exercice
-\item Examinateurs : \hspace{0.2cm}Pr\'{e}nom Nom Fonction et \'{e}tablissement d'exercice
-%\item \textcolor{mathSTIC-Color}{Pr\'{e}sident \textit{ (\`{a} pr\'{e}ciser apr\`{e}s la soutenance)}}
-\item \hspace{2.53cm} Pr\'{e}nom Nom Fonction et \'{e}tablissement d'exercice
-\item \hspace{2.53cm}  Pr\'{e}nom Nom Fonction et \'{e}tablissement d'exercice
-\item \hspace{2.53cm} Pr\'{e}nom Nom Fonction et \'{e}tablissement d'exercice
-\item \hspace{2.53cm} Pr\'{e}nom Nom Fonction et \'{e}tablissement d'exercice
-\item \hspace{2.53cm} Pr\'{e}nom Nom Fonction et \'{e}tablissement d'exercice
-\end{description}
-}
-}
-\directeur{
-{\setlength{\baselineskip}{0.5\baselineskip} \hspace{0.2cm}Pr\'{e}nom Nom Fonction et \'{e}tablissement d'exercice
-% \vspace{0.2cm}
-%\begin{description}
-%\item \hspace{2.73cm}  Pr\'{e}nom Nom Fonction et \'{e}tablissement d'exercice
-%\end{description}
-}
-}
- %\vspace{0.8cm}
-\codirecteur{
-{\setlength{\baselineskip}{0.1\baselineskip}  \hspace{0.2cm}Pr\'{e}nom Nom Fonction et \'{e}tablissement d'exercice
-}
-}
-\invit{
-{
-\begin{description}
-\item Pr\'{e}nom Nom Fonction et \'{e}tablissement d'exercice
-\end{description}
-}
-}
 
+
+\jury{
+{\normalsize \textbf{Rapporteurs avant soutenance :}}\\
+\begin{tabular}{@{}ll}
+Pr\'{e}nom Nom & Fonction et \'{e}tablissement d'exercice \\
+Pr\'{e}nom Nom & Fonction et \'{e}tablissement d'exercice \\
+Pr\'{e}nom Nom & Fonction et \'{e}tablissement d'exercice \\
+\end{tabular}
+
+\vspace{\baselineskip}
+{\normalsize \textbf{Composition du Jury :}}\\
+{\textcolor{red}{\textit{Attention, en cas d’absence d’un des membres du Jury le jour de la soutenance, la composition du Jury}}}\\
+{\textcolor{red}{\textit{ne comprend que les membres pr\'{e}sents}}}\\
+\begin{tabular}{@{}lll}
+
+Pr\'{e}sident :        & Pr\'{e}nom Nom & Fonction et \'{e}tablissement d'exercice \\
+Examinateurs :         & Pr\'{e}nom Nom & Fonction et \'{e}tablissement d'exercice \\
+                       & Pr\'{e}nom Nom & Fonction et \'{e}tablissement d'exercice \\
+                       & Pr\'{e}nom Nom & Fonction et \'{e}tablissement d'exercice \\
+                       & Pr\'{e}nom Nom & Fonction et \'{e}tablissement d'exercice \\
+Dir. de th\`{e}se :    & Pr\'{e}nom Nom & Fonction et \'{e}tablissement d'exercice \\
+Co-dir. de th\`{e}se : & Pr\'{e}nom Nom & Fonction et \'{e}tablissement d'exercice \\
+\end{tabular}
+
+\vspace{\baselineskip}
+{\normalsize \textbf{Invit\'{e}(s) :}}\\
+\begin{tabular}{@{}ll}
+Pr\'{e}nom Nom & Fonction et \'{e}tablissement d'exercice \\
+\end{tabular}
+}
 
 
 \maketitle

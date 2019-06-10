@@ -216,15 +216,6 @@
 \newcommand{\discipline}[1]{\gdef\@discipline{#1}}
 \discipline{}
 
-%%%% Nom du directeur de these
-\newcommand{\dirdethese}[1]{\gdef\@dirdethese{#1}}
-\dirdethese{}
-
-%%%% Titre du directeur de these
-\newcommand{\titredudirdethese}[1]{\gdef\@titredudirdethese{#1}}
-\titredudirdethese{}
-
-
 %%%% Jury
 \newcommand{\jury}[1]{\gdef\@jury{#1}}
 \jury{}
@@ -255,19 +246,6 @@
 %%%%%%%
 \newcommand{\ubl}[1]{\gdef\@ubl{#1}}
 \ubl{}
-%%%%%
-%%%%%%% rapporteur
-\newcommand{\rapporteur}[1]{\gdef\@rapporteur{#1}}
-\rapporteur{}
-%%%%%%%%%%directeur
-\newcommand{\directeur}[1]{\gdef\@directeur{#1}}
-\directeur{}
-%%%%%%%%%%co-directeur
-\newcommand{\codirecteur}[1]{\gdef\@codirecteur{#1}}
-\codirecteur{}
-%%%%%%%%%%%%%% invit
-\newcommand{\invit}[1]{\gdef\@invit{#1}}
-\invit{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -323,31 +301,11 @@
 	\small \textbf{\@numthese}
 \end{spacing}
 \vspace{1.1cm}
-%\begin{multicols}{2}
-	\hspace{0.8cm}\small \textbf{Rapporteurs avant soutenance : }
-	\begin{footnotesize}
-		\@rapporteur
-	\end{footnotesize}
-	\vfill\break
-	\hspace{0.8cm}\small \textbf{Composition du jury : }\\
-	\begin{footnotesize}
+	\begin{small}
+	\begin{spacing}{1}
 		\@jury
-	\end{footnotesize}
-	\begin{footnotesize}
-	\hspace{0.7cm} Dir. de th\`{e}se :
-	\@directeur \\
-	\end{footnotesize}
-	\begin{footnotesize}
-	\vspace{0.3cm}
-	\hspace{0.65cm} Co-dir. de th\`{e}se :
-	\@codirecteur \\
-	\end{footnotesize}
-	\begin{footnotesize}
-	\vspace{0.1cm}
-	\hspace{0.65cm}
-	Invit\'{e}(s) 
-	\@invit
-	\end{footnotesize}
+	\end{spacing}
+	\end{small}
 }
 };
 \end{tikzpicture}
