@@ -4,6 +4,9 @@
 % these-ubl class call
 \documentclass{these-ubl} 
 \usepackage{biblatex}
+
+% Spécifier vos fichiers de bibliographie
+% Specify you bibliography files here
 \addbibresource{./biblio/biblio.bib}
 
 \geometry{vmargin=4.0cm}
@@ -57,18 +60,9 @@
 \clearemptydoublepage
 \backmatter
 \input{./Conclusion/conclusion}
-%%------------%%
-%%            %%
-%%  Votre fichier de biblio    
-%%  BIBLIO   file here biblio %% 
-%%            %%
-%%------------%%
-%biblio style
-%style de l'affichage de la bibilographie
-%\bibliographystyle{acm}
-%Nom du fichier bibliographie \`{a} utiliser "biblio".
-%Name of the bibliography file to use "biblio" 
-%\bibliography{./biblio/biblio}
+
+% Chapitre pour la bibliographie
+% Bibliography chapter
 \clearemptydoublepage
 \phantomsection % To have a correct link in the table of contents
 \addcontentsline{toc}{chapter}{Bibliography}
