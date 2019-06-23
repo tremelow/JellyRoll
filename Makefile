@@ -3,7 +3,7 @@
 TARGET       = main
 SOURCE_FILES = $(TARGET).tex $(wildcard */*.tex)
 BIB_FILES    = $(wildcard biblio/*.bib)
-FIGURES      = $(wildcard Chapitre*/figures/*)
+FIGURES      = $(wildcard */figures/*)
 
 # Set the pdf reader according to the operating system
 OS = $(shell uname)
@@ -14,7 +14,7 @@ ifeq ($(OS), Linux)
 	PDF_READER = evince
 endif
 
-all: viewpdf
+all: pdf
 
 viewpdf: pdf
 	$(PDF_READER) $(TARGET).pdf &
