@@ -351,7 +351,7 @@
 {\centering \noindent \textcolor{mathSTIC-Color}{\rule{\textwidth}{0.2cm}}}
 \vspace{-1cm}
 \selectlanguage{french}
-\section*{\small\textcolor{mathSTIC-Color}{Titre : }#1}
+\section*{\small\textcolor{mathSTIC-Color}{Titre : }\normalfont#1}
 }
 
 \newcommand{\keywordsFR}[1]{%
@@ -375,7 +375,7 @@
 {\centering \noindent \textcolor{mathSTIC-Color}{\rule{\textwidth}{0.2cm}}}
 \vspace{-1cm}
 \selectlanguage{english}
-\section*{\small\textcolor{mathSTIC-Color}{Title: }#1}
+\section*{\small\textcolor{mathSTIC-Color}{Title: }\normalfont#1}
 }
 
 \newcommand{\keywordsEN}[1]{%
