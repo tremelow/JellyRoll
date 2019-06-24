@@ -64,8 +64,6 @@
 \onehalfspacing %Interligne 1,5
 
 \RequirePackage{ifthen} % Entrer valeurs bool\'{e}ennes et autres options
-\providecommand{\keywordsF}[1]{\textbf{Mot cl\'{e}s : } #1} %mots cl\'{e}s en Français
-\providecommand{\keywordsE}[1]{\textbf{Keywords: } #1} %mots cl\'{e}s en Anglais
 \RequirePackage{csquotes} % Assurer les guillemets français
 \frenchspacing
 \FrenchFootnotes
@@ -253,9 +251,14 @@
 %mise en page de la page de garde
 \makeatletter
 \def\maketitle{%
-	\thispagestyle{empty}
-	\clearpage
-	\begin{tikzpicture}[remember picture,overlay,line width=0mm]
+  % Définit les variables des logos pour la quatrième de couverture (variables \@ inutilisables)
+  % Define the variables containing the logos for the back cover (can't use the \@ variables)
+  \newcommand{\pathlogoecoledoc}{\@logoecoledoc}%
+  \newcommand{\pathlogoetablissement}{\@logoetablissement}%
+  %
+  \thispagestyle{empty}
+  \clearpage
+  \begin{tikzpicture}[remember picture,overlay,line width=0mm]
   \draw [draw=white,fill=white]
     (current page.north west) rectangle (\paperwidth,1);
   \node[xshift=0.04\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
@@ -313,7 +316,85 @@
 }
 
 \makeatother
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% QUATRIEME DE COUVERTURE %%%%%%%%%%%%%%%%
+\newcommand{\backcoverheader}{%
+\AddToShipoutPicture*{%
+    \put(0,0){%
+    \parbox[b][44.2cm]{\paperwidth}{%
+        \vfill
+        \includegraphics[width=\paperwidth,keepaspectratio]{./Couverture-these/MathSTIC/image-fond-MATHSTIC-dos.png}%
+        \vfill
+}}}
+\pagestyle{empty}
+\hspace{1cm}
+\begin{tikzpicture}[remember picture,overlay,line width=0mm]
+  \draw [draw=white]
+    (current page.north west) rectangle (\paperwidth,1);
+  \node[xshift=0.03\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
+  \includegraphics[width=5cm]{\pathlogoecoledoc}
+  };
+  \hfill
+  \node[xshift=.55\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
+  \includegraphics[width=5cm]{\pathlogoetablissement}
+  };
+\end{tikzpicture}
+\par\nobreak
+}
+
+\newcommand{\titleFR}[1]{%
+\vspace{1cm}
+{\centering \noindent \textcolor{mathSTIC-Color}{\rule{\textwidth}{0.2cm}}}
+\vspace{-1cm}
+\selectlanguage{french}
+\section*{\small\textcolor{mathSTIC-Color}{Titre : }#1}
+}
+
+\newcommand{\keywordsFR}[1]{%
+\vspace{-0.2cm}
+\noindent{\small\textbf{Mot cl\'{e}s : }#1}
+}
+
+\newcommand{\abstractFR}[1]{%
+\vspace{-0.2cm}
+\begin{multicols}{2}
+\begin{small}
+\begin{spacing}{1}
+    \noindent \textbf{R\'{e}sum\'{e} : }#1
+\end{spacing}
+\end{small}
+\end{multicols}
+}
+
+\newcommand{\titleEN}[1]{%
+\vspace{0.5cm}
+{\centering \noindent \textcolor{mathSTIC-Color}{\rule{\textwidth}{0.2cm}}}
+\vspace{-1cm}
+\selectlanguage{english}
+\section*{\small\textcolor{mathSTIC-Color}{Title: }#1}
+}
+
+\newcommand{\keywordsEN}[1]{%
+\vspace{-0.2cm}
+\noindent{\small\textbf{Keywords: }#1}
+}
+
+\newcommand{\abstractEN}[1]{%
+\vspace{-0.2cm}
+\begin{multicols}{2}
+\begin{small}
+\begin{spacing}{1}
+    \noindent \textbf{Abstract: }#1
+\end{spacing}
+\end{small}
+\end{multicols}
+}
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
