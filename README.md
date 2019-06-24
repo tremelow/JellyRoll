@@ -13,9 +13,9 @@ La disposition proposée dans ce modèle est donc donnée à titre d'exemple mai
 ### Structure du dépôt
 
 - `main.tex` contient le squelette du document, aucun texte du manuscrit n'est présent dans ce fichier
-- `these-ubl.cls` contient les dépendances, les paramètres de la bibliographie et les paramètres de mise en page globale du manuscrit et de la page de garde
-- `Couverture-these/pagedegarde.tex` contient les variables à remplir par l'auteur pour compléter la page de garde, ces variables sont utilisées par le style défini dans `these-ubl.cls`
-- `Couverture-these/resume.tex` contient la quatrième de couverture, sa mise en page, et son contenu qui doit être rempli par l'auteur
+- `these-ubl.cls` contient les dépendances, les paramètres de la bibliographie et les paramètres de mise en page globale du manuscrit et plus particulièrement des deux couvertures
+- `Couverture-these/pagedegarde.tex` contient les variables à remplir par l'auteur pour compléter la page de garde, ces variables sont utilisées par `\maketitle` redéfini dans `these-ubl.cls`
+- `Couverture-these/resume.tex` contient les variables à remplir par l'auteur pour compléter la quatrième de couverture, ces variables sont utilisées par les macros définies dans `these-ubl.cls`
 - Le `Makefile` vous aide à compiler le latex et la bibliographie en un pdf (détails plus bas)
 - Les autres dossiers contiennent chacun un chapitre du document
 
@@ -25,17 +25,15 @@ La disposition proposée dans ce modèle est donc donnée à titre d'exemple mai
 Les informations de la page de garde doivent être renseignées dans les variables du fichier `Couverture-these/pagedegarde.tex`.
 Modifier la disposition des éléments de la page de garde présente dans `these-ubl.cls` ne devrait  être nécessaire que pour rajouter quelques `\vspace` pour préserver la structure original après avoir renseigné la composition du jury.
 
-Les informations relatives à la quatrième de couverture sont à renseigner dans `Couverture-these/resume.tex`.
+Les variables relatives à la quatrième de couverture sont à renseigner dans `Couverture-these/resume.tex`.
 
 
 #### Changer l'établissement de délivrance du diplôme
 
-Pour la page de garde, vous devez modifier deux variables dans `Couverture-these/pagedegarde.tex` :
+Vous devez modifier deux variables dans `Couverture-these/pagedegarde.tex` :
 
 - `\unite` contient le nom complet de l'établissement qui délivre le diplôme
 - `\logoetablissement` contient le chemin vers l'image du logo de l'établissement, une liste de logos est fournise dans le dossier `Couverture-these/MathSTIC/logo-etablissements/`.
-
-Pour la quatrième de couverture, vous devez remplacer le chemin vers l'image du logo de l'établissement directement dans le `\includegraphics` à la ligne 24 de `Couverture-these/resume.tex`.
 
 
 ### Compiler le latex en pdf
@@ -65,7 +63,7 @@ Il faut utiliser `\selectlanguage{x}` (où x est `french` ou `english`) pour cha
 Si la langue principale du contenu du document est l'anglais, vous devez effectuer quelques modifications au modèle :
 
 - utiliser `\selectlanguage{english}` à la ligne 17 de `main.tex`
-- modifier la ligne 350 de `these-ubl.cls` pour remplacer `Partie` par `Part` dans les entêtes
+- modifier la ligne 422 de `these-ubl.cls` pour remplacer `Partie` par `Part` dans les entêtes
 - inclure un résumé en français d'au moins 4 pages
 
 
@@ -88,9 +86,9 @@ The content layout provided in this template is therefore given as an exemple ra
 #### Structure of the repository
 
 - `main.tex` contains the backbone structure of the document, no content is present in this file
-- `these-ubl.cls` contains the package dependencies, bibliography parameters and overall layout specifications including the front cover layout
-- `Couverture-these/pagedegarde.tex` contains the variables that must be filled by the author to complete the front cover, these variables are used in pair with the style defined in `these-ubl.cls`
-- `Couverture-these/resume.tex` contains the back cover of the document, both its layout and content that must be filled by the author
+- `these-ubl.cls` contains the package dependencies, bibliography parameters and overall layout specifications including both front and back cover layouts
+- `Couverture-these/pagedegarde.tex` contains the variables that must be filled by the author to complete the front cover, these variables are used in `\maketitle` redefined in `these-ubl.cls`
+- `Couverture-these/resume.tex` contains the variables that must be filled by the author to complete the back cover, these variables are used in the macros defined in `these-ubl.cls`
 - The `Makefile` helps you compile the latex and bibliography into a pdf (details below)
 - The rest of the directories each contain one chapter of the document
 
@@ -99,17 +97,16 @@ The content layout provided in this template is therefore given as an exemple ra
 
 The front cover details must be provided by filling the variables in `Couverture-these/pagedegarde.tex`. Modifying the front cover layout defined in `these-ubl.cls` should only be necessary to preserve the original layout after filling the jury section by adding a few `\vspace`.
 
-The back cover details must be provided in `Couverture-these/resume.tex`.
+The back cover variables that must be filled are in `Couverture-these/resume.tex`.
 
 
 ##### Change the institution that delivers the diploma
 
-For the front cover, you have to modify two variables in `Couverture-these/pagedegarde.tex`:
+You have to modify two variables in `Couverture-these/pagedegarde.tex`:
 
 - `\unite` contains the full name of the institution that delivers the diploma
 - `\logoetablissement` contains the path to the image of the logo of the institution, a list of logos is provided for you in the directory `Couverture-these/MathSTIC/logo-etablissements/`
 
-For the back cover, you have to replace the path to the image of the logo of the institution directly in the `\includegraphics` at line 24 of `Couverture-these/resume.tex`.
 
 #### Compile latex into pdf
 
@@ -137,7 +134,7 @@ Use `\selectlanguage{x}` (where x is `french` or `english`) to switch language a
 If the main language of your document is English, you must apply the following changes to the provided template:
 
 - use `\selectlanguage{english}` at line 17 of `main.tex`
-- edit line 350 of `these-ubl.cls` to replace `Partie` by `Part` in the headers
+- edit line 422 of `these-ubl.cls` to replace `Partie` by `Part` in the headers
 - include a summary in French of at least 4 pages
 
 
