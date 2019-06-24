@@ -196,17 +196,13 @@
 
 %%%%%%%%%%%%%%%% TITRE THESE PAGE DE GARDE %%%%%%%%%%%%%%%%
 
-%logo universite
-\newcommand*{\logouniversite}[1]{\gdef\@logouniversite{#1}}
-\logouniversite{}
+% Logo ecole doctorale
+\newcommand*{\logoecoledoc}[1]{\gdef\@logoecoledoc{#1}}
+\logoecoledoc{}
 
-% Logo Labo
+% Logo etablissement delivrant le diplome
 \newcommand*{\logoetablissement}[1]{\gdef\@logoetablissement{#1}}
 \logoetablissement{}
-
-% Nom de l'universite
-\newcommand*{\nomdeuniversite}[1]{\gdef\@nomdeuniversite{#1}}
-\nomdeuniversite{}
 
 %%%% Eventuel sous-titre
 \newcommand{\lesoustitre}[1]{\gdef\@lesoustitre{#1}}
@@ -227,23 +223,28 @@
 %%%%% Ecole doctorale
 \newcommand{\ecoledoc}[1]{\gdef\@ecoledoc{#1}}
 \ecoledoc{}
+
 %%%%% Nom ecole
 \newcommand{\nomecole}[1]{\gdef\@nomecole{#1}}
 \nomecole{}
 
-%%%%% sp\'{e}cialit\'{e}
+%%%%% Sp\'{e}cialit\'{e}
 \newcommand{\spec}[1]{\gdef\@spec{#1}}
 \spec{}
-%%%lieu
+
+%%% Ville de soutenance
 \newcommand{\lieu}[1]{\gdef\@lieu{#1}}
 \lieu{}
-%%%unite de recherche
+
+%%% Unite de recherche
 \newcommand{\uniterecherche}[1]{\gdef\@uniterecherche{#1}}
 \uniterecherche{}
-%%%num\'{e}ro de la th\`{e}se
+
+%%% Num\'{e}ro de la th\`{e}se
 \newcommand{\numthese}[1]{\gdef\@numthese{#1}}
 \numthese{}
-%%%%%%%
+
+%%%%%%% Nom complet de l'ubl
 \newcommand{\ubl}[1]{\gdef\@ubl{#1}}
 \ubl{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -258,7 +259,7 @@
   \draw [draw=white,fill=white]
     (current page.north west) rectangle (\paperwidth,1);
   \node[xshift=0.04\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
-  \includegraphics[width=5cm]{\@logouniversite}
+  \includegraphics[width=5cm]{\@logoecoledoc}
   };
   \node[xshift=.6\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
   \includegraphics[width=5cm]{\@logoetablissement}
