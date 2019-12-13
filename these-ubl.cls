@@ -69,9 +69,9 @@
 \FrenchFootnotes
 
 % Define commands to set fonts throughout the document
-\newcommand*{\fontfrontcover}{\fontfamily{phv}\selectfont}  % Font style used in front cover 
-\newcommand*{\fontbackcover}{\fontfamily{phv}\selectfont}   % Font style used in back cover 
-\newcommand*{\fontchapheads}{\fontfamily{phv}\selectfont} % Font style used chapter headings
+\newcommand*{\selectfontfrontcover}{\fontfamily{phv}\selectfont}  % Font style used in front cover 
+\newcommand*{\selectfontbackcover}{\fontfamily{phv}\selectfont}   % Font style used in back cover 
+\newcommand*{\selectfontchapheads}{\fontfamily{phv}\selectfont} % Font style used chapter headings
 
 % Override default font here if you want
 %\renewcommand{\rmdefault}{qpl}
@@ -86,7 +86,7 @@
             \scshape \@chapapp{} \thechapter
         \par\nobreak
         \interlinepenalty\@M
-    \fontchapheads \Huge \bfseries #1\par\nobreak
+    \selectfontchapheads \Huge \bfseries #1\par\nobreak
     %\vspace*{1\p@}%
     \hrulefill
     \par\nobreak
@@ -98,7 +98,7 @@
             \scshape \vphantom{\@chapapp{} \thechapter}
         \par\nobreak
         \interlinepenalty\@M
-    \fontchapheads \Huge \bfseries #1 \par\nobreak
+    \selectfontchapheads \Huge \bfseries #1 \par\nobreak
     %\vspace*{1\p@}%
     \hrulefill
     \par\nobreak
@@ -273,11 +273,11 @@
   };
    \node at (current page.center)
 {\parbox{17.6cm}{
-\fontfrontcover % Set front font locally (in this parbox)
 \vspace{4.2cm}
-\sffamily
 
-{\fontfrontcover \Huge \textsc{Th\`{e}se de doctorat de}} \\ % Front font needs to be selected locally in every pair of braces
+\selectfontfrontcover % Set font style for front cover page
+
+{\Huge \textsc{Th\`{e}se de doctorat de}} \\
 
 
 %\begin{huge}
@@ -286,33 +286,33 @@
 
 \vspace{2.2cm}
 
-{\setlength{\baselineskip}{0.9\baselineskip} {\fontfrontcover \large \@unite} \\
-{\fontfrontcover \textsc{\@ubl}} \\
+{\setlength{\baselineskip}{0.9\baselineskip} {\large \@unite} \\
+{\textsc{\@ubl}} \\
 \par}
 \vspace{0.01cm}
 {\setlength{\baselineskip}{0.7\baselineskip}
-{\fontfrontcover \textsc{\@ecoledoc}} \\
-\fontfrontcover \textit{\@nomecole} \\
+{\textsc{\@ecoledoc}} \\
+ \textit{\@nomecole} \\
 \@spec
 
 
 \vspace{0.5cm}
 \hspace{0.6cm}Par \vspace{0.3cm}
 \par}
-\hspace{0.6cm}{\fontfrontcover \LARGE\textbf{\@author}} \vspace{0.5cm}
+\hspace{0.6cm}{\LARGE\textbf{\@author}} \vspace{0.5cm}
 
-{\fontfrontcover \Large\textbf{\@title}} \vspace{0.5cm}
+{\Large\textbf{\@title}} \vspace{0.5cm}
 	
-{\fontfrontcover \large{\@lesoustitre}} \vspace{0.5cm}
+{\large{\@lesoustitre}} \vspace{0.5cm}
 \begin{spacing}{1}
-	\fontfrontcover \small \textbf{Th\`{e}se pr\'{e}sent\'{e}e et soutenue \`{a} \@lieu, le \@date} \\
-	\fontfrontcover \small \textbf{\@uniterecherche} \\
-	\fontfrontcover \small \textbf{\@numthese}
+	 \small \textbf{Th\`{e}se pr\'{e}sent\'{e}e et soutenue \`{a} \@lieu, le \@date} \\
+	 \small \textbf{\@uniterecherche} \\
+	 \small \textbf{\@numthese}
 \end{spacing}
 \vspace{1.1cm}
 	\begin{small}
 	\begin{spacing}{1}
-		\fontfrontcover \@jury
+		 \@jury
 	\end{spacing}
 	\end{small}
 }
@@ -356,12 +356,12 @@
 {\centering \noindent \textcolor{mathSTIC-Color}{\rule{\textwidth}{0.2cm}}}
 \vspace{-1cm}
 \selectlanguage{french}
-\section*{\fontbackcover\small\textcolor{mathSTIC-Color}{Titre : }{\fontbackcover\mdseries{#1}}}
+\section*{\selectfontbackcover\small\textcolor{mathSTIC-Color}{Titre : }{\selectfontbackcover\mdseries{#1}}} % In this particular case, font style needs to get re-selected locally
 }
 
 \newcommand{\keywordsFR}[1]{%
 \vspace{-0.2cm}
-\noindent{\fontbackcover \small \textbf{Mot cl\'{e}s : }#1}
+\noindent{ \small \textbf{Mot cl\'{e}s : }#1}
 }
 
 \newcommand{\abstractFR}[1]{%
@@ -369,7 +369,7 @@
 \begin{multicols}{2}
 \begin{small}
 \begin{spacing}{1}
-    \fontbackcover \noindent \textbf{R\'{e}sum\'{e} : }#1
+	\noindent \textbf{R\'{e}sum\'{e} : }#1
 \end{spacing}
 \end{small}
 \end{multicols}
@@ -380,12 +380,12 @@
 {\centering \noindent \textcolor{mathSTIC-Color}{\rule{\textwidth}{0.2cm}}}
 \vspace{-1cm}
 \selectlanguage{english}
-\section*{\fontbackcover\small\textcolor{mathSTIC-Color}{Title: }{\fontbackcover\mdseries{#1}}}
+\section*{\selectfontbackcover\small\textcolor{mathSTIC-Color}{Title: }{\selectfontbackcover\mdseries{#1}}} % In this particular case, font style needs to get re-selected locally
 }
 
 \newcommand{\keywordsEN}[1]{%
 \vspace{-0.2cm}
-\noindent{\fontbackcover \small \textbf{Keywords: }#1}
+\noindent{ \small \textbf{Keywords: }#1}
 }
 
 \newcommand{\abstractEN}[1]{%
@@ -393,7 +393,7 @@
 \begin{multicols}{2}
 \begin{small}
 \begin{spacing}{1}
-    \fontbackcover \noindent \textbf{Abstract: }#1
+	\noindent \textbf{Abstract: }#1
 \end{spacing}
 \end{small}
 \end{multicols}
