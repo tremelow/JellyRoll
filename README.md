@@ -63,10 +63,14 @@ Il faut utiliser `\selectlanguage{x}` (où x est `french` ou `english`) pour cha
 Si la langue principale du contenu du document est l'anglais, vous devez effectuer quelques modifications au modèle :
 
 - utiliser `\selectlanguage{english}` à la ligne 17 de `main.tex`
-- modifier la ligne 432 de `these-ubl.cls` pour remplacer `Partie` par `Part` dans les entêtes
+- modifier la ligne 437 de `these-ubl.cls` pour remplacer `Partie` par `Part` dans les entêtes
 - inclure un résumé en français d'au moins 4 pages
 
 
+### Changer la police du contenu
+
+La police imposée pour les couvertures est Arial mais vous pouvez utiliser une autre police pour le contenu de la thèse en modifiant les lignes 77-78 de `these-ubl.cls`.
+Actuellement la police par défaut de latex est celle utilisée pour le contenu.
 
 
 -----
@@ -134,8 +138,14 @@ Use `\selectlanguage{x}` (where x is `french` or `english`) to switch language a
 If the main language of your document is English, you must apply the following changes to the provided template:
 
 - use `\selectlanguage{english}` at line 17 of `main.tex`
-- edit line 432 of `these-ubl.cls` to replace `Partie` by `Part` in the headers
+- edit line 437 of `these-ubl.cls` to replace `Partie` by `Part` in the headers
 - include a summary in French of at least 4 pages
+
+
+### Change the content font
+
+The required font for the covers is Arial but you can use another font for the content of the thesis by editing lines 77-78 of `these-ubl.cls`.
+Currently the latex default font is the one used for the content.
 
 
 -----
