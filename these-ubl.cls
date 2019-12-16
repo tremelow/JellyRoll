@@ -68,7 +68,14 @@
 \frenchspacing
 \FrenchFootnotes
 
+% Define commands to set fonts throughout the document
+\newcommand*{\selectfontfrontcover}{\fontfamily{phv}\selectfont}  % Font style used in front cover 
+\newcommand*{\selectfontbackcover}{\fontfamily{phv}\selectfont}   % Font style used in back cover 
+\newcommand*{\selectfontchapheads}{\fontfamily{phv}\selectfont} % Font style used chapter headings
 
+% Override default font here if you want
+%\renewcommand{\rmdefault}{qpl}
+%\renewcommand{\sfdefault}{qpl} 
 
 %%%%%%%%%%%%%% En-tete chap %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \makeatletter
@@ -79,7 +86,7 @@
             \scshape \@chapapp{} \thechapter
         \par\nobreak
         \interlinepenalty\@M
-    \Huge \bfseries #1\par\nobreak
+    \selectfontchapheads \Huge \bfseries #1\par\nobreak
     %\vspace*{1\p@}%
     \hrulefill
     \par\nobreak
@@ -91,7 +98,7 @@
             \scshape \vphantom{\@chapapp{} \thechapter}
         \par\nobreak
         \interlinepenalty\@M
-    \Huge \bfseries #1 \par\nobreak
+    \selectfontchapheads \Huge \bfseries #1 \par\nobreak
     %\vspace*{1\p@}%
     \hrulefill
     \par\nobreak
@@ -122,9 +129,6 @@
 \parttitlefont{\jolipart}
 
 \partnumberfont{\sc\normalsize}
-
-\renewcommand{\rmdefault}{phv} % Arial
-\renewcommand{\sfdefault}{phv} % Arial
 
 %%%%%%%%%%%%%%%% COULEURS RGB de l'ED%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \definecolor{grisfonce}{RGB}{49,49,49}
@@ -269,9 +273,10 @@
   };
    \node at (current page.center)
 {\parbox{17.6cm}{
-
 \vspace{4.2cm}
-\sffamily
+
+\selectfontfrontcover % Set font style for front cover page
+
 {\Huge \textsc{Th\`{e}se de doctorat de}} \\
 
 
@@ -287,7 +292,7 @@
 \vspace{0.01cm}
 {\setlength{\baselineskip}{0.7\baselineskip}
 {\textsc{\@ecoledoc}} \\
-\textit{\@nomecole} \\
+ \textit{\@nomecole} \\
 \@spec
 
 
@@ -300,14 +305,14 @@
 	
 {\large{\@lesoustitre}} \vspace{0.5cm}
 \begin{spacing}{1}
-	\small \textbf{Th\`{e}se pr\'{e}sent\'{e}e et soutenue \`{a} \@lieu, le \@date} \\
-	\small \textbf{\@uniterecherche} \\
-	\small \textbf{\@numthese}
+	 \small \textbf{Th\`{e}se pr\'{e}sent\'{e}e et soutenue \`{a} \@lieu, le \@date} \\
+	 \small \textbf{\@uniterecherche} \\
+	 \small \textbf{\@numthese}
 \end{spacing}
 \vspace{1.1cm}
 	\begin{small}
 	\begin{spacing}{1}
-		\@jury
+		 \@jury
 	\end{spacing}
 	\end{small}
 }
@@ -351,12 +356,12 @@
 {\centering \noindent \textcolor{mathSTIC-Color}{\rule{\textwidth}{0.2cm}}}
 \vspace{-1cm}
 \selectlanguage{french}
-\section*{\small\textcolor{mathSTIC-Color}{Titre : }\normalfont#1}
+\section*{\selectfontbackcover\small\textcolor{mathSTIC-Color}{Titre : }{\selectfontbackcover\mdseries{#1}}} % In this particular case, font style needs to get re-selected locally
 }
 
 \newcommand{\keywordsFR}[1]{%
 \vspace{-0.2cm}
-\noindent{\small\textbf{Mot cl\'{e}s : }#1}
+\noindent{ \small \textbf{Mot cl\'{e}s : }#1}
 }
 
 \newcommand{\abstractFR}[1]{%
@@ -364,7 +369,7 @@
 \begin{multicols}{2}
 \begin{small}
 \begin{spacing}{1}
-    \noindent \textbf{R\'{e}sum\'{e} : }#1
+	\noindent \textbf{R\'{e}sum\'{e} : }#1
 \end{spacing}
 \end{small}
 \end{multicols}
@@ -375,12 +380,12 @@
 {\centering \noindent \textcolor{mathSTIC-Color}{\rule{\textwidth}{0.2cm}}}
 \vspace{-1cm}
 \selectlanguage{english}
-\section*{\small\textcolor{mathSTIC-Color}{Title: }\normalfont#1}
+\section*{\selectfontbackcover\small\textcolor{mathSTIC-Color}{Title: }{\selectfontbackcover\mdseries{#1}}} % In this particular case, font style needs to get re-selected locally
 }
 
 \newcommand{\keywordsEN}[1]{%
 \vspace{-0.2cm}
-\noindent{\small\textbf{Keywords: }#1}
+\noindent{ \small \textbf{Keywords: }#1}
 }
 
 \newcommand{\abstractEN}[1]{%
@@ -388,7 +393,7 @@
 \begin{multicols}{2}
 \begin{small}
 \begin{spacing}{1}
-    \noindent \textbf{Abstract: }#1
+	\noindent \textbf{Abstract: }#1
 \end{spacing}
 \end{small}
 \end{multicols}
