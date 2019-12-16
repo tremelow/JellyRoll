@@ -149,6 +149,8 @@ Currently the latex default font is the one used for the content.
 
 
 -----
-Authors: Louiza Yala (2018-), Pierre-Louis Roman (2019-)
+Maintainers: Louiza Yala (2018-), Pierre-Louis Roman (2019-)
+
+Contributors: Louiza Yala, Pierre-Louis Roman, Lucas Bourneuf, Corentin Guezenoc.
 
 Git repository: https://gitlab.inria.fr/proman/mathstic-thesis-template
