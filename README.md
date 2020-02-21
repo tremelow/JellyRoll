@@ -53,6 +53,18 @@ Suppimer tous les fichiers générés, pdf inclus :
 
     make clean
 
+Une distribution LaTeX comme texlive est nécessaire pour compiler le document. À noter que certains paquets nécessaires à ce document ne sont pas toujours directement inclus dans une installation de base de texlive.
+
+Paquets additionnels nécessaires :
+
+- Ubuntu
+	- TODO
+- Debian
+	- TODO
+- Fedora (installer avec *dnf install*)
+	- texlive-abstract
+	- texlive-wallpaper
+
 
 ### Spécificités d'un document multilingue
 
@@ -71,7 +83,6 @@ Si la langue principale du contenu du document est l'anglais, vous devez effectu
 
 La police imposée pour les couvertures est Arial mais vous pouvez utiliser une autre police pour le contenu de la thèse en modifiant les lignes 77-78 de `these-ubl.cls`.
 Actuellement la police par défaut de latex est celle utilisée pour le contenu.
-
 
 -----
 
@@ -128,6 +139,17 @@ Remove all generated files, pdf included:
 
 	make clean
 
+A LaTeX distribution such as texlive is necessary in order to compile your document. Please note some necessary packages are not directly included in a base texlive installation.
+
+Required additional packages:
+
+- Ubuntu
+	- TODO
+- Debian
+	- TODO
+- Fedora (install using *dnf install*)
+	- texlive-abstract
+	- texlive-wallpaper
 
 #### Particularities of a multilanguage document
 
@@ -151,7 +173,7 @@ Currently the latex default font is the one used for the content.
 -----
 Maintainers: Louiza Yala (2018-), Pierre-Louis Roman (2019-)
 
-Contributors: Louiza Yala, Pierre-Louis Roman, Lucas Bourneuf, Corentin Guezenoc.
+Contributors: Louiza Yala, Pierre-Louis Roman, Lucas Bourneuf, Corentin Guezenoc, Clément Elbaz.
 
 Git repository: https://gitlab.inria.fr/proman/mathstic-thesis-template
 
