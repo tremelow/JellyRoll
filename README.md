@@ -36,6 +36,19 @@ Vous devez modifier deux variables dans `Couverture-these/pagedegarde.tex` :
 - `\logoetablissement` contient le chemin vers l'image du logo de l'établissement, une liste de logos est fournise dans le dossier `Couverture-these/MathSTIC/logo-etablissements/`.
 
 
+### Dépendances
+
+Une distribution LaTeX comme texlive est nécessaire pour compiler le document. À noter que certains paquets nécessaires à ce document ne sont pas toujours directement inclus dans une installation de base de texlive.
+
+Paquets additionnels nécessaires :
+
+- Fedora (installer avec `dnf install`)
+	- texlive-abstract
+	- texlive-wallpaper
+- Autres distributions
+	- TODO (contributions bienvenues)
+
+
 ### Compiler le latex en pdf
 
 Le `Makefile` fournis vous aide à compiler votre document.
@@ -52,18 +65,6 @@ Afficher le pdf généré :
 Suppimer tous les fichiers générés, pdf inclus :
 
     make clean
-
-Une distribution LaTeX comme texlive est nécessaire pour compiler le document. À noter que certains paquets nécessaires à ce document ne sont pas toujours directement inclus dans une installation de base de texlive.
-
-Paquets additionnels nécessaires :
-
-- Ubuntu
-	- TODO
-- Debian
-	- TODO
-- Fedora (installer avec *dnf install*)
-	- texlive-abstract
-	- texlive-wallpaper
 
 
 ### Spécificités d'un document multilingue
@@ -123,6 +124,19 @@ You have to modify two variables in `Couverture-these/pagedegarde.tex`:
 - `\logoetablissement` contains the path to the image of the logo of the institution, a list of logos is provided for you in the directory `Couverture-these/MathSTIC/logo-etablissements/`
 
 
+#### Dependencies
+
+A LaTeX distribution such as texlive is necessary in order to compile your document. Please note some necessary packages are not directly included in a base texlive installation.
+
+Required additional packages:
+
+- Fedora (install using `dnf install`)
+	- texlive-abstract
+	- texlive-wallpaper
+- Other distributions
+	- TODO (contributions welcome)
+
+
 #### Compile latex into pdf
 
 A `Makefile` is provided to help you compile your document. It uses `pdflatex` and`biber` to generate the pdf file and can display it by using `evince` on Linux or `open` on MacOS.
@@ -139,17 +153,6 @@ Remove all generated files, pdf included:
 
 	make clean
 
-A LaTeX distribution such as texlive is necessary in order to compile your document. Please note some necessary packages are not directly included in a base texlive installation.
-
-Required additional packages:
-
-- Ubuntu
-	- TODO
-- Debian
-	- TODO
-- Fedora (install using *dnf install*)
-	- texlive-abstract
-	- texlive-wallpaper
 
 #### Particularities of a multilanguage document
 
