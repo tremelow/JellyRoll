@@ -33,7 +33,9 @@ Les variables relatives à la quatrième de couverture sont à renseigner dans `
 Vous devez modifier deux variables dans `Couverture-these/pagedegarde.tex` :
 
 - `\unite` contient le nom complet de l'établissement qui délivre le diplôme
-- `\logoetablissement` contient le chemin vers l'image du logo de l'établissement, une liste de logos est fournise dans le dossier `Couverture-these/MathSTIC/logo-etablissements/`.
+- `\logoetablissement` contient le chemin vers l'image du logo de l'établissement, une liste de logos est fournise dans le dossier `Couverture-these/MathSTIC/logo-etablissements/`
+
+L'affichage du nom de l'établissement peut être modifé ligne 291 de `these-ubl.cls` où `\large` peut par exemple être remplacé par `\textsc` ce qui peut améliorer le rendu pour certains établissements.
 
 
 ### Dépendances
@@ -76,7 +78,7 @@ Il faut utiliser `\selectlanguage{x}` (où x est `french` ou `english`) pour cha
 Si la langue principale du contenu du document est l'anglais, vous devez effectuer quelques modifications au modèle :
 
 - utiliser `\selectlanguage{english}` à la ligne 17 de `main.tex`
-- modifier la ligne 437 de `these-ubl.cls` pour remplacer `Partie` par `Part` dans les entêtes
+- modifier la ligne 440 de `these-ubl.cls` pour remplacer `Partie` par `Part` dans les entêtes
 - inclure un résumé en français d'au moins 4 pages
 
 
@@ -123,6 +125,8 @@ You have to modify two variables in `Couverture-these/pagedegarde.tex`:
 - `\unite` contains the full name of the institution that delivers the diploma
 - `\logoetablissement` contains the path to the image of the logo of the institution, a list of logos is provided for you in the directory `Couverture-these/MathSTIC/logo-etablissements/`
 
+The institution display can be modified at line 291 of `these-ubl.cls` where `\large` can for instance be replaced by `\textsc` which might improve the display for some institutions.
+
 
 #### Dependencies
 
@@ -163,7 +167,7 @@ Use `\selectlanguage{x}` (where x is `french` or `english`) to switch language a
 If the main language of your document is English, you must apply the following changes to the provided template:
 
 - use `\selectlanguage{english}` at line 17 of `main.tex`
-- edit line 437 of `these-ubl.cls` to replace `Partie` by `Part` in the headers
+- edit line 440 of `these-ubl.cls` to replace `Partie` by `Part` in the headers
 - include a summary in French of at least 4 pages
 
 
@@ -176,7 +180,7 @@ Currently the latex default font is the one used for the content.
 -----
 Maintainers: Louiza Yala (2018-), Pierre-Louis Roman (2019-)
 
-Contributors: Louiza Yala, Pierre-Louis Roman, Lucas Bourneuf, Corentin Guezenoc, Clément Elbaz.
+Contributors: Louiza Yala, Pierre-Louis Roman, Lucas Bourneuf, Corentin Guezenoc, Clément Elbaz, Florian Arrestier.
 
 Git repository: https://gitlab.inria.fr/proman/mathstic-thesis-template
 
