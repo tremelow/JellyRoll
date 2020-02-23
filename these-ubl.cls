@@ -333,9 +333,9 @@
 \newcommand{\backcoverheader}{%
 \AddToShipoutPicture*{%
     \put(0,0){%
-    \parbox[b][44.2cm]{\paperwidth}{%
+    \parbox[b][\paperheight]{\paperwidth}{%
         \vfill
-        \includegraphics[width=\paperwidth,keepaspectratio]{./Couverture-these/MathSTIC/image-fond-MATHSTIC-dos.png}%
+        \includegraphics[width=\paperwidth,height=\paperheight]{./Couverture-these/MathSTIC/image-fond-MATHSTIC-dos.pdf}%
         \vfill
 }}}
 \pagestyle{empty}
