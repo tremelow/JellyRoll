@@ -288,7 +288,7 @@
 
 \vspace{2.1cm}
 
-{\setlength{\baselineskip}{0.9\baselineskip} {\textsc{\@unite}} \\
+{\setlength{\baselineskip}{0.9\baselineskip} {\large \@unite} \\
 {\textsc{\@ubl}} \\
 \par}
 \vspace{0.01cm}
