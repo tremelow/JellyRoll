@@ -335,7 +335,7 @@
     \put(0,0){%
     \parbox[b][\paperheight]{\paperwidth}{%
         \vfill
-        \includegraphics[width=\paperwidth,height=\paperheight]{./Couverture-these/MathSTIC/image-fond-MATHSTIC-dos.pdf}%
+        \includegraphics[width=\paperwidth,height=\paperheight]{./Couverture-these/ecoles-doctorales/MathSTIC/image-fond-MATHSTIC-dos.pdf}%
         \vfill
 }}}
 \pagestyle{empty}
