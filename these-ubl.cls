@@ -134,7 +134,7 @@
 \definecolor{grisfonce}{RGB}{49,49,49}
 \definecolor{grisclair}{RGB}{111,111,111}
 \definecolor{blanc}{RGB}{255,255,255}
-\definecolor{mathSTIC-Color}{RGB}{233,90,104} %MathSTIC 
+\definecolor{mathSTIC-Color}{RGB}{236,115,127} %MathSTIC
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
