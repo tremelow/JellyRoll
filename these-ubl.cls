@@ -247,8 +247,8 @@
 \numthese{}
 
 %%%%%%% Nom complet de l'ubl
-\newcommand{\ubl}[1]{\gdef\@ubl{#1}}
-\ubl{}
+% \newcommand{\ubl}[1]{\gdef\@ubl{#1}}
+% \ubl{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Define some font sizes specific to the front cover
@@ -289,7 +289,7 @@
 \vspace{2.1cm}
 
 {\setlength{\baselineskip}{0.9\baselineskip} {\large \@unite} \\
-{\textsc{\@ubl}} \\
+{} \\ %%% Used to be Comue UBL, keep for next Comue?
 \par}
 \vspace{0.01cm}
 {\setlength{\baselineskip}{0.7\baselineskip}
