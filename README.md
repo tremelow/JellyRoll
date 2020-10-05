@@ -33,7 +33,7 @@ Les variables relatives à la quatrième de couverture sont à renseigner dans `
 Vous devez modifier deux variables dans `Couverture-these/pagedegarde.tex` :
 
 - `\unite` contient le nom complet de l'établissement qui délivre le diplôme
-- `\logoetablissement` contient le chemin vers l'image du logo de l'établissement, une liste de logos est fournise dans le dossier `Couverture-these/MathSTIC/logo-etablissements/`
+- `\logoetablissement` contient le chemin vers l'image du logo de l'établissement, une liste de logos est fournise dans le dossier `Couverture-these/logos-etablissements/`
 
 L'affichage du nom de l'établissement peut être modifé ligne 291 de `these-ubl.cls` où `\large` peut par exemple être remplacé par `\textsc` ce qui peut améliorer le rendu pour certains établissements.
 
@@ -123,7 +123,7 @@ The back cover variables that must be filled are in `Couverture-these/resume.tex
 You have to modify two variables in `Couverture-these/pagedegarde.tex`:
 
 - `\unite` contains the full name of the institution that delivers the diploma
-- `\logoetablissement` contains the path to the image of the logo of the institution, a list of logos is provided for you in the directory `Couverture-these/MathSTIC/logo-etablissements/`
+- `\logoetablissement` contains the path to the image of the logo of the institution, a list of logos is provided for you in the directory `Couverture-these/logos-etablissements/`
 
 The institution display can be modified at line 291 of `these-ubl.cls` where `\large` can for instance be replaced by `\textsc` which might improve the display for some institutions.
 
