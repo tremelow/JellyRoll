@@ -364,7 +364,7 @@
 
 \newcommand{\keywordsFR}[1]{%
 \vspace{-0.2cm}
-\noindent{ \small \textbf{Mot cl\'{e}s : }#1}
+\noindent{\small\textbf{Mot cl\'{e}s : }#1}
 }
 
 \newcommand{\abstractFR}[1]{%
@@ -388,7 +388,7 @@
 
 \newcommand{\keywordsEN}[1]{%
 \vspace{-0.2cm}
-\noindent{ \small \textbf{Keywords: }#1}
+\noindent{\small\textbf{Keywords: }#1}
 }
 
 \newcommand{\abstractEN}[1]{%
