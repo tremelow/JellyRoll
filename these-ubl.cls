@@ -45,7 +45,6 @@
 \RequirePackage{color}
 \RequirePackage{comment}
 \RequirePackage{wallpaper}
-%\definecolor{mypink1}{rgb}{Pink with rgb}
 \RequirePackage[inner=30mm,outer=20mm,top=30mm,bottom=20mm]{geometry}
 \RequirePackage{setspace}
 %Ou bien : \RequirePackage[top=4 cm, bottom=4 cm, left=3 cm, right=3 cm]{geometry} % On peut modifier ces valeurs pour augmenter ou r\'{e}duire les marges. Attention aux en-têtes de chapitres. 
@@ -125,17 +124,9 @@
 	\end{center}		
 	}
 
-
 \parttitlefont{\jolipart}
 
 \partnumberfont{\sc\normalsize}
-
-%%%%%%%%%%%%%%%% COULEURS RGB de l'ED%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\definecolor{grisfonce}{RGB}{49,49,49}
-\definecolor{grisclair}{RGB}{111,111,111}
-\definecolor{blanc}{RGB}{255,255,255}
-\definecolor{mathSTIC-Color}{RGB}{236,115,127} %MathSTIC
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%%%% REGLAGE DE LA BIBLIOGRAPHIE %%%%%%%%%%%%%%%%%%%%%%%%%
@@ -198,12 +189,20 @@
 
 %%%%%%%%%%%%%%%% TITRE THESE PAGE DE GARDE %%%%%%%%%%%%%%%%
 
-% Logo ecole doctorale
-\newcommand*{\logoecoledoc}[1]{\gdef\@logoecoledoc{#1}}
-\logoecoledoc{}
+%%%%% Ecole doctorale definissant le dossier contenant les info de cette ED
+\newcommand*{\ecole}[1]{\gdef\direcole{./Couverture-these/ecoles-doctorales/#1}}
+\ecole{}
+
+%%%%% Nom ecole
+\newcommand{\nomecole}[1]{\gdef\@nomecole{#1}}
+\nomecole{}
+
+%%%%% Numero ecole doctorale
+\newcommand{\numeroecole}[1]{\gdef\@numeroecole{#1}}
+\numeroecole{}
 
 % Logo etablissement delivrant le diplome
-\newcommand*{\logoetablissement}[1]{\gdef\@logoetablissement{#1}}
+\newcommand*{\logoetablissement}[1]{\gdef\vlogoetablissement{#1}}
 \logoetablissement{}
 
 %%%% Eventuel sous-titre
@@ -222,14 +221,6 @@
 \newcommand{\unite}[1]{\gdef\@unite{#1}}
 \unite{}
 
-%%%%% Ecole doctorale
-\newcommand{\ecoledoc}[1]{\gdef\@ecoledoc{#1}}
-\ecoledoc{}
-
-%%%%% Nom ecole
-\newcommand{\nomecole}[1]{\gdef\@nomecole{#1}}
-\nomecole{}
-
 %%%%% Sp\'{e}cialit\'{e}
 \newcommand{\spec}[1]{\gdef\@spec{#1}}
 \spec{}
@@ -246,10 +237,6 @@
 \newcommand{\numthese}[1]{\gdef\@numthese{#1}}
 \numthese{}
 
-%%%%%%% Nom complet de l'ubl
-% \newcommand{\ubl}[1]{\gdef\@ubl{#1}}
-% \ubl{}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Define some font sizes specific to the front cover
 \newcommand{\HugeFront}{\fontsize{26}{31}\selectfont} % Used in 'these de doctorat' title
@@ -258,21 +245,16 @@
 %mise en page de la page de garde
 \makeatletter
 \def\maketitle{%
-  % Définit les variables des logos pour la quatrième de couverture (variables \@ inutilisables)
-  % Define the variables containing the logos for the back cover (can't use the \@ variables)
-  \newcommand{\pathlogoecoledoc}{\@logoecoledoc}%
-  \newcommand{\pathlogoetablissement}{\@logoetablissement}%
-  %
   \thispagestyle{empty}
   \clearpage
   \begin{tikzpicture}[remember picture,overlay,line width=0mm]
   \draw [draw=white,fill=white]
     (current page.north west) rectangle (\paperwidth,1);
   \node[xshift=0.04\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
-  \includegraphics[width=5cm]{\@logoecoledoc}
+  \includegraphics[width=5cm]{\direcole/logo}
   };
   \node[xshift=.6\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
-  \includegraphics[width=5cm]{\@logoetablissement}
+  \includegraphics[width=5cm]{\vlogoetablissement}
   };
    \node at (current page.center)
 {\parbox{17.6cm}{
@@ -293,7 +275,7 @@
 \par}
 \vspace{0.01cm}
 {\setlength{\baselineskip}{0.7\baselineskip}
-{\small\textsc{\@ecoledoc}} \\
+{\small\textsc{\'{E}cole Doctorale \No \@numeroecole}} \\
  \textit{\@nomecole} \\
 \@spec
 
@@ -335,7 +317,7 @@
     \put(0,0){%
     \parbox[b][\paperheight]{\paperwidth}{%
         \vfill
-        \includegraphics[width=\paperwidth,height=\paperheight]{./Couverture-these/ecoles-doctorales/MathSTIC/image-fond-MATHSTIC-dos.pdf}%
+        \includegraphics[width=\paperwidth,height=\paperheight]{\direcole/image-fond-dos}%
         \vfill
 }}}
 \pagestyle{empty}
@@ -344,11 +326,11 @@
   \draw [draw=white]
     (current page.north west) rectangle (\paperwidth,1);
   \node[xshift=0.03\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
-  \includegraphics[width=5cm]{\pathlogoecoledoc}
+  \includegraphics[width=5cm]{\direcole/logo}
   };
   \hfill
   \node[xshift=.55\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
-  \includegraphics[width=5cm]{\pathlogoetablissement}
+  \includegraphics[width=5cm]{\vlogoetablissement}
   };
 \end{tikzpicture}
 \par\nobreak
@@ -356,10 +338,10 @@
 
 \newcommand{\titleFR}[1]{%
 \vspace{1cm}
-{\centering \noindent \textcolor{mathSTIC-Color}{\rule{\textwidth}{0.2cm}}}
+{\centering \noindent \textcolor{color-ecole}{\rule{\textwidth}{0.2cm}}}
 \vspace{-1cm}
 \selectlanguage{french}
-\section*{\selectfontbackcover\small\textcolor{mathSTIC-Color}{Titre : }{\selectfontbackcover\mdseries{#1}}} % In this particular case, font style needs to get re-selected locally
+\section*{\selectfontbackcover\small\textcolor{color-ecole}{Titre : }{\selectfontbackcover\mdseries{#1}}} % In this particular case, font style needs to get re-selected locally
 }
 
 \newcommand{\keywordsFR}[1]{%
@@ -380,10 +362,10 @@
 
 \newcommand{\titleEN}[1]{%
 \vspace{0.5cm}
-{\centering \noindent \textcolor{mathSTIC-Color}{\rule{\textwidth}{0.2cm}}}
+{\centering \noindent \textcolor{color-ecole}{\rule{\textwidth}{0.2cm}}}
 \vspace{-1cm}
 \selectlanguage{english}
-\section*{\selectfontbackcover\small\textcolor{mathSTIC-Color}{Title: }{\selectfontbackcover\mdseries{#1}}} % In this particular case, font style needs to get re-selected locally
+\section*{\selectfontbackcover\small\textcolor{color-ecole}{Title: }{\selectfontbackcover\mdseries{#1}}} % In this particular case, font style needs to get re-selected locally
 }
 
 \newcommand{\keywordsEN}[1]{%

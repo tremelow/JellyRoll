@@ -1,7 +1,23 @@
 %Pour diff\'{e}rentes universit\'{e}s il faurdra modifier ce d\'{e}but de document
 %For different universities modify the beginning of this document to adapt the logos (logo)
 \geometry{vmargin=4.0cm}
-\logoecoledoc{./Couverture-these/ecoles-doctorales/MathSTIC/logo-mathSTIC} %logo ecole doctorale
+
+% List of doctoral schools
+\ecole{MathSTIC}
+% \ecole{3M}
+% \ecole{ALL}
+% \ecole{BS}
+% \ecole{DSP}
+% \ecole{EDGE}
+% \ecole{EGAAL}
+% \ecole{ELICC}
+% \ecole{SML}
+% \ecole{SPI}
+% \ecole{STT}
+
+% Include specific data for the doctoral school
+\input{\direcole/ecole.tex}
+
 \logoetablissement{./Couverture-these/logos-etablissements/UR1-noir}%logo etablissement (ici Rennes 1)
 \vspace{2.5cm}
 %Indiquer l'\'{e}tablissement de d\'{e}livrance du diplome
@@ -9,12 +25,7 @@
 \unite{L'UNIVERSIT\'{E} DE RENNES 1}
 %Si la th\`{e}se est en co-tutelle ou en d\'{e}livrance conjointe, mettre le logo des 2 \'{e}tablissements 
 %in the case of "co-tutelle" provide both names (logos)
-%Indiquer le num\'{e}ro d’accr\'{e}ditation de l’\'{e}cole doctorale de r\'{e}f\'{e}rence pour la th\`{e}se 
-%indicate the certification number of l'ecole doctorale
-\ecoledoc{\'{E}cole Doctorale \No 601}
-%Indiquer le nom de l’\'{e}cole doctorale de r\'{e}f\'{e}rence pour la th\`{e}se 
-%Indicate the name of l'ecole doctorale
-\nomecole{Math\'{e}matiques et Sciences et Technologies \\ de l'Information et de la Communication}
+%
 %Inscrivez ici votre sp\'{e}cialit\'{e} (voir liste des sp\'{e}cialit\'{e}s sur le site de votre \'{e}cole doctorale)
 %Indicate the domain (see list of domains in your ecole doctorale)
 \spec{Sp\'{e}cialit\'{e} : \textit{(voir liste des sp\'{e}cialit\'{e}s)}}
@@ -31,7 +42,10 @@
     \put(0,0){%
     \parbox[b][42.5cm]{\paperwidth}{%
         \vfill
-        \includegraphics[width=\paperwidth,keepaspectratio]{./Couverture-these/ecoles-doctorales/MathSTIC/image-fond-MATHSTIC-garde.pdf}% image de fond UR1
+        \includegraphics[width=\paperwidth,keepaspectratio,trim={0 4pt 0 0}]{\direcole/image-fond-garde} % Must trim white border off of bottom
+        \begin{tikzpicture}
+            \fill[color-ecole] (0,0) rectangle (\paperwidth,4.3);
+        \end{tikzpicture}
         \vfill
 }}}
 %Attention : le pr\'{e}nom doit être en minuscules (Jean) et le NOM en majuscules (BRITTEF) 
@@ -51,6 +65,7 @@
 %Indiquer le Numero de th\`{e}se, si cela est opportun, ou faire disparaitre cet item de la couverture 
 %Indicate the number of the thesis if there is one.
 \numthese{Th\`{e}se \No :  }
+
 %Indiquer le Pr\'{e}nom en minuscules et le Nom en majuscules, le titre de la personne et l’\'{e}tablissement dans lequel il effectue sa recherche  
 %Indicates the first name on small letters and the Names on capital letters, the person's title and the institution where he/she belongs to.
 %Exemples :  Examples :
@@ -61,8 +76,6 @@
 %%%- Charg\'{e} de recherche, INSERM, HDR, Universit\'{e} de Tours  
  %S’il n’y a pas de co-direction, faire disparaitre cet item de la couverture  
  %In there is no co-director, remove the item from the cover
-
-
 \jury{
 {\normalsize \textbf{Rapporteurs avant soutenance :}}\\ \newline
 \footnotesize
