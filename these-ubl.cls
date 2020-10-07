@@ -55,6 +55,8 @@
 \RequirePackage{hyperref} %Utiliser pour une bibliographie interactive + sommaire et TOC interactifs (pour une sortie PDF, par exemple).
 \hypersetup{colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black}
 
+\RequirePackage[export]{adjustbox} % To position logos left/right of pages
+
 % A ajouter dans hypersetup pour plus de visibilite dans les proprietes du document
 %pdftitle={titre du document}, pdfauthor={auteur}, pdfcreator={PdfLaTeX}, pdfkeywords={mots-cl\'{e}}, pdfsubject={sujet du document}
 
@@ -250,11 +252,11 @@
   \begin{tikzpicture}[remember picture,overlay,line width=0mm]
   \draw [draw=white,fill=white]
     (current page.north west) rectangle (\paperwidth,1);
-  \node[xshift=0.04\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
-  \includegraphics[width=5cm]{\direcole/logo}
+  \node[xshift=6.3cm,yshift=2cm] {
+      \includegraphics[height=2.4cm,left]{\direcole/logo}
   };
-  \node[xshift=.6\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
-  \includegraphics[width=5cm]{\vlogoetablissement}
+  \node[xshift=.6\paperwidth,yshift=2cm] {
+      \includegraphics[height=2.4cm,width=5cm,keepaspectratio]{\vlogoetablissement}
   };
    \node at (current page.center)
 {\parbox{17.6cm}{
@@ -325,12 +327,12 @@
 \begin{tikzpicture}[remember picture,overlay,line width=0mm]
   \draw [draw=white]
     (current page.north west) rectangle (\paperwidth,1);
-  \node[xshift=0.03\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
-  \includegraphics[width=5cm]{\direcole/logo}
+  \node[xshift=6.3cm,yshift=2cm] {
+      \includegraphics[height=2.4cm,left]{\direcole/logo}
   };
   \hfill
-  \node[xshift=.55\paperwidth,yshift=2cm,text=white,font=\bf\Large] {
-  \includegraphics[width=5cm]{\vlogoetablissement}
+  \node[xshift=.55\paperwidth,yshift=2cm] {
+      \includegraphics[height=2.4cm,width=5cm,keepaspectratio]{\vlogoetablissement}
   };
 \end{tikzpicture}
 \par\nobreak
