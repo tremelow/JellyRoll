@@ -317,11 +317,16 @@
 \newcommand{\backcoverheader}{%
 \AddToShipoutPicture*{%
     \put(0,0){%
-    \parbox[b][\paperheight]{\paperwidth}{%
-        \vfill
-        \includegraphics[width=\paperwidth,height=\paperheight]{\direcole/image-fond-dos}%
-        \vfill
-}}}
+    \parbox[t][\paperheight]{\paperwidth}{%
+        \vspace{-29.6cm}
+        \includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{\direcole/image-fond-dos}%
+    }}
+    \put(0,0){%
+    \parbox[t][\paperheight]{\paperwidth}{%
+        \vspace{-14.5cm}
+        \includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{\direcole/image-fond-dos2}%
+    }}
+}
 \pagestyle{empty}
 \hspace{1cm}
 \begin{tikzpicture}[remember picture,overlay,line width=0mm]
