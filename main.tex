@@ -3,14 +3,19 @@
 %appel de la class these-ubl 
 % these-ubl class call
 \documentclass{these-ubl} 
-\usepackage{biblatex}
 
 % Spécifier vos fichiers de bibliographie
 % Specify you bibliography files here
 \addbibresource{./biblio/biblio.bib}
 
 \geometry{vmargin=4.0cm}
-\input{./Couverture-these/pagedegarde} % page de garde UR1
+
+\begin{document}
+
+% La page de garde est en français
+% The front cover is in French
+\selectlanguage{french}
+\input{./Couverture-these/pagedegarde}
 
 % Sélectionner la langue du contenu suivant cette ligne
 % Select the content language following this line
@@ -23,40 +28,35 @@
 
 % Ne pas oublier cette commande qui g\'{e}n\`{e}re la page de couverture avant
 %This command will generate the front cover
+\frontmatter
 \clearemptydoublepage
-\frontmatter 
 \renewcommand{\contentsname}{Table of Contents}
 \tableofcontents %sommaire %table of content
-
-\clearemptydoublepage
-\input{./Introduction/introduction}
 %\shorttableofcontents{Sommaire}{0}
-%
+
 % Mettre ici votre chapitre d'Introduction, le cas \'{e}ch\'{e}ant
 %Input the introduction chapter 
-% 
+\clearemptydoublepage
+\input{./Introduction/introduction}
+
 \clearemptydoublepage
 \mainmatter % Ne pas oublier, avec \frontmatter et \backmatter
 	           %this command inputs \frontmatter and \backmatter as a cover in the front and the back
-%
+
 % Mettre ici votre chapitre 1
 %Input your chapter 1
-%
 \input{./Chapitre1/chapitre1}
-%
+
 % Mettre ici votre chapitre 2
 %Input your chapter 2
-% 
 \clearemptydoublepage
 \input{./Chapitre2/chapitre2}
-%
-%
+
 % D\'{e}-commenter pour ins\'{e}rer les autres chapitres, ici votre chapitre X
 % Uncomment to insert other chapters, here your chapter X
-% 
 %\input{./Chapitrex/chapitrex}
 %\clearemptydoublepage
-% 
+
 \clearemptydoublepage
 \backmatter
 \input{./Conclusion/conclusion}
@@ -69,7 +69,7 @@
 
 % nocite: Pour citer la totalit\'{e} des r\'{e}f\'{e}rences contenues dans le fichier biblio
 % nocite: In order to cite all the references included biblio
-\nocite{*} 
+\nocite{*}
 \printbibliography[heading=primary,keyword=primary]
 \newpage
 \nocite{*}

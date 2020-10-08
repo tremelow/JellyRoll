@@ -1,70 +1,49 @@
-%Pour diff\'{e}rentes universit\'{e}s il faurdra modifier ce d\'{e}but de document
-%For different universities modify the beginning of this document to adapt the logos (logo)
-\geometry{vmargin=4.0cm}
 
-% List of doctoral schools
+% Inclure infos de l'école doctorale
+% Include doctoral school data
+% (3M ALL BS DSP EDGE EGAAL ELICC MathSTIC SML SPI STT)
 \ecole{MathSTIC}
-% \ecole{3M}
-% \ecole{ALL}
-% \ecole{BS}
-% \ecole{DSP}
-% \ecole{EDGE}
-% \ecole{EGAAL}
-% \ecole{ELICC}
-% \ecole{SML}
-% \ecole{SPI}
-% \ecole{STT}
-
-% Include specific data for the doctoral school
 \input{\direcole/ecole.tex}
 
-\logoetablissement{./Couverture-these/logos-etablissements/UR1-noir}%logo etablissement (ici Rennes 1)
-\vspace{2.5cm}
+
+
+
+\logoetablissement{./Couverture-these/logos-etablissements/UR1-noir}%logo etablissement (ici Rennes
+1)
+
 %Indiquer l'\'{e}tablissement de d\'{e}livrance du diplome
-%Provide the name of the institution that delivers the diploma, 
+%Provide the name of the institution that delivers the diploma,
 \unite{L'UNIVERSIT\'{E} DE RENNES 1}
-%Si la th\`{e}se est en co-tutelle ou en d\'{e}livrance conjointe, mettre le logo des 2 \'{e}tablissements 
+%Si la th\`{e}se est en co-tutelle ou en d\'{e}livrance conjointe, mettre le logo des 2 \'{e}tablissements
 %in the case of "co-tutelle" provide both names (logos)
 %
 %Inscrivez ici votre sp\'{e}cialit\'{e} (voir liste des sp\'{e}cialit\'{e}s sur le site de votre \'{e}cole doctorale)
+
+%Inscrivez ici votre sp\'{e}cialit\'{e} (voir liste des sp\'{e}cialit\'{e}s sur le site de votre \'{e}cole doctorale)
 %Indicate the domain (see list of domains in your ecole doctorale)
-\spec{Sp\'{e}cialit\'{e} : \textit{(voir liste des sp\'{e}cialit\'{e}s)}}
-\usepackage{eso-pic}
+\spec{« voir liste sur le site de votre \'{e}cole doctorale »}
 
-
-\begin{document}
-% La page de garde est en français
-% The front cover is in French
-\selectlanguage{french}
-
-%background image of the front cover
-\AddToShipoutPicture*{%
-    \put(0,0){%
-    \parbox[b][42.5cm]{\paperwidth}{%
-        \vfill
-        \includegraphics[width=\paperwidth,keepaspectratio,trim={0 4pt 0 0}]{\direcole/image-fond-garde} % Must trim white border off of bottom
-        \begin{tikzpicture}
-            \fill[color-ecole] (0,0) rectangle (\paperwidth,4.3);
-        \end{tikzpicture}
-        \vfill
-}}}
 %Attention : le pr\'{e}nom doit être en minuscules (Jean) et le NOM en majuscules (BRITTEF) 
 %Attention : the first name in small letters and the name in Capital letters 
 \author{« Pr\'{e}nom NOM »}
+
 % Donner le titre complet de la th\`{e}se, \'{e}ventuellement le sous titre, si n\'{e}cessaire sur plusieurs lignes 
 %Give the complete title of the thesis, if necessary on several lines
 \title{« Titre de la th\`{e}se »}
 \lesoustitre{« Sous-titre de la th\`{e}se »}
+
 %Indiquer la date et le lieu de soutenance de la th\`{e}se 
 %indicates the date and the place of the defense 
 \date{« date »}
 \lieu{« Lieu »}
+
 %Indiquer le nom du (ou des) laboratoire (s) dans le(s)quel(s) le travail de th\`{e}se a \'{e}t\'{e} effectu\'{e}, indiquer aussi si souhait\'{e} le nom de la (les) facult\'{e}(s) (UFR, \'{e}cole(s), Institut(s), Centre(s)...), son (leurs) adresse(s)... 
 %Indicates the name (or names) of research laboratories where the work has been done as well as (if desired) the names of faculties (UFR, Schools, institution...
-\uniterecherche{Unit\'{e} de recherche : }
-%Indiquer le Numero de th\`{e}se, si cela est opportun, ou faire disparaitre cet item de la couverture 
-%Indicate the number of the thesis if there is one.
-\numthese{Th\`{e}se \No :  }
+\uniterecherche{« voir liste sur le site de votre \'{e}cole doctorale »}
+
+%Indiquer le Numero de th\`{e}se, si cela est opportun, ou laisser vide pour faire disparaitre cet ligne de la couverture
+%Indicate the number of the thesis if there is one. otherwise leave empty so the line disappeurs on the cover
+\numthese{« si pertinent »} % \numthese{}
 
 %Indiquer le Pr\'{e}nom en minuscules et le Nom en majuscules, le titre de la personne et l’\'{e}tablissement dans lequel il effectue sa recherche  
 %Indicates the first name on small letters and the Names on capital letters, the person's title and the institution where he/she belongs to.

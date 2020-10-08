@@ -55,7 +55,8 @@
 \RequirePackage{hyperref} %Utiliser pour une bibliographie interactive + sommaire et TOC interactifs (pour une sortie PDF, par exemple).
 \hypersetup{colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black}
 
-\RequirePackage[export]{adjustbox} % To position logos left/right of pages
+\RequirePackage{eso-pic} % For \AddToShipoutPicture used for cover backgrounds
+\RequirePackage[export]{adjustbox} % To position cover logos left/right of pages
 
 % A ajouter dans hypersetup pour plus de visibilite dans les proprietes du document
 %pdftitle={titre du document}, pdfauthor={auteur}, pdfcreator={PdfLaTeX}, pdfkeywords={mots-cl\'{e}}, pdfsubject={sujet du document}
@@ -78,7 +79,11 @@
 %\renewcommand{\rmdefault}{qpl}
 %\renewcommand{\sfdefault}{qpl} 
 
-%%%%%%%%%%%%%% En-tete chap %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% En-tete chap %%%%%%%%%%%%%%%%
+
 \makeatletter
 \def\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
 \def\@makechapterhead#1{%
@@ -106,9 +111,10 @@
     \vskip 30\p@
   }}
 
-%%%%%%%%%%%%%%%%%%%% Fin en-tête de chapitre %%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%% Tete de parties %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% Tete de parties %%%%%%%%%%%%%%%%
 
 \makeatletter
 \newcommand*{\jolipart}[1]{%
@@ -131,8 +137,10 @@
 \partnumberfont{\sc\normalsize}
 
 
-%%%%%%%%%%%%%%%%%% REGLAGE DE LA BIBLIOGRAPHIE %%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%% ATTENTION, on utilise Biblatex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% REGLAGE DE LA BIBLIOGRAPHIE %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% ATTENTION, on utilise Biblatex %%%%%%%%%%%%%
 
 \RequirePackage[style=verbose-trad1,hyperref,backend=biber]{biblatex} %Pour le style 
 % biblatex avec gestion des mots cl\'{e}s des entr\'{e}es bibliographiques
@@ -165,12 +173,14 @@
 }
 
 
-%%%%%%%%%%%%%%%%%% Interligne simple pour citations et vers %%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%% Interligne simple pour citations et vers %%%%%%%%%%%%%%%%%%
 %% Environnements: QUOTE, QUOTATION, VERSE
 % Copyright (C) 2002 Mike Nolta <mrnolta@princeton.edu>, GPL V. 2.0 and
 % later version. http://www.physics.princeton.edu/cosmology/computing/PrincetonThesis.cls
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
+
 \let\orig@quote\quote
 \let\endorig@quote\endquote
 \renewenvironment*{quote}
@@ -189,7 +199,10 @@
 	{\begin{old@verse}\begin{singlespace}}
         {\end{singlespace}\end{old@verse}}
 
-%%%%%%%%%%%%%%%% TITRE THESE PAGE DE GARDE %%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% VARIABLES PAGE DE GARDE %%%%%%%%%%%%%%%%
 
 %%%%% Ecole doctorale definissant le dossier contenant les info de cette ED
 \newcommand*{\ecole}[1]{\gdef\direcole{./Couverture-these/ecoles-doctorales/#1}}
@@ -239,7 +252,11 @@
 \newcommand{\numthese}[1]{\gdef\@numthese{#1}}
 \numthese{}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% PAGE DE GARDE %%%%%%%%%%%%%%%%
+
 % Define some font sizes specific to the front cover
 \newcommand{\HugeFront}{\fontsize{26}{31}\selectfont} % Used in 'these de doctorat' title
 \newcommand{\LargeFront}{\fontsize{16}{19}\selectfont} % Used in thesis title
@@ -249,6 +266,18 @@
 \def\maketitle{%
   \thispagestyle{empty}
   \clearpage
+  %background image of the front cover
+  \AddToShipoutPicture*{%
+    \put(0,0){%
+    \parbox[b][42.5cm]{\paperwidth}{%
+        \vfill
+        \includegraphics[width=\paperwidth,keepaspectratio,trim={0 4pt 0 0}]{\direcole/image-fond-garde} % Must trim white border off of bottom
+        \begin{tikzpicture}
+            \fill[color-ecole] (0,0) rectangle (\paperwidth,4.3);
+        \end{tikzpicture}
+        \vfill
+  }}}
+  %
   \begin{tikzpicture}[remember picture,overlay,line width=0mm]
   \draw [draw=white,fill=white]
     (current page.north west) rectangle (\paperwidth,1);
@@ -279,7 +308,7 @@
 {\setlength{\baselineskip}{0.7\baselineskip}
 {\small\textsc{\'{E}cole Doctorale \No \@numeroecole}} \\
  \textit{\@nomecole} \\
-\@spec
+{Sp\'{e}cialit\'{e} : \textit{\@spec}}
 
 \fontsize{12}{10}\selectfont
 \vspace{0.5cm}
@@ -293,8 +322,8 @@
 \begin{spacing}{1}
 	 \small
 	 \textbf{Th\`{e}se pr\'{e}sent\'{e}e et soutenue \`{a} \@lieu, le \@date} \\
-	 \textbf{\@uniterecherche} \\
-	 \textbf{\@numthese}
+	 \textbf{Unit\'{e} de recherche : \@uniterecherche} \\
+	 \textbf{\if\@numthese\empty \else Th\`{e}se \No : \@numthese \fi} % Hide line if no number provided
 \end{spacing}
 \vspace{1.1cm}
 	\begin{small}
@@ -311,9 +340,9 @@
 
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%% QUATRIEME DE COUVERTURE %%%%%%%%%%%%%%%%
+
 \newcommand{\backcoverheader}{%
 \AddToShipoutPicture*{%
     \put(0,0){%
@@ -393,11 +422,8 @@
 
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%% En-tetes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% EN-TETES PAGES %%%%%%%%%%%%%%%%
 
 %%%%%%%%% Pour suppirmer les entetes et pied de page gênants par exemple juste avant un chapitre sur une page de droite
 \newcommand{\clearemptydoublepage}{%
@@ -405,7 +431,7 @@
 %%%% .... et utiliser la commande \clearemptydoublepage juste avant le \chapter
 
 
-    \fancyhf{}                       % on annule le fancy automatique
+\fancyhf{}                       % on annule le fancy automatique
    
 
 %%%%%%%%%% Gerer les en tetes dans les frontmatter mainmatter et backmatter
@@ -441,9 +467,9 @@
 } 
 
 
-%%%%%%%%%%%%%% FAIRE DES ENCARTS %%%%%%%%%%%%%%%%%%%%%%%%%%
-% Couleurs :
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% FAIRE DES ENCARTS %%%%%%%%%%%%%%%%
 
 \definecolor{fondtitre}{RGB}{85,85,85}
 \definecolor{fonddeboite}{RGB}{232,232,232}
