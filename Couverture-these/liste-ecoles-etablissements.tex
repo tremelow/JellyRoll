@@ -1,5 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%% ETABLISSEMENTS %%%%%%%%%%%%%%%%
 
 %%% Switch case in latex
 %%% https://tex.stackexchange.com/a/343306
@@ -13,7 +11,99 @@
 \makeatother
 
 
-%%%% Nom du logo et nom complet sur plusieurs lignes pour chaque établissement
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% ECOLES DOCTORALES %%%%%%%%%%%%%%%%
+
+%%%% #1: dossier des images, #2: numero ED, #3: couleur ED, #4-#5: nom complet sur plusieurs lignes
+\newcommand\addecole[5]{\direcole{#1}\numeroecole{#2}\definecolor{color-ecole}{RGB}{#3}\nomecoleA{#4}\nomecoleB{#5}}
+
+\makeswitch[default]\ecole{}
+
+\addcase\ecole{3M}{\addecole
+    {3M}
+    {596}
+    {193,192,183}
+    {Mati\`{e}re, Mol\'{e}cules, Mat\'{e}riaux}
+    {}
+}
+\addcase\ecole{ALL}{\addecole
+    {ALL}
+    {595}
+    {240,209,134}
+    {Arts, Lettres, Langues}
+    {}
+}
+\addcase\ecole{BS}{\addecole
+    {BS}
+    {605}
+    {163,219,208}
+    {Biologie, Sant\'{e}}
+    {}
+}
+\addcase\ecole{DSP}{\addecole
+    {DSP}
+    {599}
+    {188,208,220}
+    {Droit et Science politique}
+    {}
+}
+\addcase\ecole{EDGE}{\addecole
+    {EDGE}
+    {597}
+    {216,178,210}
+    {Sciences \'{E}conomiques et sciences De Gestion}
+    {}
+}
+\addcase\ecole{EGAAL}{\addecole
+    {EGAAL}
+    {600}
+    {146,213,182}
+    {\'{E}cologie, G\'{e}osciences, Agronomie et Alimentation}
+    {}
+}
+\addcase\ecole{ELICC}{\addecole
+    {ELICC}
+    {603}
+    {249,201,188}
+    {\'{E}ducation, Langages, Interactions, Cognition, Clinique}
+    {}
+}
+\addcase\ecole{MathSTIC}{\addecole
+    {MathSTIC}
+    {601}
+    {236,115,127}
+    {Math\'{e}matiques et Sciences et Technologies}
+    {de l'Information et de la Communication}
+}
+\addcase\ecole{SML}{\addecole
+    {SML}
+    {598}
+    {162,225,230}
+    {Sciences de la Mer et du Littoral}
+    {}
+}
+\addcase\ecole{SPI}{\addecole
+    {SPI}
+    {602}
+    {159,182,217}
+    {Sciences pour l'Ing\'{e}nieur}
+    {}
+}
+\addcase\ecole{STT}{\addecole
+    {STT}
+    {604}
+    {172,184,192}
+    {Soci\'{e}t\'{e}s, temps, territoires}
+    {}
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% ETABLISSEMENTS %%%%%%%%%%%%%%%%
+
+%%%% #1 nom du logo, #2-#4: nom complet sur plusieurs lignes
 \newcommand\addetablissement[4]{\logoetablissement{#1}\nometablissementA{#2}\nometablissementB{#3}\nometablissementC{#4}}
 
 \makeswitch[default]\etablissement{}
@@ -150,4 +240,3 @@
     {}
     {L'UNIVERSIT\'{E} DE RENNES 2}
 }
-

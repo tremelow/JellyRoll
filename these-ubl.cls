@@ -204,19 +204,21 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%% VARIABLES PAGE DE GARDE %%%%%%%%%%%%%%%%
 
-%%%%% Ecole doctorale definissant le dossier contenant les info de cette ED
-\newcommand*{\ecole}[1]{\gdef\direcole{./Couverture-these/ecoles-doctorales/#1}}
-\ecole{}
+%%%%% Dossier contenant les info de l'ecole doctorale
+\newcommand*{\direcole}[1]{\gdef\vdirecole{./Couverture-these/ecoles-doctorales/#1}}
+\direcole{}
 
-%%%%% Nom ecole
-\newcommand{\nomecole}[1]{\gdef\@nomecole{#1}}
-\nomecole{}
+%%%%% Nom ecole, une variable par ligne
+\newcommand{\nomecoleA}[1]{\gdef\@nomecoleA{#1}}
+\nomecoleA{}
+\newcommand{\nomecoleB}[1]{\gdef\@nomecoleB{#1}}
+\nomecoleB{}
 
 %%%%% Numero ecole doctorale
 \newcommand{\numeroecole}[1]{\gdef\@numeroecole{#1}}
 \numeroecole{}
 
-%%%% Etablissement delivrant le diplome: one variable per displayed line
+%%%% Etablissement delivrant le diplome, une variable par ligne
 \newcommand{\nometablissementA}[1]{\gdef\vnometablissementA{#1}}
 \nometablissementA{}
 \newcommand{\nometablissementB}[1]{\gdef\vnometablissementB{#1}}
@@ -275,7 +277,7 @@
     \put(0,0){%
     \parbox[b][42.6cm]{\paperwidth}{%
         \vfill
-        \includegraphics[width=\paperwidth,keepaspectratio,trim={0 5pt 0 0}]{\direcole/image-fond-garde} % Must trim white border off of bottom
+        \includegraphics[width=\paperwidth,keepaspectratio,trim={0 5pt 0 0}]{\vdirecole/image-fond-garde} % Must trim white border off of bottom
         \begin{tikzpicture}
             \fill[color-ecole] (0,0) rectangle (\paperwidth,4.4);
         \end{tikzpicture}
@@ -286,7 +288,7 @@
   \draw [draw=white,fill=white]
     (current page.north west) rectangle (\paperwidth,1);
   \node[xshift=6.3cm,yshift=2cm] {
-      \includegraphics[height=2.4cm,left]{\direcole/logo}
+      \includegraphics[height=2.4cm,left]{\vdirecole/logo}
   };
   \node[xshift=.6\paperwidth,yshift=2cm] {
       \includegraphics[height=2.4cm,width=5cm,keepaspectratio]{\vlogoetablissement}
@@ -305,6 +307,7 @@
 
 \vspace{1.3cm}
 
+  {\if\@nomecoleB\empty ~\\ \else \fi} % To compensate the 2 lines of MathSTIC
 {\setlength{\baselineskip}{0.9\baselineskip}
 {\if\vnometablissementA\empty ~\\ \else \large \vnometablissementA \\ \fi}
 {\if\vnometablissementB\empty ~\\ \else \large \vnometablissementB \\ \fi}
@@ -313,7 +316,8 @@
 \vspace{0.01cm}
 {\setlength{\baselineskip}{0.7\baselineskip}
 {\small\textsc{\'{E}cole Doctorale \No \@numeroecole}} \\
- \textit{\@nomecole} \\
+{\textit{\@nomecoleA}} \\
+{\if\@nomecoleB\empty \else \textit{\@nomecoleB} \\ \fi}
 {Sp\'{e}cialit\'{e} : \textit{\@spec}}
 
 \fontsize{12}{10}\selectfont
@@ -354,12 +358,12 @@
     \put(0,0){%
     \parbox[t][\paperheight]{\paperwidth}{%
         \vspace{-29.6cm}
-        \includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{\direcole/image-fond-dos}%
+        \includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{\vdirecole/image-fond-dos}%
     }}
     \put(0,0){%
     \parbox[t][\paperheight]{\paperwidth}{%
         \vspace{-14.5cm}
-        \includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{\direcole/image-fond-dos2}%
+        \includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{\vdirecole/image-fond-dos2}%
     }}
 }
 \pagestyle{empty}
@@ -368,7 +372,7 @@
   \draw [draw=white]
     (current page.north west) rectangle (\paperwidth,1);
   \node[xshift=6.3cm,yshift=2cm] {
-      \includegraphics[height=2.4cm,left]{\direcole/logo}
+      \includegraphics[height=2.4cm,left]{\vdirecole/logo}
   };
   \hfill
   \node[xshift=.55\paperwidth,yshift=2cm] {
