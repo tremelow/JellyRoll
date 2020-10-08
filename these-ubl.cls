@@ -290,8 +290,8 @@
   \node[xshift=6.3cm,yshift=2cm] {
       \includegraphics[height=2.4cm,left]{\vdirecole/logo}
   };
-  \node[xshift=.6\paperwidth,yshift=2cm] {
-      \includegraphics[height=2.4cm,width=5cm,keepaspectratio]{\vlogoetablissement}
+  \node[xshift=6.2cm,yshift=2cm] {
+      \includegraphics[height=2.4cm,width=8cm,keepaspectratio,right]{\vlogoetablissement}
   };
    \node at (current page.center)
 {\parbox{17.6cm}{
@@ -375,8 +375,8 @@
       \includegraphics[height=2.4cm,left]{\vdirecole/logo}
   };
   \hfill
-  \node[xshift=.55\paperwidth,yshift=2cm] {
-      \includegraphics[height=2.4cm,width=5cm,keepaspectratio]{\vlogoetablissement}
+  \node[xshift=6.2cm,yshift=2cm] {
+      \includegraphics[height=2.4cm,width=8cm,keepaspectratio,right]{\vlogoetablissement}
   };
 \end{tikzpicture}
 \par\nobreak
