@@ -269,11 +269,11 @@
   %background image of the front cover
   \AddToShipoutPicture*{%
     \put(0,0){%
-    \parbox[b][42.5cm]{\paperwidth}{%
+    \parbox[b][42.6cm]{\paperwidth}{%
         \vfill
-        \includegraphics[width=\paperwidth,keepaspectratio,trim={0 4pt 0 0}]{\direcole/image-fond-garde} % Must trim white border off of bottom
+        \includegraphics[width=\paperwidth,keepaspectratio,trim={0 5pt 0 0}]{\direcole/image-fond-garde} % Must trim white border off of bottom
         \begin{tikzpicture}
-            \fill[color-ecole] (0,0) rectangle (\paperwidth,4.3);
+            \fill[color-ecole] (0,0) rectangle (\paperwidth,4.4);
         \end{tikzpicture}
         \vfill
   }}}
