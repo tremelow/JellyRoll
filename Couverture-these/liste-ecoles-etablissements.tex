@@ -1,0 +1,153 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% ETABLISSEMENTS %%%%%%%%%%%%%%%%
+
+%%% Switch case in latex
+%%% https://tex.stackexchange.com/a/343306
+\makeatletter
+\newcommand\addcase[3]{\expandafter\def\csname\string#1@case@#2\endcsname{#3}}
+\newcommand\makeswitch[2][]{%
+  \newcommand#2[1]{%
+    \ifcsname\string#2@case@##1\endcsname\csname\string#2@case@##1\endcsname\else#1\fi%
+  }%
+}
+\makeatother
+
+
+%%%% Nom du logo et nom complet sur plusieurs lignes pour chaque établissement
+\newcommand\addetablissement[4]{\logoetablissement{#1}\nometablissementA{#2}\nometablissementB{#3}\nometablissementC{#4}}
+
+\makeswitch[default]\etablissement{}
+
+\addcase\etablissement{CS}{\addetablissement
+    {CS}
+    {}
+    {}
+    {CENTRALESUP\'{E}LEC}
+}
+\addcase\etablissement{ECN}{\addetablissement
+    {ECN}
+    {}
+    {}
+    {L'\'{E}COLE CENTRALE DE NANTES}
+}
+\addcase\etablissement{EHESP}{\addetablissement
+    {EHESP}
+    {}
+    {L'\'{E}COLE DES HAUTES \'{E}TUDES}
+    {EN SANT\'{E} PUBLIQUE DE RENNES}
+}
+\addcase\etablissement{ENIB}{\addetablissement
+    {ENIB}
+    {}
+    {L'\'{E}COLE NATIONALE}
+    {D'ING\'{E}NIEURS DE BREST}
+}
+\addcase\etablissement{ENS}{\addetablissement
+    {ENS}
+    {}
+    {L'\'{E}COLE NORMALE}
+    {SUP\'{E}RIEURE RENNES}
+}
+\addcase\etablissement{ENSA}{\addetablissement
+    {ENSA}
+    {}
+    {L'\'{E}COLE NORMALE SUP\'{E}RIEURE}
+    {D'ARCHITECTURE DE NANTES}
+}
+\addcase\etablissement{ENSAB}{\addetablissement
+    {ENSAB}
+    {}
+    {L'\'{E}COLE NORMALE SUP\'{E}RIEURE}
+    {D'ARCHITECTURE DE BRETAGNE}
+}
+\addcase\etablissement{ENSAI}{\addetablissement
+    {ENSAI}
+    {}
+    {L'\'{E}COLE NATIONALE DE LA STATISTIQUE}
+    {ET DE L'ANALYSE DE L'INFORMATION}
+}
+\addcase\etablissement{ENSCR}{\addetablissement
+    {ENSCR}
+    {}
+    {L'\'{E}COLE NATIONALE SUP\'{E}RIEURE}
+    {DE CHIMIE RENNES}
+}
+\addcase\etablissement{ENSTA}{\addetablissement
+    {ENSTA}
+    {}
+    {L'\'{E}COLE NATIONALE SUP\'{E}RIEURE}
+    {DE TECHNIQUES AVANC\'{E}ES BRETAGNE}
+}
+\addcase\etablissement{IMTA}{\addetablissement
+    {IMTA}
+    {L'\'{E}COLE NATIONALE SUP\'{E}RIEURE}
+    {MINES-T\'{E}L\'{E}COM ATLANTIQUE BRETAGNE}
+    {PAYS-DE-LA-LOIRE - IMT ATLANTIQUE}
+}
+\addcase\etablissement{INSA}{\addetablissement
+    {INSA}
+    {}
+    {L'INSTITUT NATIONAL DES}
+    {SCIENCES APPLIQU\'{E}ES RENNES}
+}
+\addcase\etablissement{InstitutAgro}{\addetablissement
+    {InstitutAgro}
+    {L'INSTITUT NATIONAL D'ENSEIGNEMENT SUP\'{E}RIEUR}
+    {POUR L'AGRICULTURE, L'ALIMENTATION ET}
+    {L'ENVIRONNEMENT - ECOLE INTERNE AGROCAMPUS OUEST}
+}
+\addcase\etablissement{LMU}{\addetablissement
+    {LMU}
+    {}
+    {}
+    {LE MANS UNIVERSIT\'{E}}
+}
+\addcase\etablissement{Oniris}{\addetablissement
+    {Oniris}
+    {}
+    {}
+    {ONIRIS}
+}
+\addcase\etablissement{UA}{\addetablissement
+    {UA-couleur}
+    {}
+    {}
+    {L'UNIVERSIT\'{E} D'ANGERS}
+}
+\addcase\etablissement{UB}{\addetablissement
+    {UB}
+    {}
+    {}
+    {L'UNIVERSIT\'{E} DE BREST}
+}
+\addcase\etablissement{UBO}{\addetablissement
+    {UBO}
+    {}
+    {}
+    {L'UNIVERSIT\'{E} DE BRETAGNE OCCIDENTALE}
+}
+\addcase\etablissement{UBS}{\addetablissement
+    {UBS}
+    {}
+    {}
+    {L'UNIVERSIT\'{E} DE BRETAGNE SUD}
+}
+\addcase\etablissement{UN}{\addetablissement
+    {UN-noir}
+    {}
+    {}
+    {L'UNIVERSIT\'{E} DE NANTES}
+}
+\addcase\etablissement{UR1}{\addetablissement
+    {UR1-noir}
+    {}
+    {}
+    {L'UNIVERSIT\'{E} DE RENNES 1}
+}
+\addcase\etablissement{UR2}{\addetablissement
+    {UR2}
+    {}
+    {}
+    {L'UNIVERSIT\'{E} DE RENNES 2}
+}
+

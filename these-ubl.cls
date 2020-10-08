@@ -216,8 +216,16 @@
 \newcommand{\numeroecole}[1]{\gdef\@numeroecole{#1}}
 \numeroecole{}
 
-% Logo etablissement delivrant le diplome
-\newcommand*{\logoetablissement}[1]{\gdef\vlogoetablissement{#1}}
+%%%% Etablissement delivrant le diplome: one variable per displayed line
+\newcommand{\nometablissementA}[1]{\gdef\vnometablissementA{#1}}
+\nometablissementA{}
+\newcommand{\nometablissementB}[1]{\gdef\vnometablissementB{#1}}
+\nometablissementB{}
+\newcommand{\nometablissementC}[1]{\gdef\vnometablissementC{#1}}
+\nometablissementC{}
+
+%%%% Logo etablissement delivrant le diplome
+\newcommand*{\logoetablissement}[1]{\gdef\vlogoetablissement{./Couverture-these/logos-etablissements/#1}}
 \logoetablissement{}
 
 %%%% Eventuel sous-titre
@@ -232,10 +240,6 @@
 \newcommand{\jury}[1]{\gdef\@jury{#1}}
 \jury{}
 
-%%%% Laboratoire / department / unit\'{e}
-\newcommand{\unite}[1]{\gdef\@unite{#1}}
-\unite{}
-
 %%%%% Sp\'{e}cialit\'{e}
 \newcommand{\spec}[1]{\gdef\@spec{#1}}
 \spec{}
@@ -244,7 +248,7 @@
 \newcommand{\lieu}[1]{\gdef\@lieu{#1}}
 \lieu{}
 
-%%% Unite de recherche
+%%% Unite de recherche: laboratoire / department / unit\'{e}
 \newcommand{\uniterecherche}[1]{\gdef\@uniterecherche{#1}}
 \uniterecherche{}
 
@@ -299,10 +303,12 @@
 %\ding{167}
 %\end{huge}
 
-\vspace{2.1cm}
+\vspace{1.3cm}
 
-{\setlength{\baselineskip}{0.9\baselineskip} {\large \@unite} \\
-{} \\ %%% Used to be Comue UBL, keep for next Comue?
+{\setlength{\baselineskip}{0.9\baselineskip}
+{\if\vnometablissementA\empty ~\\ \else \large \vnometablissementA \\ \fi}
+{\if\vnometablissementB\empty ~\\ \else \large \vnometablissementB \\ \fi}
+{\large \vnometablissementC} \\
 \par}
 \vspace{0.01cm}
 {\setlength{\baselineskip}{0.7\baselineskip}
@@ -325,7 +331,7 @@
 	 \textbf{Unit\'{e} de recherche : \@uniterecherche} \\
 	 \textbf{\if\@numthese\empty \else Th\`{e}se \No : \@numthese \fi} % Hide line if no number provided
 \end{spacing}
-\vspace{1.1cm}
+\vspace{1.3cm}
 	\begin{small}
 	\begin{spacing}{1}
 		 \@jury
