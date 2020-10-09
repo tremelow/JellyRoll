@@ -225,10 +225,16 @@
 \nometablissementB{}
 \newcommand{\nometablissementC}[1]{\gdef\vnometablissementC{#1}}
 \nometablissementC{}
+\newcommand{\nometablissementD}[1]{\gdef\vnometablissementD{#1}}
+\nometablissementD{}
+\newcommand{\nometablissementE}[1]{\gdef\vnometablissementE{#1}}
+\nometablissementE{}
 
-%%%% Logo etablissement delivrant le diplome
-\newcommand*{\logoetablissement}[1]{\gdef\vlogoetablissement{./Couverture-these/logos-etablissements/#1}}
-\logoetablissement{}
+%%%% Logos etablissement delivrant le diplome, supporte deuble affiliation
+\newcommand*{\logoetablissementA}[1]{\gdef\vlogoetablissementA{./Couverture-these/logos-etablissements/#1}}
+\logoetablissementA{}
+\newcommand*{\logoetablissementB}[1]{\gdef\vlogoetablissementB{./Couverture-these/logos-etablissements/#1}}
+\logoetablissementB{}
 
 %%%% Eventuel sous-titre
 \newcommand{\lesoustitre}[1]{\gdef\@lesoustitre{#1}}
@@ -305,13 +311,14 @@
 %\ding{167}
 %\end{huge}
 
-\vspace{1.3cm}
 
   {\if\@nomecoleB\empty ~\\ \else \fi} % To compensate the 2 lines of MathSTIC
 {\setlength{\baselineskip}{0.9\baselineskip}
 {\if\vnometablissementA\empty ~\\ \else \large \vnometablissementA \\ \fi}
 {\if\vnometablissementB\empty ~\\ \else \large \vnometablissementB \\ \fi}
-{\large \vnometablissementC} \\
+{\if\vnometablissementC\empty ~\\ \else \large \vnometablissementC \\ \fi}
+{\if\vnometablissementD\empty ~\\ \else \large \vnometablissementD \\ \fi}
+{\large \vnometablissementE} \\
 \par}
 \vspace{0.01cm}
 {\setlength{\baselineskip}{0.7\baselineskip}
