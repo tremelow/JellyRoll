@@ -273,6 +273,22 @@
 \newcommand{\HugeFront}{\fontsize{26}{31}\selectfont} % Used in 'these de doctorat' title
 \newcommand{\LargeFront}{\fontsize{16}{19}\selectfont} % Used in thesis title
 
+% Affiche les logos sur les pages de couverture
+\newcommand{\displayLogos}{%
+  \thispagestyle{empty}
+  \begin{tikzpicture}[remember picture,overlay,line width=0mm]
+    \draw [draw=white] (current page.north west) rectangle (\paperwidth,1);
+    \node[xshift=6.3cm,yshift=2cm] {
+      \includegraphics[height=2.4cm,width=7cm,keepaspectratio,left]{\vdirecole/logo}
+    };
+    \hfill
+    \node[xshift=6.2cm,yshift=2cm] {
+      \includegraphics[height=2.4cm,width=7cm,keepaspectratio,right]{\vlogoetablissementB}
+    };
+  \end{tikzpicture}
+  \par\nobreak
+}
+
 %mise en page de la page de garde
 \makeatletter
 \def\maketitle{%
@@ -289,16 +305,9 @@
         \end{tikzpicture}
         \vfill
   }}}
+  \displayLogos
   %
   \begin{tikzpicture}[remember picture,overlay,line width=0mm]
-  \draw [draw=white,fill=white]
-    (current page.north west) rectangle (\paperwidth,1);
-  \node[xshift=6.3cm,yshift=2cm] {
-      \includegraphics[height=2.4cm,left]{\vdirecole/logo}
-  };
-  \node[xshift=6.2cm,yshift=2cm] {
-      \includegraphics[height=2.4cm,width=8cm,keepaspectratio,right]{\vlogoetablissement}
-  };
    \node at (current page.center)
 {\parbox{17.6cm}{
 \vspace{3.6cm}
@@ -310,7 +319,6 @@
 %\begin{huge}
 %\ding{167}
 %\end{huge}
-
 
   {\if\@nomecoleB\empty ~\\ \else \fi} % To compensate the 2 lines of MathSTIC
 {\setlength{\baselineskip}{0.9\baselineskip}
@@ -361,6 +369,7 @@
 %%%%%%%%%%%%%%%% QUATRIEME DE COUVERTURE %%%%%%%%%%%%%%%%
 
 \newcommand{\backcoverheader}{%
+\thispagestyle{empty}
 \AddToShipoutPicture*{%
     \put(0,0){%
     \parbox[t][\paperheight]{\paperwidth}{%
@@ -373,20 +382,8 @@
         \includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{\vdirecole/image-fond-dos2}%
     }}
 }
-\pagestyle{empty}
 \hspace{1cm}
-\begin{tikzpicture}[remember picture,overlay,line width=0mm]
-  \draw [draw=white]
-    (current page.north west) rectangle (\paperwidth,1);
-  \node[xshift=6.3cm,yshift=2cm] {
-      \includegraphics[height=2.4cm,left]{\vdirecole/logo}
-  };
-  \hfill
-  \node[xshift=6.2cm,yshift=2cm] {
-      \includegraphics[height=2.4cm,width=8cm,keepaspectratio,right]{\vlogoetablissement}
-  };
-\end{tikzpicture}
-\par\nobreak
+\displayLogos
 }
 
 \newcommand{\titleFR}[1]{%
