@@ -171,7 +171,7 @@ To propose changes, (1) you first have to request access to this repository (top
 
 Maintainers: Louiza Yala (2018-), Pierre-Louis Roman (2019-).
 
-Contributors: Louiza Yala, Pierre-Louis Roman, Lucas Bourneuf, Corentin Guezenoc, Clément Elbaz, Florian Arrestier.
+Contributors: Louiza Yala, Pierre-Louis Roman, Lucas Bourneuf, Corentin Guezenoc, Clément Elbaz, Florian Arrestier, Alexandre Honorat.
 
 Upstream git repository: https://gitlab.inria.fr/proman/mathstic-thesis-template
 
