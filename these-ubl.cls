@@ -56,7 +56,6 @@
 \hypersetup{colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black}
 
 \RequirePackage{eso-pic} % For \AddToShipoutPicture used for cover backgrounds
-\RequirePackage[export]{adjustbox} % To position cover logos left/right of pages
 
 % A ajouter dans hypersetup pour plus de visibilite dans les proprietes du document
 %pdftitle={titre du document}, pdfauthor={auteur}, pdfcreator={PdfLaTeX}, pdfkeywords={mots-cl\'{e}}, pdfsubject={sujet du document}
@@ -231,10 +230,18 @@
 \nometablissementE{}
 
 %%%% Logos etablissement delivrant le diplome, supporte deuble affiliation
-\newcommand*{\logoetablissementA}[1]{\gdef\vlogoetablissementA{./Couverture-these/logos-etablissements/#1}}
+\newcommand*{\logoetablissementA}[1]{\gdef\vlogoetablissementA{#1}}
 \logoetablissementA{}
-\newcommand*{\logoetablissementB}[1]{\gdef\vlogoetablissementB{./Couverture-these/logos-etablissements/#1}}
+\newcommand*{\logoetablissementB}[1]{\gdef\vlogoetablissementB{#1}}
 \logoetablissementB{}
+
+%%%% Hauteur des logos, variable selon les (double) affiliations
+\newcommand*{\hauteurlogoecole}[1]{\gdef\vhauteurlogoecole{#1}}
+\hauteurlogoecole{2.4cm}
+\newcommand*{\hauteurlogoetablissementA}[1]{\gdef\vhauteurlogoetablissementA{#1}}
+\hauteurlogoetablissementA{}
+\newcommand*{\hauteurlogoetablissementB}[1]{\gdef\vhauteurlogoetablissementB{#1}}
+\hauteurlogoetablissementB{2.4cm}
 
 %%%% Eventuel sous-titre
 \newcommand{\lesoustitre}[1]{\gdef\@lesoustitre{#1}}
@@ -277,14 +284,26 @@
 \newcommand{\displayLogos}{%
   \thispagestyle{empty}
   \begin{tikzpicture}[remember picture,overlay,line width=0mm]
-    \draw [draw=white] (current page.north west) rectangle (\paperwidth,1);
-    \node[xshift=6.3cm,yshift=2cm] {
-      \includegraphics[height=2.4cm,width=7cm,keepaspectratio,left]{\vdirecole/logo}
-    };
-    \hfill
     \node[xshift=6.2cm,yshift=2cm] {
-      \includegraphics[height=2.4cm,width=7cm,keepaspectratio,right]{\vlogoetablissementB}
-    };
+    \parbox{\textwidth}{
+      $\vcenter{\hbox{%
+        \includegraphics[keepaspectratio,height=\vhauteurlogoecole,%width=7cm
+        ]{\vdirecole/logo}%
+      }}$
+      \hfill
+      {\if\vlogoetablissementA\empty \else
+      $\vcenter{\hbox{%
+        \includegraphics[keepaspectratio,height=\vhauteurlogoetablissementA,width=7cm
+        ]{./Couverture-these/logos-etablissements/\vlogoetablissementA}%
+      }}$
+      \fi}
+      \hspace{3mm}
+      $\vcenter{\hbox{%
+        \includegraphics[keepaspectratio,height=\vhauteurlogoetablissementB,width=7cm
+        ]{./Couverture-these/logos-etablissements/\vlogoetablissementB}%
+      }}$
+      }
+  };
   \end{tikzpicture}
   \par\nobreak
 }

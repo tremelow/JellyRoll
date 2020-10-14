@@ -10,7 +10,12 @@
 }
 \makeatother
 
-
+%%%% Il faut adapter la taille des logos dans certains cas (e.g., EGAAL, 2 etablissements)
+\newcommand\hauteurlogos[3]{
+    \hauteurlogoecole{#1}
+    \hauteurlogoetablissementA{#2}
+    \hauteurlogoetablissementB{#3}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%% ECOLES DOCTORALES %%%%%%%%%%%%%%%%
@@ -61,6 +66,7 @@
     {146,213,182}
     {\'{E}cologie, G\'{e}osciences, Agronomie et Alimentation}
     {}
+    \hauteurlogos{2cm}{2cm}{2cm}
 }
 \addcase\ecole{ELICC}{\addecole
     {ELICC}
@@ -68,6 +74,7 @@
     {249,201,188}
     {\'{E}ducation, Langages, Interactions, Cognition, Clinique}
     {}
+    \hauteurlogos{2cm}{2cm}{2cm}
 }
 \addcase\ecole{MathSTIC}{\addecole
     {MathSTIC}
@@ -262,6 +269,7 @@
     {D'ARCHITECTURE DE BRETAGNE}
     {D\'{E}LIVR\'{E}E CONJOINTEMENT AVEC}
     {L'UNIVERSIT\'{E} DE RENNES 2}
+    \hauteurlogos{2cm}{1.2cm}{2cm}
 }
 % BS, DSP, MathSTIC: UR1-UR2
 \addcase\etablissement{UR1-UR2}{\addpairetablissements
@@ -272,6 +280,7 @@
     {L'UNIVERSIT\'{E} DE RENNES 2}
     {D\'{E}LIVR\'{E}E CONJOINTEMENT AVEC}
     {L'UNIVERSIT\'{E} DE RENNES 1}
+    \hauteurlogos{2cm}{2cm}{2cm}
 }
 % DSP, EDGE: UR1-EHESP
 \addcase\etablissement{UR1-EHESP}{\addpairetablissements
@@ -282,6 +291,7 @@
     {D\'{E}LIVR\'{E}E CONJOINTEMENT AVEC}
     {L'\'{E}COLE DES HAUTES \'{E}TUDES}
     {EN SANT\'{E} PUBLIQUE DE RENNES}
+    \hauteurlogos{2cm}{2cm}{2cm}
 }
 % EGAAL: UA-LMU
 \addcase\etablissement{UA-LMU}{\addpairetablissements
@@ -292,6 +302,7 @@
     {LE MANS UNIVERSIT\'{E}}
     {D\'{E}LIVR\'{E}E CONJOINTEMENT AVEC}
     {L'UNIVERSIT\'{E} D'ANGERS}
+    \hauteurlogos{2cm}{1cm}{2cm}
 }
 % MathSTIC: UR1-InstitutAgro
 \addcase\etablissement{UR1-InstitutAgro}{\addpairetablissements
@@ -302,6 +313,7 @@
     {L'ENVIRONNEMENT - ECOLE INTERNE AGROCAMPUS OUEST}
     {D\'{E}LIVR\'{E}E CONJOINTEMENT AVEC}
     {L'UNIVERSIT\'{E} DE RENNES 1}
+    \hauteurlogos{1.8cm}{1.3cm}{1.5cm}
 }
 % SML: UBO-IMTA
 \addcase\etablissement{UBO-IMTA}{\addpairetablissements
@@ -312,6 +324,7 @@
     {PAYS-DE-LA-LOIRE - IMT ATLANTIQUE}
     {D\'{E}LIVR\'{E}E CONJOINTEMENT AVEC}
     {L'UNIVERSIT\'{E} DE BRETAGNE OCCIDENTALE}
+    \hauteurlogos{2cm}{1.8cm}{1.8cm}
 }
 % SPI: ECN-ENSA
 \addcase\etablissement{ECN-ENSA}{\addpairetablissements
@@ -322,6 +335,7 @@
     {D'ARCHITECTURE DE NANTES}
     {D\'{E}LIVR\'{E}E CONJOINTEMENT AVEC}
     {L'\'{E}COLE CENTRALE DE NANTES}
+    \hauteurlogos{2cm}{1.8cm}{1.8cm}
 }
 % SPI: UBO-ENIB
 \addcase\etablissement{UBO-ENIB}{\addpairetablissements
@@ -332,6 +346,7 @@
     {D'ING\'{E}NIEURS DE BREST}
     {D\'{E}LIVR\'{E}E CONJOINTEMENT AVEC}
     {L'UNIVERSIT\'{E} DE BRETAGNE OCCIDENTALE}
+    \hauteurlogos{2cm}{1.8cm}{1.6cm}
 }
 % SPI: UN-Oniris
 \addcase\etablissement{UN-Oniris}{\addpairetablissements
@@ -342,6 +357,7 @@
     {ONIRIS}
     {D\'{E}LIVR\'{E}E CONJOINTEMENT AVEC}
     {L'UNIVERSIT\'{E} DE NANTES}
+    \hauteurlogos{2cm}{2cm}{2cm}
 }
 % STT: ENSA-UN
 \addcase\etablissement{ENSA-UN}{\addpairetablissements
@@ -352,4 +368,5 @@
     {D'ARCHITECTURE DE NANTES}
     {D\'{E}LIVR\'{E}E CONJOINTEMENT AVEC}
     {L'UNIVERSIT\'{E} DE NANTES}
+    \hauteurlogos{2cm}{2cm}{2cm}
 }
