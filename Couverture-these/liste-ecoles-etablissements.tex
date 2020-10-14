@@ -242,13 +242,21 @@
 }
 
 
-%%%% #1-#2: nom des deux logos, #3-#7: nom complet de la double affliation sur plusieurs lignes
-\newcommand\addpairetablissements[7]{\logoetablissementA{#1}\logoetablissementB{#2}\nometablissementA{#3}\nometablissementB{#4}\nometablissementC{#5}\nometablissementD{#6}\nometablissementE{#7}}
+%%%% #1-#2: nom des deux logos, #3-#7: nom complet de la double affiliation sur plusieurs lignes
+\newcommand\addpairetablissements[7]{
+    \logoetablissementA{#1}
+    \logoetablissementB{#2}
+    \nometablissementA{#3}
+    \nometablissementB{#4}
+    \nometablissementC{#5}
+    \nometablissementD{#6}
+    \nometablissementE{#7}
+}
 
 % ALL, STT: UR2-ENSAB
 \addcase\etablissement{UR2-ENSAB}{\addpairetablissements
+    {ENSAB}
     {UR2}
-    {ENSA}
     {}
     {L'\'{E}COLE NORMALE SUP\'{E}RIEURE}
     {D'ARCHITECTURE DE BRETAGNE}
@@ -257,8 +265,8 @@
 }
 % BS, DSP, MathSTIC: UR1-UR2
 \addcase\etablissement{UR1-UR2}{\addpairetablissements
-    {UR1-noir}
     {UR2}
+    {UR1-noir}
     {}
     {}
     {L'UNIVERSIT\'{E} DE RENNES 2}
