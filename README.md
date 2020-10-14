@@ -1,12 +1,12 @@
-# ![(French flag)](https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/50px-Flag_of_France.svg.png) Modèle de thèse MathSTIC
+# ![(French flag)](https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/50px-Flag_of_France.svg.png) Modèle de thèse Doctorat Bretagne Loire
 
 *Explications en français*
 
-Ce dépôt contient un modèle latex utilisable pour le manuscrit de thèse de l'[école doctorale MathSTIC](https://ed-mathstic.doctorat-bretagneloire.fr) de l'[École des docteurs Bretagne Loire](https://www.doctorat-bretagneloire.fr/).
+Ce dépôt contient un modèle latex pour le manuscrit de thèse supportant toutes les écoles doctorales de l'[École des docteurs Bretagne Loire](https://www.doctorat-bretagneloire.fr/).
 
 Ce modèle a pour but principal de fournir une première et une quatrième de couverture du manuscrit de thèse intégralement écrites en latex.
-Ces couvertures ont été (manuellement) calquées sur le modèle original au format M$ Word fourni par MathSTIC en 2018.
-Tandis que la couverture du manuscrit se doit de respecter le format établi par MathSTIC, la disposition du contenu interne du manuscrit est elle plus flexible.
+Ces couvertures ont été (manuellement) calquées sur le modèle original au format M$ Word fourni par MathSTIC en 2018, puis généralisé à toutes les écoles doctorales DBL.
+Tandis que la couverture du manuscrit se doit de respecter le format établi par DBL, la disposition du contenu interne du manuscrit est elle plus flexible.
 La disposition proposée dans ce modèle est donc donnée à titre d'exemple mais il n'est cependant pas obligatoire de la respecter.
 
 
@@ -23,19 +23,11 @@ La disposition proposée dans ce modèle est donc donnée à titre d'exemple mai
 ### Remplir la première et quatrième de couverture
 
 Les informations de la page de garde doivent être renseignées dans les variables du fichier `Couverture-these/pagedegarde.tex`.
-Modifier la disposition des éléments de la page de garde présente dans `these-ubl.cls` ne devrait  être nécessaire que pour rajouter quelques `\vspace` pour préserver la structure original après avoir renseigné la composition du jury.
+Il suffit de modifier les lignes appelant les commandes `\ecole{}` et `\etablissement{}` pour adapter les couvertures à l'école doctorale et à l'établissement, ou les établissements, délivrant le diplôme (par défaut MathSTIC et Université de Rennes 1, respectivement).
+Le fichier `Couverture-these/README-LISTE-CHOIX.MD` liste Les écoles doctorales et établissements supportés ainsi que des liens vers les listes des spécialités et unités de recherche de chaque école doctorale pour aider à compléter la page de garde (commandes `\spec{}` et `\uniterecherche{}`).
+Modifier la disposition des éléments de la page de garde présente dans `these-ubl.cls` ne devrait  être nécessaire que pour rajouter quelques `\vspace` pour préserver la structure original après avoir renseigné les différents champs (e.g., spécialité, composition du jury).
 
 Les variables relatives à la quatrième de couverture sont à renseigner dans `Couverture-these/resume.tex`.
-
-
-#### Changer l'établissement de délivrance du diplôme
-
-Vous devez modifier deux variables dans `Couverture-these/pagedegarde.tex` :
-
-- `\unite` contient le nom complet de l'établissement qui délivre le diplôme
-- `\logoetablissement` contient le chemin vers l'image du logo de l'établissement, une liste de logos est fournise dans le dossier `Couverture-these/logos-etablissements/`
-
-L'affichage du nom de l'établissement peut être modifé ligne 291 de `these-ubl.cls` où `\large` peut par exemple être remplacé par `\textsc` ce qui peut améliorer le rendu pour certains établissements.
 
 
 ### Dépendances
@@ -78,26 +70,27 @@ Il faut utiliser `\selectlanguage{x}` (où x est `french` ou `english`) pour cha
 Si la langue principale du contenu du document est l'anglais, vous devez effectuer quelques modifications au modèle :
 
 - utiliser `\selectlanguage{english}` à la ligne 17 de `main.tex`
-- modifier la ligne 440 de `these-ubl.cls` pour remplacer `Partie` par `Part` dans les entêtes
+- modifier la ligne 492 de `these-ubl.cls` pour remplacer `Partie` par `Part` dans les entêtes
 - inclure un résumé en français d'au moins 4 pages
 
 
 ### Changer la police du contenu
 
-La police imposée pour les couvertures est Arial mais vous pouvez utiliser une autre police pour le contenu de la thèse en modifiant les lignes 77-78 de `these-ubl.cls`.
+La police imposée pour les couvertures est Arial mais vous pouvez utiliser une autre police pour le contenu de la thèse en modifiant les lignes 79-80 de `these-ubl.cls`.
 Actuellement la police par défaut de latex est celle utilisée pour le contenu.
+
 
 -----
 
-# ![(UK flag)](https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/50px-Flag_of_the_United_Kingdom.svg.png) MathSTIC thesis template
+# ![(UK flag)](https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Flag_of_the_United_Kingdom.svg/50px-Flag_of_the_United_Kingdom.svg.png) Thesis template for Doctorat Bretagne Loire
 
 *English explanations*
 
-This repository contains a template for the thesis manuscript of the [MathSTIC doctoral school](https://ed-mathstic.doctorat-bretagneloire.fr/en) of the [École des docteurs Bretagne Loire](https://www.doctorat-bretagneloire.fr/).
+This repository contains a template for the thesis manuscript supporting all doctoral schools of the [École des docteurs Bretagne Loire](https://www.doctorat-bretagneloire.fr/).
 
 The main goal of this template is to provide both front and back covers of the thesis manuscript entirely written in latex.
-These covers have been (manually) reproduced from the original M$ Word model provided by MathSTIC in 2018.
-While the manuscript covers must follow the rules of MathSTIC, the internal layout of the content is more flexible.
+These covers have been (manually) reproduced from the original M$ Word model provided by MathSTIC in 2018, then generalized to all doctoral schools.
+While the manuscript covers must follow the rules of DBL, the internal layout of the content is more flexible.
 The content layout provided in this template is therefore given as an exemple rather than as a  mandatory framework.
 
 
@@ -113,19 +106,12 @@ The content layout provided in this template is therefore given as an exemple ra
 
 #### Fill the front and back cover
 
-The front cover details must be provided by filling the variables in `Couverture-these/pagedegarde.tex`. Modifying the front cover layout defined in `these-ubl.cls` should only be necessary to preserve the original layout after filling the jury section by adding a few `\vspace`.
+The front cover details must be provided by filling the variables in `Couverture-these/pagedegarde.tex`.
+The lines calling the `\ecole{}` and `\etablissement{}` (i.e., institution) commands must be modified to adapt the covers to the doctoral school and institution(s) delivering the diplome (by default set to MathSTIC and Université de Rennes 1, respectively).
+The file `Couverture-these/README-LISTE-CHOIX.MD` lists the supported doctoral schools and institutions, and contains links pointing to lists of domains and labs/faculties, for each doctoral school, that are needed to fill the front cover (commands `\spec{}` and `\uniterecherche{}`).
+Modifying the front cover layout defined in `these-ubl.cls` should only be necessary to preserve the original layout using a few `\vspace` after filling the front cover (e.g., domain, jury section).
 
 The back cover variables that must be filled are in `Couverture-these/resume.tex`.
-
-
-##### Change the institution that delivers the diploma
-
-You have to modify two variables in `Couverture-these/pagedegarde.tex`:
-
-- `\unite` contains the full name of the institution that delivers the diploma
-- `\logoetablissement` contains the path to the image of the logo of the institution, a list of logos is provided for you in the directory `Couverture-these/logos-etablissements/`
-
-The institution display can be modified at line 291 of `these-ubl.cls` where `\large` can for instance be replaced by `\textsc` which might improve the display for some institutions.
 
 
 #### Dependencies
@@ -167,13 +153,13 @@ Use `\selectlanguage{x}` (where x is `french` or `english`) to switch language a
 If the main language of your document is English, you must apply the following changes to the provided template:
 
 - use `\selectlanguage{english}` at line 17 of `main.tex`
-- edit line 440 of `these-ubl.cls` to replace `Partie` by `Part` in the headers
+- edit line 492 of `these-ubl.cls` to replace `Partie` by `Part` in the headers
 - include a summary in French of at least 4 pages
 
 
 ### Change the content font
 
-The required font for the covers is Arial but you can use another font for the content of the thesis by editing lines 77-78 of `these-ubl.cls`.
+The required font for the covers is Arial but you can use another font for the content of the thesis by editing lines 79-80 of `these-ubl.cls`.
 Currently the latex default font is the one used for the content.
 
 
