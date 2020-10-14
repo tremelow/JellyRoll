@@ -276,9 +276,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%% PAGE DE GARDE %%%%%%%%%%%%%%%%
 
-% Define some font sizes specific to the front cover
-\newcommand{\HugeFront}{\fontsize{26}{31}\selectfont} % Used in 'these de doctorat' title
-\newcommand{\LargeFront}{\fontsize{16}{19}\selectfont} % Used in thesis title
+% Define some font sizes specific to the covers, supposed to be in 12pt
+\newcommand{\HugeTwelve}{\fontsize{26}{31}\selectfont} % 12pt \Huge
+\newcommand{\LARGETwelve}{\fontsize{20.74}{25}\selectfont} % 12pt \LARGE
+\newcommand{\LargeTwelve}{\fontsize{16}{19}\selectfont} % 12pt \Large
+\newcommand{\largeTwelve}{\fontsize{14.4}{17}\selectfont} % 12pt \large
+\newcommand{\normalTwelve}{\fontsize{12}{13.2}\selectfont} % 12pt \normalsize
+\newcommand{\smallTwelve}{\fontsize{11}{13.5}\selectfont} % 12pt \small
+\newcommand{\footnotesizeTwelve}{\fontsize{9.5}{11}\selectfont} % 12pt \footnotesize
 
 % Affiche les logos sur les pages de couverture
 \newcommand{\displayLogos}{%
@@ -333,38 +338,35 @@
 
 \selectfontfrontcover % Set font style for front cover page
 
-{\HugeFront \textsc{Th\`{e}se de doctorat de}} \\
+{\HugeTwelve \textsc{Th\`{e}se de doctorat de} \\}
 
-%\begin{huge}
-%\ding{167}
-%\end{huge}
-
-  {\if\@nomecoleB\empty ~\\ \else \fi} % To compensate the 2 lines of MathSTIC
+% \vspace{5mm}
+{\normalTwelve \if\@nomecoleB\empty ~\\ \else \fi} % To compensate the 2 lines of MathSTIC
 {\setlength{\baselineskip}{0.9\baselineskip}
-{\if\vnometablissementA\empty ~\\ \else \large \vnometablissementA \\ \fi}
-{\if\vnometablissementB\empty ~\\ \else \large \vnometablissementB \\ \fi}
-{\if\vnometablissementC\empty ~\\ \else \large \vnometablissementC \\ \fi}
-{\if\vnometablissementD\empty ~\\ \else \large \vnometablissementD \\ \fi}
-{\large \vnometablissementE} \\
+{\largeTwelve \if\vnometablissementA\empty ~ \else \vnometablissementA \fi} \\
+{\largeTwelve \if\vnometablissementB\empty ~ \else \vnometablissementB \fi} \\
+{\largeTwelve \if\vnometablissementC\empty ~ \else \vnometablissementC \fi} \\
+{\largeTwelve \if\vnometablissementD\empty ~ \else \vnometablissementD \fi} \\
+{\largeTwelve \vnometablissementE} \\
 \par}
 \vspace{0.01cm}
 {\setlength{\baselineskip}{0.7\baselineskip}
-{\small\textsc{\'{E}cole Doctorale \No \@numeroecole}} \\
-{\textit{\@nomecoleA}} \\
-{\if\@nomecoleB\empty \else \textit{\@nomecoleB} \\ \fi}
-{Sp\'{e}cialit\'{e} : \textit{\@spec}}
+{\smallTwelve \textsc{\'{E}cole Doctorale \No \@numeroecole}} \\
+{\normalTwelve \textit{\@nomecoleA}} \\
+{\normalTwelve \if\@nomecoleB\empty \else \textit{\@nomecoleB} \\ \fi}
+{\normalTwelve Sp\'{e}cialit\'{e} : \textit{\@spec}}
 
-\fontsize{12}{10}\selectfont
+%\fontsize{12}{10}\selectfont
 \vspace{0.5cm}
-\hspace{0.6cm}Par \vspace{0.15cm}
+\hspace{0.6cm}{\normalTwelve Par \vspace{0.15cm}}
 \par}
-\hspace{0.6cm}{\LARGE\textbf{\@author}} \vspace{0.5cm}
+\hspace{0.6cm}{\LARGETwelve \textbf{\@author}} \vspace{0.5cm}
 
-{\LargeFront\textbf{\@title}} \vspace{0.5cm}
+{\LargeTwelve \textbf{\@title}} \vspace{0.5cm}
 	
-{\large{\@lesoustitre}} \vspace{0.5cm}
+{\largeTwelve \@lesoustitre} \vspace{0.5cm}
 \begin{spacing}{1}
-	 \small
+	 \smallTwelve
 	 \textbf{Th\`{e}se pr\'{e}sent\'{e}e et soutenue \`{a} \@lieu, le \@date} \\
 	 \textbf{Unit\'{e} de recherche : \@uniterecherche} \\
 	 \textbf{\if\@numthese\empty \else Th\`{e}se \No : \@numthese \fi} % Hide line if no number provided
@@ -410,22 +412,20 @@
 {\centering \noindent \textcolor{color-ecole}{\rule{\textwidth}{0.2cm}}}
 \vspace{-1cm}
 \selectlanguage{french}
-\section*{\selectfontbackcover\small\textcolor{color-ecole}{Titre : }{\selectfontbackcover\mdseries{#1}}} % In this particular case, font style needs to get re-selected locally
+\section*{\selectfontbackcover\smallTwelve \textcolor{color-ecole}{Titre : }{\selectfontbackcover\mdseries{#1}}} % In this particular case, font style needs to get re-selected locally
 }
 
 \newcommand{\keywordsFR}[1]{%
 \vspace{-0.2cm}
-\noindent{\small\textbf{Mot cl\'{e}s : }#1}
+\noindent{\smallTwelve \textbf{Mot cl\'{e}s : }#1}
 }
 
 \newcommand{\abstractFR}[1]{%
 \vspace{-0.2cm}
 \begin{multicols}{2}
-\begin{small}
 \begin{spacing}{1}
-	\noindent \textbf{R\'{e}sum\'{e} : }#1
+	\noindent\smallTwelve \textbf{R\'{e}sum\'{e} : }#1
 \end{spacing}
-\end{small}
 \end{multicols}
 }
 
@@ -434,22 +434,20 @@
 {\centering \noindent \textcolor{color-ecole}{\rule{\textwidth}{0.2cm}}}
 \vspace{-1cm}
 \selectlanguage{english}
-\section*{\selectfontbackcover\small\textcolor{color-ecole}{Title: }{\selectfontbackcover\mdseries{#1}}} % In this particular case, font style needs to get re-selected locally
+\section*{\selectfontbackcover\smallTwelve \textcolor{color-ecole}{Title: }{\selectfontbackcover\mdseries{#1}}} % In this particular case, font style needs to get re-selected locally
 }
 
 \newcommand{\keywordsEN}[1]{%
 \vspace{-0.2cm}
-\noindent{\small\textbf{Keywords: }#1}
+\noindent{\smallTwelve \textbf{Keywords: }#1}
 }
 
 \newcommand{\abstractEN}[1]{%
 \vspace{-0.2cm}
 \begin{multicols}{2}
-\begin{small}
 \begin{spacing}{1}
-	\noindent \textbf{Abstract: }#1
+	\noindent\smallTwelve \textbf{Abstract: }#1
 \end{spacing}
-\end{small}
 \end{multicols}
 }
 
