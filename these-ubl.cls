@@ -382,7 +382,7 @@
         \includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{\vdirecole/image-fond-dos2}%
     }}
 }
-\hspace{1cm}
+\hspace{9mm}
 \displayLogos
 }
 
