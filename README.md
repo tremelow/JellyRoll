@@ -23,7 +23,7 @@ La disposition proposée dans ce modèle est donc donnée à titre d'exemple mai
 ### Remplir la première et quatrième de couverture
 
 Les informations de la page de garde doivent être renseignées dans les variables du fichier `Couverture-these/pagedegarde.tex`.
-Il suffit de modifier les lignes appelant les commandes `\ecole{}` et `\etablissement{}` pour adapter les couvertures à l'école doctorale et à l'établissement, ou les établissements, délivrant le diplôme (par défaut MathSTIC et Université de Rennes 1, respectivement).
+Il suffit de modifier les lignes appelant les commandes `\ecoledoctorale{}` et `\etablissement{}` pour adapter les couvertures à l'école doctorale et à l'établissement, ou les établissements, délivrant le diplôme (par défaut MathSTIC et Université de Rennes 1, respectivement).
 Le fichier `Couverture-these/README-LISTE-CHOIX.MD` liste Les écoles doctorales et établissements supportés ainsi que des liens vers les listes des spécialités et unités de recherche de chaque école doctorale pour aider à compléter la page de garde (commandes `\spec{}` et `\uniterecherche{}`).
 Modifier la disposition des éléments de la page de garde présente dans `these-ubl.cls` ne devrait  être nécessaire que pour rajouter quelques `\vspace` pour préserver la structure original après avoir renseigné les différents champs (e.g., spécialité, composition du jury).
 
@@ -107,7 +107,7 @@ The content layout provided in this template is therefore given as an exemple ra
 #### Fill the front and back cover
 
 The front cover details must be provided by filling the variables in `Couverture-these/pagedegarde.tex`.
-The lines calling the `\ecole{}` and `\etablissement{}` (i.e., institution) commands must be modified to adapt the covers to the doctoral school and institution(s) delivering the diplome (by default set to MathSTIC and Université de Rennes 1, respectively).
+The lines calling the `\ecoledoctorale{}` and `\etablissement{}` (i.e., institution) commands must be modified to adapt the covers to the doctoral school and institution(s) delivering the diplome (by default set to MathSTIC and Université de Rennes 1, respectively).
 The file `Couverture-these/README-LISTE-CHOIX.MD` lists the supported doctoral schools and institutions, and contains links pointing to lists of domains and labs/faculties, for each doctoral school, that are needed to fill the front cover (commands `\spec{}` and `\uniterecherche{}`).
 Modifying the front cover layout defined in `these-ubl.cls` should only be necessary to preserve the original layout using a few `\vspace` after filling the front cover (e.g., domain, jury section).
 

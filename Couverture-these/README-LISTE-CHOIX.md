@@ -5,7 +5,7 @@ Spécialités & unités de recherche:
 https://ed-3m.doctorat-bretagneloire.fr/fr/7_presentation
 
 ```
-\ecole{3M}
+\ecoledoctorale{3M}
 
 \etablissement{ENSCR} % École Nationale Supérieure de Chimie Rennes
 \etablissement{IMTA}  % IMT Atlantique
@@ -24,7 +24,7 @@ https://ed-3m.doctorat-bretagneloire.fr/fr/7_presentation
 Spécialités & unités de recherche: https://ed-all.doctorat-bretagneloire.fr/fr/3_presentation
 
 ```
-\ecole{ALL}
+\ecoledoctorale{ALL}
 
 \etablissement{LMU}       % Le Mans Université
 \etablissement{UA}        % Université d'Angers
@@ -41,7 +41,7 @@ Spécialités & unités de recherche: https://ed-all.doctorat-bretagneloire.fr/f
 Spécialités & unités de recherche: https://ed-bs.doctorat-bretagneloire.fr/fr/4_presentation
 
 ```
-\ecole{BS}
+\ecoledoctorale{BS}
 
 \etablissement{EHESP}   % École des Hautes Études en Santé Publique de Rennes
 \etablissement{ENS}     % École Normale Supérieure de Rennes
@@ -59,7 +59,7 @@ Spécialités & unités de recherche: https://ed-bs.doctorat-bretagneloire.fr/fr
 Spécialités & unités de recherche: https://ed-dsp.doctorat-bretagneloire.fr/fr/6_presentation
 
 ```
-\ecole{DSP}
+\ecoledoctorale{DSP}
 
 \etablissement{LMU}       % Le Mans Université
 \etablissement{UA}        % Université d'Angers
@@ -77,7 +77,7 @@ Spécialités & unités de recherche: https://ed-dsp.doctorat-bretagneloire.fr/f
 Spécialités & unités de recherche: https://ed-edge.doctorat-bretagneloire.fr/fr/10_presentation
 
 ```
-\ecole{EDGE}
+\ecoledoctorale{EDGE}
 
 \etablissement{IMTA}         % IMT Atlantique
 \etablissement{InstitutAgro} % Institut Agro - AgroCampus Ouest
@@ -96,7 +96,7 @@ Spécialités & unités de recherche: https://ed-edge.doctorat-bretagneloire.fr/
 Spécialités & unités de recherche: https://ed-egaal.doctorat-bretagneloire.fr/fr/5_presentation
 
 ```
-\ecole{EGAAL}
+\ecoledoctorale{EGAAL}
 
 \etablissement{InstitutAgro} % Institut Agro - AgroCampus Ouest
 \etablissement{Oniris}       % Oniris
@@ -113,7 +113,7 @@ Spécialités & unités de recherche: https://ed-egaal.doctorat-bretagneloire.fr
 Spécialités & unités de recherche: https://ed-elicc.doctorat-bretagneloire.fr/fr/2_presentation
 
 ```
-\ecole{ELICC}
+\ecoledoctorale{ELICC}
 
 \etablissement{LMU} % Le Mans Université
 \etablissement{UA}  % Université d'Angers
@@ -130,7 +130,7 @@ Spécialités & unités de recherche: https://ed-elicc.doctorat-bretagneloire.fr
 Spécialités & unités de recherche: https://ed-mathstic.doctorat-bretagneloire.fr/fr/8_presentation
 
 ```
-\ecole{MathSTIC}
+\ecoledoctorale{MathSTIC}
 
 \etablissement{CS}               % CentraleSupélec
 \etablissement{ECN}              % École Centrale de Nantes
@@ -156,7 +156,7 @@ Spécialités & unités de recherche: https://ed-mathstic.doctorat-bretagneloire
 Spécialités & unités de recherche: https://ed-sml.doctorat-bretagneloire.fr/fr/9_presentation
 
 ```
-\ecole{SML}
+\ecoledoctorale{SML}
 
 \etablissement{InstitutAgro} % Institut Agro - AgroCampus Ouest
 \etablissement{LMU}          % Le Mans Université
@@ -173,7 +173,7 @@ Spécialités & unités de recherche: https://ed-sml.doctorat-bretagneloire.fr/f
 Spécialités & unités de recherche: https://ed-spi.doctorat-bretagneloire.fr/fr/11_presentation
 
 ```
-\ecole{SPI}
+\ecoledoctorale{SPI}
 
 \etablissement{ECN}       % École Centrale de Nantes
 \etablissement{ECN-ENSA}  % Délivrance conjointe - Joint degrees
@@ -197,7 +197,7 @@ Spécialités & unités de recherche: https://ed-spi.doctorat-bretagneloire.fr/f
 Spécialités & unités de recherche: https://ed-stt.doctorat-bretagneloire.fr/fr/12_acteurs-du-doctorat
 
 ```
-\ecole{STT}
+\ecoledoctorale{STT}
 
 \etablissement{EHESP}     % École des Hautes Études en Santé Publique de Rennes
 \etablissement{ENSA-UN}   % Délivrance conjointe - Joint degrees
