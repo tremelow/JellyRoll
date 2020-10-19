@@ -7,7 +7,10 @@
 % it under the terms of the GNU General Public License as published by
 % the Free Software Foundation
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PROPOSITION DE TEMPLATE POUR THESE DE L'UBL par L.YALA (Doctorante IRISA-UR1, Juin 2018)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PROPOSITION DE TEMPLATE POUR THESE DE L'UBL par L.YALA (Doctorante
+% IRISA-UR1, Juin 2018)
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Revision des en-tetes et prise en compte de [twoside]
 % Revision de la gestion de la bibliographie avec BiblaTex
@@ -15,12 +18,12 @@
 % revision de l'enchainement des chapitres
 % Mise aux normes typographiques suivant les Regles Typographiques
 % en usage \`{a} l'Imprimerie Nationale
-
-
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %these-ubl
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{these-ubl}[18/04/2018 v4.0]
+\ProvidesClass{these-ubl}[15/10/2020 v5.0]
 
 \LoadClass[twoside,multicol,12pt,a4paper]{report}	% notez le "twoside", essentiellement pour alterner les en-tete et pieds de page gauche et droit si on veut utliser les fancyhead. 
 
