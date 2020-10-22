@@ -144,30 +144,33 @@
 %%%%%%%%%%%%%%%% REGLAGE DE LA BIBLIOGRAPHIE %%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%% ATTENTION, on utilise Biblatex %%%%%%%%%%%%%
 
-\RequirePackage[style=verbose-trad1,hyperref,backend=biber]{biblatex} %Pour le style 
-% biblatex avec gestion des mots cl\'{e}s des entr\'{e}es bibliographiques
-% + les abbr\'{e}viations idem, ibidem, op cit. N\'{e}cessite de pr\'{e}voir un fichier
-%  bib contenant ces mots-cl\'{e}s. Vous pouvez changer l'option verbose-trad1 
-% pour une autre (cf. manuel de biblatex).
-% ATTENTION : l'option backend=biber est utilis\'{e}e. En effet les dernieres
-% versions de biblatex pr\'{e}conisent l'option biber pour profiter des derni\`{e}res
-% nouveaut\'{e}s. Si vous choisissez cette option (backend=biber), il vous faut
-% simplement compiler avec $biber nomdufichier (sans le .tex). Si vous voulez
-% en rester \`{a} bibtex,il vous suffit de placer backend=bibtex.
+% Les dernieres versions de biblatex pr\'{e}conisent l'option backend=biber
+% pour profiter des derni\`{e}res nouveaut\'{e}s. Si vous choisissez cette
+% option, il vous faut simplement compiler avec $biber nomdufichier (sans le
+% .tex). Pour utiliser bibtex, remplacer par backend=bibtex.
+\RequirePackage[hyperref,backend=biber,
+  % Exemples de styles: alphabetic, ieee, nature, numeric, verbose-trad1 (en utilisant \footcite{}).
+  % https://www.overleaf.com/learn/latex/Biblatex_bibliography_styles
+  style=verbose-trad1
+  ]{biblatex}
+
+% Style biblatex avec gestion des mots cl\'{e}s des entr\'{e}es bibliographiques
+% + les abbr\'{e}viations idem, ibidem, op cit. Pr\'{e}voir un fichier bib
+% contenant ces mots-cl\'{e}s, ici primary et secondary.
+\defbibheading{primary}{\section*{Sources primaires}}
+\defbibheading{secondary}{\section*{Sources secondaires}}
 
 
-\defbibheading{primary}{\section*{Sources primaires}} % Categorie (sous forme de section) pour le tri de la bibliographie.
-
-\defbibheading{secondary}{\section*{Sources secondaires}} % Categorie (sous forme de section) pour le tri de la bibliographie.
+%%%% Ajustements pour la bibliographie
 
 \renewcommand*{\newunitpunct}{\addcomma\space} % Virgule entre les parties d'une reference (merci a Josquin Debaz)
 
-%%%% Ajustements pour la bibliographie
 %\DeclareFieldFormat[article]{volume}{\textbf{#1}}  %Le numero de volume en gras
 \DeclareFieldFormat[article]{number}{\textit{#1}} %Le numero dans le volume en italique
 %\DeclareFieldFormat{pages}{page(s): #1} % page(s) en toutes lettres, si on veut...
 
-\renewcommand{\mkibid}[1]{\emph{#1}} %Les locutions latines en italique (comme ibid, loc.cit. , etc.) Merci \`{a} Josquin Debaz
+% Locutions latines en italique (comme ibid, loc.cit. , etc.) Merci \`{a} Josquin Debaz
+\renewcommand{\mkibid}[1]{\emph{#1}}
 
 % Et pour mettre le in en italique dans la ref\'{e}rence biblio (merci encore \`{a} Josquin Debaz)
 \DefineBibliographyStrings{english}{%

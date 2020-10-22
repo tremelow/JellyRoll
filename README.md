@@ -13,7 +13,7 @@ La disposition proposée dans ce modèle est donc donnée à titre d'exemple mai
 ### Structure du dépôt
 
 - `main.tex` contient le squelette du document, aucun texte du manuscrit n'est présent dans ce fichier
-- `these-ubl.cls` contient les dépendances, les paramètres de la bibliographie et les paramètres de mise en page globale du manuscrit et plus particulièrement des deux couvertures
+- `these-ubl.cls` contient les dépendances, les paramètres de la bibliographie dont le style de citation et les paramètres de mise en page globale du manuscrit et plus particulièrement des deux couvertures
 - `Couverture-these/pagedegarde.tex` contient les variables à remplir par l'auteur pour compléter la page de garde, ces variables sont utilisées par `\maketitle` redéfini dans `these-ubl.cls`
 - `Couverture-these/resume.tex` contient les variables à remplir par l'auteur pour compléter la quatrième de couverture, ces variables sont utilisées par les macros définies dans `these-ubl.cls`
 - Le `Makefile` vous aide à compiler le latex et la bibliographie en un pdf (détails plus bas)
@@ -97,7 +97,7 @@ The content layout provided in this template is therefore given as an exemple ra
 #### Structure of the repository
 
 - `main.tex` contains the backbone structure of the document, no content is present in this file
-- `these-ubl.cls` contains the package dependencies, bibliography parameters and overall layout specifications including both front and back cover layouts
+- `these-ubl.cls` contains the package dependencies, bibliography parameters including citation style and overall layout specifications including both front and back cover layouts
 - `Couverture-these/pagedegarde.tex` contains the variables that must be filled by the author to complete the front cover, these variables are used in `\maketitle` redefined in `these-ubl.cls`
 - `Couverture-these/resume.tex` contains the variables that must be filled by the author to complete the back cover, these variables are used in the macros defined in `these-ubl.cls`
 - The `Makefile` helps you compile the latex and bibliography into a pdf (details below)
