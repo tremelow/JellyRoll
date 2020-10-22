@@ -1,14 +1,12 @@
 % Ce fichier main.tex est le fichier principal \`{a} partir duquel tout est g\'{e}n\'{e}r\'{e}
-%This file is the main file where the final document is generated
-%appel de la class these-ubl 
-% these-ubl class call
+% This file is the main file where the final document is generated
 \documentclass{these-ubl} 
+
+\geometry{vmargin=4.0cm}
 
 % Spécifier vos fichiers de bibliographie
 % Specify you bibliography files here
 \addbibresource{./biblio/biblio.bib}
-
-\geometry{vmargin=4.0cm}
 
 \begin{document}
 
@@ -21,41 +19,28 @@
 % Select the content language following this line
 \selectlanguage{french}
 
-%inclusion du chapitre remerciement (acknowledgement)
-%input acknowledgement chapter 
+% Inclusion du chapitre remerciement
+% Input acknowledgement chapter
 \clearemptydoublepage
 \input{./Acknowledgement/acknowledgement}
 
 % Ne pas oublier cette commande qui g\'{e}n\`{e}re la page de couverture avant
-%This command will generate the front cover
+% This command will generate the front cover
 \frontmatter
 \clearemptydoublepage
 \renewcommand{\contentsname}{Table of Contents}
 \tableofcontents %sommaire %table of content
 %\shorttableofcontents{Sommaire}{0}
 
-% Mettre ici votre chapitre d'Introduction, le cas \'{e}ch\'{e}ant
-%Input the introduction chapter 
 \clearemptydoublepage
 \input{./Introduction/introduction}
 
 \clearemptydoublepage
-\mainmatter % Ne pas oublier, avec \frontmatter et \backmatter
-	           %this command inputs \frontmatter and \backmatter as a cover in the front and the back
-
-% Mettre ici votre chapitre 1
-%Input your chapter 1
+\mainmatter
 \input{./Chapitre1/chapitre1}
 
-% Mettre ici votre chapitre 2
-%Input your chapter 2
 \clearemptydoublepage
 \input{./Chapitre2/chapitre2}
-
-% D\'{e}-commenter pour ins\'{e}rer les autres chapitres, ici votre chapitre X
-% Uncomment to insert other chapters, here your chapter X
-%\input{./Chapitrex/chapitrex}
-%\clearemptydoublepage
 
 \clearemptydoublepage
 \backmatter
@@ -80,4 +65,5 @@
 % To have the back cover on an even page
 \cleartoevenpage[\thispagestyle{empty}]
 \input{./Couverture-these/resume}
+
 \end{document}
