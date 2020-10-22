@@ -59,10 +59,6 @@
 \hypersetup{colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black}
 
 \RequirePackage{eso-pic} % For \AddToShipoutPicture used for cover backgrounds
-
-% A ajouter dans hypersetup pour plus de visibilite dans les proprietes du document
-%pdftitle={titre du document}, pdfauthor={auteur}, pdfcreator={PdfLaTeX}, pdfkeywords={mots-cl\'{e}}, pdfsubject={sujet du document}
-
 \RequirePackage{framed} % utilise pour coloriser les encarts
 
 \onehalfspacing %Interligne 1,5
