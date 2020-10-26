@@ -63,20 +63,20 @@ Suppimer tous les fichiers générés, pdf inclus :
 
 ### Spécificités d'un document multilingue
 
-La liste des langues utilisées est définie à la ligne 28 de `these-ubl.cls` où le paquet `babel` est importé.
+La liste des langues utilisées est définie dans `these-ubl.cls` où le paquet `babel` est importé.
 Etant donné que la quatrième de couverture contient du français et de l'anglais, il est nécessaire de conserver au moins ces deux langues dans la liste.
 Il faut utiliser `\selectlanguage{x}` (où x est `french` ou `english`) pour changer de langue après son insertion.
 
 Si la langue principale du contenu du document est l'anglais, vous devez effectuer quelques modifications au modèle :
 
-- utiliser `\selectlanguage{english}` à la ligne 17 de `main.tex`
-- modifier la ligne 486 de `these-ubl.cls` pour remplacer `Partie` par `Part` dans les entêtes
+- remplacer `\selectlanguage{french}` par `\selectlanguage{english}` dans `main.tex`
+- modifier la ligne 488 de `these-ubl.cls` pour remplacer `Partie` par `Part` dans les entêtes
 - inclure un résumé en français d'au moins 4 pages
 
 
 ### Changer la police du contenu
 
-La police imposée pour les couvertures est Arial mais vous pouvez utiliser une autre police pour le contenu de la thèse en modifiant les lignes 78-79 de `these-ubl.cls`.
+La police imposée pour les couvertures est Arial mais vous pouvez utiliser une autre police pour le contenu de la thèse en redéfinissant les commandes `\rmdefault` et `\sfdefault` comme commenté dans `these-ubl.cls`.
 Actuellement la police par défaut de latex est celle utilisée pour le contenu.
 
 
@@ -146,20 +146,20 @@ Remove all generated files, pdf included:
 
 #### Particularities of a multilanguage document
 
-The list of used languages is defined at line 28 of `these-ubl.cls` where the package `babel` is imported.
+The list of used languages is defined in `these-ubl.cls` where the package `babel` is imported.
 As the back cover contains both French and English, it is necessary to keep at least both these languages in the list.
 Use `\selectlanguage{x}` (where x is `french` or `english`) to switch language after its usage.
 
 If the main language of your document is English, you must apply the following changes to the provided template:
 
-- use `\selectlanguage{english}` at line 17 of `main.tex`
-- edit line 486 of `these-ubl.cls` to replace `Partie` by `Part` in the headers
+- replace `\selectlanguage{french}` by `\selectlanguage{english}` in `main.tex`
+- edit line 488 of `these-ubl.cls` to replace `Partie` by `Part` in the headers
 - include a summary in French of at least 4 pages
 
 
 ### Change the content font
 
-The required font for the covers is Arial but you can use another font for the content of the thesis by editing lines 78-79 of `these-ubl.cls`.
+The required font for the covers is Arial but you can use another font for the content of the thesis by redefining the commands `\rmdefault` and `\sfdefault` as commented out in `these-ubl.cls`.
 Currently the latex default font is the one used for the content.
 
 
