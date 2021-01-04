@@ -1,14 +1,14 @@
 % Cette classe de document est basee sur [report].
 % Assurez vous d'avoir installe tous les paquets utiles
 %%%%%% Licence%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% la classe LaTeX these-ubl 
+% la classe LaTeX these-dbl
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This program is free software: you can redistribute it and/or modify
 % it under the terms of the GNU General Public License as published by
 % the Free Software Foundation
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PROPOSITION DE TEMPLATE POUR THESE DE L'UBL par L.YALA (Doctorante
+% PROPOSITION DE TEMPLATE POUR THESE DE DBL par L.YALA (Doctorante
 % IRISA-UR1, Juin 2018)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -21,9 +21,8 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%these-ubl
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{these-ubl}[15/10/2020 v5.0]
+\ProvidesClass{these-dbl}[15/10/2020 v5.0]
 
 \LoadClass[twoside,multicol,12pt,a4paper]{report}	% notez le "twoside", essentiellement pour alterner les en-tete et pieds de page gauche et droit si on veut utliser les fancyhead. 
 
