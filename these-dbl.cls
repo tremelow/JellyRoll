@@ -22,7 +22,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{these-dbl}[15/10/2020 v5.0]
+\ProvidesClass{these-dbl}[11/07/2021 v5.1]
 
 \LoadClass[twoside,multicol,12pt,a4paper]{report}	% notez le "twoside", essentiellement pour alterner les en-tete et pieds de page gauche et droit si on veut utliser les fancyhead. 
 
@@ -290,25 +290,33 @@
 \newcommand{\displayLogos}{%
   \thispagestyle{empty}
   \begin{tikzpicture}[remember picture,overlay,line width=0mm]
-    \node[xshift=6.2cm,yshift=2cm] {
-    \parbox{\textwidth}{
-      $\vcenter{\hbox{%
-        \includegraphics[keepaspectratio,height=\vhauteurlogoecole,%width=7cm
-        ]{\vdirecole/logo}%
-      }}$
-      \hfill
-      {\if\vlogoetablissementA\empty \else
-      $\vcenter{\hbox{%
-        \includegraphics[keepaspectratio,height=\vhauteurlogoetablissementA,width=7cm
-        ]{./Couverture-these/logos-etablissements/\vlogoetablissementA}%
-      }}$
-      \fi}
-      \hspace{3mm}
-      $\vcenter{\hbox{%
-        \includegraphics[keepaspectratio,height=\vhauteurlogoetablissementB,width=7cm
-        ]{./Couverture-these/logos-etablissements/\vlogoetablissementB}%
-      }}$
-      }
+    \node[xshift=6.2cm,yshift=2cm] {%
+    \parbox{\textwidth}{%
+      % Quand UR1 est l'unique etablissement, il ne faut afficher que son logo
+      {\ifthenelse{\equal{\vlogoetablissementA}{}\and\equal{\vlogoetablissementB}{UR1-noir}}{
+        $\vcenter{\hbox{%
+          \includegraphics[keepaspectratio,height=\vhauteurlogoetablissementB,width=7cm
+          ]{./Couverture-these/logos-etablissements/\vlogoetablissementB}%
+        }}$
+      }{%
+        $\vcenter{\hbox{%
+          \includegraphics[keepaspectratio,height=\vhauteurlogoecole,%width=7cm
+          ]{\vdirecole/logo}%
+        }}$
+        \hfill
+        {\if\vlogoetablissementA\empty \else
+          $\vcenter{\hbox{%
+            \includegraphics[keepaspectratio,height=\vhauteurlogoetablissementA,width=7cm
+            ]{./Couverture-these/logos-etablissements/\vlogoetablissementA}%
+          }}$
+        \fi}%
+        \hspace{3mm}
+        $\vcenter{\hbox{%
+          \includegraphics[keepaspectratio,height=\vhauteurlogoetablissementB,width=7cm
+          ]{./Couverture-these/logos-etablissements/\vlogoetablissementB}%
+        }}$
+      }}%
+    }%
   };
   \end{tikzpicture}
   \par\nobreak
