@@ -1,3 +1,8 @@
+# Projet volé du [dépot GitLab](https://gitlab.inria.fr/ed-mathstic/latex-template) de l'ED
+Détails ci-dessous pour la compilation du projet, et description tout en bas de la vie du dépot.
+
+-----
+
 # ![(French flag)](https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/50px-Flag_of_France.svg.png) Modèle de thèse Doctorat Bretagne Loire
 
 *Explications en français*
