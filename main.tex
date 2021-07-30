@@ -2,13 +2,17 @@
 % This file is the main file where the final document is generated
 \documentclass{these-dbl}
 
+
+\input{custom_setup.tex}
+
+
 % Remplir les metadonnees du pdf
 % Fill the pdf metadata
 \hypersetup{
-%    pdfauthor   = {XYZ},
-%    pdftitle    = {Th\`{e}se de doctorat de XYZ},
-%    pdfsubject  = {Th\`{e}se de doctorat de XYZ},
-%    pdfkeywords = {mots-cl\'{e}s},
+    pdfauthor   = {Léopold Trémant},
+    pdftitle    = {Th\`{e}se de doctorat de L\'{e}opold Tr\'{e}mant},
+    pdfsubject  = {Th\`{e}se de doctorat de L\'{e}opold Tr\'{e}mant},
+    pdfkeywords = {TODO},
 }
 
 \geometry{vmargin=4.0cm}
@@ -41,18 +45,39 @@
 %\shorttableofcontents{Sommaire}{0}
 
 \clearemptydoublepage
-\input{./Introduction/introduction}
+\include{./Presentation/introduction}
 
 \clearemptydoublepage
 \mainmatter
-\input{./Chapitre1/chapitre1}
+\include{./Averaging/averaging}
 
 \clearemptydoublepage
-\input{./Chapitre2/chapitre2}
+\mainmatter
+\include{./miMa_Dissipatif/mima_dissipatif}
+
+\clearemptydoublepage
+\mainmatter
+\include{./Discussion/discussion}
+
+\clearemptydoublepage
+\backmatter\appendix
+\include{Two-Scale/two-scale}
+
+\clearemptydoublepage
+\include{./Schemes/schemes}
+
+\clearemptydoublepage
+\include{Geometry/geometry}
+
+\clearemptydoublepage
+\include{./Chapitre1/chapitre1}
+
+\clearemptydoublepage
+\include{./Chapitre2/chapitre2}
 
 \clearemptydoublepage
 \backmatter
-\input{./Conclusion/conclusion}
+\include{./Conclusion/conclusion}
 
 % Chapitre pour la bibliographie
 % Bibliography chapter
