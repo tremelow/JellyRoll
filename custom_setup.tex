@@ -1,0 +1,43 @@
+\usepackage{amsmath,amssymb}
+\usepackage{empheq}
+\usepackage{subcaption}
+% \usepackage[french=quotes]{csquotes}
+
+
+%----------------------------------------------------------
+% Temporary packages
+\usepackage{lipsum}
+\usepackage[textwidth=3.7cm]{todonotes}
+\geometry{inner=1cm, outer=4.5cm}
+\setlength{\marginparwidth}{3.7cm}
+%----------------------------------------------------------
+
+
+\newcommand{\eps}{\ensuremath{\varepsilon}}
+\newcommand{\pa}{\ensuremath{\partial}}
+\newcommand{\dd}{\ensuremath{\mathrm{d}}}
+\newcommand{\rk}[1]{^{[#1]}}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\Dt}{\ensuremath{\Delta t}}
+
+\newcommand{\setN}{\mathbb{N}}
+\newcommand{\setZ}{\mathbb{Z}} 
+\newcommand{\setQ}{\mathbb{Q}}
+\newcommand{\setR}{\mathbb{R}} 
+\newcommand{\setC}{\mathbb{C}}
+\newcommand{\setT}{\mathbb{T}}
+
+\newcommand{\RR}{\rangle}
+\newcommand{\LL}{\langle}
+\newcommand{\bRR}{\big \rangle}
+\newcommand{\bLL}{\big \langle}
+\newcommand{\BRR}{\Big \rangle}
+\newcommand{\BLL}{\Big \langle}
+
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\tr}{tr}
+
+\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother

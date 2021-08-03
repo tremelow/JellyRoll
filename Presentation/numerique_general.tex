@@ -1,0 +1,244 @@
+\section*{Application de méthodes numériques générales}
+\addcontentsline{toc}{section}{Application de méthodes numériques générales}
+
+Cette section observe le comportement de méthodes numériques usuelles
+lorsqu'on les applique au système.
+
+\subsection*{Application directe de schémas standards}
+\addcontentsline{toc}{subsection}{Application directe de schémas standards}
+
+
+On cherche à résoudre le problème~\eqref{sec:intro:eq:u} numériquement.
+En termes simples, cela veut dire trouver une méthode générale pour
+obtenir la solution du problème. On va montrer que les méthodes
+\enquote{standards} sont inefficaces pour résoudre même le problème
+simplifié 
+\begin{equation} \label{sec:intro:eq:pb_zlin}
+    \pa_t z = -\frac{1}{\eps}z
+\end{equation}
+avec une donnée initiale $z(0) \in \setR$ quelconque. Par
+\enquote{méthodes standards}, on entend des méthodes qui peuvent être
+trouvées dans le livre de référence \textbf{REF}\todo{Hairer Wanner 1}.
+Il s'agit de méthodes de résolution pour des équations différentielles
+ordinaires quelconques, qui ne prennent pas en compte la structure
+spécifique du probléme qui nous intéresse. 
+
+
+Il est difficile de traiter le continu d'un point de vue numérique, donc
+on commence d'abord par \textit{discrétiser} l'intervalle de temps en un
+nombre arbitraire $N \in \setN^*$ d'intervalles.
+%
+\todo[inline]{Dessin avec la définition des $t_n$ (voir commentaire)
+    % |-----|-----|---//---|-----|
+    % 0     Dt   2Dt      T-Dt   T
+}
+%
+\noindent%
+Pour le moment, on choisit de se restreindre à une discrétisation
+uniforme, c'est-à-dire que l'intervalle de temps $[0,T]$ est divisé en
+$N$ intervalles de taille égale. De manière équivalente, on définit les
+points de séparation $(t_n)_{0 \leq n \leq N}$ avec 
+\begin{equation*}
+    t_n = \frac{n}{N} T ,
+\end{equation*}
+ou encore 
+\begin{equation*}
+    t_{n+1} = t_n + \Dt
+    \qquad\text{avec}\qquad
+    t_0 = 0 \quad\text{et}\quad \Dt = \frac{T}{N} .
+\end{equation*}
+
+L'idée est maintenant d'obtenir une approximation de~$u_n \approx
+u^\eps(t_n)$ en chaque point. La méthode la plus directe est la méthode
+d'Euler~: On a accès à la valeur initiale $u_0$, et on peut ensuite
+calculer le prochain point par projection 
+%
+\todo[inline]{\textbf{Graphique :} Tracer la droite qui part de $z_n$
+avec la pente $-z_n/\eps$ pour placer le point $z_{n+1}$.}
+%
+\noindent%
+On obtient ainsi la \textit{suite d'Euler} du
+problème~\eqref{sec:intro:eq:pb_zlin}~:
+\begin{equation*}
+    z_{n+1} = \left( 1 - \frac{\Dt}{\eps} \right) z_n , 
+    \qquad
+    z_0 = z(0) .
+\end{equation*}
+D'autres méthodes de projection existent, notamment les méthodes de
+Runge-Kutta qui impliquent des points intermédiaires, ou les méthodes
+multi-points qui utilisent les valeurs en $n, n+1, \ldots, n+s$ pour
+calculer le point en $n+s+1$. Le raisonnement qui suit s'applique (à une
+constante près) à toutes ces méthodes de calcul tant qu'elles sont
+\textit{explicites}. Le schéma numérique est dit \textit{stable} si la
+norme de la solution calculée ne croît pas,\footnote{%
+Cette définition atteint vite sa limite lorsqu'on considère des
+problèmes à solution croissante, par exemple $\pa_t x = x$.
+Heureusement, ce n'est pas le cas ici.} i.e. si 
+\begin{equation*}
+    \left|\, 1 - \frac{\Dt}{\eps} \,\right| \leq 1 .
+\end{equation*}
+Cette condition est généralement interprété comme une restriction sur le
+pas de temps $\Dt$. Néanmoins, nous sommes aussi intéressés par le
+comportement du schéma par rapport à la variable de raideur $\eps$. En
+considérant $\Dt$ fixé, il est clair qu'il faut prendre $\Dt$ plus petit
+que $\eps$ pour avoir une solution décroissante. Le coût de calcul dans
+la limite $\eps \rightarrow 0$ évolue ainsi au moins en $\bigO(1/\eps)$.
+
+Un moyen généralement invoqué pour stabiliser les problèmes raides comme
+celui-ci est l'utilisation de schémas \textit{implicites}. Au lieu de
+faire une projection directe, on cherche le point qui, en temps
+rétrograde, aurait donné le point précédent.
+%
+\todo[inline]{Schéma avec différentes lignes de niveau et les tangentes
+qui partent de différents $u_{n+1}$ possibles}
+%
+\noindent%
+Cette méthode de projection rétrograde \enquote{directe} est appelée
+méthode d'Euleur implicite, et le schéma associé dans le cas du
+problème~\eqref{sec:intro:eq:pb_zlin} est 
+\begin{equation*}
+    z_{n+1} = z_n - \frac{\Dt}{\eps} z_{n+1} ,
+\end{equation*}
+ou encore 
+\begin{equation*}
+    z_{n+1} = \frac{\eps}{\Dt + \eps} z_n .
+\end{equation*}
+En comparant les figures~\textbf{REF}\todo{Labels}, il est clair que
+cette méthode est en général bien plus coûteuse que les méthodes
+explicites de projection directe. Néanmoins, elle présente quelques
+propriétés sympathiques que nous devons présenter. Ce schéma est
+clairement stable pour tout $\Dt$ et tout $\eps$, puisque le facteur
+multiplicatif est toujours inférieur à $1$. Cependant, cela n'indique
+rien sur l'erreur associée au schéma. Calculons-la rapidement.
+
+On pose $\tau_n$ l'erreur dite de troncature du schéma entre $t_n$ et
+$t_{n+1}$,
+\begin{equation*}
+    \tau_n = z(t_{n+1}) - z(t_n) - \Dt \pa_t z(t_{n+1}) .
+\end{equation*}
+% Par théoréme fondamental de l'analyse, $\tau_n = \int_0^{\Dt} \big(
+% \pa_t z(t_n + s) - \pa_t z(t_{n+1}) \big) \dd s$, d'où, avec une
+% application supplémentaire de la formule,
+% \begin{equation*}
+%     \tau_n = \int_0^{\Dt} \int_s^{\Dt} 
+%         \pa_t^{\:2} z(t_n + \mu) \dd \mu \dd s
+% \end{equation*}
+% On remarque qu'il s'agit d'une intégrale sur le triangle~:
+% \todo[inline]{Figure du triangle (voir commentaire)
+% % (0,h)  ----------- (h,h)
+% %        |        /
+% %  mu    |      /
+% %        |    /
+% %        |  /
+% % (0,0)  |/
+% %            s
+% }
+% On peut donc inverser les intégrales et obtenir
+% \begin{equation*}
+%     \tau_n = \int_0^{\Dt} \int_0^{\mu} 
+%         \pa_t^{\:2} z(t_n + \mu) \dd s \dd \mu .
+% \end{equation*}
+% d'où la borne par inégalité triangulaire 
+En général on borne cette erreur par une application successive
+d'intégration par parties, inégalité triangulaire et enfin inégalité de
+Hölder, pour trouver
+\begin{equation} \label{sec:intro:eq:euler_err1}
+    \left| \tau_n \right| 
+    \leq \int_0^{\Dt} s \left| \pa_t^{\:2} z(t_n + s) \right| \dd s
+    \leq \Dt \int_{t_n}^{t_{n+1}} \left| \pa_t^{\:2} z(t) \right| \dd t.
+\end{equation}
+En revanche cette approche n'exploite pas le caractère décroissant de $t
+\mapsto z(t)$, et d'ailleurs cette dernière borne serait aussi valide
+pour le schéma d'Euler explicite. Cette caractéristique peut être
+exploitée en s'intéressant directement à la définition de~$\tau_n$. En
+effet dans notre cas particulier, on a $z(t) = e^{-t/\eps} z_0$ donc 
+\begin{equation*}
+    \tau_n = \left(
+        e^{-\Dt/\eps} - 1 + \frac{\Dt}{\eps}e^{-\Dt/\eps}
+        \right) e^{-n \Dt/\eps} z_0 ,
+\end{equation*}
+ce qui peut se borner très grossièrement,
+\begin{equation} \label{sec:intro:eq:euler_err2}
+    |\tau_n| \leq e^{-n \Dt/\eps} |z_0|
+\end{equation}
+On remarque maintenant que l'erreur globale vérifie 
+\begin{equation*}
+    \left(1 + \frac{\Dt}{\eps}\right) \left( z_{n+1} - z(t_{n+1})\right)
+    = z_n - z(t_n) - \tau_n 
+\end{equation*}
+d'où de proche en proche,
+\begin{equation*}
+    \left| z_{n+1} - z(t_{n+1}) \right| 
+    \leq \sum_{k = 0}^n 
+        \left(1 + \frac{\Dt}{\eps}\right)^{-k-1} |\tau_{n-k}| .
+\end{equation*}
+On applique brutalement une inégalité de Hölder sur la somme pour
+obtenir finalement 
+\begin{equation*}
+    \left| z_{n+1} - z(t_{n+1}) \right| 
+    \leq \left(1 + \frac{\Dt}{\eps}\right)^{-1} 
+        \sum_{k = 0}^n |\tau_{k}| .
+\end{equation*}
+En exploitant~\eqref{sec:intro:eq:euler_err1}
+et~\eqref{sec:intro:eq:euler_err2}, on obtient enfin 
+\begin{equation*}
+    \left| z_{n+1} - z(t_{n+1}) \right| 
+    \leq \frac{\eps}{\eps + \Dt} \min\left( 
+        \Dt \| \pa_t^{\:2} z \|_{L^1} ,
+        \frac{ |z_0| }{ 1 - e^{-\Dt/\eps} } \right) .
+\end{equation*}
+Ici la norme $L^1$ est définie de manière canonique, c'est-à-dire $ \| u
+\|_{L^1} \leq \int_0^T | u(t) | \dd t $. En l'occurrence, on connaît
+exactement $z(t) = e^{-t/\eps} z_0$, donc on peut calculer $\|
+\pa_t^{\:2} z \|_{L^1} = \frac{1}{\eps}(1 - e^{-T/\eps}) z_0$, ce qui
+donne finalement pour tout $n$ entre $0$ et $N$, 
+\begin{equation*}
+    \left| z_n - z(t_n) \right| 
+    \leq \frac{\Dt}{\eps + \Dt} |z_0| \min \left(
+        1, \frac{\eps/\Dt}{1 - e^{-\Dt/\eps}}
+    \right) .
+\end{equation*}
+Grâce au premier argument du $\min$, on est assuré que l'erreur est de
+la forme $C\Dt$ pour tout $\Dt < \Dt_0$ avec $C$ et $\Dt_0$ des
+constantes indépendantes de $\eps$. On remarque là une différence par
+rapport au comportement du schéma explicite, qui demandait $\Dt \ll
+\eps$. 
+%
+Le deuxième argument du $\min$ nous assure que l'erreur tend vers zéro
+quand $\eps$ tend vers zéro. En particulier, on dit le schéma préserve
+le comportement asymptotique,\footnote{Ce schéma est en fait $L$-stable,
+ce qui est une notion un peu plus forte qui ne nous intéresse pas dans
+le cadre de ce manuscrit.} ce qui se traduit en \textit{asymptotic
+preserving} (AP) en anglais. Cette notion reviendra dans la prochaine
+section. 
+
+
+
+\bigskip\bigskip\bigskip
+\textbf{Rq~:} On peut obtenir une approximation en tout point $t \in
+[0,T]$ par interpolation. Le sujet de cette thèse n'est pas l'étude de
+schémas numériques ou celle de méthodes d'interpolation, donc nous
+éviterons de fournir des détails superflus sur ces sujets. On évaluera
+la qualité d'une approximation en fonction de la valeur aux points. 
+
+Illustration rapide sur méthode d'Euler
+
+Démonstration d'erreur en $\Dt/\eps$
+
+Distinction entre convergence et stabilité
+
+
+
+\subsection*{Méthodes générales pour systèmes raides}
+\addcontentsline{toc}{subsection}{Méthodes générales pour systèmes raides}
+
+Bouquin de Hairer, Lubich, Wanner
+
+Présentation rapide de méthodes stiff (implicites)
+
+Discussion du coût du pas de temps adaptatif
+
+Splitting + simulations
+
+Foreshadowing~: ordre des opérations pour AP et splitting exact pour
+formes normales

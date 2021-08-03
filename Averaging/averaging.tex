@@ -1,0 +1,77 @@
+
+\clearemptydoublepage
+\chapter{La moyennisation en bref}
+
+Lors de ma troisième année de thèse, j'ai eu l'occasion d'un peu plus me
+pencher sur les méthodes de moyennisation, et notamment de rédiger un
+mini-article compilant certains résultats du sujet. Une partie est ici,
+l'autre sera présentée en Annexe\todo{quelle annexe?}
+
+
+\section{Présentation d'une méthode}
+
+
+\subsection{L'équation homologique}
+
+Dérivation de l'équation homologique
+
+Distinction entre averaging standard et stroboscopique
+
+
+\subsection{Définition d'une décomposition approchée}
+
+Relation de récurrence et résultat sur les bornes
+
+Discussion autour de la méthode pour les résultats (boules imbriquées,
+estimations de Cauchy...)
+
+
+
+\section{Contexte d'un problème autonome}
+
+\begin{equation}
+    \pa_t y = \frac{1}{\eps} G(y) + K(y)
+\end{equation}
+On décompose
+\begin{equation}
+    y^\eps(t) = \Omega^\eps _{t/\eps} \circ \Psi^\eps _t 
+    \circ \big( \Omega^\eps _0 \big)^{-1}
+\end{equation}
+
+\subsection{Un résultat géométrique}
+
+$\Omega$ est un flot, et commute avec $\Psi$. 
+
+
+\subsection{Cas d'un opérateur linéaire}
+
+Averaging standard : crochets de Lie
+
+Formes normales
+
+
+\section{Aspect numérique}
+
+Si on ne connaît pas le défaut, il est clair qu'on peut calculer
+numériquement 
+\begin{empheq}{equation}
+    \pa_t v\rk n = F\rk n ( v\rk n ) 
+\end{empheq}
+et alors 
+\begin{empheq}{equation}
+    u^\eps(t) = \Phi\rk n _{t/\eps} \big( v\rk n (t) \big)
+    + \bigO(\eps^{n+!})
+\end{empheq}
+Mais en fait si on montre ça, on peut montrer mieux (en supposant un peu de régularité). Section basée principalement sur l'article avec Gilles. 
+
+\subsection{Définition d'un nouveau problème}
+
+Micro-macro ou pullback
+
+Raideur ``retardée''
+
+\subsection{Convergence uniforme}
+
+Résultat de convergence uniforme
+
+Présentation de schémas intégraux et composition de schémas 

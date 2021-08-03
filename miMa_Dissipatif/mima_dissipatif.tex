@@ -1,0 +1,196 @@
+
+\clearemptydoublepage
+\chapter{Convergence uniforme pour un problème dissipatif}
+
+Ce chapitre reprend un article à paraître dans \textit{Mathematics of
+Computation}, intitulé 
+\begin{center}\itshape%
+  A uniformly accurate numerical method for a class of dissipative
+  systems
+\end{center}
+Dans cet article, on ...
+
+
+
+\section{Construction et résultat de précision uniforme}
+
+\subsection{Hypothèses et définitions}
+
+Hyp : A diagonale avec des vap entières
+
+Hyp : f analytique autour de (x,0)
+
+Justification de l’hypothèse avec le théorème de variété centrale
+
+Introduction des ensembles $\mathcal{K}_{\rho}$
+
+Def : $R$ + borne sur $f$ et ses dérivées
+
+Def : normes
+
+
+\subsection{Construction d'un développement asymptotique}
+
+Équation homologique
+
+Définition de F et du projecteur
+
+Relation de récurrence avec condition de fermeture
+
+Def : défaut $\eta$
+
+Thm : Bonne définition des morphismes et bornes
+
+
+\subsection{Problème micro-macro et précision uniforme}
+
+Obtention du problème micro-macro
+
+Thm : problème micro-macro bien posé avec dérivées bornées
+
+Rq : calcul de la donnée initiale
+
+Présentation des schémas exponentiels
+
+Def : norme associée aux schémas
+
+Thm : précision uniforme :D
+
+Rq : adaptation du résultat aux schémas IMEX-BDF
+
+
+\section{Preuves des théorèmes}
+
+\subsection{Bonne définition des morphismes, et leurs bornes}
+
+Définition des morphismes périodiques
+
+Filtrage des morphismes périodiques
+
+Prop : hypothèses de UA périodique vérifiées
+
+Thm de bonnes propriétés sur les morphismes périodiques
+
+Principe du maximum pour conclure la preuve
+
+
+\subsection{Caractère bien posé du problème micro-macro}
+
+Caractère bien posé sur $v$ : $v(0)$ est gentil et $v(t)$ aussi par
+Gronwall. $\Omega(v)$ est okay
+
+Borner le terme linéaire $L$, puis Gronwall avec la source pour $w$ bien
+posé
+
+
+\subsection{Précision uniforme avec les schémas exponentiels}
+
+Séparation entre $v$ et $w$
+
+Partie $v$ bornée classique, passage à norme modifiée grâce à $\Omega$
+
+Partie $w$ application directe des bornes de Hochbruck et Ostermann
+
+
+
+\section{Extension partielle à des EDP discrétisées}
+
+Présentation rapide du système
+
+Disclaimer comme quoi on les regarde post-discrétisation
+
+
+\subsection{Équation de télégraphe}
+
+Transformation en Fourier
+
+Tentative directe d’obtenir la variable en $-1/\varepsilon$ -> échec
+
+Relaxation pour obtenir la variable $z$, montrer que ça va mieux
+
+Développement à l’ordre zéro, montrer que ça se passe okay grâce à
+$\exp{-tA/\varepsilon}$
+
+Passage à l’ordre 1, observation comme quoi $-A/\varepsilon + F^{[1]}$
+est mal posé
+
+Relaxation dans le changement de variable, montrer que tout se passe
+mieux
+
+Eq : $\eta^{[1]}$
+
+Prop : si les fréquences sont bornées, on peut faire du num tranquille
+et l’erreur est indépendante de $\varepsilon$
+
+Rq : les fréquences bornées c’est plus une CFL qu’un souci avec
+$\varepsilon$
+
+
+\subsection{Relaxation hyperbolique}
+
+Présentation du système + condition de stabilité
+
+Rq : relaxation indépendante de l’espace
+
+Volumes finis avec Upwind, avec la variable $z$ naturelle
+
+Développements ordre 1 parachutés avec relaxation (justif de télégraphe)
+
+Rq : passage au continu
+
+Commentaire sur le coût de résolution (indépendant de $\varepsilon$
+malgré la relaxation)
+
+Eq : défauts $\eta^{[0]}$ et $\eta^{[1]}$
+
+
+
+
+\section{Résultats numériques}
+
+\subsection{Applications directes}
+
+Problème jouet lentement oscillant :
+
+Exposition, dev à l’ordre 1 puis ordre 2
+
+Rq : on peut retrouver la variété centrale
+
+Rappel pb micro-macro, et commentaire sur le besoin de calcul explicite de $L$ pour l’arrondi
+
+Problème inspiré de l’hyperbolique :
+
+Exposition, passage aux variables $x, z$
+
+Eq : dev à l’ordre 1, ordre 2 trop lourd
+
+Choix de la fonction $g$ et de la donnée initiale
+
+Résultats :
+
+Figures : err. sup. sur $\varepsilon$ à gauche pour syst. original (ERK2), miMa 1 (ERK2) et miMa 2 (ERK3), et err. en fonction de $\varepsilon$ à droite (miMa 2 ERK3), pour différents $\Delta t$
+
+=> Mise en avant et description du phénomène de réduction d’ordre
+
+=> Observation de l’ordre de convergence grâce au problème micro-macro, ordres 1 et 2
+
+\todo[inline]{Ajouter simus avec IMEX-BDF}
+
+
+\subsection{EDP discrétisées}
+
+Télégraphe : rappel de l’équation + donnée initiale
+
+Résultats : réduction d’ordre, discussion sur le côté “erreur uniforme”
+
+Relaxation hyperbolique : rappel de l’équation + donnée initiale
+
+Résultats avec disclaimer qu’on regarde pas l’erreur en espace
+
+Figures : même format que pour les EDOs mais on s’arrête à miMa 1
+(forcément)
+
+
+\subsection{Commentaires sur extensions directes}
+
+\todo[inline]{Dans la discussion}
