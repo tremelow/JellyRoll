@@ -21,7 +21,7 @@ avec une donnée initiale $z(0) \in \setR$ quelconque. Par
 trouvées dans le livre de référence \textbf{REF}\todo{Hairer Wanner 1}.
 Il s'agit de méthodes de résolution pour des équations différentielles
 ordinaires quelconques, qui ne prennent pas en compte la structure
-spécifique du probléme qui nous intéresse. 
+spécifique du problème qui nous intéresse. 
 
 
 Il est difficile de traiter le continu d'un point de vue numérique, donc
@@ -59,11 +59,11 @@ avec la pente $-z_n/\eps$ pour placer le point $z_{n+1}$.}
 \noindent%
 On obtient ainsi la \textit{suite d'Euler} du
 problème~\eqref{sec:intro:eq:pb_zlin}~:
-\begin{equation*}
+\begin{equation} \label{sec:intro:eq:euler}
     z_{n+1} = \left( 1 - \frac{\Dt}{\eps} \right) z_n , 
     \qquad
     z_0 = z(0) .
-\end{equation*}
+\end{equation}
 D'autres méthodes de projection existent, notamment les méthodes de
 Runge-Kutta qui impliquent des points intermédiaires, ou les méthodes
 multi-points qui utilisent les valeurs en $n, n+1, \ldots, n+s$ pour
@@ -83,6 +83,113 @@ comportement du schéma par rapport à la variable de raideur $\eps$. En
 considérant $\Dt$ fixé, il est clair qu'il faut prendre $\Dt$ plus petit
 que $\eps$ pour avoir une solution décroissante. Le coût de calcul dans
 la limite $\eps \rightarrow 0$ évolue ainsi au moins en $\bigO(1/\eps)$.
+
+Vérifions que cette condition se remarque aussi sur l'erreur. On pose
+$\tau_n$ l'erreur dite de troncature du schéma entre $t_n$ et $t_{n+1}$,
+\begin{equation*}
+    \tau_n = z(t_{n+1}) - z(t_n) - \Dt \pa_t z(t_{n}) .
+\end{equation*}
+On applique la formule de Taylor avec reste intégral entre $t_n$ et
+$t_{n+1}$, d'où 
+\begin{equation*}
+    \tau_n = \int_{t_n}^{t_{n+1}} (t_{n+1} - t) 
+        \pa_t^{\:2}z(t) \dd t ,
+\end{equation*}
+et on peut borner cette erreur à l'aide d'une inégalité de Hölder,
+\begin{equation*}
+    |\tau_n| \leq \Dt 
+        \int_{t_n}^{t_{n+1}} \left| \pa_t^{\:2} z(t) \right| \dd t .
+\end{equation*}
+On remarque ensuite 
+\begin{equation*}
+    z_{n+1} - z(t_{n+1}) 
+    = \left(1 - \frac{\Dt}{\eps}\right)(z_n - z(t_n))
+        - \tau_n
+\end{equation*}
+d'où, de proche en proche, et comme $z_0 = z(0)$,
+\begin{equation*}
+    z_{n+1} - z(t_{n+1}) 
+    = -\sum_{k = 0}^n \left(1 - \frac{\Dt}{\eps}\right)^k \tau_{n-k} .
+\end{equation*}
+Encore par inégalité de Hölder (discrète, cette fois-ci), on obtient
+\begin{equation*}
+    \left| z_{n+1} - z(t_{n+1}) \right|
+    \leq \sum_{k = 0}^n |\tau_k| \leq \Dt \| \pa_t^{\:2}z \|_{L^1}
+\end{equation*}
+avec la norme $L^1$ définie de manière canonique, c'est-à-dire $ \| u
+\|_{L^1} \leq \int_0^T | u(t) | \dd t $. 
+
+En fait, cette dernière
+inégalité est vraie quel que soit le problème résolu (i.e. même si on
+modifie l'équation sur $z$), tant que la condition de stabilité (à
+adapter au problème) est vérifiée. En particulier, cela veut dire qu'on
+obtient la même borne d'erreur si on utilise la méthode d'Euler sur le
+problème plus complexe~\eqref{sec:intro:eq:u}. 
+
+Dans le cas simplifié $\pa_t z = -z/\eps$, on connaît la solution
+exacte du problème, et on peut calculer $\| \pa_t^{\:2}z \|_{L^1} =
+\frac{1}{\eps} (1 - e^{-T/\eps}) |z_0|$. Ainsi, la borne d'erreur
+devient pour tout indice $n$ entre $0$ et $N$,
+\begin{equation*}
+    \left| z_n - z(t_n) \right| \leq \frac{\Dt}{\eps} |z_0| .
+\end{equation*}
+Il apparaît très clairement que le paramètre à ajuster pour modifier
+l'erreur est $\Dt/\eps$, pas juste $\Dt$. On aurait pu espérer qu'en
+fixant ce rapport avec $\Dt = \eps$, l'erreur tende vers zéro dans la
+limite $\eps \rightarrow 0$, mais ce n'est même pas le cas ici. 
+
+On aurait ainsi l'impression que pour obtenir une erreur de taille
+$\eps$, il faudrait choisir $\Dt = \eps \delta$. Heureusement on peut
+exploiter la borne
+\begin{equation*}
+    \left| z_n - z(t_n) \right| \leq \sum_{k \geq 0} |\tau_k| 
+\end{equation*}
+pour essayer de répartir presque uniformément l'erreur entre les
+$\tau_n$ en modulant le pas de temps à chaque itération. Ainsi, on
+remplacerait le schéma~\eqref{sec:intro:eq:euler} par 
+\begin{equation*}
+    z_{n+1} = z_n - \frac{\Dt_n}{\eps} z_n
+\end{equation*}
+avec $\Dt_n$ qui varie en fonction de l'itération. La
+formule~\eqref{sec:intro:eq:euler_err1} reste valide en remplaçant $\Dt$
+par $\Dt_n$, et c'est ça qu'on souhaite exploiter. Notamment, on peut
+séparer l'intervalle de temps en deux parties~: pendant la phase
+transitoire (pas de temps $\Dt_0$) et après la phase transitoire (pas de
+temps $\Dt_1$). Ici, on détermine la fin de la phase transitoire au
+temps $t_f$ tel que $\pa_t^{\:2} z(t_f) = \bigO(1)$, soit $t_f = -\eps
+\log(\eps)$ en supposant $\eps < 1$. 
+
+En posant $z_0 = 1$ pour simplifier, supposons qu'on souhaite avoir une
+erreur de $\delta/2$ à la fin de la période transitoire. Cela se traduit
+en 
+\begin{equation*}
+    \Dt_0 \int_0^{t_f} |\pa_t^{\:2} z(t)| \dd t 
+    \leq \Dt_0 \frac{1 - \eps}{\eps} \leq \frac{\delta}{2} .
+\end{equation*}
+Ainsi on choisit $\displaystyle \Dt_0 = \frac{\eps \delta}{2(1 -
+\eps)}$. L'erreur après la phase transitoire est 
+\begin{equation*}
+    \Dt_1 \int_{t_f}^{T} |\pa_t^{\:2} z(t)| \dd t 
+    \leq \Dt_1 ,
+\end{equation*}
+donc si on souhaite avoir une erreur $\delta/2$ lors de cette seconde
+phase, on peut poser $\Dt_1 = \min(\eps, \delta/2)$ de sorte à être
+certain de respecter la condition de stabilité. Le coût associé à la
+phase transitoire est 
+\begin{equation*}
+    \frac{t_f}{\Dt_0} = \frac{2 (1-\eps) \log(1/\eps)}{\delta} ,
+\end{equation*}
+et celui associé à la période qui suit est $\displaystyle \frac{ T -
+\eps \log(1/\eps)}{\min(\eps, \delta/2)}$. Ce coût est largement
+préférable au coût en $1/(\eps \delta)$ qu'on aurait trouvé avec un pas
+de temps uniforme, mais il reste en $\bigO(1/\eps)$ quand $\eps
+\rightarrow 0$ à $\delta$ fixé à cause de la condition de stabilité.
+
+
+
+
+\subsection*{Méthodes implicites}
+\addcontentsline{toc}{subsection}{Méthodes implicites}
 
 Un moyen généralement invoqué pour stabiliser les problèmes raides comme
 celui-ci est l'utilisation de schémas \textit{implicites}. Au lieu de
