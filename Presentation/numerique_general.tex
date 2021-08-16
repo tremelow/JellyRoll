@@ -1,8 +1,63 @@
 \section*{Application de méthodes numériques générales}
 \addcontentsline{toc}{section}{Application de méthodes numériques générales}
 
-Cette section observe le comportement de méthodes numériques usuelles
-lorsqu'on les applique au système.
+On cherche à résoudre le problème~\eqref{sec:intro:eq:u} numériquement.
+Dans un premier temps, il faut présenter comment les méthodes de
+résolution standards se comportent lorsqu'on les adapte au problème en
+question. Par \enquote{méthodes standards}, on entend des méthodes
+enseignées en études supérieures, et qui peuvent être trouvées dans les
+livres de référence \textbf{REF}\todo{Hairer Wanner 1 \& 2 + GNI}. Il
+s'agit de méthodes de résolution pour des équations différentielles
+ordinaires quelconques, qui ne prennent pas en compte la structure
+spécifique du problème. 
+
+
+Il est difficile de traiter le continu d'un point de vue numérique, donc
+on commence d'abord par \textit{discrétiser} l'intervalle de temps en un
+nombre arbitraire $N \in \setN^*$ d'intervalles.
+%
+\todo[inline]{Dessin avec la définition des $t_n$ (voir commentaire)
+    % |-----|-----|---//---|-----|
+    % 0     Dt   2Dt      T-Dt   T
+}
+\todo[inline]{Notion d'ordre et de solution}
+%
+\noindent%
+Pour des raisons pratiques, les mathématiciens aiment diviser
+l'intervalle de temps de manière uniforme comme sur le schéma ci-dessus.
+Néanmoins, une autre approche qui semble plus efficace serait de placer
+les points de discrétisation $(t_n)$ de manière uniforme le long de la
+courbe solution 
+%
+\todo[inline]{Figure pour le pas de temps adaptatif avec l'interprétation de distance uniforme sur la courbe (préciser que c'est une simplification, vu qu'avec un système affine on peut prendre le pas qu'on veut)}
+%
+\noindent%
+Dans les faits, on ne placerait pas les points avec une répartition
+uniforme sur la courbe, mais avec une répartition uniforme sur la courbe
+de sa dérivée à un certain ordre lié à l'ordre du
+schéma.\todo{définition ordre avant??}
+
+
+Dans la suite de cette section, on restreint notre étude du comportement
+de certaines méthodes appliquées au problème particulier
+\begin{equation} \label{sec:intro:eq:pb_ztest}
+    \pa_t z(t) = -\frac{1}{\eps}z(t) + \cos(t),
+    \qquad z(0) = 1 .
+\end{equation}
+Ce problème est un cas particulier de~\eqref{sec:intro:eq:xz} avec
+$a(x,z) = 1$ et $b(x,z) = \cos(x)$. Une condition initiale $x(0) = 0$
+permet d'assimiler $x$ à la variable de temps $t$ pour obtenir le
+problème ci-dessus. On en connaît la solution exacte 
+\begin{equation*}
+    z(t) = e^{-t/\eps} \left( z(0) - \frac{\eps}{1+\eps^2} \right)
+        + \frac{\eps}{1 + \eps^2} \big( \cos(t) + \eps \sin(t) \big) .
+\end{equation*}
+
+\todo[inline]{Dire que c'est comme résoudre un problème non-raide en temps long}
+
+
+
+
 
 \subsection*{Application directe de schémas standards}
 \addcontentsline{toc}{subsection}{Application directe de schémas standards}
@@ -185,6 +240,9 @@ préférable au coût en $1/(\eps \delta)$ qu'on aurait trouvé avec un pas
 de temps uniforme, mais il reste en $\bigO(1/\eps)$ quand $\eps
 \rightarrow 0$ à $\delta$ fixé à cause de la condition de stabilité.
 
+\todo[inline]{Parler de méthodes de Chebichev (grand domaine de 
+stabilité) + des estimations d'erreur}
+
 
 
 
@@ -192,8 +250,16 @@ de temps uniforme, mais il reste en $\bigO(1/\eps)$ quand $\eps
 \addcontentsline{toc}{subsection}{Méthodes implicites}
 
 Un moyen généralement invoqué pour stabiliser les problèmes raides comme
-celui-ci est l'utilisation de schémas \textit{implicites}. Au lieu de
-faire une projection directe, on cherche le point qui, en temps
+celui-ci est l'utilisation de schémas \textit{implicites}. Je n'ai pas
+étudié ces méthodes en détail, mais elles méritent d'être mentionnées et
+leur non-étude demande justification. On présente ici rapidement la
+méthode d'Euler implicite, ainsi que d'autres méthodes adaptées aux
+problèmes raides compilées dans \textbf{REF}\todo{Hairer et al 2}. On
+discute enfin de leurs limites.
+
+
+Pour la méthode d'Euler implicite, au lieu de faire une projection
+directe (dans la méthode explicite), on cherche le point qui, en temps
 rétrograde, aurait donné le point précédent.
 %
 \todo[inline]{Schéma avec différentes lignes de niveau et les tangentes
@@ -312,12 +378,56 @@ rapport au comportement du schéma explicite, qui demandait $\Dt \ll
 \eps$. 
 %
 Le deuxième argument du $\min$ nous assure que l'erreur tend vers zéro
-quand $\eps$ tend vers zéro. En particulier, on dit le schéma préserve
-le comportement asymptotique,\footnote{Ce schéma est en fait $L$-stable,
-ce qui est une notion un peu plus forte qui ne nous intéresse pas dans
-le cadre de ce manuscrit.} ce qui se traduit en \textit{asymptotic
-preserving} (AP) en anglais. Cette notion reviendra dans la prochaine
-section. 
+quand $\eps$ tend vers zéro. On dit que ce schéma est
+L-stable,\todo{détails}
+
+\todo[inline]{Tests avec Radau?}
+
+
+Cependant, le coût de calcul à chaque pas du schéma est difficile à
+connaître \textit{a priori}, puisqu'il y a un système de grande taille à
+inverser. Ce coût augmente avec la dimension et la non-linéarité du
+problème, et l'implémentation des méthodes demande un investissement
+certain. En conséquence, ces méthodes sont disponibles en \enquote{boîte
+noire} dans la boîte à outils de résolution d'équations différentielles
+\texttt{solve\_ivp} de \texttt{scipy} en Python. Même pour les étudiants
+en analyse numérique, la résolution de tels systèmes est rarement (voire
+jamais) abordée. Il serait intéressant d'avoir accès à des méthodes tout
+aussi performantes mais plus facilement abordables, quitte à perdre en
+généralité. 
+
+
+
+
+
+\subsection*{Méthodes de splitting}
+\addcontentsline{toc}{subsection}{Méthodes de splitting}
+
+Une autre approche courante est de séparer le problème en deux parties,
+une raide et une non-raide. Pour la bonne étude de la méthode, on
+écrit~\eqref{sec:intro:eq:pb_ztest} sous la
+forme~\eqref{sec:intro:eq:u},~i.e. 
+\begin{equation*}
+    \pa_t u = -\frac{1}{\eps} A u + f(u)
+\end{equation*}
+avec $A = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}$ et $f(u) =
+\begin{pmatrix} 1 \\ \cos(x) \end{pmatrix}$. Le
+problème~\eqref{sec:intro:eq:pb_ztest} se sépare en
+%
+\begin{empheq}[left=\left\lbrace, right=\right.]{align*} &
+    \pa_t u^{(1)} = -\frac{1}{\eps}A u^{(1)} ,
+    \\ &
+    \pa_t u^{(2)} = f(u^{(2)}) . \vphantom{\frac11}
+\end{empheq}
+%
+On note $\varphi_t$, $\varphi^{(1)}_t$ et $\varphi^{(2)}_t$ les 
+$t$-flots associés aux problèmes en $u$, $u^{(1)}$ et $u^{(2)}$ 
+respectivement. On cherche à calculer $\varphi_t$
+
+
+En particulier, on dit le schéma préserve le comportement asymptotique,
+ce qui se traduit en \textit{asymptotic preserving} (AP) en anglais.
+Cette notion reviendra dans la prochaine section. 
 
 
 
