@@ -422,10 +422,49 @@ problème~\eqref{sec:intro:eq:pb_ztest} se sépare en
 %
 On note $\varphi_t$, $\varphi^{(1)}_t$ et $\varphi^{(2)}_t$ les 
 $t$-flots associés aux problèmes en $u$, $u^{(1)}$ et $u^{(2)}$ 
-respectivement. On cherche à calculer $\varphi_t$
+respectivement. On remarque qu'il est simple de calculer $\varphi^{(1)}$ de manière exacte, et simple de calculer $\varphi^{(2)}$ de manière 
+numérique. Cependant, elles sont mélangées dans $\varphi$, ce qui rend 
+le flot du problème d'origine difficile à calculer. Ainsi, on est en 
+droit de se poser la question~: Est-il possible d'obtenir $\varphi$ à 
+partir de $\varphi^{(1)}$ et de $\varphi^{(2)}$~?
+
+La réponse à cette question est \enquote{partiellement}, et on appelle cette approche le \textit{splitting}. Le plus couramment utilisé est le splitting de Strang, qui s'écrit généralement
+\begin{equation*}
+    \varphi_t = \varphi^{(1)}_{t/2} \circ \varphi^{(2)}_{t} \circ \varphi^{(1)}_{t/2} + \bigO(t^3) .
+\end{equation*}
+Il est obtenu par symétrie à partir du splitting de Lie $\Phi_t = \varphi^{(1)}_{t} \circ \varphi^{(2)}_{t}$, qui a une erreur $\varphi_t = \Phi_t + \bigO(t^2)$. Attention, $\Phi_t$ n'est pas un $t$-flot au même sens que $\varphi_t$, c'est la solution particulière d'une EDO dans l'espace des morphismes. Dans le cas où $f$ est linéaire, on dispose de la formule de Baker-Campbell-Hausdorff (BCH),\todo{REF BCH}
+\begin{equation*}
+    \log \big( \Phi_t \big)
+    = t\left(\frac{-1}{\eps}A + f\right) 
+    - \frac{t^2}{2\eps} \left[A, f\right]
+    + \frac{t^3}{12\eps^2}\big( [A,[A,f]] + \eps [f,[A,f]] \big)
+    + \ldots
+\end{equation*}
+avec $[f,g] = fg - gf$ le commutateur de champs linéaires. Cette formule n'est valide que formellement, c'est-à-dire qu'elle ne converge pas forcément et que l'important est le terme général qui la génère. On peut la comparer à un développement de Taylor qu'on a poussé à un ordre \enquote{infini}. L'objet obtenu est une série entière en $t$, mais celle-ci peut avoir un rayon de convergence nul. Néanmoins, les termes de la série ont du sens et on peut en prendre les premiers termes pour construire des approximations, bien qu'il faille être prudent avec la régularité de la fonction pour obtenir des résultats rigoureux.
+
+On remarque l'équivalence des proriétés suivantes~:
+\begin{itemize}
+    \item Le morphisme $\Phi_t$ est un flot;
+    \item $\Phi_t$ et $\varphi_t$ coincïdent en tout $t$;
+    \item Les champs $A$ et $f$ commutent.
+\end{itemize}
+Le morphisme $\Phi_t$ est un flot si et seulement si cette expression est linéaire en $t$, or ce n'est pas le cas en général. Le seul moyen que ce soit le cas est que $A$ et $f$ commutent. Ce résultat est aussi valide dans le cas non-linéaire, avec le commutateur
+\begin{equation*}
+    [f,g] = \pa_u f \cdot g - \pa_u g \cdot f 
+\end{equation*}
+qui définit une algèbre de Lie sur les champs de vecteurs. Ceci correspond à une manière plus géométrique de considérer les champs de vecteurs qui revient à les associer à l'opérateur de transport $\mathcal{D}_f(g) = \pa_u g \cdot f$. Ainsi, $[f,g] = \mathcal{D}_g(f) - \mathcal{D}_f(g)$. 
+
+On définit l'erreur de splitting 
+\begin{equation*}
+    \err_{\mathrm{Lie}} 
+    = \log \big( \Phi_t \big) - t\left(\frac{-1}{\eps}A + f\right) 
+\end{equation*}
+qui permet d'obtenir l'erreur de troncature du schéma par un passage à l'exponentielle. Il apparaît à partir de la formule de BCH que cette erreur est de taille $t^2/\eps$. 
 
 
-En particulier, on dit le schéma préserve le comportement asymptotique,
+
+\bigskip\bigskip\bigskip
+En particulier, on dit le schéma préserve le comportement asymptotique, 
 ce qui se traduit en \textit{asymptotic preserving} (AP) en anglais.
 Cette notion reviendra dans la prochaine section. 
 
@@ -434,7 +473,7 @@ Cette notion reviendra dans la prochaine section.
 \bigskip\bigskip\bigskip
 \textbf{Rq~:} On peut obtenir une approximation en tout point $t \in
 [0,T]$ par interpolation. Le sujet de cette thèse n'est pas l'étude de
-schémas numériques ou celle de méthodes d'interpolation, donc nous
+schémas numériques ou celle de méthodes d'interpolation, donc nous 
 éviterons de fournir des détails superflus sur ces sujets. On évaluera
 la qualité d'une approximation en fonction de la valeur aux points. 
 
