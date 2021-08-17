@@ -426,7 +426,7 @@ respectivement. On remarque qu'il est simple de calculer $\varphi^{(1)}$ de mani
 numérique. Cependant, elles sont mélangées dans $\varphi$, ce qui rend 
 le flot du problème d'origine difficile à calculer. Ainsi, on est en 
 droit de se poser la question~: Est-il possible d'obtenir $\varphi$ à 
-partir de $\varphi^{(1)}$ et de $\varphi^{(2)}$~?
+partir de $\varphi^{(1)}$ et de $\varphi^{(2)}$~? 
 
 La réponse à cette question est \enquote{partiellement}, et on appelle cette approche le \textit{splitting}. Le plus couramment utilisé est le splitting de Strang, qui s'écrit généralement
 \begin{equation*}
@@ -442,7 +442,7 @@ Il est obtenu par symétrie à partir du splitting de Lie $\Phi_t = \varphi^{(1)
 \end{equation*}
 avec $[f,g] = fg - gf$ le commutateur de champs linéaires. Cette formule n'est valide que formellement, c'est-à-dire qu'elle ne converge pas forcément et que l'important est le terme général qui la génère. On peut la comparer à un développement de Taylor qu'on a poussé à un ordre \enquote{infini}. L'objet obtenu est une série entière en $t$, mais celle-ci peut avoir un rayon de convergence nul. Néanmoins, les termes de la série ont du sens et on peut en prendre les premiers termes pour construire des approximations, bien qu'il faille être prudent avec la régularité de la fonction pour obtenir des résultats rigoureux.
 
-On remarque l'équivalence des proriétés suivantes~:
+On remarque l'équivalence des proriétés suivantes~:\todo{Paragraphe utile?}
 \begin{itemize}
     \item Le morphisme $\Phi_t$ est un flot;
     \item $\Phi_t$ et $\varphi_t$ coincïdent en tout $t$;
@@ -459,8 +459,37 @@ On définit l'erreur de splitting
     \err_{\mathrm{Lie}} 
     = \log \big( \Phi_t \big) - t\left(\frac{-1}{\eps}A + f\right) 
 \end{equation*}
-qui permet d'obtenir l'erreur de troncature du schéma par un passage à l'exponentielle. Il apparaît à partir de la formule de BCH que cette erreur est de taille $t^2/\eps$. 
+qui permet d'obtenir l'erreur de troncature du schéma par un passage à l'exponentielle. Il apparaît à partir de la formule de BCH que cette erreur est de taille $t^2/\eps$, pas indépendante de $\eps$. Néanmoins, on a déjà vu avec Euler implicite que l'accumulation d'erreur pouvait devenir indépendante de $\eps$, grâce aux propriétés de décroissance de $z$. C'est le cas ici, et on peut borner l'erreur \textit{indépendamment} de $\eps$. 
 
+On cherche ensuite à améliorer la convergence du schéma: il serait agréable de pouvoir profiter d'une convergence à un ordre plus élevé. La méthode généralement considérée est le splitting de Strang~:
+\begin{equation*}
+    \varphi_t \approx \varphi^{(1)}_{t/2} \circ \varphi^{(2)}_{t} \circ \varphi^{(1)}_{t/2} .
+\end{equation*}
+Cette méthode a l'avantage d'être d'ordre 2, et de présenter des propriétés géométriques sympathiques de par sa symétrie (elle génère d'ailleurs la méthode de Störmer-Verlett, voir Annexe~\textbf{REF}\todo{Storm-Verl}). Néanmoins, il n'est pas clair qu'elle présente un bon comportement lorsque la raideur augmente, i.e. lorsque $\eps$ diminue. En effet, un calcul de l'erreur de troncature donne 
+\begin{equation*}
+    \varphi_t - \varphi^{(1)}_{t/2} \circ \varphi^{(2)}_{t} \circ \varphi^{(1)}_{t/2} 
+    = \frac{t^3}{12\eps^2} \big( [A,[A,f]] + \eps [[A,f],f] \big)
+    + \bigO(t^4) .
+\end{equation*}
+Ainsi, même si un $1/\eps$ est compensé par la décroissance rapide de $z$, l'erreur ne sera pas indépendante de $\eps$. On peut vérifier ce résultat de manière numérique.
+
+\todo[inline]{Figure de convergence en fonction de $\Dt$ et $\eps$, avec Lie en haut et Strang en bas. Séparer $x$ et $z$?}
+
+Dans cette figure, on observe que le comportement de la solution est le bon attendu pour $\Dt \ll \eps$. Néanmoins, lorsqu'on trace l'erreur en fonction de $\eps$, on voit qu'à $\Dt$ fixé, il y a toujours un seuil à partir duquel une réduction de $\eps$ entraîne une augmentation de l'erreur. Cette augmentation, de tendance prédite en $1/\eps$, entraîne une \textit{réduction d'ordre}, c'est-à-dire qu'il n'y a pas de constante d'erreur $C$ telle que 
+\begin{equation*}
+    \sup_\eps \err \leq C \Dt^2 .
+\end{equation*}
+
+\bigskip\bigskip\bigskip
+\todo[inline]{Annexe B~: Stormer-Verlett est un cas particulier de Strang mélangé à Euler explicite. En effet avec $\dot q = v$ et $\dot v = F(q)$,}
+\vspace*{-2\bigskipamount}
+\begin{align*}
+&   v_{n + 1/2} = v_n + \frac{\Dt}{2}F(q_n) \\
+&   q_{n+1} = q_n + \Dt v_{n+1/2} \\
+&   v_{n+1} = v_{n+1/2} + \frac{\Dt}{2}F(q_{n+1}) .
+\end{align*}
+\vspace*{-\medskipamount}
+\todo[inline]{Ce qui revient à séparer le système en $\pa_t (q,v) = (0, F(q))$ et $\pa_t (q,v) = (v, 0)$.}
 
 
 \bigskip\bigskip\bigskip
