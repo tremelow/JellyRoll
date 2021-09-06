@@ -1,7 +1,16 @@
-\usepackage{amsmath,amssymb}
+\usepackage{amsmath,amssymb,amsthm}
 \usepackage{empheq}
 \usepackage{subcaption}
-% \usepackage[french=quotes]{csquotes}
+
+% \usepackage[
+%   backend=biber,
+%   style=alphabetic, % `numeric` to count 
+%   sorting=nyt, 
+%   maxalphanames=99, 
+%   maxbibnames=99,
+%   doi=false,isbn=false,url=false
+% ]{biblatex}
+\addbibresource{bibJellyRoll.bib}
 
 
 %----------------------------------------------------------
@@ -11,6 +20,26 @@
 \geometry{inner=1cm, outer=4.5cm}
 \setlength{\marginparwidth}{3.7cm}
 %----------------------------------------------------------
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{property}[theorem]{Property}
+
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{FRtheorem*}{Théorème}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{assumption*}{Assumption}
+\newtheorem*{property*}{Property}
+
 
 
 \newcommand{\eps}{\ensuremath{\varepsilon}}

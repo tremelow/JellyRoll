@@ -1,0 +1,92 @@
+\section*{Comportement théorique de la solution}
+\addcontentsline{toc}{section}{Comportement théorique de la solution}
+
+Dans cette section on décrit et illustre le comportement de la solution $(x^\eps, z^\eps)$. En particulier, on énonce le théorème de variété centrale, qui décrit le comportement de la solution en temps long, et on présente rapidement une méthode pour calculer cette variété centrale. On introduit ensuite quelques hypothèses qui permettront d'effectuer des approximations numériques dans la prochaine section. 
+
+
+\subsection*{Observations de propriétés}
+\addcontentsline{toc}{subsection}{Observations de propriétés}
+
+
+Considérons le problème
+\begin{equation} \label{sec:intro:pb:z_sin}
+    \pa_t z(t) = -\frac{1}{\eps}z(t) + \sin(t), 
+    \qquad
+    z(0) = 1, 
+\end{equation}
+qui peut être transformé en un problème de la forme~\eqref{sec:intro:eq:xz} en posant $x(t) = t$, soit $\pa_t x = 1,\ x(0) = 0$. Ce problème peut être obtenu à partir de 
+\begin{equation*}
+    \pa_t y(t) = -\frac{1}{\eps} \big( y(t) - \cos(t) \big), 
+    \qquad
+    y(0) = 0, 
+\end{equation*}
+en posant $z(t) = y(t) - \cos(t)$. C'est un problème de référence pour l'introduction aux systèmes raides: c'est le premier exemple considéré dans~REF. La solution exacte se calcule sans difficulté en intégrant $\pa_t \big[ e^{t/\eps} z(t) \big]$, ce qui donne 
+\begin{equation} \label{sec:intro:sol:z_sin}
+    z(t) = e^{-t/\eps} \left( 1 + \frac{\eps^2}{1+\eps^2} \right)
+        + \frac{\eps}{1 + \eps^2} \big( \sin(t) - \eps \cos(t) \big) .
+\end{equation}
+
+On observe que la solution comporte deux parties de nature différente, la phase transitoire (en $e^{-t/\eps}$) et la variété centrale (en $t$) de taille $\eps$. Ceci se voit sur la figure ci-dessous où on a tracé la solution et la variété centrale associée pour trois valeurs de~$\eps$. 
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=.9\textwidth]{./Presentation/z_sin.pdf}
+    \caption{Comportement de la solution~\eqref{sec:intro:sol:z_sin} pour différentes valeurs de~$\eps$, avec chaque variété centrale associée en pointillés.}
+\end{figure}
+
+\todo[inline]{Autre cas test où la dynamique sur $x$ change aussi}
+
+\todo[inline]{Théorème de variété centrale}
+En fait, dans le cas d'un système de la forme~\eqref{sec:intro:eq:xz}, la dynamique en temps long est déterminé entièrement par la variable $x$. Il y a une réduction de dimension, qui est traduite dans le théorème de variété centrale. 
+\begin{FRtheorem*}[Variété centrale, REF]
+    Si les fonctions $a,b$ sont de classe $C^1$, alors il existe un morphisme $x \mapsto z = \eps h^\eps(x)$, et un taux $\mu > 0$ tels que 
+    \begin{equation*}
+        \left| z(t) - \eps h^\eps\big( x(t) \big) \right|
+        \leq e^{-\mu t/\eps} .
+    \end{equation*}
+    En outre, il existe une condition initiale \enquote{de l'ombre} $x_0^\eps$ telle que 
+    \begin{equation*}
+        \big| x(t) - \varphi_t^\eps \big( x_0^\eps \big) \big| 
+        \lesssim \eps e^{-\mu t/\eps} , 
+    \end{equation*}
+    où $\varphi^\eps_t$ est le $t$-flot associé au champs de vecteur $x \mapsto a\big(x, \eps h^\eps(x) \big)$. On appelle l'ensemble des $\big( x, \eps h^\eps(x) \big)$ la variété centrale, qui attire la solution. 
+\end{FRtheorem*}
+
+Par exemple dans le cas~\eqref{sec:intro:pb:z_sin}, le morphisme de variété centrale $\eps h^\eps$ est donné par 
+\begin{equation*}
+    h^\eps(x) 
+    = \frac{1}{1 + \eps^2} \big( \sin(x) - \eps \cos(t) \big) .
+\end{equation*}
+Il est impossible d'espérer calculer ce morphisme explicitement en général. On peut néanmoins appliquer une méthode de point fixe en remarquant qu'en temps long, et $z \approx \eps h^\eps(x)$ et d'où 
+\begin{equation*}
+    \pa_t z \approx \eps \pa_x h^\eps(x) \cdot \pa_t x
+    \approx \eps \pa_x h^\eps(x) \cdot a(x, \eps h^\eps(x)) . 
+\end{equation*} Ainsi on peut poser $h\rk 0 = 0$ et itérer de manière explicite
+\begin{equation*}
+    \eps \pa_x h\rk n(x) \cdot a(x, \eps h\rk n (x)) 
+    = - h\rk{n+1}(x) + b(x, \eps h\rk n (x)) .
+\end{equation*}
+On remarque deux caractéristiques importantes de cette méthode: Elle nécessite de calculer une dérivée, ce qui demande du calcul symbolique potentiellement coûteux, et la convergence de la méthode n'est pas assurée. En effet, chaque itération vient demander un ordre de dérivation supplémentaire dans $a$ et $b$, ce qui peut croître comme $n!$ par exemple avec $a = 1$ et $b(x,z) = 1/(1+x)$. Même dans l'exemple jouet~\eqref{sec:intro:pb:z_sin}, cette méthode génère
+\begin{equation*}
+    h\rk{n}(x) = R_n(\eps) \sin(x) + \eps R_{n-1}(\eps) \cos(x) 
+\end{equation*}
+avec $R_n(\eps) = \sum_{k = 0}^{\left\lfloor n/2 \right\rfloor} \eps^{2k}$ et par convention $R_{-1} = 0$. En d'autres termes, on construit le développement en série entière en $\eps$ de la partie lente dans~\eqref{sec:intro:sol:z_sin}, i.e. $h\rk 1(x) = \sin(x)$, $h\rk 2 (x) = \sin(x) + \eps \cos(x)$ etc. Ainsi, le développement n'est convergent que pour $\eps < 1$, alors que le résultat de variété centrale est valide pour tout $\eps > 0$. 
+%
+Cette limitation apparaîtra couramment au cours de ce manuscrit sous le format plus contraignant
+\begin{equation*}
+    \eps \leq \frac{\eps_0}{n+1} ,
+\end{equation*}
+qu'on peut remarquer par exemple avec $b(x,z) = (1+x)^{-1}$ dont la taille des dérivées évolue de manière factorielle avec l'ordre de dérivation. 
+
+
+
+
+\subsection*{Définitions et hypothèses}
+\addcontentsline{toc}{subsection}{Définitions et hypothèses}
+
+
+\todo[inline]{Problème uniformément bien posé}
+
+\todo[inline]{Ouvert borné $\mathcal{K}$}
+
+\todo[inline]{Régularité + \enquote{chaussette} autour de la solution}

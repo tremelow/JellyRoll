@@ -1,0 +1,86 @@
+\section*{Paradigme numérique}
+\addcontentsline{toc}{section}{Paradigme numérique}
+
+Sur le cas jouet $\pa_t z = -\frac{1}{\eps}z + \sin(t)$ associé au pb $\pa_t y = -\frac{1}{\eps} \big( y - \cos(t) \big)$
+
+Solution exacte, mention de la variété centrale
+
+Écriture du système sous la forme $\pa_t u = \ldots$
+
+Annonce de la section : présentation rapide des résultats pour les initiés, introduction plus compréhensive et complète mathématiquement dans la section suivante
+
+
+\subsection*{Mise en place de la résolution numérique}
+\addcontentsline{toc}{section}{Mise en place de la résolution numérique}
+
+Discrétisation de $t$ de manière uniforme
+
+Description l’erreur d’une méthode numérique 
+
+Rq : on pourrait considérer une interpolation des données et définir une erreur dans le monde continu mais wlh c’est compliqué et c’est pas le sujet
+
+On suppose qu’on sait calculer $\exp(-t A)$ ou qu’on sait facilement inverser $\id + \Dt \ A$
+
+Def : ce qu’on entend par un schéma numérique, $u_{n+s} = u_{n+s-1} + \Dt \Phi^{\eps}_{\Dt} (u_{n+s-1}, \ldots, u_n)$
+
+Rq : en vérité, quitte à remplacer $u_n$ par $U_n = (u_{n+s-1}, \ldots, u_n)$, on peut se ramener à des méthodes à une seule étape
+
+
+\subsection*{Résolution numérique}
+\addcontentsline{toc}{section}{Résolution numérique}
+
+On présente les résultats associés à trois méthodes, qui traitent la partie raide différemment de la partie non-raide. Les méthodes se comportent bien dans la limite $\eps \rightarrow 0$.
+
+Attention : on observe le comportement de l’erreur et sa relation avec $\Dt$ mais aussi avec $\eps$ !
+
+Disclaimer : je n’ai pas étudié les schémas en eux-mêmes, je les ai juste compilés et ai étudié leur comportement
+
+Rq : Je n’ai pas étudié de méthodes fully implicit parce que c’est coûteux, pas très adapté pour les EDP...
+
+\paragraph{Méthodes de splitting}
+
+Présentation rapide du splitting de Lie et de Strang, avec une résolution exacte des flots
+
+Fig : convergence de Lie ($\Dt$ à gauche, $\eps$ à droite)
+
+Fig : convergence de Strang ($\Dt$ à gauche, $\eps$ à droite)
+
+Rq : réduction d’ordre notée dans un article de Sportisse en 2000 \url{https://www.sciencedirect.com/science/article/pii/S0021999100964957}
+
+
+\paragraph{Méthode IMEX-BDF}
+
+Justification de l’utilisation de cette méthode avec le côté “UA” et les IMEX-LM en cinétique
+
+Formule de IMEX-BDF Euler avec justif
+
+Fig : convergence de la méthode ordre 1
+
+Fig : convergence de la méthode ordre 2
+
+
+\paragraph{Méthodes exponentielles Runge-Kutta}
+
+Formulation intégrale avec semi-groupe
+
+Justification de l’utilisation de cette méthode avec la norme “relative”
+
+Formule de expRK Euler
+
+Rq : aussi considéré dans un article de Sportisse (\url{https://ir.cwi.nl/pub/4597}) pour compenser les failles d’erreur du splitting
+
+Fig : convergence méthode ordre 1
+
+Fig : convergence méthode ordre 2
+
+
+\subsection*{Analyse des résultats}
+\addcontentsline{toc}{section}{Analyse des résultats}
+
+Toutes les méthodes se comportent de la même manière… Il y a réduction d’ordre
+
+Def : convergence AP
+
+Def : convergence UA
+
+Ces définitions seront mieux détaillées dans le chapitre suivant

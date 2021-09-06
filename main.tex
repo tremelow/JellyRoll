@@ -16,10 +16,12 @@
 }
 
 \geometry{vmargin=4.0cm}
+\setlength{\headheight}{14pt}
+\addtolength{\topmargin}{-2pt}
 
 % Spécifier vos fichiers de bibliographie
 % Specify you bibliography files here
-\addbibresource{./biblio/biblio.bib}
+% \addbibresource{./biblio/biblio.bib}
 
 \begin{document}
 
@@ -87,11 +89,12 @@
 
 % nocite: Pour citer la totalit\'{e} des r\'{e}f\'{e}rences contenues dans le fichier biblio
 % nocite: In order to cite all the references included biblio
-\nocite{*}
-\printbibliography[heading=primary,keyword=primary]
-\newpage
-\nocite{*}
-\printbibliography[heading=secondary,keyword=secondary]
+% \nocite{*}
+% \printbibliography[heading=primary,keyword=primary]
+% \newpage
+% \nocite{*}
+% \printbibliography[heading=secondary,keyword=secondary]
+\printbibliography
 
 \clearemptydoublepage
 % Pour avoir la quatrième de couverture sur une page paire
