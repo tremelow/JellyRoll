@@ -4,55 +4,15 @@
 
 
 \paragraph{Contextualisation\\}
-Modèles cinétiques, dynamique des populations
 
-Le développement de modèles mathématiques en sciences naturelles bénéficie toujours d'avancées mathématiques qui permettent de vérifier la caractère bien posé des équations, ou le bon comportement des solutions. Une classe de modèles très prisés depuis quelques dizaines d'années sont les modèles multi-échelles, dont l'étude principale se penche sur les modèles double-échelle. Dans ces modèles, on distingue deux dynamiques: une d'échelle caractéristiques $\eps$ et l'autre d'échelle $1$. Ce sont ces systèmes qui nous intéressent, et mathématiquement, ce manuscrit se concentre sur les problèmes qui prennent la forme 
-\begin{equation} \label{sec:intro:eq:u}
-  \pa_t u^\eps = -\frac{1}{\eps}A u^\eps + f( u^\eps ),
-  \qquad u^\eps(0) = u_0 .
-\end{equation}
-On considère ce problème dans un Banach $(E, |\cdot|)$, avec $A : E \rightarrow E$ un opérateur linéaire et $f : E \rightarrow E$ un champ de vecteurs régulier. 
-
-Ces modèles apparaissent en physique cinétique dans des espaces fonctionnels, avec $A$ qui est soit un opérateur de relaxation, soit un opérateur qui induit des oscillations~\cite{crouseilles.2017.nonlinear}. 
-
-\bigskip
-En général, on suppose $\eps \ll 1$, et donc la première dynamique est rapide par rapport à la seconde. À cet égard, des méthodes d'\textit{analyse asymptotique} ont été développées, c'est-à-dire des méthodes qui permettent de caractériser le système dans cette limite $\eps$ \enquote{petit}, en général en découplant ces deux dynamiques. Trois exemples particulièrement célèbres sont les méthodes d'homogénéisation, de moyennisation et de formes normales. 
+Le développement de modèles mathématiques en sciences naturelles bénéficie toujours d'avancées mathématiques qui permettent de vérifier la caractère bien posé des équations, ou le bon comportement des solutions. Une classe de modèles très prisés depuis quelques dizaines d'années sont les modèles multi-échelles, dont l'étude principale se penche sur les modèles double-échelle. Dans ces modèles, on distingue deux dynamiques: une d'échelle caractéristiques \enquote{rapide} $\eps$ et l'autre d'échelle $1$. Dans ce manuscrit, on s'intéresse principalement à une sous-classe de ces modèles~: ceux dont la dynamique rapide est une relaxation. Pour nos résultats, on s'inspire de méthodes développées pour les problèmes dont la dynamique rapide est oscillatoire. 
 
 
-\paragraph{Annonce de l'équation}
-\begin{subequations} \label{sec:intro:eq:xz}
-  \begin{empheq}[left=\left\lbrace, right=\right.]{align} &
-    \pa_t x^\eps = a(x^\eps, z^\eps) , & &
-    x^\eps(0) = x_0 , \vphantom{\frac11}\qquad\qquad
-    \\ & 
-    \pa_t z^\eps = -\frac{1}{\eps}\Lambda z^\eps + b(x^\eps, z^\eps) , & &
-    z^\eps(0) = z_0 .
-  \end{empheq}
-\end{subequations}
+Ces systèmes à relaxation rapide apparaissent en physique dans un cadre fonctionnel de modèles cinétiques~\cite{bhatnagar.1954.model,lemou.2008.new} ou des systèmes dérivés de problèmes non-linéaires~\cite{jin.1995.relaxation}. On les observe également en dynamiques des populations, e.g. dans~\cite{greiner.1994.singular,auger.1996.emergence,sanchez.2000.singular,castella.2018.analysis}. Les systèmes hautement oscillants sont également fréquents en physique. Certains exemples sont présentés dans l'ouvrage de référence~\cite[Chap.~I]{hairer.2006.geometric}, comme le modèle de Hénon-Heiles~\cite{henon.1964.applicability} dans un contexte de mouvements céleste, ou le problème de Fermi-Pasta-Ulam-Tsingou~\cite{ford.1992.fermi} en théorie du chaos. Si $E$ est un espace fonctionnel, on peut aussi étudier certains phénomènes de dynamique quantique non-linéaires, tels que le modèle de Klein-Gordon~\cite{bao.2012.analysis}, l'équation de Schrödinger~\cite{grebert.2011.energy} ou le modèle de Wigner en milieu périodique~\cite{crouseilles.2017.nonlinear,morandi.2011.wigner}.
 
 
-Passage en notation $u^\eps$, 
-\begin{equation} 
-  \pa_t u^\eps = -\frac{1}{\eps} A u^\eps + f(u^\eps) .
-\end{equation}
+La simulation de tels systèmes présente des défis particulier, qui peuvent se ramener aux concepts de base des méthodes numériques de \textit{stabilité} et de \textit{convergence}. La stabilité consiste à déterminer une condition pour que la solution numérique soit bien définie, qu'elle ne diverge pas. La convergence trace un lien direct entre le coût de calcul et la précision de l'approximation numérique. Dans ce chapitre d'introduction, on introduit mathématiquement les modèles qui nous concernent, et on en fait une brève description du comportement. Ensuite, on illustre les limitations des méthodes numériques de l'état de l'art, en introduisant certains concepts de convergence liés à la présence du paramètre~$\eps$. Enfin, on présente brièvement la contribution de ce travail de thèse, et on annonce le plan pour la suite du manuscrit. 
 
-Présentation de ce qu'on entend par régime raide ou non-raide
-
-
-\paragraph{Comportement de la solution\\}
-En un temps assez court (de l'ordre de \eps), on rejoint un système de la 
-forme 
-\begin{subequations}
-  \begin{empheq}[left=\left\lbrace, right=\right.]{align} &
-    \pa_t x^\eps = a(x^\eps, \eps h^\eps(x^\eps)) 
-    \\ &
-    z^\eps = \eps h^\eps (x^\eps)
-  \end{empheq}
-\end{subequations}
-
-Théorème de variété centrale
-
-Figure de simulation de modèle jouet
 
 \input{./Presentation/comportement.tex}
 

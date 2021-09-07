@@ -1,6 +1,9 @@
 \section*{Paradigme numérique}
 \addcontentsline{toc}{section}{Paradigme numérique}
 
+En général, on suppose $\eps \ll 1$, et donc la première dynamique est rapide par rapport à la seconde. À cet égard, des méthodes d'\textit{analyse asymptotique} ont été développées, c'est-à-dire des méthodes qui permettent de caractériser le système dans cette limite $\eps$ \enquote{petit}, en général en découplant ces deux dynamiques. Trois exemples particulièrement célèbres sont les méthodes d'homogénéisation, de moyennisation et de formes normales. 
+
+
 Sur le cas jouet $\pa_t z = -\frac{1}{\eps}z + \sin(t)$ associé au pb $\pa_t y = -\frac{1}{\eps} \big( y - \cos(t) \big)$
 
 Solution exacte, mention de la variété centrale
@@ -11,7 +14,7 @@ Annonce de la section : présentation rapide des résultats pour les initiés, i
 
 
 \subsection*{Mise en place de la résolution numérique}
-\addcontentsline{toc}{section}{Mise en place de la résolution numérique}
+\addcontentsline{toc}{subsection}{Mise en place de la résolution numérique}
 
 Discrétisation de $t$ de manière uniforme
 
@@ -27,7 +30,7 @@ Rq : en vérité, quitte à remplacer $u_n$ par $U_n = (u_{n+s-1}, \ldots, u_n)$
 
 
 \subsection*{Résolution numérique}
-\addcontentsline{toc}{section}{Résolution numérique}
+\addcontentsline{toc}{subsection}{Résolution numérique}
 
 On présente les résultats associés à trois méthodes, qui traitent la partie raide différemment de la partie non-raide. Les méthodes se comportent bien dans la limite $\eps \rightarrow 0$.
 
@@ -38,6 +41,94 @@ Disclaimer : je n’ai pas étudié les schémas en eux-mêmes, je les ai juste 
 Rq : Je n’ai pas étudié de méthodes fully implicit parce que c’est coûteux, pas très adapté pour les EDP...
 
 \paragraph{Méthodes de splitting}
+
+Une autre approche courante est de séparer le problème en deux parties,
+une raide et une non-raide. Pour la bonne étude de la méthode, on
+écrit~\eqref{sec:intro:eq:pb_ztest} sous la
+forme~\eqref{sec:intro:eq:u},~i.e. 
+\begin{equation*}
+    \pa_t u = -\frac{1}{\eps} A u + f(u)
+\end{equation*}
+avec $A = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}$ et $f(u) =
+\begin{pmatrix} 1 \\ \cos(x) \end{pmatrix}$. Le
+problème~\eqref{sec:intro:eq:pb_ztest} se sépare en
+%
+\begin{empheq}[left=\left\lbrace, right=\right.]{align*} &
+    \pa_t u^{(1)} = -\frac{1}{\eps}A u^{(1)} ,
+    \\ &
+    \pa_t u^{(2)} = f(u^{(2)}) . \vphantom{\frac11}
+\end{empheq}
+%
+On note $\varphi_t$, $\varphi^{(1)}_t$ et $\varphi^{(2)}_t$ les 
+$t$-flots associés aux problèmes en $u$, $u^{(1)}$ et $u^{(2)}$ 
+respectivement. On remarque qu'il est simple de calculer $\varphi^{(1)}$ de manière exacte, et simple de calculer $\varphi^{(2)}$ de manière 
+numérique. Cependant, elles sont mélangées dans $\varphi$, ce qui rend 
+le flot du problème d'origine difficile à calculer. Ainsi, on est en 
+droit de se poser la question~: Est-il possible d'obtenir $\varphi$ à 
+partir de $\varphi^{(1)}$ et de $\varphi^{(2)}$~? 
+
+La réponse à cette question est \enquote{partiellement}, et on appelle cette approche le \textit{splitting}. Le plus couramment utilisé est le splitting de Strang, qui s'écrit généralement
+\begin{equation*}
+    \varphi_t = \varphi^{(1)}_{t/2} \circ \varphi^{(2)}_{t} \circ \varphi^{(1)}_{t/2} + \bigO(t^3) .
+\end{equation*}
+Il est obtenu par symétrie à partir du splitting de Lie $\Phi_t = \varphi^{(1)}_{t} \circ \varphi^{(2)}_{t}$, qui a une erreur $\varphi_t = \Phi_t + \bigO(t^2)$. Attention, $\Phi_t$ n'est pas un $t$-flot au même sens que $\varphi_t$, c'est la solution particulière d'une EDO dans l'espace des morphismes. Dans le cas où $f$ est linéaire, on dispose de la formule de Baker-Campbell-Hausdorff (BCH),\todo{REF BCH}
+\begin{equation*}
+    \log \big( \Phi_t \big)
+    = t\left(\frac{-1}{\eps}A + f\right) 
+    - \frac{t^2}{2\eps} \left[A, f\right]
+    + \frac{t^3}{12\eps^2}\big( [A,[A,f]] + \eps [f,[A,f]] \big)
+    + \ldots
+\end{equation*}
+avec $[f,g] = fg - gf$ le commutateur de champs linéaires. Cette formule n'est valide que formellement, c'est-à-dire qu'elle ne converge pas forcément et que l'important est le terme général qui la génère. On peut la comparer à un développement de Taylor qu'on a poussé à un ordre \enquote{infini}. L'objet obtenu est une série entière en $t$, mais celle-ci peut avoir un rayon de convergence nul. Néanmoins, les termes de la série ont du sens et on peut en prendre les premiers termes pour construire des approximations, bien qu'il faille être prudent avec la régularité de la fonction pour obtenir des résultats rigoureux.
+
+On remarque l'équivalence des proriétés suivantes~:\todo{Paragraphe utile?}
+\begin{itemize}
+    \item Le morphisme $\Phi_t$ est un flot;
+    \item $\Phi_t$ et $\varphi_t$ coincïdent en tout $t$;
+    \item Les champs $A$ et $f$ commutent.
+\end{itemize}
+Le morphisme $\Phi_t$ est un flot si et seulement si cette expression est linéaire en $t$, or ce n'est pas le cas en général. Le seul moyen que ce soit le cas est que $A$ et $f$ commutent. Ce résultat est aussi valide dans le cas non-linéaire, avec le commutateur
+\begin{equation*}
+    [f,g] = \pa_u f \cdot g - \pa_u g \cdot f 
+\end{equation*}
+qui définit une algèbre de Lie sur les champs de vecteurs. Ceci correspond à une manière plus géométrique de considérer les champs de vecteurs qui revient à les associer à l'opérateur de transport $\mathcal{D}_f(g) = \pa_u g \cdot f$. Ainsi, $[f,g] = \mathcal{D}_g(f) - \mathcal{D}_f(g)$. 
+
+On définit l'erreur de splitting 
+\begin{equation*}
+    \err_{\mathrm{Lie}} 
+    = \log \big( \Phi_t \big) - t\left(\frac{-1}{\eps}A + f\right) 
+\end{equation*}
+qui permet d'obtenir l'erreur de troncature du schéma par un passage à l'exponentielle. Il apparaît à partir de la formule de BCH que cette erreur est de taille $t^2/\eps$, pas indépendante de $\eps$. Néanmoins, on a déjà vu avec Euler implicite que l'accumulation d'erreur pouvait devenir indépendante de $\eps$, grâce aux propriétés de décroissance de $z$. C'est le cas ici, et on peut borner l'erreur \textit{indépendamment} de $\eps$. 
+
+On cherche ensuite à améliorer la convergence du schéma: il serait agréable de pouvoir profiter d'une convergence à un ordre plus élevé. La méthode généralement considérée est le splitting de Strang~:
+\begin{equation*}
+    \varphi_t \approx \varphi^{(1)}_{t/2} \circ \varphi^{(2)}_{t} \circ \varphi^{(1)}_{t/2} .
+\end{equation*}
+Cette méthode a l'avantage d'être d'ordre 2, et de présenter des propriétés géométriques sympathiques de par sa symétrie (elle génère d'ailleurs la méthode de Störmer-Verlett, voir Annexe~\textbf{REF}\todo{Storm-Verl}). Néanmoins, il n'est pas clair qu'elle présente un bon comportement lorsque la raideur augmente, i.e. lorsque $\eps$ diminue. En effet, un calcul de l'erreur de troncature donne 
+\begin{equation*}
+    \varphi_t - \varphi^{(1)}_{t/2} \circ \varphi^{(2)}_{t} \circ \varphi^{(1)}_{t/2} 
+    = \frac{t^3}{12\eps^2} \big( [A,[A,f]] + \eps [[A,f],f] \big)
+    + \bigO(t^4) .
+\end{equation*}
+Ainsi, même si un $1/\eps$ est compensé par la décroissance rapide de $z$, l'erreur ne sera pas indépendante de $\eps$. On peut vérifier ce résultat de manière numérique.
+
+\todo[inline]{Figure de convergence en fonction de $\Dt$ et $\eps$, avec Lie en haut et Strang en bas. Séparer $x$ et $z$?}
+
+Dans cette figure, on observe que le comportement de la solution est le bon attendu pour $\Dt \ll \eps$. Néanmoins, lorsqu'on trace l'erreur en fonction de $\eps$, on voit qu'à $\Dt$ fixé, il y a toujours un seuil à partir duquel une réduction de $\eps$ entraîne une augmentation de l'erreur. Cette augmentation, de tendance prédite en $1/\eps$, entraîne une \textit{réduction d'ordre}, c'est-à-dire qu'il n'y a pas de constante d'erreur $C$ telle que 
+\begin{equation*}
+    \sup_\eps \err \leq C \Dt^2 .
+\end{equation*}
+
+\bigskip\bigskip\bigskip
+\todo[inline]{Annexe B~: Stormer-Verlett est un cas particulier de Strang mélangé à Euler explicite. En effet avec $\dot q = v$ et $\dot v = F(q)$,}
+\vspace*{-2\bigskipamount}
+\begin{align*}
+&   v_{n + 1/2} = v_n + \frac{\Dt}{2}F(q_n) \\
+&   q_{n+1} = q_n + \Dt v_{n+1/2} \\
+&   v_{n+1} = v_{n+1/2} + \frac{\Dt}{2}F(q_{n+1}) .
+\end{align*}
+\vspace*{-\medskipamount}
+\todo[inline]{Ce qui revient à séparer le système en $\pa_t (q,v) = (0, F(q))$ et $\pa_t (q,v) = (v, 0)$.}
 
 Présentation rapide du splitting de Lie et de Strang, avec une résolution exacte des flots
 
@@ -75,7 +166,7 @@ Fig : convergence méthode ordre 2
 
 
 \subsection*{Analyse des résultats}
-\addcontentsline{toc}{section}{Analyse des résultats}
+\addcontentsline{toc}{subsection}{Analyse des résultats}
 
 Toutes les méthodes se comportent de la même manière… Il y a réduction d’ordre
 
