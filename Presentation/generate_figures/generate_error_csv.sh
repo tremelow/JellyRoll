@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-FNAME="error_exprk2_z.csv"
+FNAME="error_exprk2_z0.csv"
 
 touch "$FNAME"
 

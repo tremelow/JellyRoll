@@ -7,8 +7,11 @@ u0 = BigFloat.([1,1])
 
 #####################################
 # PARAMETERS
-ε = BigFloat(2)^-parse(Int64, ARGS[1])
-t = range(BigFloat(0), BigFloat(1), length=2^parse(Int64, ARGS[2])+1)
+# ε = BigFloat(2)^-parse(Int64, ARGS[1])
+# t = range(BigFloat(0), BigFloat(1), length=2^parse(Int64, ARGS[2])+1)
+# h = BigFloat(step(t))
+ε = BigFloat(2)^-30
+t = range(BigFloat(0), BigFloat(1), length=2^7+1)
 h = BigFloat(step(t))
 #####################################
 
@@ -58,25 +61,25 @@ function imex_bdf2(u1, u)
 end
 
 uRef, uNum = u0[:], u0[:]
-# uRef1, uNum1 = exact_flow(uRef), imex_bdf1(uNum)
-# uNumTmp = uNum1[:]
-# uRef  .= uRef1
-# uNum1 .= uNum
-# uNum  .= uNumTmp
+uRef1, uNum1 = exact_flow(uRef), imex_bdf1(uNum)
+uNumTmp = uNum1[:]
+uRef  .= uRef1
+uNum1 .= uNum
+uNum  .= uNumTmp
 
 err = abs.(uRef - uNum)
 for _ in Iterators.drop(t,1)
     uRef .= exact_flow(uRef)
 
-    uNum .= exp_rk2(uNum)
+    # uNum .= exp_rk2(uNum)
     # uNum .= strang(uNum)
-    # uNumTmp .= imex_bdf2(uNum1, uNum)
-    # uNum1 .= uNum
-    # uNum .= uNumTmp
+    uNumTmp .= imex_bdf2(uNum1, uNum)
+    uNum1 .= uNum
+    uNum .= uNumTmp
 
     err[1] = max(err[1], abs(uRef[1] - uNum[1]))
     err[2] = max(err[2], abs(uRef[2] - uNum[2]))
 end
 
-print(err[2])
+print(err[1])
 print(" , ")

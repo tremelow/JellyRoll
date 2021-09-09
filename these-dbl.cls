@@ -143,20 +143,20 @@
 % pour profiter des derni\`{e}res nouveaut\'{e}s. Si vous choisissez cette
 % option, il vous faut simplement compiler avec $biber nomdufichier (sans le
 % .tex). Pour utiliser bibtex, remplacer par backend=bibtex.
-\RequirePackage[hyperref,backend=biber,
-  % Exemples de styles: alphabetic, ieee, nature, numeric, verbose-trad1 (en utilisant \footcite{}).
-  % https://www.overleaf.com/learn/latex/Biblatex_bibliography_styles
-  style=alphabetic
-  ]{biblatex}
-% \RequirePackage[
-%   hyperref,
-%   backend=biber,
-%   style=alphabetic, % `numeric` to count 
-%   sorting=nyt, 
-%   maxalphanames=99, 
-%   maxbibnames=99,
-%   doi=true,isbn=false,url=false
-% ]{biblatex}
+% \RequirePackage[hyperref,backend=biber,
+%   % Exemples de styles: alphabetic, ieee, nature, numeric, verbose-trad1 (en utilisant \footcite{}).
+%   % https://www.overleaf.com/learn/latex/Biblatex_bibliography_styles
+%   style=alphabetic
+%   ]{biblatex}
+\RequirePackage[
+  hyperref,
+  backend=biber,
+  style=alphabetic, % `numeric` to count 
+  sorting=nyt, 
+  maxalphanames=99, 
+  maxbibnames=99,
+  doi=true,isbn=false,url=false
+]{biblatex}
 
 % Style biblatex avec gestion des mots cl\'{e}s des entr\'{e}es bibliographiques
 % + les abbr\'{e}viations idem, ibidem, op cit. Pr\'{e}voir un fichier bib
