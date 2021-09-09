@@ -1,6 +1,9 @@
-\usepackage{amsmath,amssymb,amsthm}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
 \usepackage{empheq}
 \usepackage{subcaption}
+\usepackage{enumerate}  % lists with (i)
+\usepackage{yhmath}     % for very wide hats
+\usepackage{ifthen}
 
 % \usepackage[
 %   backend=biber,
@@ -35,10 +38,12 @@
 \newtheorem*{proposition*}{Proposition}
 \newtheorem*{definition*}{Definition}
 \newtheorem*{remark*}{Remark}
+\newtheorem*{FRremark*}{Remarque}
 \newtheorem*{corollary*}{Corollary}
 \newtheorem*{lemma*}{Lemma}
 \newtheorem*{assumption*}{Assumption}
 \newtheorem*{property*}{Property}
+\newtheorem*{FRproperty*}{Propriété}
 
 
 
@@ -55,6 +60,7 @@
 \newcommand{\setR}{\mathbb{R}} 
 \newcommand{\setC}{\mathbb{C}}
 \newcommand{\setT}{\mathbb{T}}
+\newcommand{\setK}{\mathcal{K}}
 
 \newcommand{\RR}{\rangle}
 \newcommand{\LL}{\langle}
@@ -62,6 +68,12 @@
 \newcommand{\bLL}{\big \langle}
 \newcommand{\BRR}{\Big \rangle}
 \newcommand{\BLL}{\Big \langle}
+
+\newcommand{\among}[2]{\begin{pmatrix} #1 \\ #2 \end{pmatrix}}
+
+% triple norm 
+\newcommand{\vertiii}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 %
+    \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
 
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\tr}{tr}
@@ -71,3 +83,34 @@
 \newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
 \newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
 \makeatother
+
+
+%--------------------------------
+% Pour Chap. III
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathcal{K}}
+\newcommand{\ul}[1]{\underline{#1}}
+\newcommand{\ol}[1]{\overline{#1}}
+
+\newcommand{\e}{\varepsilon}
+\newcommand{\ee}{^{\e}}
+\newcommand{\ie}{_{\e}}
+\newcommand{\eeps}{\ee}
+\newcommand{\ieps}{\ie}
+\newcommand{\inveps}{\frac{1}{\eps}}
+
+\newcommand{\lp}{\big(}\newcommand{\rp}{\big)}
+\newcommand{\LP}{\Big(}\newcommand{\RP}{\Big)}
+\newcommand{\Langle}{\big\langle}
+\newcommand{\Rangle}{\big\rangle}
+\newcommand{\D}{\mathrm{d}}
+
+\newcommand{\dpt}{\partial_t}
+\newcommand{\dptau}{\partial_{\tau}}
+\newcommand{\dptheta}{\partial_{\theta}}
+\newcommand{\dpu}{\partial_{u}}
+\newcommand{\dpx}{\partial_{x}}
+\newcommand{\dpz}{\partial_{z}}
+\newcommand{\dpy}{\partial_{y}}

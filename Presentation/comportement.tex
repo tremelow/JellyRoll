@@ -18,14 +18,13 @@ On considère ce problème dans un Banach $(E, |\cdot|)$, avec $A : E \rightarro
 \end{subequations}
 avec $u = \begin{pmatrix} x \\ z \end{pmatrix}$, $A = \begin{pmatrix} 0 & 0 \\ 0 & \Lambda \end{pmatrix}$ et $f = \begin{pmatrix} a \\ b \end{pmatrix}$. En général, on omettra l'exposant~$\eps$. Le lecteur peut supposer que, sauf mention contraire, toutes les variables dépendent de $\eps$. D'ailleurs, on peut supposer que le champ de vecteurs~$f$ évolue de manière régulière en fonction de~$\eps$ sans impacter les résultats. 
 
-Dans cette section on décrit et illustre le comportement de la solution $(x^\eps, z^\eps)$. En particulier, on énonce le théorème de variété centrale, qui décrit le comportement de la solution en temps long, et on présente rapidement une méthode pour calculer cette variété centrale. On introduit ensuite quelques hypothèses qui permettront de citer des résultats d'estimation numérique rigoureux dans la prochaine section. 
+Dans cette section on décrit et illustre le comportement de la solution $(x^\eps, z^\eps)$ à travers deux exemples. En particulier, on énonce le théorème de variété centrale, qui décrit le comportement de la solution en temps long, et on présente rapidement une méthode pour calculer cette variété centrale. On introduit ensuite quelques hypothèses qui permettront de citer des résultats d'estimation numérique rigoureux dans la prochaine section. 
 
 
-\subsection*{Observations de propriétés}
-\addcontentsline{toc}{subsection}{Observations de propriétés}
+\subsection*{Quelques observations}
+\addcontentsline{toc}{subsection}{Quelques observations}
 
-
-Considérons le problème jouet
+Pour démarrer, considérons un problème jouet
 \begin{equation} \label{sec:intro:pb:z_sin}
     \pa_t z(t) = -\frac{1}{\eps}z(t) + \sin(t), 
     \qquad
@@ -53,7 +52,7 @@ On observe que la solution comporte deux parties de nature différente, la phase
 
 En fait, dans le cas d'un système de la forme~\eqref{sec:intro:eq:xz}, la dynamique en temps long est déterminé entièrement par la variable $x$. Il y a une réduction de dimension, qui est traduite dans le théorème de variété centrale. 
 \begin{FRtheorem*}[Variété centrale, \cite{carr.1982.applications}]
-    Si le champ $f$ est de classe $C^1$, alors il existe un morphisme $x \mapsto z = \eps h^\eps(x)$, et un taux $\mu > 0$ tels que 
+    Si le champ $f$ est de classe $C^1$, alors il existe un morphisme $x \mapsto z = \eps h^\eps(x)$, et un taux $\mu > 0$ tels que  
     \begin{equation*}
         \left| z(t) - \eps h^\eps\big( x(t) \big) \right|
         \leq e^{-\mu t/\eps} .
@@ -71,11 +70,7 @@ Par exemple dans le cas~\eqref{sec:intro:pb:z_sin}, le morphisme de variété ce
     h^\eps(x) 
     = \frac{1}{1 + \eps^2} \big( \sin(x) - \eps \cos(t) \big) .
 \end{equation*}
-En revanche, le phénomène de donnée initiale de l'ombre n'est cependant pas visible sur cet exemple, puisque la variable $x$ ne dépend pas de la dynamique sur $z$ (pour rappel, on a $x(t) = t$). 
-
-\todo[inline]{Autre cas test où la dynamique sur $x$ change aussi pour illustrer le reste du thm}
-
-Il est impossible d'espérer calculer le morphisme de variété centrale explicitement en général. On peut néanmoins appliquer une méthode de point fixe en remarquant qu'en temps long, et $z \approx \eps h^\eps(x)$ et d'où 
+En général, il est impossible d'espérer calculer le morphisme de variété centrale explicitement en général. On peut néanmoins appliquer une méthode de point fixe en remarquant qu'en temps long, et $z \approx \eps h^\eps(x)$ et d'où 
 \begin{equation*}
     \pa_t z \approx \eps \pa_x h^\eps(x) \cdot \pa_t x
     \approx \eps \pa_x h^\eps(x) \cdot a(x, \eps h^\eps(x)) . 
@@ -86,7 +81,11 @@ Il est impossible d'espérer calculer le morphisme de variété centrale explici
 \end{equation}
 Le calcul de la donnée initiale de l'ombre $x^\eps_0$ n'est en revance pas si simple. La calculer demande de faire des développements sur l'intégralité du système et demande un certain investissement. Dans~\cite{castella.2016.formal}, les auteurs font appel à des B-séries\footnote{
     Les B-séries sont des séries formelles qui décrivent les solutions d'EDO. Cet outil, souvent utilisé pour développer des schémas numériques, est présenté en détails dans~\cite[Chap.~III]{hairer.2006.geometric} ou de manière plus concise dans~\cite{chartier.2010.algebraic}. Malgré une apparence encombrante, les B-séries possédent une structure algébrique élégante basée sur des opérations sur les arbres.
-} pour obtenir un modèle asymptotique sur l'intégralité du problème~\eqref{sec:intro:eq:u}, à partir duquel ils trouvent en particulier cette donnée initiale modifiée, mais les calculs sont bien plus compliqués que~\eqref{sec:intro:eq:iter_h}. 
+} pour obtenir un modèle asymptotique sur l'intégralité du problème~\eqref{sec:intro:eq:u}, à partir duquel ils trouvent en particulier cette donnée initiale modifiée, mais les calculs sont bien plus compliqués que~\eqref{sec:intro:eq:iter_h}.
+
+\begin{FRremark*}
+    Le phénomène de donnée initiale de l'ombre n'est cependant pas visible sur cet exemple, puisque la variable $x$ ne dépend pas de la dynamique sur $z$ (pour rappel, on a $x(t) = t$). L'interdépendance entre $x$ et $z$ apparaîtra dans le cas test de la section suivante.
+\end{FRremark*}
 
 On remarque deux caractéristiques importantes de la méthode d'approximation de $h^\eps$: Elle nécessite de calculer une dérivée, ce qui demande du calcul symbolique potentiellement coûteux, et la convergence de la méthode n'est pas assurée. En effet, chaque itération vient demander un ordre de dérivation supplémentaire dans $a$ et $b$, ce qui peut croître comme $n!$ par exemple avec $a = 1$ et $b(x,z) = 1/(1+x)$. Même dans l'exemple jouet~\eqref{sec:intro:pb:z_sin}, cette méthode génère
 \begin{equation*}
@@ -108,6 +107,9 @@ qu'on peut remarquer par exemple avec $b(x,z) = (1+x)^{-1}$ dont la taille des d
 
 
 \todo[inline]{Problème uniformément bien posé}
+\begin{FRproperty*}
+    Le problème~\eqref{sec:intro:eq:u} est uniformément bien posé, i.e. il existe un temps d'existence $T > 0$ valide pour tout $\eps < \eps_0$. 
+\end{FRproperty*}
 
 \todo[inline]{Ouvert borné $\mathcal{K}$}
 

@@ -480,17 +480,6 @@ Dans cette figure, on observe que le comportement de la solution est le bon atte
     \sup_\eps \err \leq C \Dt^2 .
 \end{equation*}
 
-\bigskip\bigskip\bigskip
-\todo[inline]{Annexe B~: Stormer-Verlett est un cas particulier de Strang mélangé à Euler explicite. En effet avec $\dot q = v$ et $\dot v = F(q)$,}
-\vspace*{-2\bigskipamount}
-\begin{align*}
-&   v_{n + 1/2} = v_n + \frac{\Dt}{2}F(q_n) \\
-&   q_{n+1} = q_n + \Dt v_{n+1/2} \\
-&   v_{n+1} = v_{n+1/2} + \frac{\Dt}{2}F(q_{n+1}) .
-\end{align*}
-\vspace*{-\medskipamount}
-\todo[inline]{Ce qui revient à séparer le système en $\pa_t (q,v) = (0, F(q))$ et $\pa_t (q,v) = (v, 0)$.}
-
 
 \bigskip\bigskip\bigskip
 En particulier, on dit le schéma préserve le comportement asymptotique, 
