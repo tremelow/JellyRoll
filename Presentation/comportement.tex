@@ -105,12 +105,10 @@ qu'on peut remarquer par exemple avec $b(x,z) = (1+x)^{-1}$ dont la taille des d
 \subsection*{Définitions et hypothèses}
 \addcontentsline{toc}{subsection}{Définitions et hypothèses}
 
+\todo[inline]{Rendre cette section plus fluide, les hypothèses sont parachutées}
 
-\todo[inline]{Problème uniformément bien posé}
-\begin{FRproperty*}
-    Le problème~\eqref{sec:intro:eq:u} est uniformément bien posé, i.e. il existe un temps d'existence $T > 0$ valide pour tout $\eps < \eps_0$. 
-\end{FRproperty*}
-
-\todo[inline]{Ouvert borné $\mathcal{K}$}
-
-\todo[inline]{Régularité + \enquote{chaussette} autour de la solution}
+On considère le problème~\eqref{sec:intro:eq:u} en dimension finie~$d$, et on suppose que la donnée initiale~$u_0$ appartient à un ensemble~$\mathcal{U}_0$ de sorte qu'en tout temps, la solution appartient à un ensemble borné~$\mathcal{K}$. Grâce au théorème de variété centrale, ces hypothèses sont supposées valides pour tout $\eps \in (0, \eps_0]$ pour un certain $\eps_0 > 0$ fixé. En outre, on suppose que le champ de vecteurs $u \mapsto f(u)$ est de classe $C^\infty$ sur $\mathcal{K}_R$ pour un certain rayon $R > 0$, où
+\begin{equation*}
+    \mathcal{K}_R = \left\lbrace u \in \setR^d,\ d(u, \mathcal{K}) \leq R \right\rbrace 
+\end{equation*} 
+avec $d(u, \mathcal{K}) = \inf_{v \in \mathcal{K}} |u-v|$ la distance de $u$ à $\mathcal{K}$. 

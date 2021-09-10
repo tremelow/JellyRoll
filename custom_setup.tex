@@ -15,6 +15,24 @@
 % ]{biblatex}
 \addbibresource{bibJellyRoll.bib}
 
+\NewBibliographyString{toappear}
+\DefineBibliographyStrings{english}{%
+  toappear = {to appear in},
+}
+\DefineBibliographyStrings{french}{%
+  toappear = {à paraître dans},
+}
+
+\renewbibmacro*{in:}{%
+  \iffieldundef{pubstate}
+    {}
+    {\printfield{pubstate}%
+     \setunit{\addspace}%
+     \clearfield{pubstate}}%
+%   \printtext{%
+%     \intitlepunct}%
+    }
+
 
 %----------------------------------------------------------
 % Temporary packages
@@ -43,6 +61,7 @@
 \newtheorem*{corollary*}{Corollary}
 \newtheorem*{lemma*}{Lemma}
 \newtheorem*{assumption*}{Assumption}
+\newtheorem*{FRassumption*}{Hypothèse}
 \newtheorem*{property*}{Property}
 \newtheorem*{FRproperty*}{Propriété}
 
@@ -63,6 +82,10 @@
 \newcommand{\setT}{\mathbb{T}}
 \newcommand{\setK}{\mathcal{K}}
 
+\newcommand{\R}{\mathbb{R}} \newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}} \newcommand{\N}{\mathbb{N}}
+\newcommand{\T}{\mathbb{T}}
+
 \newcommand{\RR}{\rangle}
 \newcommand{\LL}{\langle}
 \newcommand{\bRR}{\big \rangle}
@@ -78,6 +101,7 @@
 
 \DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Tr}{tr}
 \DeclareMathOperator{\err}{err}
 
 \makeatletter
@@ -88,9 +112,6 @@
 
 %--------------------------------
 % Pour Chap. III
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
 \newcommand{\K}{\mathcal{K}}
 \newcommand{\ul}[1]{\underline{#1}}
 \newcommand{\ol}[1]{\overline{#1}}

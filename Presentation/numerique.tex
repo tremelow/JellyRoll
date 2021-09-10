@@ -85,7 +85,7 @@ On présente les résultats associés à trois méthodes d'ordre 2, qui traitent
 
 On ne considère pas de méthodes complètement implicites parce qu'elles sont très coûteuses et pas très adapté pour l'extension aux EDP... Néanmoins la convergence des méthodes implicites est souvent excellente et des implémentations très efficaces existent. La référence sur le sujet est~\cite{hairer.1996.solving}, et toutes les bonnes boîtes à outils de résolution d'EDO contiennent la méthode RadauII.\footnote{Attention cependant, la plupart de ces boîtes à outils masquent la difficulté associée aux méthodes implicites, qui sont la résolution d'un système et de l'erreur associée. En outre, il est parfois difficile de désactiver le pas de temps adaptatif, ce qui est problématique pour une étude de convergence.} On ne considère pas non plus de méthodes purement explicites demandent $\Dt < \eps$, ce qui est beaucoup trop coûteux. 
 
-Il est important de noter que ce manuscrit ne présente pas une étude des schémas présentés. Il s'agit simplement d'une compilation non-exhaustive de résultats et d'observations rapides sur les propriétés de ces méthodes appliquées à~\eqref{sec:intro:eq:u} afin de contextualiser les contributions du manuscrit par la suite.
+Il est important de noter que ce manuscrit ne présente pas une étude des schémas présentés. Il s'agit simplement d'une compilation non-exhaustive de résultats et d'observations rapides sur les propriétés de ces méthodes appliquées à~\eqref{sec:intro:eq:u} afin de contextualiser les contributions du manuscrit par la suite. Néanmoins, les schémas sont présentés plus en détails dans l'Annexe~\ref{chap:schemas}.
 
 
 
@@ -248,7 +248,7 @@ La différence principale de cette erreur avec celle des méthodes expRK est que
     \centering
     \includegraphics[width=\textwidth]{./Presentation/bdf2_err_x.pdf}
     \includegraphics[width=\textwidth]{./Presentation/bdf2_err_z.pdf}
-    \caption{Erreurs sur $x$ (en haut) et $z$ (en bas) en fonction de $\Dt$ (à gauche) et de $\eps$ (à droite) avec le schéma IMEX-BDF2. Sur les tracés de l'erreur en fonction de $\Dt$, les convergences théorique et uniforme sont tracées.}
+    \caption{Erreurs sur $x$ (en haut) et $z$ (en bas) en fonction de $\Dt$ (à gauche) et de $\eps$ (à droite) avec le schéma IMEX-BDF2. Sur les tracés de l'erreur en fonction de $\Dt$, la convergence théorique est tracée, ainsi que pour $x$ la convergence uniforme et pour $z$ l'ordre négatif observé sur une portion de valeurs de $\Dt$.}
     \label{sec:intro:fig:bdf2}
 \end{figure}
 
@@ -270,8 +270,8 @@ En outre, si la donnée initiale se situe proche de l'équilibre $z = \eps h^\ep
 
 
 
-\subsection*{Outils d'analyse des résultats}
-\addcontentsline{toc}{subsection}{Outils d'analyse des résultats}
+\subsection*{D'autres notions de convergence}
+\addcontentsline{toc}{subsection}{D'autres notions de convergence}
 
 On voit que toutes ces méthodes subissent une réduction d'ordre: on passe d'une convergence à l'ordre~2 à une convergence d'ordre~1, ou pire. Pourtant, les schémas sont bien \textit{d'ordre~2}, comme on l'observe pour $\eps = 2^{-3}$. On voit bien l'intérêt d'introduire des concepts de convergence qui diffèrent des définitions usuelles. 
 

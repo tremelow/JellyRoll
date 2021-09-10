@@ -1,6 +1,7 @@
 
 \clearemptydoublepage
 \chapter{Convergence uniforme pour un problème dissipatif}
+\label{chap:dissip-mima}
 
 Ce chapitre reprend un article à paraître dans \textit{Mathematics of
 Computation}, intitulé 
@@ -8,7 +9,9 @@ Computation}, intitulé
   A uniformly accurate numerical method for a class of dissipative
   systems
 \end{center}
-Dans cet article, on ...
+Dans cet article, on construit un problème micro-macro pour une classe de problèmes à relaxation rapide, ce qui permet de résoudre le problème avec une précision uniforme d'ordre arbitraire. 
+
+\todo[inline]{Ajouter des simulations avec IMEX-BDF}
 
 
 
@@ -892,7 +895,6 @@ We made the choice to prioritize methods of order $n+1$ rather than $n$.
 properties of the decomposition}
 \label{sec:proofs:subsec:bounds}
 
-\newcommand{\T}{\mathbb{T}}
 
 For some rank $n\in \setN$, consider the change of variable~$(\tau, u)
 \mapsto \Omega\rk{n}_{\tau}(u)$ given

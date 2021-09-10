@@ -2,17 +2,47 @@
 \addcontentsline{toc}{section}{Contribution personnelle}
 
 
-Suite aux résultats de précision uniforme (i.e. indépendante de $\eps$) obtenus pour les problèmes hautement oscillants~\cite{chartier.2015.uniformly,chartier.2020.new,crouseilles.2017.nonlinear}, on étudie dans cette section quelques méthodes numériques à la pointe de l'état de l'art qui concernent 
+Suite aux résultats de précision uniforme obtenus pour les problèmes hautement oscillants~\cite{chartier.2015.uniformly,crouseilles.2017.nonlinear,chartier.2020.new}, ce travail de thèse a cherché à développer des méthodes à précision uniforme dans le cadre des problèmes à relaxation rapide de type~\eqref{sec:intro:eq:u}. 
 
-Résultat de convergence uniforme avec IMEX-BDF ou expRK
+Les premiers résultats de précision uniforme proviennent d'un développement double-échelle, c'est à dire qu'on écrit la solution $t \mapsto u(t)$ comme une évaluation particulière d'une fonction à deux variable $(t,\tau) \mapsto U(t,\tau)$ en posant
+\begin{equation*}
+    u(t) = U(t,\tau)|_{\tau = t/\eps} .
+\end{equation*}
+L'apparition de cette seconde variable permet de choisir une donnée initiale $U(0,\tau)$ qui réduit la raideur dans la direction $t$. Les premiers mois de cette thèse ont été passés à adapter ces résultats dans le cadre des problèmes à relaxation rapide. Malheureusement, malgré une méthode théoriquement convergente, l'implémentation efficace du développement double-échelle n'a pas été possible.\footnote{La difficulté peut se résumer à cela~: Dans le cadre de problèmes hautement oscillants, la donnée double-échelle $U(t,\tau)$ est construite périodique par rapport à $\tau$. Dans le cadre d'une relaxation rapide, une telle construction n'est pas possible et on doit considérer $\tau$ dans $\setR_+$, ou au moins dans $[0,T/\eps]$. Résoudre une équation de transport sur un domaine si grand pose des difficultés majeures.} Néanmoins, ces résultats seront présentés en Annexe~\ref{chap:two-scale}, de sorte à fournir des clés dans le cas où une personne souhaiterait élaborer des méthodes double-échelle pour ce genre de problèmes.
 
-Explication de la méthode à détailler (sans prendre le crédit)~:
-\begin{itemize}
-    \item Lien avec moyennisation
-    \item Formes normales, splitting quasi-exact
-    \item Conservation exacte du défaut
-\end{itemize}
 
-Ouverture au cinétique
+Suite à l'échec de ce développement double-échelle, il a été décidé de se baser sur des résultats plus récents, spécifiquement~\cite{chartier.2020.new}. L'idée dans cet article est similaire au double-échelle; il s'agit de séparer la dynamique rapide (en $e^{it/\eps}$, ou $e^{-t/\eps}$ selon le contexte) et la dynamique de \enquote{drift} (en $t$). Ainsi on écrit 
+\begin{equation*}
+    u(t) = \Omega^\eps_{t/\eps} \circ \Gamma^\eps_t \circ \big( \Omega^\eps_0 \big)^{-1} (u_0)
+\end{equation*}
+où $\theta \mapsto \Omega^\eps_\theta$ est périodique et $\Gamma^\eps_t$ est le $t$-flot d'un champ de vecteurs non-raide $F^\eps$. L'idée est alors de chercher des approximations de $\Omega^\eps$ et de $F^\eps$ à un certain ordre $\eps^{n+1}$ près, dans la veine des méthodes de moyennisation~\cite{perko.1969.higher,lochak.1988.multiphase,sanders.2007.averaging,chartier.2010.higher,chartier.2012.formal,castella.2015.stroboscopic}. La nouveauté ici est de s'intéresser en outre au reste de ce développement asymptotique, ainsi on obtient une décomposition exacte 
+\begin{equation*}
+    u(t) = \Omega\rk{n}_{t/\eps} \big( v(t) \big) + w(t)
+\end{equation*}
+avec $w(t) = \bigO(\eps^{n+1})$ et $\pa_t v = F\rk n(v)$. Les morphismes $\Omega\rk n$ et $F\rk n$ sont des approximations de $\Omega^\eps$ et $F^\eps$ respectivement. Dans~\cite{chartier.2020.new}, le problème sur $(v,w)$ est moins raide et peut être résolu avec une précision uniforme d'ordre~$n$. 
 
-Annonce plan
+
+L'utilisation de ces méthodes de moyennisation a permis, au cours de la troisième année de thèse, la rédaction une synthèse de résultats préexistants en moyennisation avec certaines preuves originales. À cette occasion, on met en évidence certains liens forts entre moyennisation et formes normales, qui sont déjà connus (voir~\cite{sanders.2007.averaging}) mais peu référencés. Cette synthèse est présentée en Chapitre~\ref{chap:avg}. En l'état, elle ne fera pas l'objet d'une publication.
+
+
+L'essentiel de ce travail de thèse a été l'adaptation de ce résultat aux problèmes à relaxation rapide~\eqref{sec:intro:eq:u}. Formellement, au lieu de voir le changement de variable $\Omega^\eps_\theta$ comme une série de Fourier en $\theta \in \setR/\setZ$, il est maintenant une série exponentielle $\Omega^\eps_\tau = \sum_{k \geq 0} \omega_k e^{-k\tau}$ avec $\tau \in \setR_+$. La nouvelle difficulté est alors de calculer l'équivalent formel de la \enquote{moyenne} de cette série exponentielle. Pour cette raison, on considère $\Omega^\eps_{i\tau}$ et on fait appel aux résultats du cas périodique. En effectuant des développements à l'ordre $n$, on obtient ainsi un problème micro-macro en $(v,w)$ qu'on peut résoudre avec une précision uniforme d'ordre $n+1$ (le caractère de relaxation permet un gain d'ordre par rapport aux problèmes hautement oscillants) en utilisant des schémas expRK. On peut aussi obtenir une précision uniforme d'ordre $n$ avec des schémas IMEX-BDF. Ces résultats ont fait l'objet d'une publication, 
+\begin{center}\begin{minipage}{.75\textwidth}
+    \noindent
+    \fullcite{chartier.2021.uniformly}
+\end{minipage}\end{center}
+Cet article est présenté en Chapitre~\ref{chap:dissip-mima}. 
+
+
+Dans cet article, on considère aussi de manière restreinte certains problèmes hyperboliques bien étudiés (voir~\cite{jin.1999.efficient,lemou.2008.new,dimarco.2011.exponential,dimarco.2017.implicit,boscarino.2017.unified,albi.2020.implicit}), notamment l'équation de télégraphe 
+\begin{equation*}
+    \pa_t \rho + \pa_x j = 0,
+    \qquad
+    \pa_t j + \frac{1}{\eps}\pa_x \rho = -\frac{1}{\eps} j ,
+\end{equation*}
+qui est un problème de type BGK à vitesse discrètes. On considère ce problème dans le domaine de Fourier en espace, ce qui donne 
+\begin{equation*}
+    \pa_t \hat{\rho} + i\xi \hat{j} = 0,
+    \qquad
+    \pa_t \hat{\rho} + \frac{i\xi}{\eps} \hat{\rho} = -\frac{1}{\eps}\hat{j} .
+\end{equation*}
+Ce problème comporte une singularité en $4\eps\xi^2 = 1$. Il n'est pas possible de considérer $\eps \lesssim |\xi|^{-1/2}$ pour effectuer nos développements, puisque $\xi$ est arbitrairement grand. En Chapitre~\ref{chap:discussion}, on présente quelques pistes de recherche pour traiter ce problème. On discute aussi d'extensions plus directes des résultats de notre article, qui serviraient à rendre le résultat plus robuste. 
