@@ -64,11 +64,20 @@ Dans les faits, on ne saura pas résoudre tous les systèmes de la forme~\eqref{
 
 \todo[inline]{Discrétisation de $t$ de manière uniforme}
 
-\todo[inline]{\textbf{Def :} erreur d’une méthode numérique, notion d'erreur uniforme en $\eps$}
+\todo[inline]{Annonce de ce qu'est une approximation}
 
-\todo[inline]{\textbf{Rq :} on pourrait considérer une interpolation des données et définir une erreur dans le monde continu mais c’est compliqué et déjà si l'erreur ponctuelle est bien on est content}
+\begin{FRdefinition*}
+    On définit l'erreur d'une approximation comme l'erreur maximale sur les points d'interpolation, i.e. étant donnée une discrétisation à $N+1$ points $(t_n)_{0 \leq n \leq N}$ et une approximation $(u_n)$, l'erreur est définie par la formule 
+    \begin{equation} \label{sec:intro:def:err}
+        \err = \sup_{0 \leq n \leq N}\big| u_n - u(t_n) \big| .
+    \end{equation}
+\end{FRdefinition*}
+Parfois, l'erreur est définie comme l'erreur au temps final, ce qui est un peu moins contraignant mais a peu d'influence en pratique~: en général l'erreur est croissante avec l'indice~$n$, donc ces deux définitions coïncident.
 
-\todo[inline]{\textbf{Rq:} De par sa structure, on sait calculer $\exp(-t A)$ pour Strang ou expRK, ou qu’on sait facilement inverser $\id + \Dt \, A$ pour IMEX-BDF.}
+\begin{FRremark*}
+    À partir d'une approximation $(u_n)$, on peut obtenir une approximation sur une discrétisation plus fine par interpolation (typiquement avec des splines cubiques ou de manière linéaire). Il semble alors naturel de se demander s'il est possible de réduire le coût de calcul en calculant un approximation sur une discrétisation grossière pour l'interpoler ensuite vers une discrétisation plus fine. Néanmoins, si l'erreur telle que définie en~\eqref{sec:intro:def:err} est mauvaise, on ne peut pas espérer l'améliorer par interpolation. C'est pourquoi ce manuscrit se concentre sur cette approche \enquote{simple} de l'erreur.
+\end{FRremark*}
+
 
 \todo[inline]{\textbf{Def :} ce qu’on entend par un schéma numérique, 
 \vspace*{-12pt}
@@ -76,6 +85,15 @@ $$u_{n+s} = u_{n+s-1} + \Dt\, \Phi^{\eps}_{\Dt} (u_{n+s-1}, \ldots, u_n)$$
 \vspace*{-24pt}}
 
 \todo[inline]{Footnote : en vérité, quitte à remplacer $u_n$ par $U_n = (u_{n+s-1}, \ldots, u_n)$, on peut se ramener à des méthodes à une seule étape}
+
+
+Les schémas numériques qu'on étudie nécessitent l'hypothèse suivante~:
+\begin{FRassumption*}
+    On sait calculer $t \mapsto e^{-tA}$ et $t \mapsto (\id + t A)^{-1}$ de manière exacte. 
+\end{FRassumption*}
+\noindent%
+Calculer le semi-groupe $t \mapsto e^{-tA}$ peut sembler contraignant, mais on rappelle qu'on se restreint ici au cas où $A$ est une matrice diagonale. 
+
 
 
 \subsection*{Méthodes numériques}
