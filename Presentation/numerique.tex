@@ -59,12 +59,38 @@ où $P^{-1} = \frac{1}{\sqrt{1 - 4\eps}} \begin{pmatrix}
 \end{FRremark*}
 
 
-\paragraph{Introduction aux résolutions numériques\\}
-Dans les faits, on ne saura pas résoudre tous les systèmes de la forme~\eqref{sec:intro:eq:u} de manière exacte. Donc on va appliquer des méthodes d'\textit{approximation numérique} pour calculer une solution approchée. À partir l'exemple~\eqref{sec:intro:eq:jouet_xz}, on va étudier la précision de ces méthodes.
+Dans les faits, on ne saura pas résoudre tous les systèmes de la forme~\eqref{sec:intro:eq:u} de manière exacte. Donc on va appliquer des méthodes d'\textit{approximation numérique} pour calculer une solution approchée. Plus spécifiquement, on va implémenter certains \textit{schémas numériques} et observer la qualité d'approximation sur l'exemple~\eqref{sec:intro:eq:jouet_xz}. Définissons ce qu'on entend par \enquote{schéma numérique}. 
 
-\todo[inline]{Discrétisation de $t$ de manière uniforme}
+On démarre par considérer une discrétisation de l'intervalle temporel $[0,T]$, c'est-à-dire qu'au lieu de considérer cet objet comme continu, on le considère comme une suite de $N+1$ points $(t_n)_{0 \leq n \leq N}$ avec $N \geq 1$. On choisit de se restreindre à une discrétisation uniforme, c'est-à-dire que l'intervalle de temps $[0,T]$ est divisé en $N$ intervalles de taille égale notée $\Dt$. 
+\begin{center}\begin{tikzpicture}
+    \draw (0,0) -- (4,0);
+    \foreach \x/\y in {0/$0$,1/$\Dt$,2/$2\Dt$} {
+        \draw (\x*1.5,0.15cm) -- (\x*1.5,-0.15cm) node[below] {\y};
+    }
+    \draw[dashed] (4,0) -- (6,0);
+    \draw (6,0) -- (8,0);
+    \foreach \x/\y in {0/$T$,1/$T-\Dt$} {
+        \draw (8-\x*1.5,0.15cm) -- (8-\x*1.5,-0.15cm) node[below] {\y};
+    }
+\end{tikzpicture}\end{center}
+\vspace*{-12pt}
+%
+\noindent%
+De manière équivalente, les points de séparation $(t_n)_{0 \leq n \leq N}$ sont donnés par 
+\begin{equation*}
+    t_{n+1} = t_n + \Dt
+    \qquad\text{avec}\qquad
+    t_0 = 0 \quad\text{et}\quad \Dt = \frac{T}{N} ,
+\end{equation*}
+ou encore $t_n = \frac{n}{N}T$. À cette discrétisation, on peut associer une \textit{approximation} $(u_n)_{0 \leq n \leq N}$ telle que $u_n \approx u(t_n)$. On peut voir un exemple d'une telle approximation en Figure~\ref{sec:intro:fig:approx_sin}, où les points carrés sont une approximation\footnote{Cette approximation est obtenue par itération en posant $\displaystyle z_{n+1} = z_n - \frac{\Dt}{\eps}z_{n+1} + \Dt \sin(t_n)$ avec $z_0 = z(0) = 1$, ce qui correspond à une méthode appelée IMEX-BDF1.} des points ronds. 
 
-\todo[inline]{Annonce de ce qu'est une approximation}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=.9\textwidth]{./Presentation/approx_sin.pdf}
+    \caption{Tracé de la solution exacte (en bleu, marqueurs ronds) au problème~\eqref{sec:intro:pb:z_sin} avec $\eps = 1$ et d'une approximation (orange, marqueurs carrés) sur une discrétisation uniforme de $[0,\pi]$ à 11 points.}
+    \label{sec:intro:fig:approx_sin}
+\end{figure}
+
 
 \begin{FRdefinition*}
     On définit l'erreur d'une approximation comme l'erreur maximale sur les points d'interpolation, i.e. étant donnée une discrétisation à $N+1$ points $(t_n)_{0 \leq n \leq N}$ et une approximation $(u_n)$, l'erreur est définie par la formule 
@@ -72,27 +98,30 @@ Dans les faits, on ne saura pas résoudre tous les systèmes de la forme~\eqref{
         \err = \sup_{0 \leq n \leq N}\big| u_n - u(t_n) \big| .
     \end{equation}
 \end{FRdefinition*}
-Parfois, l'erreur est définie comme l'erreur au temps final, ce qui est un peu moins contraignant mais a peu d'influence en pratique~: en général l'erreur est croissante avec l'indice~$n$, donc ces deux définitions coïncident.
+Parfois, l'erreur est définie comme l'erreur au temps final, ce qui peut paraître moins contraignant mais a peu d'influence en pratique~: en général les estimations d'erreur sont croissantes avec l'indice~$n$. Ainsi ces deux définitions coïncident, du moins pour les résultats théoriques.
 
 \begin{FRremark*}
-    À partir d'une approximation $(u_n)$, on peut obtenir une approximation sur une discrétisation plus fine par interpolation (typiquement avec des splines cubiques ou de manière linéaire). Il semble alors naturel de se demander s'il est possible de réduire le coût de calcul en calculant un approximation sur une discrétisation grossière pour l'interpoler ensuite vers une discrétisation plus fine. Néanmoins, si l'erreur telle que définie en~\eqref{sec:intro:def:err} est mauvaise, on ne peut pas espérer l'améliorer par interpolation. C'est pourquoi ce manuscrit se concentre sur cette approche \enquote{simple} de l'erreur.
+    À partir d'une approximation $(u_n)$, on peut obtenir une approximation sur une discrétisation plus fine par interpolation (typiquement avec des splines cubiques ou de manière linéaire comme en Figure~\ref{sec:intro:fig:approx_sin}). Il semble alors naturel de se demander s'il est possible de réduire le coût de calcul en calculant une approximation sur une discrétisation grossière pour l'interpoler ensuite vers une discrétisation plus fine. Néanmoins, si l'erreur telle que définie en~\eqref{sec:intro:def:err} est mauvaise, on ne peut pas espérer l'améliorer par interpolation. C'est pourquoi ce manuscrit se concentre sur cette approche \enquote{simple} de l'erreur.
 \end{FRremark*}
 
+Lorsqu'il s'agit de trouver une approximation à une solution d'équation différentielle, il semble naturel de procéder de manière itérative: les seules données accessibles sont la condition initiale $u(0)$ et le champ de vecteurs suivi par la solution, donc il faut trouver un moyen de combiner ces deux informations pour obtenir une approximation $u_1 \approx u(\Dt)$. Une fois cette information obtenue, on peut l'utiliser avec les autres pour calculer $u_2 \approx u(2\Dt)$, etc. Dans les faits, on se limite à un nombre fixe $s \geq 1$ de points pour extrapoler le suivant. On parle alors de méthode multipoints. Les méthodes à un point sont appelées méthodes de Runge-Kutta.
 
-\todo[inline]{\textbf{Def :} ce qu’on entend par un schéma numérique, 
-\vspace*{-12pt}
-$$u_{n+s} = u_{n+s-1} + \Dt\, \Phi^{\eps}_{\Dt} (u_{n+s-1}, \ldots, u_n)$$
-\vspace*{-24pt}}
-
-\todo[inline]{Footnote : en vérité, quitte à remplacer $u_n$ par $U_n = (u_{n+s-1}, \ldots, u_n)$, on peut se ramener à des méthodes à une seule étape}
-
-
-Les schémas numériques qu'on étudie nécessitent l'hypothèse suivante~:
+La méthode utilisée pour calculer un terme à partir des précédents est appelé un schéma numérique~$\Phi^\eps_{\Dt}$, et elle peut s'écrire 
+\begin{equation*}
+    u_{n+s} = u_{n+s-1} + \Dt\, \Phi^{\eps}_{\Dt} (u_{n+s-1}, \ldots, u_n) .
+\end{equation*}
+Cette notation peut être pratique pour étudier le schéma, mais il faut garder à l'esprit qu'elle peut camoufler de nombreuses difficultés. Par exemple, le schéma d'Euler implicite s'écrit 
+\begin{equation*}
+    u_{n+1} = u_n + \Dt \left( 
+        - \frac{1}{\eps}A u_{n+1} + f(u_{n+1}) 
+    \right) .
+\end{equation*}
+Pour trouver $\Phi^\eps_{\Dt}$, il faut inverser cette relation; on parle de schéma \textit{implicite}, par opposition aux schémas \textit{explicites}. Cette inversion peut s'avérer particulièrement coûteuse si $f$ présente des non-linéarités et si le système est grand. Ainsi par la suite on se limite à des schémas \textit{explicites} en $f$, et on fait l'hypothèse suivante~:
 \begin{FRassumption*}
     On sait calculer $t \mapsto e^{-tA}$ et $t \mapsto (\id + t A)^{-1}$ de manière exacte. 
 \end{FRassumption*}
 \noindent%
-Calculer le semi-groupe $t \mapsto e^{-tA}$ peut sembler contraignant, mais on rappelle qu'on se restreint ici au cas où $A$ est une matrice diagonale. 
+Calculer le semi-groupe $t \mapsto e^{-tA}$ peut sembler contraignant, mais rappelons nous qu'on se restreint ici au cas où $A$ est une matrice diagonale. 
 
 
 
@@ -101,7 +130,7 @@ Calculer le semi-groupe $t \mapsto e^{-tA}$ peut sembler contraignant, mais on r
 
 On présente les résultats associés à trois méthodes d'ordre 2, qui traitent la partie raide différemment de la partie non-raide. Les méthodes sont bien définies  dans la limite $\eps \rightarrow 0$, et on le comportement de l’erreur en fonction de $\Dt$ \textit{et} de $\eps$.
 
-On ne considère pas de méthodes complètement implicites parce qu'elles sont très coûteuses et pas très adapté pour l'extension aux EDP... Néanmoins la convergence des méthodes implicites est souvent excellente et des implémentations très efficaces existent. La référence sur le sujet est~\cite{hairer.1996.solving}, et toutes les bonnes boîtes à outils de résolution d'EDO contiennent la méthode RadauII.\footnote{Attention cependant, la plupart de ces boîtes à outils masquent la difficulté associée aux méthodes implicites, qui sont la résolution d'un système et de l'erreur associée. En outre, il est parfois difficile de désactiver le pas de temps adaptatif, ce qui est problématique pour une étude de convergence.} On ne considère pas non plus de méthodes purement explicites demandent $\Dt < \eps$, ce qui est beaucoup trop coûteux. 
+On ne considère pas de méthodes complètement implicites parce qu'elles sont très coûteuses notamment dans un contexte d'EDP... Néanmoins la convergence de ces méthodes est souvent excellente et des implémentations très efficaces existent. La référence sur le sujet est~\cite{hairer.1996.solving}, et toutes les bonnes boîtes à outils de résolution d'EDO contiennent la méthode RadauII.\footnote{Attention cependant, la plupart de ces boîtes à outils masquent la difficulté associée aux méthodes implicites, qui sont la résolution d'un système et de l'erreur associée. En outre, il est parfois difficile de désactiver le pas de temps adaptatif, ce qui est problématique pour une étude de convergence.} On ne considère pas non plus de méthodes purement explicites demandent $\Dt < \eps$, ce qui est beaucoup trop coûteux. 
 
 Il est important de noter que ce manuscrit ne présente pas une étude des schémas présentés. Il s'agit simplement d'une compilation non-exhaustive de résultats et d'observations rapides sur les propriétés de ces méthodes appliquées à~\eqref{sec:intro:eq:u} afin de contextualiser les contributions du manuscrit par la suite. Néanmoins, les schémas sont présentés plus en détails dans l'Annexe~\ref{chap:schemas}.
 
@@ -125,7 +154,7 @@ La réponse est non en général, mais on peut \textit{approcher} $\varphi$ à p
 \end{equation*}
 Pour la plupart des équations, l'ordre des opérations n'a pas d'importance, mais lorsque le système présente une partie de relaxation raide comme ici, il a été remarqué dans~\cite{sportisse.2000.analysis,descombes.2004.operator} qu'il vaut mieux \enquote{terminer} par la relaxation. 
 
-Notons que le splitting de Strang peut être obtenu par symétrie à partir du splitting de Lie $\Phi_t = \varphi^{(2)}_{t} \circ \varphi^{(1)}_{t}$, d'ordre 1. 
+Notons que le splitting de Strang peut être obtenu par symétrie à partir du splitting de Lie $\varphi^{(2)}_{t} \circ \varphi^{(1)}_{t}$, d'ordre 1. 
 % Attention, $\Phi_t$ n'est pas un $t$-flot au même sens que $\varphi_t$, c'est la solution particulière d'une EDO dans l'espace des morphismes. Dans le cas où $f$ est linéaire, on dispose de la formule de Baker-Campbell-Hausdorff (BCH),\todo{REF BCH}
 % \begin{equation*}
 %     \log \big( \Phi_t \big)
