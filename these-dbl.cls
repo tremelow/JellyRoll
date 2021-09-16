@@ -155,6 +155,7 @@
   sorting=nyt, 
   maxalphanames=99, 
   maxbibnames=99,
+  backref=true,
   doi=true,isbn=false,url=false
 ]{biblatex}
 

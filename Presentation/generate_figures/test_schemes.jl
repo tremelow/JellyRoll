@@ -3,16 +3,18 @@ expA = t -> BigFloat.([1 0 ; 0 exp(t)])
 f = BigFloat.([-1 1 ; -1 1])
 expf = t -> BigFloat.([ 1-t    t  ;  -t   1+t ])
 
-u0 = BigFloat.([1,1])
+u0 = BigFloat.([1,0])
 
 #####################################
 # PARAMETERS
-# ε = BigFloat(2)^-parse(Int64, ARGS[1])
-# t = range(BigFloat(0), BigFloat(1), length=2^parse(Int64, ARGS[2])+1)
-# h = BigFloat(step(t))
-ε = BigFloat(2)^-30
-t = range(BigFloat(0), BigFloat(1), length=2^7+1)
+T = 2^-2
+ε = BigFloat(2)^-parse(Int64, ARGS[1])
+N = Int( T * 2 ^ parse(Int64, ARGS[2]) )
+t = range(BigFloat(0), BigFloat(T), length=N+1)
 h = BigFloat(step(t))
+# ε = BigFloat(2)^-3
+# t = range(BigFloat(0), BigFloat(T), length=2^17+1)
+# h = BigFloat(step(t))
 #####################################
 
 rε = (1 - sqrt(1 - 4*ε))/(2*ε)

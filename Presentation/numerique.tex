@@ -93,10 +93,15 @@ ou encore $t_n = \frac{n}{N}T$. À cette discrétisation, on peut associer une \
 
 
 \begin{FRdefinition*}
-    On définit l'erreur d'une approximation comme l'erreur maximale sur les points d'interpolation, i.e. étant donnée une discrétisation à $N+1$ points $(t_n)_{0 \leq n \leq N}$ et une approximation $(u_n)$, l'erreur est définie par la formule 
+    On définit l'erreur d'une approximation comme l'erreur maximale sur les points d'interpolation, i.e. étant donnée une discrétisation à $N+1$ points $(t_n)_{0 \leq n \leq N}$ et une approximation $(u_n)$ d'une fonction $t \mapsto u(t)$, l'erreur est définie par la formule 
     \begin{equation} \label{sec:intro:def:err}
-        \err = \sup_{0 \leq n \leq N}\big| u_n - u(t_n) \big| .
+        \err = \max_{0 \leq n \leq N}\big| u_n - u(t_n) \big| .
     \end{equation}
+    Si en outre la solution et l'approximation dépendent du paramètre~$\eps \in (0,\eps_0]$, on écrit $\err(\eps)$ l'erreur d'approximation, et on définit l'erreur uniforme $\overline{\err}$ par 
+    \begin{equation}
+        \overline{\err} = \sup_{\eps \in (0,\eps_0]} \err(\eps) .
+    \end{equation}
+    Ces deux erreurs peuvent avoir des comportements différents.
 \end{FRdefinition*}
 Parfois, l'erreur est définie comme l'erreur au temps final, ce qui peut paraître moins contraignant mais a peu d'influence en pratique~: en général les estimations d'erreur sont croissantes avec l'indice~$n$. Ainsi ces deux définitions coïncident, du moins pour les résultats théoriques.
 
@@ -124,11 +129,19 @@ Pour trouver $\Phi^\eps_{\Dt}$, il faut inverser cette relation; on parle de sch
 Calculer le semi-groupe $t \mapsto e^{-tA}$ peut sembler contraignant, mais rappelons nous qu'on se restreint ici au cas où $A$ est une matrice diagonale. 
 
 
+\begin{FRdefinition*}
+    On dit qu'un schéma numérique~$\Phi_{\Dt}$ est d'ordre $q$ s'il existe une constante $C > 0$ et un pas de temps maximal $\Dt_0 > 0$ tel que pour toute subdivision de pas de temps $\Dt \leq \Dt_0$, l'erreur de schéma est bornée par $C\Dt^q$. 
+\end{FRdefinition*}
+%
+\noindent%
+Dans le contexte d'un schéma qui dépend du paramètre~$\eps$, la constante d'erreur $C$ et le pas de temps maximal $\Dt_0$ dépendent généralement de $\eps$, ainsi il faut distinguer l'ordre du schéma (calculé pour $\Dt \ll \eps$) de l'ordre de \enquote{convergence uniforme} du schéma, qui fait disparaître la dépendance en~$\eps$. Cette distinction sera clarifiée par les exemples à venir.
+
+
 
 \subsection*{Méthodes numériques}
 \addcontentsline{toc}{subsection}{Méthodes numériques}
 
-On présente les résultats associés à trois méthodes d'ordre 2, qui traitent la partie raide différemment de la partie non-raide. Les méthodes sont bien définies  dans la limite $\eps \rightarrow 0$, et on le comportement de l’erreur en fonction de $\Dt$ \textit{et} de $\eps$.
+On présente les résultats associés à trois méthodes d'ordre 2, qui traitent la partie raide différemment de la partie non-raide. Les méthodes sont bien définies  dans la limite $\eps \rightarrow 0$, et on s'intéresse au comportement de l’erreur en fonction de $\Dt$ \textit{et} de $\eps$.
 
 On ne considère pas de méthodes complètement implicites parce qu'elles sont très coûteuses notamment dans un contexte d'EDP... Néanmoins la convergence de ces méthodes est souvent excellente et des implémentations très efficaces existent. La référence sur le sujet est~\cite{hairer.1996.solving}, et toutes les bonnes boîtes à outils de résolution d'EDO contiennent la méthode RadauII.\footnote{Attention cependant, la plupart de ces boîtes à outils masquent la difficulté associée aux méthodes implicites, qui sont la résolution d'un système et de l'erreur associée. En outre, il est parfois difficile de désactiver le pas de temps adaptatif, ce qui est problématique pour une étude de convergence.} On ne considère pas non plus de méthodes purement explicites demandent $\Dt < \eps$, ce qui est beaucoup trop coûteux. 
 
@@ -214,7 +227,7 @@ Dans cette figure, on observe que le comportement de la solution est le bon atte
 \begin{equation*}
     \sup_{0 < \eps \leq \eps_0} \err \leq C \Dt^q ,
 \end{equation*}
-avec $q = 2$, ce n'est possible qu'avec $q = 1$. Cette réduction d'ordre a été notée dans différents contextes \cite{sportisse.2000.analysis,faou.2015.analysis}, et différentes méthodes ont été développées pour dépasser cette limite \cite{einkemmer.2015.overcoming,cano.2017.avoiding,bertoli.2020.strang}, en particulier l'utilisation de schémas dits \enquote{exponentiels}. 
+avec $q = 2$, ce n'est possible qu'avec $q = 1$. Cette réduction d'ordre a été notée dans différents contextes \cite{sportisse.2000.analysis,faou.2015.analysis}, et différentes méthodes ont été développées pour dépasser cette limite \cite{einkemmer.2015.overcoming,cano.2017.avoiding,bertoli.2020.strang}, même si la méthode reste au plus d'ordre~2.
 
 \todo[inline]{Expliquer un peu mieux les graphes}
 \todo[inline]{Faire une colormap d'erreur avec $\Dt$ et $\eps$ en coordonnées pour mieux discuter du comportement asymptotique $\eps \rightarrow 0$ du schéma.}
@@ -306,7 +319,7 @@ Ces méthodes sont néanmoins très utilisées, notamment dans le contexte de mo
 \end{equation*}
 prennent implicite la partie en~$j$ en gardant explicite la partie en~$\rho$. Cela permet d'avoir des schémas qui se comporte bien dans la limite $\eps \rightarrow 0$ malgré la raideur sur le transport en~$\rho$. 
 
-En outre, si la donnée initiale se situe proche de l'équilibre $z = \eps h^\eps(x)$ de sorte que $\pa_t^{\: q+1} u$ reste bornée dans la limite~$\eps \rightarrow 0$, alors on peut obtenir une convergence uniforme. On peut voir une interprétation de ce résultat en Figure~\ref{sec:intro:fig:bdf2_z0} où l'erreur sur~$z$ est améliorée en prenant une donnée initiale nulle.\footnote{Le même phénomène est observé pour le schéma expRK.} Ainsi, il est fréquent de choisir une donnée initiale bien posée et d'annoncer que ce type de schéma est \enquote{uniformément précis}, par exemple dans~\cite{jin.2000.uniformly,hu.2021.uniform}. La même confusion est faite pour les schémas IMEX-RK dans~\cite{boscarino.2009.class,boscarino.2017.unified}, par exemple. Néanmoins, le caractère uniforme de ces derniers est remis en question dans~\cite{hu.2021.uniform}.
+En outre, si la donnée initiale se situe proche de l'équilibre $z = \eps h^\eps(x)$ de sorte que $\pa_t^{\: q+1} u$ reste bornée dans la limite~$\eps \rightarrow 0$, alors on peut obtenir une convergence uniforme. On peut voir une interprétation de ce résultat en Figure~\ref{sec:intro:fig:bdf2_z0} où l'erreur sur~$z$ est améliorée en prenant une donnée initiale nulle.\footnote{Le même phénomène est observé pour le schéma expRK.} Ainsi, il est fréquent de choisir une donnée initiale bien posée et d'annoncer que ce type de schéma est \enquote{uniformément précis}, par exemple dans~\cite{jin.2000.uniformly,hu.2021.uniform}. La même confusion est faite pour les schémas IMEX-RK dans~\cite{boscarino.2009.class,boscarino.2017.unified}, par exemple. 
 
 \begin{figure}
     \centering
@@ -320,17 +333,44 @@ En outre, si la donnée initiale se situe proche de l'équilibre $z = \eps h^\ep
 \subsection*{D'autres notions de convergence}
 \addcontentsline{toc}{subsection}{D'autres notions de convergence}
 
-On voit que toutes ces méthodes subissent une réduction d'ordre: on passe d'une convergence à l'ordre~2 à une convergence d'ordre~1, ou pire. Pourtant, les schémas sont bien \textit{d'ordre~2}, comme on l'observe pour $\eps = 2^{-3}$. On voit bien l'intérêt d'introduire des concepts de convergence qui diffèrent des définitions usuelles. 
+On voit que toutes ces méthodes subissent une réduction d'ordre: on passe d'une convergence à l'ordre~2 à une convergence d'ordre~1, ou pire. Pourtant, les schémas sont bien \textit{d'ordre~2}, comme on l'observe pour $\eps = 2^{-3}$ en Figures~\ref{sec:intro:fig:strang}, \ref{sec:intro:fig:rk2} et~\ref{sec:intro:fig:bdf2}. On voit bien l'intérêt d'introduire des concepts de convergence qui diffèrent des définitions usuelles. 
 
 \begin{FRdefinition*}
-    On distingue trois propriétés de convergence différentes pour les méthodes numériques~:
-\begin{itemize}
-    \item On dit qu'une méthode est \textit{asymptotic preserving} (AP) si, à condition initiale fixée indépendante de $\eps$, il est bien défini dans la limite $\eps \rightarrow 0$ et que son ordre n'est pas impacté par ce passage à la limite.
-    \item On dit qu'une méthode est \textit{uniformly accurate} (UA) si, à condition initiale fixée indépendante de $\eps$, l'erreur uniforme (i.e. le supremum par rapport à $\eps$) a le même ordre que l'erreur du schéma.
-    \item On dit qu'une méthode est \textit{UA à l'équilibre} si, pour une donnée initiale bien préparée, l'erreur uniforme (i.e. le supremum par rapport à $\eps$) a le même ordre que l'erreur du schéma.
-\end{itemize}
+    Considérons la solution $t \mapsto u^\eps(t)$ du problème~\eqref{sec:intro:eq:u} avec une donnée initiale~$u(0) = u_0$ indépendante de~$\eps$. On construit une solution approchée~$(u^\eps _n)$ en appliquant un schéma~$\Phi^\eps _{\Dt}$ d'ordre $q \geq 1$, et on suppose que $\Phi^\eps_{\Dt}$ admet une limite $\eps \rightarrow 0$, qu'on note~$\Phi^0_{\Dt}$. 
+
+    On dit que le schéma~$\Phi_{\Dt}^\eps$ est \emph{asymptotic preserving} (AP) si le schéma limite~$\Phi^0_{\Dt}$ existe et est du même ordre $q$ que le schéma d'origine. On dit en outre que le schéma est \emph{uniformly accurate} (UA) si l'erreur uniforme présente le même ordre de convergence que l'erreur \enquote{standard} du schéma. 
 \end{FRdefinition*}
 
-\todo[inline]{Schéma de \enquote{commutation} avec $\rightarrow$ qui correspond à la discrétisation et $\downarrow$ à la limite en $\eps \rightarrow 0$. Être AP signifie commuter, être UA signifie pouvoir commuter même en faisant des \enquote{pauses} sur la flèches $\downarrow$.}
+On peut résumer ces propriétés sur le diagramme de commutation suivant~:
+\begin{center}
+    \begin{tikzpicture}[baseline= (a).base]
+        \node[scale=1.3] (a) at (0,0){
+\begin{tikzcd}[row sep=huge, column sep=huge]
+    u^{\eps_0} (t) 
+    \arrow[r, "\bigO(\Dt^q)"] 
+    \arrow[d, "\eps \rightarrow 0" swap] 
+    \arrow[rd, dashed]
+        & \big( u^{\eps_0} _n \big)
+        \arrow[d] \\ 
+    u^0(t) 
+    \arrow[r, "\bigO(\Dt^q)" swap] 
+        & \big( u^0 _n \big)
+\end{tikzcd}
+        };
+    \end{tikzpicture}
+\end{center}
+Les flèches verticales représentent le passage à la limite $\eps \rightarrow 0$ tandis que les flèches horizontales représentent un calcul de solution numérique avec un ordre~$q$. Un schéma UA permet d'emprunter la flèche en pointillés sans perte de précision (c'est-à-dire avec n'importe quelle valeur de~$\eps$), tandis qu'un schéma AP ne présente une bonne convergence que le long des flèches solides. 
 
-Toutes les méthodes présentées précédemment sont AP. Le splitting de Strang et le schéma IMEX-BDF2 donnent l'impression qu'avec $\eps \ll \Dt$, l'\enquote{ordre} dégénère à~1, mais en vérité c'est que l'écart entre $\eps$ et $\Dt$ n'est pas suffisant. Par contre il est clair qu'aucun n'est UA, bien que les méthodes IMEX-BDF et expRK sont UA à l'équilibre.
+
+Comme mentionné précédemment, certains articles annoncent que des schémas sont UA mais en rajoutant une hypothèse de donnée initiale \enquote{bien préparée}, i.e. proche de l'équilibre. Cette donnée initiale se traduit généralement en l'identité $z(0) = \eps h^\eps(x(0)) + \bigO(\eps^q)$ grâce au théorème de variété centrale. On parlera alors de schéma UA \enquote{à l'équilibre}. 
+%
+Parmi les méthodes précédentes, on a les propriétés suivantes
+\begin{center}
+\begin{tabular}{c|c|c|c|}
+              &     AP     & UA éq.     & UA \\ \hline
+    Strang    &            &            &    \\
+    IMEX-BDF2 &            & \checkmark &    \\
+    expRK2    & \checkmark & \checkmark &    
+\end{tabular}
+\end{center}
+La colonne UA étant vide, on cherche à développer de telles méthodes. 

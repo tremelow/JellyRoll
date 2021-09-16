@@ -4,6 +4,7 @@
 \usepackage{enumerate}  % lists with (i)
 \usepackage{yhmath}     % for very wide hats
 \usepackage{ifthen}
+\usepackage{tikz-cd}
 
 % \usepackage[
 %   backend=biber,
@@ -38,8 +39,8 @@
 % Temporary packages
 \usepackage{lipsum}
 \usepackage[textwidth=3.7cm]{todonotes}
-\geometry{inner=1cm, outer=4.5cm}
-\setlength{\marginparwidth}{3.7cm}
+% \geometry{inner=1cm, outer=4.5cm}
+% \setlength{\marginparwidth}{3.7cm}
 %----------------------------------------------------------
 
 \newtheorem{theorem}{Theorem}[section]
@@ -109,6 +110,7 @@
 \newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
 \makeatother
 
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
 
 %--------------------------------
 % Pour Chap. III

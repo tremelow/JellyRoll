@@ -3,7 +3,7 @@ using Plots
 using LaTeXStrings
 
 
-matFull = readdlm("Presentation/generate_figures/error_exprk2_z0.csv", ',')
+matFull = readdlm("error_strang_x_v2.csv", ',')
 
 log2dt = matFull[1,2:end-1]
 log2eps = matFull[2:end,1]
@@ -16,7 +16,7 @@ arrEps = 2.0.^-log2eps
 nDt, nEps = length(arrDt), length(arrEps)
 
 p1 = plot()
-for iEps in 1:5:nEps
+for iEps in 1:6:nEps
     plot!(arrDt, matErr[iEps,:], 
         label=L"\varepsilon = 2^{-%$(log2eps[iEps])}",
         marker=:auto, 
