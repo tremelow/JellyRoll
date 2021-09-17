@@ -1,0 +1,78 @@
+\newcommand{\couverture}{
+  \begin{titlepage}
+    \newgeometry{top=0cm, bottom=0cm, left=2cm, right=2cm}
+    \begin{center}
+    \vspace*{\stretch{2}}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} lr}
+      \includegraphics[height=4cm]{img/logo_ensta.png} & \includegraphics[width=.4\textwidth]{\LogoCorp}
+    \end{tabular*} \\[0.3cm]
+    %
+    \vspace{0.5cm}
+	\rule[0.5ex]{\linewidth}{2pt}\vspace*{-\baselineskip}\vspace*{3.2pt}
+	\rule[0.5ex]{\linewidth}{1pt}\\[.5\baselineskip] 
+	%
+    \LARGE{\textsc{\underline{\TypeProjet}}} \\
+    \vspace*{\stretch{0.5}}
+    %
+    \LARGE \Titre \\
+    \ifthenelse{\equal{\SousTitre}{}}{}
+    {\large \sousTitre\\ }
+    \vspace{0.3cm}
+	\rule[0.5ex]{\linewidth}{1pt}\vspace*{-\baselineskip}\vspace*{2.2pt}
+	\rule[0.4ex]{\linewidth}{2pt}\\[.5\baselineskip]   
+    
+    \vspace{0.7cm}
+
+	\fbox{\begin{minipage}{0.95\textwidth}
+	    \vspace{0.1cm}
+    	\color{red} \center{\large\textsc{\underline{\MentionConfidentialite}}} \\
+    	\vspace{0.2cm}
+    	\large \Confidentialite
+		\vspace{0.1cm}		
+		\end{minipage}
+	}
+
+	\vspace{1.8cm} 
+	
+	\textsc{\large
+	\begin{tabular}{ll}
+		\MentionAuteur & \Auteur \\
+		\MentionSpecialite & \Specialite \\
+		%\enstaLangAnneeScolaire & \enstaAnneeScol \\
+		\MentionPromo & \Promotion 
+	\end{tabular}
+	}		
+	
+	\vspace{1.9cm}	
+	
+	\hspace*{.3cm}
+    \begin{minipage}{0.4\textwidth}
+      \begin{center}
+  		\large \textsc{\MentionTuteurENSTA} \\
+  		\TuteurENSTA \\
+      \end{center}
+    \end{minipage}
+    \hfill 
+    \begin{minipage}{0.4\textwidth}
+      \begin{center}
+  		\large \textsc{\MentionTuteurOrganisme \ \Nom \ :} \\
+  		\TuteurOrganisme \\
+      \end{center}
+    \end{minipage} \hspace*{.3cm} \\
+
+	\vspace{2.5cm}
+	
+    \normalsize \MentionStageEffectueDu ~\DateDebut ~\MentionStageEffectueAu ~\DateFin \\
+    \vspace*{\stretch{0.5}}
+    \large
+
+    \vspace{0.8cm}
+    \textsc{\Organisme} \\
+    \textsc{\AdresseOrganisme}
+
+    \vspace*{\stretch{2}}
+    \end{center}
+  \end{titlepage}
+  \newgeometry{top=2cm, bottom=3.5cm, left=3cm, right=2cm%, marginparwidth=3cm
+  }% should be left=3cm, right=2cm
+}

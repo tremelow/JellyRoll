@@ -1,0 +1,21 @@
+\chapterb{Conclusion}
+
+On a présenté le modèle et les problèmes qu'il engendrait d'un point de vue numérique. 
+On a ensuite effectué un développement double-échelle pour séparer la dynamique rapide $e^{-t/\epsilon}$ de la dynamique lente. 
+Après cette séparation, on a exhibé des conditions nécessaires à la régularité du nouveau problème, et on a montré que sous ces conditions, le problème était bien posé. 
+Une fois cela fait, on a trouvé des conditions initiales et au bord qui permettent d'assurer que $X,Z$ et leurs dérivées première et seconde en $t$ sont uniformément bornées. 
+À partir de ces données, on a construit un schéma numérique uniformément précis qu'on a implémenté et dont on a évalué les performances et les limites en le comparant à d'autres approches moins coûteuses mais moins (voire pas) robustes. 
+Les résultats étant insatisfaisant en termes de performance et d'exportabilité, on a rapidement présenté deux de nos pistes de recherche qui seront poursuivies en thèse. \\
+
+
+Il est très facile de se perdre dans les différentes grandeurs en jeu dans ce problème: on a affaire à des séries en puissance de $\epsilon$ dont les coefficients sont des séries exponentielles en $\tau$, et on doit faire varier tout cela en fonction de $t$. 
+On peut aussi facilement confondre régularité et caractère uniformément borné des dérivées, ce qui pose problème étant donné l'importance des conditions de compatibilité. 
+
+Comme on l'a évoqué rapidement, il peut être intéressant de travailler avec des séries exponentielles, mais il n'est pas évident de construire une implémentation se basant uniquement là-dessus, et il faut se rendre compte que les coefficients en jeu sont plutôt instables ---d'où notre normalisation en section \ref{subsec:series}. 
+
+Tous ces <<~pièges~>> sont autant de raisons qui ont rendu le début de ce stage un peu laborieux. 
+Au bout d'un moment, la formalisation s'est mise en place et donc on a pu progresser relativement rapidement vers la fin. Les notions restent cependant complexes et nécessitent de prendre encore un peu de recul. \\
+
+
+Le mélange d'algèbre, analyse, calcul formel et implémentations numériques de ce sujet est ce qui le rend tout à fait attirant pour une poursuite en thèse. 
+Il est en outre apparent qu'il y a encore beaucoup de pistes à creuser en matière d'approche et d'implémentation et que donc ce sujet <<~préliminaire~>> à l'étude des EDP est déjà très intéressant en soi et motive à l'approfondir. 

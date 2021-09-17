@@ -1,0 +1,116 @@
+\chapter{Preuve du lemme \ref{thm:pb_gen_bien_pose} (p. \pageref{thm:pb_gen_bien_pose})}
+\label{chap:ann_preuve}
+
+On rappelle le problème \\
+\textit{Trouver $(\overline{T},u)\in]0,T]\times C^0([0,\overline{T}]\times\R_+)$ tel que pour tout $(t,\tau)\in[0,\overline{T}]\times\R_+$ on ait }
+\begin{equation} \label{pb:ann_trsp_u_no_eps}
+\dpt u + \dptau u = F(t,\tau,u) 
+\end{equation}
+et le lemme qui assure qu'il est bien posé 
+
+\newtheorem*{annlemma}{Lemme}
+\begin{annlemma} 
+Si $u_B\in C^0_b([0,T])$, $u_I \in C^0_b(\R_+)$ avec $u_B(t=0) = u_I(\tau = 0) =: u_0$, si $F$ est localement lipschitzienne par rapport à $u$, continue de $[0,T]\times\R_+\times E$ dans $E$, bornée par rapport à $\tau$, alors le problème \eqref{pb:ann_trsp_u_no_eps} est bien posé au sens suivant: 
+ 
+Pour tout facteur $\kappa > 1$, il existe un temps $\Tk\in]0,T]$ tel que le problème \eqref{pb:ann_trsp_u_no_eps} a une unique solution $u$ dans $C^0([0,\Tk]\times\R^+)$, qui respecte l'inégalité 
+\begin{equation}
+\forall t\in [0,T_{\kappa}], \qquad \|u(t,\cdot) \|_{\Linftau} \leq \kappa\, \max\left\{ \|u_I\|_{\Linftau}, \|u_B\|_{\Linft} \right\}. 
+\label{eq:ann_ineg_u_no_eps}
+\end{equation}
+
+Si en outre $F$ respecte $\forall (t,\tau,u)\in [0,T]\times\R_+\times E, |F(t,\tau,u)| \leq C_F |u| + D_F$ pour des constantes $C_F,D_F \geq 0$, alors il existe une unique solution $u$ dans $C^0([0,T]\times\R_+)$ qui vérifie 
+\begin{equation}
+\forall t\in[0,T], \|u(t,\cdot)\|_{\Linftau} \leq \left( \max\left\{ \|u_I\|_{\Linftau}, \|u_B\|_{\Linft} \right\} + t D_F \right) e^{t C_F}. 
+\label{eq:ann_ineg_lin_u}
+\end{equation}
+
+\end{annlemma}
+
+\begin{proof}
+Intéressons nous aux droites caractéristiques du problème. 
+\\
+\begin{minipage}{.5\textwidth}
+\begin{tikzpicture}
+\begin{scope}[thick,decoration={
+    markings,
+    mark=at position 0.5 with {\arrow{>}}}
+    ]
+\node[inner sep=0pt,label=left:{0}] (O) at (0,0) {};
+\node[inner sep=0pt,label=below:{$\tau$}] (tauf) at (7,0) {};
+\node[inner sep=0pt,label=below:{$\tau_0$}] (tau) at (5,0) {}; 
+\node[inner sep=0pt,label=left:{$t$}] (tf) at (0,5) {}; 
+\node[inner sep=0pt,label=left:{$T$}] (T) at (0,4.5) {}; 
+\node[inner sep=0pt,label=left:{$t_0$}] (t0) at (0,3) {};
+\draw[<->] (tf) -- (0,0) -- (tauf); 
+\draw[thick] (0,0) -- ++(4.5,4.5); 
+\draw[dotted] (T) -- ++(7,0); 
+\draw[dashed,postaction={decorate}] (t0) -- ++(1.5,1.5); 
+\draw[dashed,postaction={decorate}] (tau) -- ++(2,2); 
+\node at (4.5,3.8) {$t=\tau$};
+\node at (2,3.5) {$\mathbb{U}_T$};  
+\node at (4,1.5) {$\mathbb{L}_T$}; 
+\end{scope}
+\end{tikzpicture}
+\end{minipage} \hfill
+%
+\begin{minipage}[t]{.48\textwidth}
+\vspace*{-2.8cm}
+Sous la diagonale $(t,t),\ t\in [0,T]$, la donnée initiale est en $(0,\tau_0), \tau_0\in\R_+$ et la droite est décrite par $(t,t+\tau_0)$. 
+Au-dessus de la diagonale, elle commence en $(t_0,0)$ pour $t_0\in [0,T]$ et est décrite par $(t+t_0,t), t\in[0,T-t_0]$. 
+
+\hspace{.5cm}Regardons d'abord le comportement de la solution sous la diagonale $(t,t)$. À partir d'une solution $u$, on pose $\phi(t,\tau) = u(t, t+\tau)$ la solution sur la caractéristique démarrant en $(0,\tau)$ qui respecte l'EDO
+\end{minipage}
+\begin{equation}
+\dpt\phi(t,\tau) = 
+F(t,t + \tau,\phi) \quad \text{ et }\quad \phi(0,\tau) = u_I(\tau) 
+\label{eq:ann_pb_carac}
+\end{equation} 
+On sait que ce problème de Cauchy admet une solution unique locale sur $[0,t_m]$ (où $t_m > 0$ peut dépendre de $\tau$) par caractère localement lipschitzien de $F$. 
+
+On peut mettre le problème \eqref{eq:ann_pb_carac} sous forme intégrale
+$$ \phi(t,\tau) = \phi(0,\tau) + \int_0^t F(s,\tau+s,\phi(s,\tau))ds $$
+pour $t \in [0,t_m]$. 
+On cherche à déterminer un minorant de $t_m$ qui soit indépendant de $\tau$. 
+Par inégalité triangulaire on obtient 
+\begin{equation} 
+|\phi(t,\tau)| \leq |\phi(0,\tau)| + \int_0^t |F(s,\tau+s,\phi(s,\tau))| ds.
+\label{eq:ann_ineg_cauchy}
+\end{equation}
+
+Soit $\kappa > 1$, on pose $R = \max\left\{\|u_I\|_{\Linftau},\|u_B\|_{\Linft}\right\}$ et 
+$$ M_{\kappa} = \sup \left\{ |F(t,\tau,u)| \ \big |\ (t,\tau,u)\in [0,T]\times\R^+\times E, |u|\leq \kappa R \right\}. $$
+Par continuité et caractère borné de $F$, $M_{\kappa} < \infty$. Par définition, $|\phi(0,\tau)| \leq R$ et donc tant que $|\phi(t,\tau)| \leq \kappa R$ on a 
+$ |\phi(t,\tau)| \leq R + t M_{\kappa} $
+ce qui est assuré tant que $R + t M_{\kappa} \leq \kappa R$. 
+Ainsi $\phi(t,\tau)$ est bien définie pour $t\leq\Tk$ avec 
+\begin{equation} 
+T_{\kappa} = \min \left\{ T, \frac{(\kappa - 1)R}{M_{\kappa}} \right\}
+\label{eq:ann_def_Tk}
+\end{equation}
+qui vérifie toujours $T_{\kappa} > 0$. 
+Sur $\mathbb{L}_{\Tk} := \{(t,\tau)\in [0,\Tk]\times\R_+,\ t\leq\tau\}$, on a $u(t,\tau) = \phi(t,\tau-t)$ et donc on peut définir une solution $u_{\mathbb{L}}$ sur le domaine réduit $\mathbb{L}_{\Tk}$. 
+
+On remarque que $\phi(0,\tau)$ dépend continument de $\tau$ par continuité de $u_I$, et $F$ est continue par rapport à $t$ dans l'EDO sur $\phi(\cdot,\tau)$ donc la continuité se propage et $u_{\mathbb L}$ est continue sur $\mathbb{L}_{\Tk}$. 
+\\
+
+Au dessus de la diagonale, le problème est presque le même, on a $\dpt\varphi(t,t_0) = F(t + t_0, t, \phi)$, $\varphi(0,t_0) = u_B(t_0)$ pour $t_0\in[0,\Tk]$, d'où $|\varphi(t,t_0)| \leq |\varphi(0,t_0)|  + \int_0^t |F(s+t_0,s,\varphi(s,t_0))|ds$. 
+La définition de $\Tk$ nous permet d'assurer de façon naturelle que $\varphi(\cdot,t_0)$ est bien définie sur $[0,\Tk-t_0]$. 
+On peut alors définir une solution $u_{\mathbb{U}}$ sur le domaine réduit $\mathbb{U}_{\Tk} := \{(t,\tau)\in [0,\Tk]\times\R_+,\ t\geq\tau\}$ en posant $u_{\mathbb U}(t,\tau) = \varphi(\tau,t-\tau)$. 
+Comme précédemment, la continuité de $u_I$ et de $F$ se propage et donc $u_{\mathbb{U}}\in C^0(\mathbb{U}_{\Tk})$. 
+
+On peut maintenant procéder au <<~recollement~>> des solutions pour obtenir $u$ sur $[0,\Tk]\times\R_+$. On pose 
+$$ u(t,\tau) = \begin{cases}
+u_{\mathbb{L}}(t,\tau) & \text{ si } t\leq\tau \\
+u_{\mathbb{U}}(t,\tau) & \text{ si } t > \tau 
+\end{cases} $$
+
+pour avoir $u$ solution du problème dans $L^{\infty}([0,\Tk]\times\R_+)$ et qui vérifie nécessairement l'inégalité \eqref{eq:ann_ineg_u_no_eps}. 
+La continuité est assurée sur $\mathbb{L}_{\Tk}$ et sur $\mathbb{U}_{Tk}\setminus \{(t,t),\ t\in [0,\Tk]\}$, la seule difficulté est d'assurer la continuité de part et d'autre de la diagonale. 
+Or on remarque que pour tout $t$ dans $[0,\Tk]$, on a l'égalité $\phi(t,0) = \varphi(t,0)$ puisque $\phi(\cdot,0)$ et $\varphi(\cdot,0)$ vérifient la même EDO avec la même condition initiale car $\phi(0,0) = u_I(0) = u_B(0) = \varphi(0,0)$, et la solution est unique sur $[0,\Tk]$. 
+Ainsi $u_{\mathbb{L}}(t,t) = u_{\mathbb{U}}(t,t)$ et donc $u$ est continue de part et d'autre de la diagonale. 
+Finalement, $u \in C^0([0,\Tk]\times\R_+)$. 
+\\
+
+Si on est dans le cas de $F$ bornée par une fonction affine, on applique le théorème de Grönwall à l'inégalité \eqref{eq:ann_ineg_cauchy} pour obtenir la relation \eqref{eq:ann_ineg_lin_u}, et le résultat de régularité est maintenu. 
+
+\end{proof}

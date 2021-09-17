@@ -1,0 +1,31 @@
+\chapterb{Introduction}
+
+De nombreuses études ont été effectuées sur des équations différentielles ordinaires (EDO) impliquant deux dynamiques: une lente et une périodique très rapide. 
+Ce type d'équation peut être dérivé de nombreux problèmes physiques hautement oscillants, comme l'équation de Klein-Gordon ou l'équation de Schrödinger\cite{chartier2015UA} et donc la résolution numérique de ce type d'équations est un enjeu clé en physique. 
+
+Avec des méthodes de résolution classiques, la dynamique rapide impose d'utiliser un pas de temps $\dt$ petit devant la période $\epsilon$, ce qui est généralement impossible techniquement (temps de calcul trop long, plus d'erreurs d'arrondis, etc). 
+Depuis le début des années 80, des méthodes d'homogénéisation \cite[\textit{sec}. I.2]{bensoussan_homog} sont développées. 
+Elles consistent à trouver un nouveau système qui approche le problème d'origine dans le cas où $\epsilon$ est très petit (devant une grandeur caractéristique qui dépend du problème). 
+L'homogénéisation est encore utilisée et développée aujourd'hui, et elle est très utile autant au monde académique qu'à l'industrie, mais elle n'est pas très pratique ni efficace si $\epsilon$ est trop grand. 
+
+Plus récemment (2015), des méthodes \textit{uniformément précises} (UP)\cite{chartier2015UA,chartier2018micromacro} ont été développées pour certains de ces problèmes à deux dynamiques. 
+Celles-ci permettent d'obtenir une erreur indépendante de $\epsilon$, c'est-à-dire qu'à pas de temps fixé, faire varier $\epsilon$ ne fait pas varier l'erreur. 
+Elles sont aujourd'hui moins développées et répandues que les méthodes classiques ou asymptotiques, mais leur étude et leur développement sont particulièrement intéressants, puisqu'elles ne dépendent pas de la taille de $\epsilon$ qui peut varier au sein d'un même problème. \\
+
+
+L'objectif de ce stage (et de la thèse par la suite) était de développer une méthode uniformément précise pour une classe de modèles \textit{à variété centrale}. 
+Il s'agit d'EDO qui présentent une détente rapide (de durée d'ordre $\epsilon$) vers une variété à dynamique lente. 
+
+De manière similaire au cas périodique, les méthodes usuelles nécessitent d'utiliser un pas de temps court devant $\epsilon$ pour ne pas perdre d'information pendant cette détente. 
+Récemment, des méthodes asymptotiques ont été développées pour cette classe de modèles\cite{castella2016formal} et permettent d'obtenir un modèle non-raide qui approche l'état du système après détente. 
+
+Notre classe de problèmes trouve certaines applications en écologie et en chimie, mais le but est surtout de pouvoir ensuite considérer des équations aux dérivées partielles du type équation de Vlasov avec collisions raides. 
+Même si le lien n'est pas direct, on se familiarise ainsi avec les phénomènes à détente rapide, et on pourra sûrement adapter certaines méthodes à ces nouvelles équations. 
+
+Pour trouver un schéma uniformément précis, nous nous sommes basé sur ce qui avait été fait dans le cas périodique dans \cite{chartier2015UA} avec un développement double-échelle. 
+La difficulté est alors de s'approprier la méthode et de trouver comment résoudre le problème obtenu après développement. \\
+
+
+On commence par présenter notre problème et son comportement, avec en plus une étude préliminaire du nouveau problème suite au développement double-échelle. 
+Ensuite, on démontre que ce nouveau problème peut être bien posé avec certaines propriétés qui nous permettent de construire un schéma numérique uniformément convergent. 
+Enfin, on se penche sur l'implémentation de ce schéma ---son comportement, les difficultés qui y sont liées, les résultats de convergence, le coût... 

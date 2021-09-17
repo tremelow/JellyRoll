@@ -1,0 +1,460 @@
+\chapter{Mise en place d'un schéma numérique uniformément convergent}
+
+Maintenant qu'on sait comment obtenir un problème régulier, on cherche des conditions initiales qui permettent d'obtenir une condition au bord uniformément bornée avec la formule \eqref{eq:CB_UVW}. 
+On montre ensuite que le problème est alors bien posé et donne $U, \dpt U$ et $\dpt^2 U$ uniformément bornées, et on traduit les conditions initiales et au bord explicitement pour $X,Z$. 
+Enfin, on met en place un schéma numérique uniformément convergent dont on prouve les convergences locales et globales. 
+
+Par la suite on ne considère plus la variété centrale $\epsilon h\eeps$, si bien que les notations $h,h\eeps$ pourront représenter n'importe quel type de fonctions. 
+
+
+\section{Choix de la condition initiale}
+
+Cette section décrit une analyse du problème à l'aide d'outils utiles au cas périodique. 
+À cet effet, les méthodes présentées partent d'hypothèses de régularité qui ne sont pas explicitées. 
+
+D'abord on présente une approche peu formelle par développement en puissances de $\epsilon$ qui a fait le sujet d'une bonne partie du stage. 
+Face aux limites de cette approche, on exhibe une meilleure méthode pour trouver les bonnes conditions initiales pour avoir des dérivées $\dpt^{\alpha}$ uniformément bornée jusqu'à un ordre $\alpha\in\N$ arbitraire. 
+ 
+
+\subsection{Approche initiale}
+
+Dans un premier temps, on a essayé de faire le lien entre un développement multi-échelles en puissances de $\epsilon$ et la régularité sous la diagonale. On écrit ce développement 
+$$ X\eeps(t,\tau) = \sum_{n\in\N} \epsilon^n X_n(t,\tau) 
+\qquad \text{et} \qquad
+Z\eeps(t,\tau) = \sum_{n\in\N} \epsilon^n Z_n(t,\tau) $$
+en supposant les $X_n$, $Z_n$ et leurs dérivées uniformément bornées en $\epsilon$. \\
+
+Analysons le comportement de la solution approchée $X = X_0, Z = Z_0$. On a par développement selon les puissance de $\epsilon$
+\begin{equation*}
+\begin{array}{lclr}
+\dptau X_0 = 0, &\qquad& \dptau Z_0 + Z_0 = 0 &\qquad \qquad (\epsilon^{-1}) \\
+\dpt X_0 = f(X_0,Z_0), &\qquad& \dpt Z_0 = g(X_0,Z_0) &\qquad \qquad (\epsilon^0)
+\end{array}
+\end{equation*}
+
+La condition initiale associée à ce problème <<~tronqué~>> est alors évidente: on a 
+\begin{equation}
+X(0,\tau) = x_0, \quad Z(0,\tau) = e^{-\tau}z_0.
+\end{equation}
+On a alors effectivement $\dpt X(0,\tau) = f(x_0,e^{-\tau}z_0)$ et $\dpt Z(0,\tau) = g(x_0,e^{-\tau}z_0)$, ce qui est uniformément borné sur $\R_+$, mais en dérivant à nouveau on obtient $\dpt^2 X(0,\tau) = \O(1/\epsilon)$ et $\dpt^2 Z(0,\tau) = \O(1/\epsilon)$. 
+
+On tronque maintenant à l'ordre $1$: $X = X_0 + \epsilon X_1, Z = Z_0 + \epsilon Z_1$. Comme précédemment, on a 
+\begin{equation*}
+\begin{array}{lclr}
+\dptau X_0 = 0, &\qquad& \dptau Z_0 + Z_0 = 0 &\qquad \qquad (\epsilon^{-1}) \\
+\dptau X_1 = f(X_0,Z_0) - \dpt X_0, &\qquad& \dptau Z_1 + Z_1 = g(X_0,Z_0) - \dpt Z_0 &\qquad \qquad (\epsilon^0) \\
+\dpt X_1 = \Delta_{\epsilon}f(X_0,Z_0)\cdot (X_1,Z_1), &\qquad& \dpt Z_1 = \Delta_{\epsilon}g(X_0,Z_0)\cdot(X_1,Z_1) &\qquad \qquad (\epsilon^1)
+\end{array}
+\end{equation*}
+où $\Delta_{\epsilon} f(X_0,Z_0)\cdot(X_1,Z_1) = \dfrac{1}{\epsilon}[f(X_0 + \epsilon X_1, Z_0 + \epsilon Z_1) - f(X_0, Z_0)] = f_x(X_0,Z_0)\cdot X_1 + f_z(X_0,Z_0)\cdot Z_1 + \O(\epsilon)$, une sorte de dérivée discrète. \\
+
+Puisque $X(0,0)$ et $Z(0,0)$ sont fixés comme indépendant de $\epsilon$, on pose $X_1(0,0) = 0$ et $Z_1(0,0) = 0$. 
+Alors on a toujours $X_0(t,\tau) = x_0(t), Z_0(t,\tau) = e^{-\tau}z_0(t)$ (avec l'abus de notation où $x_0,z_0$ sont des fonctions du temps qui coïncident avec leur définition précédente en 0), mais aussi 
+\begin{equation*}
+\begin{array}{l}
+\displaystyle
+X_1(t,\tau) = \int_0^{\tau} \Big[f\big(x_0(t),e^{-\sigma}z_0(t)\big) - \dot{x_0}(t)\Big] d\sigma + x_1(t) \\
+\displaystyle
+Z_1(t,\tau) = \int_0^{\tau} e^{-(\tau-\sigma)}\Big[g\big(x_0(t),e^{-\sigma}z_0(t)\big) - e^{-\sigma}\dot{z_0}(t)\Big]d\sigma + e^{-\tau}z_1(t)
+\end{array}
+\end{equation*}
+avec $x_1(0) = 0, z_1(0) = 0$ et $\dot{x_1},\dot{z_1}$ donnés par le système d'ordre $\epsilon^1$ (ces fonctions n'influencent de toute manière pas les conditions initiales). 
+
+On voit qu'on n'a pas encore de relation pour $\dot{x_0}$ ni $\dot{z_0}$. On peut cependant en extraire une pour $\dot{x_0}$. 
+En effet, puisqu'on veut avoir $X_1$ bornée, il faut nécessairement $\dot{x_0} = f(x_0,0)$. 
+Le choix de $\dot{z_0}$, est arbitraire, et on voit par le calcul que quel que soit notre choix, on obtient une condition initiale et des dérivées $X,\dpt X, \dpt^2 X$ et $Z,\dpt Z, \dpt^2 Z$ uniformément bornées sur $(0,\tau),\tau > 0$. \\
+
+Lorsqu'on veut étendre le développement à l'ordre 2 en $\epsilon$, i.e. $X = X_0 + \epsilon X_1 + \epsilon^2 X_2$ et $Z = Z_0 + \epsilon Z_1 + \epsilon^2 Z_2$, on se rend compte que les calculs deviennent plus compliqués et qu'on a encore beaucoup de choix à faire sur $\ddot{x_0},\ddot{z_0},\dot{x_1},\dot{z_1}$. 
+On va donc chercher un cadre formel qu'on pourra utiliser pour trouver des conditions initiales permettant d'avoir des $\dpt^{\alpha} X(0,\tau), \dpt^{\alpha} Z(0,\tau)$ uniformément bornées jusqu'à $\alpha$ arbitraire. 
+
+
+\subsection{Développement de Chapman-Enskog}
+
+On reprend la formulation \eqref{eq:trsp_U_L}:
+$$ \dpt U + \inveps LU = F(U). $$
+
+\'{E}tudions l'opérateur $L$ dans l'ensemble $\E = \big\{h:\R^+ \rightarrow E \,|\, \exists (h_n)_{n\in\N}, \forall\tau\in\R^+, h(\tau) = \sum_n h_n e^{-n\tau}\big\}$, l'ensemble des séries exponentielles. 
+Cet ensemble est plus contraignant que les preuves suivantes ne le nécessitent, mais cela rendra les raisonnement plus clairs, et est en accord avec l'analogie des fonctions périodiques qui sont aussi des séries, de la forme $\sum_n h_n e^{in\tau}$. 
+Pour assurer que $\E$ est stable par $F$, on suppose $F$ analytique. 
+
+Les noyaux de $L_x$ et $L_z$ sont respectivement $Vect(\tau\mapsto 1_{\R^n})$ et $Vect(\tau\mapsto e^{-\tau}1_{\R^m})$. 
+On note $\Pi_x$ et $\Pi_z$ les projections sur ces noyaux. Sur le complémentaire des noyaux respectifs de $L_x$ et $L_z$ (i.e. sur les noyaux respectifs de $\Pi_x$ et $\Pi_z$), on a 
+\begin{equation*}
+\begin{array}{rl}
+(L_x^{-1} a)(\tau) =& \displaystyle
+-\int_{\tau}^{\infty} a(\sigma)d\sigma = (I - \Pi_x) \int_0^{\tau} a(\sigma)d\sigma , \\
+(L_z^{-1} b)(\tau) =& \displaystyle
+b_0 - \int_{\tau}^{\infty}e^{-\tau+\sigma} (b(\sigma) - b_0)d\sigma = (I - \Pi_z) \int_0^{\tau} e^{-\tau+\sigma}b(\sigma)d\sigma .
+\end{array}
+\end{equation*}
+Il est intéressant de remarquer qu'on doit modifier un peu l'intégrande pour pouvoir définir l'inverse de $L_z$. 
+En définissant $o_x : \tau \mapsto 1_{\R^n}$ et $o_z : \tau\mapsto e^{-\tau}1_{\R^m}$ les fonctions de base de $\text{Ker } L_x$ et $\text{Ker } L_z$ respectivement, on remarque 
+$$ (L_x^{-1} a)(\tau) = (I - \Pi_x) (o_x * a), $$
+$$ (L_z^{-1} b)(\tau) = (I - \Pi_z) (o_z * b). $$
+où $*$ représente le produit de convolution. 
+De manière générale, si $Th = e^{-p\tau}\dptau[e^{p\tau}h]$ avec $h = \sum_{k\neq p} h_k e^{-k\tau} \in \E /\,\text{Ker }T $ on inverse $(T^{-1}h)(\tau) = \sum_{k \neq p} \frac{1}{p-k}h_k e^{-k\tau} = \sum_{k < p} \frac{1}{p-k}h_k e^{-k\tau} - \int_{\tau}^{\infty} e^{-k(\tau-\sigma)}\big( h(\sigma) - \sum_{k < p}h^k e^{-k\sigma} \big)d\sigma$.  \\
+
+Supposons connaître la solution $U\eeps$. %\unsure{Techniquement il faudrait avoir $U\eeps(t,\cdot)\in\E$ pour tout $t$, mais c'est pas le cas... Je viens de m'en rendre compte. On s'en sort comment?} 
+Le développement de Chapman-Enskog consiste à la décomposer en deux parties 
+$$ U\eeps(t,\tau) = \underline{U}\eeps(t,\tau) + h\eeps(t,\tau) $$
+où $\underline{U}\eeps := \Pi U\eeps$ et $\Pi h\eeps = 0$ (on rappelle que $h\eeps$ n'est pas la variété du théorème \ref{thm:var_cent}). 
+On peut injecter cette décomposition de $U\eeps$ dans le système de départ, puis projeter sur le noyau de $L$ pour obtenir les équations 
+
+$$\dpt \underline{U}\eeps = \Pi F(\underline{U}\eeps+h\eeps), $$
+$$\dpt h\eeps + \inveps Lh\eeps = (I-\Pi)F(\underline{U}\eeps+h\eeps). $$
+
+Comme $\Pi h\eeps = 0$ on déduit de la dernière relation 
+
+$$ h\eeps = \epsilon A F(\underline{U}\eeps+h\eeps) - \epsilon L^{-1}(\dpt h\eeps). $$
+avec $A := L^{-1}(I-\Pi)$ (défini sur $\E$ tout entier). En supposant $U\eeps$ suffisamment régulière, on peut décomposer $h$ en puissances de $\epsilon$:
+$$ h\eeps(t,\tau) = \epsilon h_1(t,\tau,\underline{U}\eeps) + \epsilon^2 h_2(t,\tau,\underline{U}\eeps) + \ldots $$
+
+Et alors en supposant $h\eeps, \dpt h\eeps = \O_{\epsilon\rightarrow 0}(1)$ on obtient $h\eeps = \O(\epsilon)$. Si on suppose en outre $\dpt^2 h\eeps = \O(1)$ on obtient 
+$$ h\eeps = \epsilon h_1 + \O(\epsilon^2) := \epsilon AF(\underline{U}\eeps) + \O(\epsilon^2). $$
+
+\newcommand{\ulU}{\underline{U}}
+\newcommand{\ulX}{\underline{X}}
+\newcommand{\ulZ}{\underline{Z}}
+\newcommand{\ulx}{\underline{x}}
+\newcommand{\ulz}{\underline{z}}
+\newcommand{\ulf}{\underline{f}}
+\newcommand{\ulg}{\underline{g}}
+
+On s'attend à avoir une solution régulière à l'ordre 2 si les conditions initiales respectent ce développement $U_0 = \underline{U}_0 + \epsilon h_1$, c'est-à-dire avec 
+\begin{equation}
+U_0\eeps(\tau) = \underline{U}_0\eeps(\tau) + \epsilon A F(\underline{U}_0\eeps(\tau)).
+\label{eq:CI_chapman}
+\end{equation}
+où $\ulU_0\eeps = \Pi \ulU_0\eeps = \Pi U_0\eeps$ pourra être déterminé à partir de $U_0\eeps(0,0) = u_0$ (seul degré de liberté qui correspond aux conditions initiales du problème \eqref{pb:EDO_var_cent}). 
+
+
+\begin{remark}
+On pourrait aller un ordre au dessus en supposant $\dpt^3 h\eeps = \O(1)$ et alors on obtiendrait 
+$$ \begin{array}{rl}
+U_0\eeps(\tau) =& \underline{U}_0\eeps(\tau) + \epsilon A F(\underline{U}_0\eeps) \\
++& \epsilon^2 \Big( A\dpu F(\ulU_0\eeps) A F(\ulU_0\eeps) - A^2 \dpu F(\ulU_0\eeps)\Pi F(\ulU_0\eeps) \Big). 
+\end{array} $$
+\end{remark}
+
+
+
+\section{Bornes uniformes de la solution}
+
+L'étude de la régularité en section \ref{subsec:carac_C2_gen} nous indique qu'on peut définir $U_{\alpha}\eeps(\tau) = (\dpt^{\alpha} U\eeps)(0,\tau),\ \alpha = 0,1,2$ à partir de $F$ et des dérivées de $U_0\eeps$. On choisit alors la condition au bord 
+%
+\begin{equation}
+U_B\eeps(t) = U_0\eeps(0) + t\, U_1\eeps(0) + \dfrac{t^2}{2}U_2\eeps(0). 
+\label{eq:CB_ord2}
+\end{equation}
+%
+Si $U_0\eeps(0), U_1\eeps(0), U_2\eeps(0) = \O_{\epsilon\rightarrow0}(1)$, alors $U_B\eeps,\dpt U_B\eeps$ et $\dpt^2 U_B\eeps$ sont uniformément bornées sur $[0,T]$. 
+Montrons qu'avec ce choix de conditions initiale et au bord, on obtient une solution $U\eeps$ avec les propriétés souhaitées. 
+
+\subsection{Théorème sur $U = (X,Z)$}
+
+\begin{theorem} \label{thm:regu_U}
+Considérons le problème de transport (\ref{eq:trsp_U_L}) avec les conditions initiales (\ref{eq:CI_chapman})
+$$ U_0\eeps(\tau) = \underline{U}_0\eeps(\tau) + \epsilon L^{-1} (I-\Pi) F(\underline{U}_0\eeps(\tau)) $$
+et les conditions au bord (\ref{eq:CB_ord2}). On suppose $F$ analytique. Alors 
+\begin{enumerate}[(i)]
+\item Les conditions initiales et au bord sont uniformément bornées en norme infinie, et il existe pour tout $\kappa > 1$ un temps $T_{\kappa}$ tel que pour tout $\epsilon\in]0,\epsilon^*]$ une unique solution $U\eeps$ dans $C^2([0,T_{\kappa}]\times\R_+)$ qui vérifie 
+\begin{equation} \label{eq:ineg_Ueps}
+\forall t\in[0,T_{\kappa}],\quad \sup_{\epsilon\in]0,\epsilon^*]} \| U\eeps(t,\cdot) \|_{L^{\infty}_{\tau}} \leq \kappa \sup_{\epsilon\in]0,\epsilon^*]} \left(\max\left\{ \|U_0\eeps\|_{\Linftau}, \|U_B\eeps\|_{\Linft} \right\} \right) < +\infty . 
+\end{equation}
+
+\item Pour tout $\Tk$ assurant l'inégalité \eqref{eq:ineg_Ueps}, il existe une constante $C_{\kappa}$ telle que la solution $U\eeps$ vérifie 
+\begin{equation} \label{ineq:dtUeps}
+\forall t\in[0,\Tk], \quad \sup_{\epsilon\in]0,\epsilon^*]} \|\dpt^{\alpha} U\eeps(t,\cdot)\|_{L^{\infty}_{\tau}} \leq C_{\kappa}, \quad \alpha = 0,1,2.
+\end{equation}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\newcommand{\ulF}{\underline{F}}
+Le théorème \ref{thm:regularite_u_no_eps} nous permet d'affirmer que le problème est bien posé dans $C^2([0,\Tk]\times\R_+)$ à $\epsilon$ et $\kappa$ fixé. La difficulté va être de montrer que $\Tk$ et les bornes peuvent être indépendantes de $\epsilon$. 
+
+\vspace*{7pt}
+\noindent {\itshape{}Étude de la condition au bord.\hspace*{.3cm}}
+Montrons d'abord que la condition au bord est uniformément bornée (i.e. $\sup_{\epsilon} \|U_B\|_{\Linft} < \infty$). 
+On remarque d'abord $U_0\eeps(0) = \O_{\epsilon\rightarrow 0}(1)$ et on calcule 
+$$U_1\eeps = F(U_0\eeps) - \inveps LU_0\eeps = F_0\eeps - (I-\Pi)\ulF_0\eeps $$
+avec $F_0\eeps = F(U_0\eeps)$ et $\ulF_0\eeps = F(\ulU_0\eeps)$. Cette condition initiale est uniformément bornée, donc on a $U_1\eeps(0) = \O_{\epsilon\rightarrow 0}(1)$. Remanions un peu les termes pour trouver une expression plus simple à dériver. Par développement limité autour de $\ulU_0\eeps$ dans $F(U_0\eeps)$ on trouve 
+$$ \begin{array}{rl}
+F_0\eeps - \ulF_0\eeps =& \dpu F(\ulU_0\eeps)(U_0\eeps - \ulU_0\eeps) + \O(\|U_0\eeps - \ulU_0\eeps\|^2) \\
+=& \epsilon\dpu F(\ulU_0\eeps) A\ulF_0\eeps + \O(\epsilon^2) 
+\end{array} $$ 
+$$ \text{d'où} \qquad U_1\eeps = \Pi\ulF_0\eeps + \epsilon\dpu F(\ulU_0\eeps) A\ulF_0\eeps + \epsilon^2 r_1\eeps $$
+avec le terme correctif $r_1\eeps\in\E$ qui vient prendre en compte le reste dans le développement autour de $\ulU_0\eeps$. On a ensuite 
+$$ U_2\eeps = \dpu F(U_0\eeps)\cdot U_1\eeps - \inveps LU_1\eeps = \dpu F(U_0\eeps) - L\dpu F(\ulU_0\eeps) A F(\ulU_0\eeps) + \O(\epsilon)$$
+et donc $U_2\eeps(0) = \O_{\epsilon\rightarrow 0}(1)$. On a ainsi montré que $U_0\eeps,U_1\eeps,U_2\eeps$ et $U_B\eeps,(U_B\eeps)',(U_B\eeps)''$ sont uniformément bornées. 
+
+\vspace*{7pt}
+\noindent {\itshape{}Existence de $\Tk$ et de $U$, et borne uniforme.\hspace*{.3cm}}
+On écrit le problème sous la forme 
+$$ \dpt U\eeps + \partial_{\theta} U\eeps = -\inveps J U\eeps + F(U\eeps), $$
+avec $J$ diagonale, de coefficients 0 ou 1 selon que le coefficient agisse sur $X$ ou $Z$. 
+Ce problème est presque celui de la partie 1 à l'exception du terme $-(1/\epsilon)JU\eeps$ et de l'indépendance de $F$ par rapport à $t,\tau$ (et d'un changement de variable $\tau \leftarrow \epsilon\tau$). 
+
+Soit $\kappa > 1$. 
+Montrons que les résultats du lemme \ref{thm:pb_gen_bien_pose} sont maintenus, avec un temps final $\Tk$ et une borne à la solution tous les deux indépendants de $\epsilon$. 
+
+On s'intéresse d'abord aux caractéristiques sous la diagonale pour nous ramener au cas de la partie précédente. 
+Soit $\tau \geq 0$, on pose $\varphi\eeps(t,\tau) = U\eeps(t,\tau+t/\epsilon)$, alors $\varphi\eeps(t,\tau)$ vérifie l'EDO 
+$$ \dpt \varphi\eeps(t,\tau) = -\inveps J\varphi\eeps(t,\tau) + F(\varphi\eeps(t,\tau)) \quad\text{et}\quad \varphi\eeps(0,\tau) = U_0\eeps(\tau) $$
+Sous forme intégrale, le problème s'écrit 
+$$ \varphi\eeps(t,\tau) = e^{-tJ}\varphi\eeps(0,\tau) + \int_0^{\tau} e^{(s-t)J} F(\varphi(s,\tau))ds $$
+soit, par inégalité triangulaire et croissance de l'intégrale, en remarquant $\vertiii{e^{-tJ}} \leq 1$, 
+\begin{equation} \label{ineq:phi_eps}
+|\varphi\eeps(t,\tau)| \leq |\varphi\eeps(0,\tau)| + \int_0^{\tau} |F(\varphi(s,\tau))|ds. 
+\end{equation}
+On est alors exactement dans le même cas que dans la démonstration du lemme \ref{thm:pb_gen_bien_pose} (voir annexe~\ref{chap:ann_preuve}). 
+Il en est de même \textit{au dessus} de la diagonale $(t,t/\epsilon)$. Notons $R := \sup_{\epsilon} \max \left\{\|U_0\eeps\|_{\Linftau},\|U_0\eeps\|_{\Linft}\right\}$. 
+On peut alors définir un temps final $\Tk$ indépendant de $\epsilon$ tel que $U\eeps$ est bien définie et est bornée par $\kappa R$ sur $[0,\Tk]\times\R_+$ pour tout $\epsilon$. En particulier, on passe au supremum pour obtenir l'inégalité \eqref{eq:ineg_Ueps} du théorème. 
+
+\vspace*{7pt}
+\noindent {\itshape{}Continuité et caractère borné des dérivées.\hspace*{.3cm}}
+On rappelle que $\dpt U\eeps$ (resp. $\dpt^2 U\eeps$) vérifie un problème de transport linéaire avec pour conditions initiale $U_1$ (resp. $U_2$) et au bord $U_B'$ (resp. $U_B''$). De même que précédemment, on peut montrer que le cas affine du lemme \ref{thm:pb_gen_bien_pose} reste valide, avec une borne indépendante de $\epsilon$. Détaillons le raisonnement pour $\dpt U\eeps =: V\eeps$ afin de s'en convaincre. On a 
+$$ \begin{array}{c} \displaystyle
+\dpt V\eeps + \inveps\dpt V\eeps = -\inveps J V\eeps + \dpu F(U\eeps)\cdot V\eeps, 
+\\ \displaystyle \vphantom{\inveps}
+V\eeps(0,\tau) = U_1(\tau) \quad\text{et}\quad V(t,0) = (U_B\eeps)'(t).
+\end{array} $$
+En notant $G\eeps:t,\tau,v \mapsto \dpu F(U\eeps(t,\tau))\cdot v$, cela s'écrit sous forme intégrale pour une caractéristique $\psi\eeps(t,\tau) = V\eeps(t,\tau+t/\epsilon)$ sous la diagonale, $\psi\eeps(t,\tau) = e^{-\frac{t}{\epsilon}J}\psi\eeps(0,\tau) + \int_0^t e^{\frac{(s-t)}{\epsilon}J} G\eeps(s,\tau+s/\epsilon,\psi\eeps(s,\tau))ds$. 
+Comme précédemment, on peut majorer $\psi\eeps(t,\tau)| \leq |\psi\eeps(0,\tau)| + \int_0^t |G\eeps(s,\tau+s/\epsilon,\psi\eeps(s,\tau))|ds$. 
+
+Comme $U\eeps$ est bornée sur $[0,\Tk]\times\R_+$, $\dpu F(U\eeps)$ l'est aussi en norme d'opérateur. 
+On pose $A_{\kappa},B_{\kappa} > 0$ tels que $\forall (\epsilon,t,\tau,v)\in ]0,\epsilon^*]\times [0,\Tk]\times\R_+\times E, |G\eeps(t,\tau,v)| \leq A_{\kappa} |v| + B_{\kappa}$ 
+(en l'occurrence on pourrait choisir $B_{\kappa} = 0$ mais ce n'est pas le cas pour $\dpt^2 U\eeps$ donc conservons le). L'inégalité de Grönwall assure alors 
+$$\forall t\in[0,\Tk], \quad \|V\eeps(t,\cdot)\|_{\Linftau} \leq \left(\max \left\{\|(U_B\eeps)'\|_{\Linft},\|U_1\eeps\|_{\Linftau}\right\} + tB_{\kappa} \right)e^{tA_{\kappa}}. $$
+On peut effectuer le même raisonnement sur $\dpt^2 U\eeps$ qui donne $$\forall t\in[0,\Tk], \quad \|\dpt^2 U\eeps(t,\cdot)\|_{\Linftau} \leq \left(\max \left\{\|(U_B\eeps)''\|_{\Linft},\|U_2\eeps\|_{\Linftau}\right\} + tB'_{\kappa} \right)e^{tA_{\kappa}} $$ 
+pour une certaine constante $B'_{\kappa}$. 
+Comme $U_1\eeps,U_2\eeps,(U_B\eeps)'$ et $(U_B\eeps)''$ sont uniformément bornées, on peut passer au supremum dans l'inégalité pour obtenir la deuxième partie du théorème. 
+
+\end{proof}
+
+\begin{remark} \label{rq:eps_err}
+Le résultat reste vrai si on prend des conditions initiales $\widetilde{U}_0 = U_0 + \epsilon^2 r\eeps_0$ avec $r\eeps_0\in\E$ uniformément bornée. Cependant, la condition au bord doit changer en conséquence. 
+\end{remark}
+
+
+\subsection{Forme explicite des conditions initiales et au bord sur $X,Z$}
+
+Traduisons l'expression des conditions initiales \eqref{eq:CI_chapman} dans le système en $X,Z$. On a par simple traduction 
+\begin{equation}
+\begin{array}{l}
+\ \, X\eeps(0,\tau) = X_0\eeps(\tau) = \ulx_0 - \epsilon \int_{\tau}^{\infty} [f(\ulx_0,e^{-\sigma}\ulz_0) - f(\ulx_0,0)] d\sigma , \\
+\begin{array}{r}
+Z\eeps(0,\tau) = Z_0\eeps(\tau) = e^{-\tau}\ulz_0 + \epsilon g(\ulx_0,0) - \epsilon \int_{\tau}^{\infty} e^{-(\tau-\sigma)}[
+g(\ulx_0,e^{-\sigma}\ulz_0) - g(\ulx_0,0) \qquad\vphantom{1} \\ - \dpz g(\ulx_0,0)\cdot e^{-\sigma}\ulz_0]d\sigma .
+\end{array}
+\end{array}
+\end{equation}
+
+
+On note 
+\begin{equation} \label{def:f_k}
+f_k = \dpz^k f(x_0,0)\cdot(\underbrace{z_0,\ldots,z_0}_{k \text{ fois}})
+\end{equation}
+ou $\underline{f}_k$ si les arguments sont $\ulx_0,\ulz_0$. 
+On définit $g_k,\underline{g}_k$ de la même manière. 
+Dans les applications on fixe $X(0,0) = x_0$ et $Z(0,0) = z_0$, donc on doit inverser un système en $\ulx_0,\ulz_0$ qui s'écrit 
+$$ \begin{array}{l}
+\ulx_0 = x_0 + \epsilon\int_0^{\infty} [f(\ulx_0,e^{-\sigma}\ulz_0) - \ulf_0]d\sigma \\
+\ulz_0 = z_0 - \epsilon \ulg_0 + \epsilon\int_0^{\infty} e^{\sigma}[g(\ulx_0,e^{-\sigma}\ulz_0) - \ulg_0 - e^{-\tau}\ulg_1] d\sigma 
+\end{array} $$
+$$ \begin{array}{rl}
+\text{d'où} \quad &\ulx_0 = x_0 + \epsilon\int_0^{\infty} [f(x_0,e^{-\sigma}z_0) - f_0]d\sigma + \O(\epsilon^2), \\
+&\ulz_0 = z_0 - \epsilon g_0 + \epsilon\int_0^{\infty} e^{\sigma}[g(x_0,e^{-\sigma}z_0) - g_0 - e^{-\tau}g_1] d\sigma + \O(\epsilon^2) 
+\end{array} $$
+grâce au caractère analytique de $f$ et $g$. En injectant cela dans les définitions de $X_0,Z_0$ on obtient après calcul
+$$ \begin{array}{l}
+X_0\eeps(\tau) = 
+%x_0 + \epsilon \int_0^{\infty} [f(x_0,e^{-\sigma}z_0) - f_0] d\sigma - \epsilon\int_{\tau}^{\infty} [f(x_0,e^{-\sigma}z_0) - f_0] d\sigma + \O(\epsilon^2) \\
+%=& \displaystyle 
+x_0 + \epsilon\int_0^{\tau} [f(x_0,e^{-\sigma}z_0) - f_0] d\sigma + \O(\epsilon^2) , \\
+%
+Z_0\eeps(\tau) = 
+%e^{-\tau}\left(z_0 - \epsilon g_0 + \epsilon \int_0^{\infty} e^{\sigma}[g - g_0 - e^{-\sigma}g_1] d\sigma\right) + \epsilon g_0 - \epsilon e^{-\tau}\int_{\tau}^{\infty}e^{\sigma}[g - g_0 - e^{-\sigma}g_1] d\sigma + \O(\epsilon^2) \\
+% =& e^{-\tau} z_0 + \epsilon(1 - e^{-\tau})g_0 + \epsilon e^{-\tau}\int_0^{\tau} e^{\sigma}[g - g_0 - e^{-\sigma}] + \O(\epsilon^2) \\
+% =& \displaystyle 
+e^{-\tau}z_0 + \epsilon e^{-\tau}\int_0^{\tau} e^{\sigma} [g(x_0,e^{-\sigma}z_0) - e^{-\sigma}g_1] d\sigma + \O(\epsilon^2) .
+\end{array} $$
+La remarque \ref{rq:eps_err} nous indique que ce niveau de précision (à $\epsilon$) est suffisant et donc on tronque les termes d'ordre $\epsilon^2$. Ainsi on modifie les définitions de $X_0\eeps,Z_0\eeps$ en 
+\begin{equation} \label{eq:CI_tronquees}
+\begin{array}{l}
+\displaystyle
+X_0\eeps(\tau) = x_0 + \epsilon\int_0^{\tau} \left[ f(x_0,e^{-\sigma}z_0) - f(x_0,0) \right] d\sigma , \\
+\displaystyle
+Z_0\eeps(\tau) = e^{-\tau}z_0 + \epsilon\int_0^{\tau} e^{-\tau+\sigma}\left[ g(x_0,e^{-\sigma}z_0) - \dpz g(x_0,0)\cdot e^{-\sigma} z_0 \right] d\sigma .
+\end{array}
+\end{equation}
+
+\vspace*{12pt}
+Déterminons maintenant les grandeurs nécessaires à la condition au bord telle que donnée par la relation \eqref{eq:CB_ord2}. 
+On a 
+$$ \begin{array}{l}
+\displaystyle
+X_1\eeps(\tau) = f(X_0\eeps(\tau),Z_0\eeps(\tau)) - \inveps (X_0\eeps)'(\tau) = f(X_0\eeps(\tau),Z_0\eeps(\tau)) - f(x_0,e^{-\tau}z_0) + f_0 \\
+\displaystyle
+Z_1\eeps(\tau) = g(X_0\eeps(\tau),Z_0\eeps(\tau)) - \inveps ((Z_0\eeps)'(\tau) + Z_0\eeps(\tau)) = g(X_0\eeps(\tau), Z_0\eeps(\tau)) - g(x_0,e^{-\tau}z_0) + e^{-\tau}g_1 \\
+\end{array} $$
+d'où \begin{equation*} %\label{eq:CB_XZ_t1}
+\begin{array}{l}
+X_1\eeps(0) = f(x_0,0), \qquad\qquad Z_1\eeps(0) = \dpz g(x_0,0)\cdot z_0 .
+\end{array}
+\end{equation*}
+
+Par définition on a ensuite 
+\begin{equation*}
+\begin{array}{l}
+X_2 = \dpx f(X_0,Z_0)\cdot X_1 + \dpz f(X_0,Z_0)\cdot Z_1 - \dfrac{1}{\epsilon}X_1' , \\
+Z_2 = \dpx g(X_0,Z_0)\cdot Z_1 + \dpz g(X_0,Z_0)\cdot Z_1 - \dfrac{1}{\epsilon}(Z_1' + Z_1).  
+\end{array}
+\end{equation*}
+Après quelques calculs sans difficulté on peut finalement évaluer $X_2\eeps(0),Z_2\eeps(0)$ de façon exacte 
+\begin{equation*} %\label{eq:CB_XZ_t2}
+\begin{array}{c}
+X_2(0) = \dpx f(x_0,z_0)\cdot \big( 2f(x_0,0) - f(x_0,z_0) \big) + \dpz f(x_0,z_0)\cdot \big( 2\dpz g(x_0,0)\cdot z_0 - g(x_0,z_0) \big) \vphantom{\dfrac 1 1} \\ \vphantom{\dfrac 1 1}
+Z_2(0) = \dpx g(x_0,z_0)\cdot \big( 2f(x_0,0) - f(x_0,z_0) \big) + \dpz g(x_0,z_0)\cdot \big( 2\dpz g(x_0,0)\cdot z_0 - g(x_0,z_0) \big)
+\end{array} 
+\end{equation*}
+
+On définit enfin les conditions au bord 
+\begin{equation} 
+\label{eq:CB_XZ}
+\begin{array}{l} \displaystyle
+X_B(t) = x_0 + t\, f_0 + \frac{t^2}{2} [\dpx f(x_0,z_0)\cdot (2f_0 - f(x_0,z_0) + \dpz f(x_0,z_0)\cdot (2g_1 - g(x_0,z_0)) ] 
+\\ \displaystyle
+Z_B(t) = z_0 + t\, g_1 + \frac{t^2}{2} [\dpx g(x_0,z_0)\cdot (2f_0 - f(x_0,z_0)) + \dpz g(x_0,z_0)\cdot (2g_1 - g(x_0,z_0))] 
+\end{array}
+\end{equation} 
+où $f_0 = f(x_0,0)$ et $g_1 = \dpz g(x_0,0)\cdot z_0$ comme définis par \eqref{def:f_k}. 
+On remarque que ces conditions au bord sont indépendantes de $\epsilon$ (bien que ce n'ait pas d'influence sur la suite). 
+On annonce alors le théorème 
+
+\begin{theorem} \label{thm:regu_XZ}
+Avec les conditions initiales \eqref{eq:CI_tronquees} et au bord \eqref{eq:CB_XZ}, 
+et si $f$ et $g$ sont analytiques, alors le problème \eqref{eq:trsp_XZ} est bien posé au sens 
+\begin{enumerate}[(i)]
+\item Les conditions initiales et au bord sont uniformément bornées en norme infinie, et il existe pour tout $\kappa > 1$ un temps $T_{\kappa}$ tel que pour tout $\epsilon\in]0,\epsilon^*]$ une unique solution $X\eeps,Z\eeps$ dans $C^2([0,T_{\kappa}]\times\R_+)$ qui vérifie 
+$$\forall t\in[0,T_{\kappa}],\quad \sup_{\epsilon\in]0,\epsilon^*]} \| X\eeps(t) \|_{L^{\infty}_{\tau}} \leq \kappa R_X \quad\text{et}\quad \sup_{\epsilon}\| Z\eeps(t) \|_{L^{\infty}_{\tau}} \leq \kappa R_Z $$
+où $R_X$ (resp. $R_Z$) est un majorant de $\sup_{\epsilon}\|X_0\eeps\|_{L^{\infty}_{\tau}}$ et de $\|X_B\|_{L^{\infty}_t}$ (resp. de $\sup_{\epsilon\in]0,\epsilon^*]}\|Z_0\eeps\|_{L^{\infty}_{\tau}}$ et de $\|Z_B\|_{L^{\infty}_t}$). 
+\item Pour tout $\Tk$ de la relation précédente, on a 
+$$\forall t\in[0,\Tk], \quad \sup_{\epsilon\in]0,\epsilon^*]} \|\dpt^{\alpha} X\eeps(t,\tau)\|_{L^{\infty}_{\tau}} \leq C_{\kappa} \quad\text{et}\quad \sup_{\epsilon\in]0,\epsilon^*]} \|\dpt^{\alpha} Z\eeps(t,\cdot)\|_{L^{\infty}_{\tau}} \leq C_{\kappa} $$
+pour $\alpha = 0,1,2$, avec $C_{\kappa} > 0$ une constante. 
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+C'est une application directe du théorème \ref{thm:regu_U} avec la remarque \ref{rq:eps_err}. 
+\end{proof}
+
+
+\section{Présentation du schéma d'ordre 1}
+
+On cherche maintenant à calculer numériquement la solution du problème \eqref{eq:trsp_XZ}. On ne discrétise que la variable $t$ et on garde la variable $\tau$ continue. On définit une grille uniforme $t_n = n\Delta t$ sur $[0,\Tk]$, $n=0,\ldots,N$ avec $N\Delta t = \Tk$. On note $X_n\eeps \simeq X\eeps(t_n,\cdot)$ et $Z_n\eeps \simeq Z(t_n,\cdot)$, et le schéma qu'on utilise est 
+$$ \dfrac{X_{n+1}\eeps - X_n\eeps}{\Delta t} + \inveps \dptau X_{n+1}\eeps = f(X_n,Z_n), $$
+$$ \dfrac{Z_{n+1}\eeps - Z_n\eeps}{\Delta t} + \inveps \left(\dptau Z_{n+1}\eeps + Z_{n+1}\eeps \right) = g(X_n,Z_n). $$
+
+\subsection{Propriétés du schéma}
+
+Pour $X$ on voit qu'on peut écrire, avec $\mu = \epsilon/\Delta t$ et $f_n\eeps = f(X_n\eeps,Z_n\eeps)$, 
+$$ \mu X_{n+1}\eeps + \dptau X_{n+1}\eeps = \mu\left(\dt f_n\eeps + X_n\eeps \right) $$
+ou encore, en remarquant $\mu X(\tau) + \dptau X(\tau) = e^{-\mu\tau}\dptau[e^{\mu\tau}X(\tau)]$ et en intégrant entre $0$ et $\tau$, 
+\begin{equation} \label{eq:inv_Qmu_X}
+X_{n+1}\eeps(\tau) = e^{-\mu\tau}X_B\eeps(t_{n+1}) + \mu\int_0^{\tau} e^{-\mu(\tau-\sigma)}\left(\dt f(X_n\eeps(\sigma),Z_n\eeps(\sigma)) + X_n\eeps(\sigma)\right)d\sigma. 
+\end{equation}
+Ceci définit précisément le schéma, qu'on cherchera à implémenter une fois sa convergence prouvée. De la même manière on a 
+\begin{equation} \label{eq:inv_Smu_Z}
+Z_{n+1}\eeps(\tau) = e^{-(\mu+1)\tau}Z_B\eeps(t_{n+1}) + \mu\int_0^{\tau} e^{-(\mu+1)(\tau-\sigma)}\left( \dt g(X_n\eeps(\sigma),Z_n\eeps(\sigma)) + Z_n\eeps(\sigma)\right)d\sigma. 
+\end{equation}
+On remarque que les opérateurs $Q_{\mu} = Id + \frac{1}{\mu}\dptau$ et $S_{\mu} = Id + \frac{1}{\mu}(Id + \dptau)$ sont centraux à notre étude, et donc on propose d'étudier quelques unes de leurs propriétés tout de suite. 
+Pour simplifier cette étude, on pose $T_{\mu} = \begin{pmatrix}
+Q_{\mu} \\ S_{\mu} 
+\end{pmatrix}$.
+
+\begin{lemma} \label{thm:op_Tmu}
+L'opérateur $T_{\mu}[h_0]$ défini de $C^1(\R_+ \,|\, h_0) := \left\{ h\in C^1(\R_+) \,\big|\, h(0) = h_0 \right\}$ dans $C^0(\R_+)$ par 
+$$ T_{\mu}[h_0]h = h + \frac{1}{\mu}(\dptau h + J h) $$
+est inversible, et l'inverse de $C^0(\R_+)$ dans $C^1(\R_+\,|\, h_0)$ s'écrit explicitement 
+$$\forall \tau\in\R_+, \quad (T_{\mu}[h_0]^{-1}h)(\tau) = e^{-\tau(\mu I+J)}h_0 + \mu \int_0^{\tau}e^{-(\tau-\sigma)(\mu I + J)}h(\sigma)d\sigma. $$
+En outre, cet inverse vérifie l'inégalité 
+$$\forall h\in C^0(\R_+), \quad \|T_{\mu}[h_0]^{-1}h\|_{\Linftau} \leq |h_0| + \|h\|_{\Linftau}. $$
+
+\end{lemma}
+
+\begin{proof}
+On a $T_{\mu}[h_0]h = \begin{pmatrix} Q_{\mu}[\pi_x h_0]h_x \\ S_{\mu}[\pi_z h_0]h_z \end{pmatrix}$, avec $\pi_x,\pi_z$ les projections de $E$ sur $\R^n,\R^m$ respectivement, et $h_x = \pi_x h,\: h_z = \pi_x h$.
+La formule d'inversion a été montrée pour $Q_{\mu}[\pi_x h_0]$, et celle pour $S_{\mu}[\pi_z h_0]$ en \eqref{eq:inv_Smu_Z}, se trouve exactement de la même manière. 
+L'énoncé provient simplement de la mise en commun de ces deux relations en une seule. 
+L'inégalité apparaît par inégalité triangulaire sur les intégrales dans \eqref{eq:inv_Qmu_X} et \eqref{eq:inv_Smu_Z} en remarquant 
+$$ \mu\int_0^{\tau} e^{-\mu(\tau-\sigma)}d\sigma = 1-e^{-\mu\tau} \leq 1 \quad\text{et}\quad \mu\int_0^{\tau} e^{-(\mu+1)(\tau-\sigma)}d\sigma \leq \dfrac{\mu}{\mu+1} \leq 1 $$
+\end{proof}
+
+On remarque par ailleurs que l'ensemble de départ de $T_{\mu}[h_0]$ n'est pas un espace vectoriel. On a $T_{\mu}[\alpha]h_1 + T_{\mu}[\beta]h_2 = T_{\mu}[\alpha+\beta](h_1+h_2)$. 
+
+\subsection{Erreur locale du schéma}
+
+\begin{theorem} \label{thm:err_loc}
+Soit $U\eeps = (X\eeps,Z\eeps)$ la solution du problème \eqref{eq:trsp_U_L} avec les conditions initiales $X_0\eeps,Z_0\eeps$ de \eqref{eq:CI_tronquees} et les conditions au bord $X_B,Z_B$ de \eqref{eq:CB_XZ}. Alors l'erreur locale $\ell e_{n+1}\eeps$ du schéma donné par \eqref{eq:inv_Qmu_X} et \eqref{eq:inv_Smu_Z}, définie pour $n = 0,\ldots,N-1$ par 
+$$\ell e_{n+1}\eeps := U\eeps(t_{n+1}) - \hat{U}_{n+1}\eeps $$
+avec $(T_{\mu}[U_B(t_{n+1})]\hat{U}_{n+1}\eeps)(\cdot) = U\eeps(t_n,\cdot) + \dt F(U\eeps(t_n,\cdot) $. Alors 
+$$ \sup_{\epsilon\in ]0,\epsilon^*]} \|\ell e_{n+1}\eeps\|_{\Linftau} \leq C_{\kappa}\dt^2 $$
+pour une certaine constante $C_{\kappa}$ indépendante de $n$. 
+\end{theorem}
+
+\begin{proof}
+Par la suite, on omet la variable $\tau$ sauf en cas de nécessité. Par définition de $T_{\mu}$ on a 
+$$ T_{\mu}[U_B(t_{n+1})]U\eeps(t_{n+1}) = U\eeps(t_{n+1}) + \dt \left( F(U\eeps(t_{n+1})) - \dpt U\eeps(t_{n+1})\right) $$
+et alors
+$$ T_{\mu}[0](\ell e_{n+1}\eeps) = T_{\mu}[U_B\eeps(t_{n+1})]U\eeps(t_{n+1}) - T_{\mu}[U_B(t_{n+1})]\hat{U}_{n+1}\eeps = \alpha_{n+1}\eeps $$
+avec 
+$$ \alpha_{n+1}\eeps := U\eeps(t_{n+1}) - U\eeps(t_n) + \dt \left( F(U\eeps(t_{n+1})) - F(U\eeps(t_n)) - \dpt U\eeps(t_{n+1})\right). $$
+Par développement de Taylor à reste intégral de $U\eeps(t_n)$ autour de $t_{n+1}$, on a 
+$$ U\eeps(t_{n+1}) - U\eeps(t_n) = \dt\ \dpt U\eeps(t_{n+1}) + \int_{t_n}^{t_{n+1}} (t_n - t)\dpt^2 U\eeps(t) dt $$
+$$\text{et } F(U\eeps(t_{n+1})) - F(U\eeps(t_n)) = \int_{t_n}^{t_{n+1}} \dpu F(U\eeps(t))\cdot \dpt U\eeps(t)dt $$
+d'où la relation
+$$ \alpha_{n+1}\eeps = \Delta t\int_{t_n}^{t_{n+1}} \left( \dpu F(U\eeps(t))\cdot \dpt U\eeps(t) + \frac{t_n-t}{\dt}\dpt^2 U\eeps(t) \right) dt. $$
+
+D'après le théorème \ref{thm:regu_XZ} et par continuité de $\dpu F$, les quantités dans l'intégrale sont uniformément bornées, et donc 
+$$ \sup_{\epsilon\in ]0,\epsilon^*]} \|\alpha_{n+1}\eeps\|_{\Linftau} \leq C_{\kappa}\dt^2. $$
+D'après le lemme \ref{thm:op_Tmu} et comme $\ell e_{n+1}\eeps = T_{\mu}[0]^{-1}\alpha_{n+1}$, on obtient le théorème souhaité. 
+\end{proof}
+
+\subsection{Erreur globale}
+
+\begin{theorem} \label{thm:err_glob}
+Soit $U\eeps = (X\eeps,Z\eeps)$ la solution du problème \eqref{eq:trsp_U_L} avec les conditions initiales $X_0,Z_0$ de \eqref{eq:CI_tronquees} et les conditions au bord $X_B,Z_B$ de \eqref{eq:CB_XZ}. 
+On pose $(U_n\eeps)_{n\in[\![0,N]\!]}$ la solution numérique calculée grâce au schéma donné par \eqref{eq:inv_Qmu_X} et \eqref{eq:inv_Smu_Z} sur $\R_+$ avec $U_0\eeps$ donnée par les conditions initiales sur $X\eeps,Z\eeps$ \eqref{eq:CI_tronquees}. 
+Alors il existe $\Delta t_0 > 0$ et $C > 0$ telles que 
+$$\forall \dt < \dt_0, \quad 
+\sup_{\epsilon\in]0,\epsilon^*]} \|U\eeps(t_n) - U\eeps_n\|_{\Linftau} \leq C\dt $$
+pour tout $n = 0,\ldots,N$, où $\Tk = N\dt$ est le temps final. 
+\end{theorem}
+
+\begin{proof}
+On peut décomposer l'erreur $e_{n+1}\eeps := U\eeps(t_{n+1}) - U_{n+1}\eeps$ en deux parties
+$$ e_{n+1}\eeps = \underbrace{U\eeps(t_{n+1}) - \hat{U}_{n+1}\eeps}_{\displaystyle \text{erreur locale } \ell e_{n+1}\eeps}
+\quad + \quad 
+\underbrace{\hat{U}_{n+1}\eeps - U_{n+1}\eeps}_{\displaystyle \text{erreur transportée } t e_{n+1}\eeps} $$
+avec comme précédemment $(T_{\mu}[U_B(t_{n+1})]\hat{U}_{n+1}\eeps)(\cdot) = U\eeps(t_n,\cdot) + \dt\ F(U\eeps(t_n,\cdot) $. On a 
+$$ T_{\mu}[0] e_{n+1}\eeps = T_{\mu}[0]\ell e_{n+1}\eeps + T_{\mu}[0]t e_{n+1}\eeps $$
+(on remarque que $e_{n+1}\eeps$ est nulle en 0 par définition du schéma, exact au bord). On sait $T_{\mu}[0]\ell e_{n+1}\eeps \leq C_0\dt^2$, mais on ne sait pas encore quantifier $T_{\mu}[0] t e_{n+1}\eeps$. On remarque 
+$$ T_{\mu}[0] t e_{n+1}\eeps = e_n\eeps + \dt \Big( F(U\eeps(t_n)) - F(U_n\eeps) \Big). $$
+Par continuité de $\dpu F$, formule d'intégration et inégalité triangulaire, on a 
+$$ \|F(U\eeps(t_n)) - F(U_n\eeps) \|_{\Linftau} \leq \int_0^1 \left\|\dpu F \big(\theta U\eeps(t_n) + (1-\theta)U_n\eeps\big) \cdot e_n\eeps \right\|_{\Linftau} d\theta $$
+Fixons $R > 0$. On suppose $\sup_{\epsilon} \|e_n\eeps\|_{\Linftau} < R$, alors pour tout $\theta\in [0,1]$, 
+$$\| \theta U\eeps(t_n) + (1-\theta) U\eeps_n \|_{\Linftau} \leq \|U\eeps(t_n)\| + \theta\|e_n\eeps\| \leq C_1 + R $$
+d'où par continuité de $\dpu F$ de $E$ dans $L(E,E)$, 
+$$ \|F(U\eeps(t_n))-F(U_n\eeps)\|_{\Linftau} \leq C_2 \|e_n\eeps\|_{\Linftau} $$
+pour une certaine constante $C_2 > 0$ qui dépend de $R$ (et de $C_1$). On obtient enfin, avec le lemme \ref{thm:op_Tmu}, 
+$$ \|e_{n+1}\eeps \|_{\Linftau} \leq (1+C_2\dt)\|e_n\eeps\|_{\Linftau} + C_0\dt^2 $$
+ce qui fournit, avec l'inégalité de Grönwall discrète, 
+$$ \|e_{n+1}\eeps\|_{\Linftau} \leq \frac{C_0\dt}{C_2} (\exp(C_2 \Tk) - 1). $$
+Par récurrence on assure $\|e_n\eeps\| < R$ pour tout $n\in [\![0,N]\!]$ pour tout $\dt < \dt_0$ en posant 
+$$ \dt_0 := \frac{RC_2}{C_0}e^{-C_2\Tk} $$
+et la démonstration est terminée. 
+\end{proof}
+
+On a ainsi montré que ce schéma similaire au schéma implicite-explicite \ref{subsec:meth_num_usuelles}, \textit{a priori} très simple, est uniformément précis. 
+On peut maintenant l'implémenter et vérifier numériquement cette convergence. 

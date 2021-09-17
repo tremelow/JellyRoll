@@ -1,0 +1,245 @@
+\documentclass{templatePFE}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% COMPILATION
+%
+% Sur Linux, il suffit de faire make en vous placant dans le dossier.
+%
+% Sur Windows, pour le logiciel Texmaker, il faut configurer la compilation ainsi:
+% Aller dans Options -> Configurer Texmaker -> Commandes
+% Modifier la ligne 'Makeindex' par:
+% makeindex -s %.ist -t %.glg -o %.gls %.glo
+% au lieu de 
+% makeindex %.idx
+%
+% Une solution encore plus simple est d'utiliser la compilation de Overleaf.com
+% Uploader les fichiers Rapport.tex, Rapport.cls et le dossier image sur overleaf
+% Renommer le fichier Rapport.tex en main.tex
+% Ca devrait compiler tout seul (index et glossaire compris)
+%
+% Il faut ensuite compiler successivement avec:
+% Pdflatex -> Bibtex -> MakeIndex -> Pdflatex -> Pdflatex
+% 
+% BIBLIOGRAPHIE
+%
+% Pour remplir la bibliographie, remplir le fichier biblio.bib
+% Pour citer une source, mettre \cite{reference} (seuls
+% les textes cités seront ajoutés à la bibliographie, le biblio.bib
+% vous sert de bibliothèque)
+%
+% INDEX
+%
+% Pour rajouter un mot à l'index, il suffit d'entrer la commande \index{mot}
+% Si vous voulez que l'index renvoie vers plusieurs pages, tapez à chaque endroit
+% où vous voulez que l'index renvoie la commande \index{mot}
+%
+% GLOSSAIRE 
+%
+% Pour ajouter un nom au glossaire, il suffit d'entrer la commande 
+% \newglossaryentry{nom}
+% {
+%   name=nom,
+%   description={Donner votre description}
+% }
+% Pour utiliser un renvoi vers le glossaire, utilisez \gls{nom}.
+% Les variantes \Gls, \GLS servent a utiliser les majuscules et pluriels
+%
+% LANGUE DU DOCUMENT
+%
+% Il suffit de mettre la langue souhaitee dans les options de la 
+% classe sur la première ligne (french|english)
+%
+% FIGURES
+%
+% Pour que les figures soient bien prises en compte dans la liste des figures,
+% il faut utiliser les commandes:
+% \begin{figure}
+%	\includegraphics[scale=•]{•}
+%	\caption{•}
+% \end{figure}
+%
+% Idem pour les tables, avec \begin{table}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{shortcuts}
+
+\begin{document}
+
+\nom{Inria}
+\logo{img/logo_inria.jpg} %Lien vers le logo de l'université où le stage est effectué
+\specialite{Modélisation et Simulation} %Voie de l'étudiant
+%\annees{2014-2015} %Année scolaire
+\titre{Méthodes d'analyse asymptotique et d'approximation numérique de modèles dissipatifs multi-échelles pour EDO à varieté centrale} %Titre du stage
+\soustitre{} %Sous-titre. Laisser vide si pas de sous-titre
+\confidentialite{Rapport non confidentiel et publiable sur Internet} %Texte apparaissant sur la page de garde et dans les bas de page
+\noteConfidentialite{Ce rapport, rédigé par Léopold \bsc{Trémant}, étudiant à l'ENSTA ParisTech sous la tutelle de P. Chartier et M. Lemou, est non-confidentiel et peut \^etre publié sur Internet.\\
+Les codes associés à ce rapport peuvent être utilisés librement.} %Texte apparaissant dans la note de confidentialité en page 3
+\auteur{Léopold \bsc{Trémant}} %Nom de l'étudiant
+\promotion{2018} %Promotion
+\tuteurENSTA{Sonia \bsc{Fliss}} %Tuteur de l'étudiant à l'ENSTA
+\tuteurOrganisme{Philippe \bsc{Chartier} Mohammed \bsc{Lemou}} %Tuteur de l'étudiant dans l'université d'accueil
+\dateDebut{12 mars 2018} %Date de début du stage
+\dateFin{10 août 2018} %Date de fin du stage
+\organisme{Inria Rennes - Bretagne Atlantique} %Organisme accueillant l'étudiant pour le stage
+\adresseOrganisme{Campus universitaire de Beaulieu -- 35042 Rennes Cedex} %Adresse physique de l'organisme
+
+\couverture %Impression de la page de couverture
+
+%\pageConfidentialite 
+
+%%%%%%%%%%%%%%%%%%%%%
+% RESUME - ABSTRACT %
+%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Résumé}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Rédiger la partie francaise ci-dessous %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+On commence par présenter une classe de modèle à variété centrale à détente rapide et les problèmes qu'elle engendre d'un point de vue numérique avec les approches usuelles. 
+En s'inspirant de travaux récents sur les systèmes hautement oscillants, on effectue un développement double-échelle pour séparer la dynamique rapide de la lente. 
+Après cette séparation, on étudie le nouveau problème engendré et on exhibe des conditions pour que le problème soit bien posé, régulier avec des dérivées non raides. 
+À partir de ces conditions, on construit un schéma numérique uniformément convergent qu'on implémente et dont on évalue les performances et limites en le comparant à d'autres approches. 
+\\ 
+\\
+Mots-clés: {\itshape
+méthodes numériques, simulation, systèmes raides, développement double-échelle, uniformément précis, problème de transport, variété centrale
+}
+
+%%%%%%%%%%%%%%%%%%%
+% Ne pas modifier %
+%%%%%%%%%%%%%%%%%%%
+\vspace{1.5cm}
+\hrule\vspace{0.5pt}
+{\scshape\bfseries\Huge \begin{center}Abstract\end{center}}
+\vspace{0.5pt}\hrule\vspace{1.5cm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Partie anglaise à rédiger %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+We first present a class of equations with a center manifold which relax very quickly, and the numerical shortcomings of usual approaches when dealing with this system. 
+Inspired by recent advances in numerical schemes for highly oscillating problems, a new problem is derived from a two-scale decomposition separating the quick and slow dynamics. 
+Non trivial conditions are then found to assure that this new problem is well-posed, with regular and non stiff solutions.
+We then devise a uniformly accurate numerical scheme, analyse and implement it.
+Finally the implementation is studied in terms of convergence and performance and is compared to other schemes and approaches. 
+\\
+\\
+Keywords$\!\!$: {\itshape 
+numerical methods, simulation, stiff systems, two-scale expansion, uniformly accurate, transport equation, centre manifold
+}
+
+%%%%%%%%%%%%%%%%%
+% REMERCIEMENTS %
+%%%%%%%%%%%%%%%%%
+\chapter*{Remerciements}
+
+Apparemment, beaucoup de gens n'écrivent pas de remerciements pour leur projet de fin d'études. 
+Peut-être voient-ils ce rapport comme une simple épreuve, une obligation parmi tant d'autres à passer avant l'entrée dans la vie active. 
+Peut-être que d'autres le voient comme une étape presque négligeable devant un projet plus ambitieux en thèse. 
+Pour ma part, j'ai eu envie de prendre le temps de réfléchir aux trois années qui ont précédé ce stage et ce rapport, non seulement pour exprimer ma gratitude envers tous ceux qui m'ont accompagné, mais aussi pour me forcer à considérer la fin de ces études comme une vraie étape. 
+\\ 
+
+Ainsi j'aimerais en premier lieu remercier mes tuteurs Philippe Chartier et Mohammed Lemou qui m'ont donné la chance d'effectuer ce stage, et qui ont su faire preuve de patience lorsque j'ai bloqué et douté. 
+J'avais choisi ce sujet parce qu'il me sortait de ma zone de confort, donc je n'aurais pas dû être surpris lorsque j'ai commencé à tourner en rond sur les mêmes idées, mais face à la difficulté, j'ai eu au début beaucoup de mal à me structurer. 
+Merci donc à eux pour leurs lumières, et leur fermeté parfois, qui m'ont été cruciales pour remettre mon travail et ma pensée à l'endroit. 
+Je suis honoré qu'ils m'aient accepté comme doctorant l'année prochaine. 
+
+Je souhaite aussi remercier mes professeurs Patrick Ciarlet et Sonia Fliss, qui m'ont initié aux méthodes numériques en m'appâtant avec de jolies images. 
+En me faisant découvrir ce domaine, ils m'ont rendu ma motivation pour les mathématiques, et m'ont ouvert plus de portes de je ne pourrai jamais en ouvrir. 
+Je remercie les professeurs qui m'ont montré les différentes facettes qui peuvent et doivent être abordées pour faire du calcul numérique, qu'il s'agisse d'approches ingénieuses avec Bertrand Maury, de preuves mathématiques plus complexes avec Patrick Joly ou encore de recherche de performance avec Axel Modave et Marc Massot. 
+Parmi toutes ces personnes formidables, et bien qu'elle est déjà mentionnée, j'aimerais insister sur l'importance de l'apport et du soutien que m'a fourni Sonia Fliss. 
+Au-delà de ses capacités pédagogiques et de sa gentillesse évidente, elle s'est montrée attentive et de très bon conseil lorsque je lui ai fait part de mes doutes quant à mes choix d'avenir. 
+\\ 
+
+Merci aussi à ma famille, qui a depuis quelques temps arrêté d'essayer de comprendre les détails de mes études, ce qui m'épargne bien des explications laborieuses. 
+Surtout, merci à eux de m'aimer malgré le peu de temps que j'ai su leur accorder ces dernières années. 
+J'espère pouvoir leur consacrer plus de temps dans les années à venir. 
+Plus spécifiquement, je remercie mes parents qui ont toujours soutenu mes décisions, en me faisant souvent part de leur avis éclairé. 
+Des partages artistiques aux discussions politiques, notre relation m'aide à me construire encore aujourd'hui. 
+Un gros merci à mon frère Jules de me faire assez confiance pour me confier ses doutes, de partager sa culture et sa passion vidéoludique, et aussi, lorsque les astres s'alignent, de discuter avec moi de ses réflexions humaines. 
+
+Je remercie Maël et Ece pour m'avoir écouté et accueilli lors de moments difficiles. 
+Il y a peu de gens avec qui j'arrive à garder un lien aussi proche que celui-ci, et je compte maintenir cela aussi longtemps que possible. 
+Enfin, je remercie tous mes amis de l'ENSTAlibur. Julien et Benoît toujours prêts à m'offrir un pied-à-terre en région parisienne, Élise et Benoît au bonheur contagieux, Théo plein de surprises, Léa qui m'a supporté tout le M2 durant et qui me donne une excuse pour retourner en Angleterre, et tous les autres: 
+Florian (les deux), Diane, Emilien (un seul des deux), Lucas, Pierre, Rémi, Quentin, Aurore, Youssef, Adrien, Manu, BPJ, ainsi que tous les autres petits jeunes dont je n'ai pas encore fait la connaissance. 
+Cette grande famille me rend toujours très heureux et j'espère qu'on restera soudés pour les nombreuses années à venir. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+% TABLE DES MATIERES %
+%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+
+%%%%%%%%%%%%%%%%
+% INTRODUCTION %
+%%%%%%%%%%%%%%%%
+\renewcommand{\chaptername}{Partie}
+\input{intro.tex}
+
+
+%%%%%%%%%%%%%%%%%%%%%
+% CORPS DU DOCUMENT %
+%%%%%%%%%%%%%%%%%%%%%
+%\listoftodos[Notes]
+
+%\renewcommand{\chaptername}{Partie}
+\include{chap1/chap1}
+\include{chap2/chap2}
+\include{chap3/chap3}
+%\chapter{Présentation du problème et motivation} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Exemple d'entrée dans le glossaire %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newglossaryentry{FFT}
+%{
+%  name=FFT,
+%  description={Fast Fourier Transform}
+%}
+%Utilisation de la \gls{FFT}
+
+
+%%%%%%%%%%%%%%
+% CONCLUSION %
+%%%%%%%%%%%%%%
+\input{conclu.tex}
+
+%%%%%%%%%%%
+% ANNEXES %
+%%%%%%%%%%%
+\appendix
+\renewcommand{\chaptername}{Annexe}
+%\addtocontents{toc}{\protect\renewcommand{\protect\chaptertitlename}{Ann. }
+%\protect\setcounter{tocdepth}{0}}
+\include{annexes/ann0}
+\include{annexes/ann1}
+\include{annexes/ann2}
+
+%\addtocontents{toc}{\protect\renewcommand{\protect\chaptertitlename}{Ann. }}
+
+
+%%%%%%%%%%%%%%%%%
+% BIBLIOGRAPHIE %
+%%%%%%%%%%%%%%%%%
+\bibliographystyle{plain} %Ne pas modifier cette ligne
+\bibliography{biblio} %L'argument doit etre le nom du fichier de la bibliotheque, sans l'extension .bib. Ici, mon fichier est biblio.bib
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LISTE DES FIGURES ET TABLEAUX %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\listoffigures
+%\listoftables
+
+%%%%%%%%%%%%%%%%%%%%%%
+% INDEX ET GLOSSAIRE %
+%%%%%%%%%%%%%%%%%%%%%%
+% Mode d'emploi à cette adresse %
+% http://www.tuteurs.ens.fr/logiciels/latex/makeindex.html
+% http://www.xm1math.net/doculatex/glossaries.html
+%\printindex
+%\printglossaries
+
+
+
+\end{document}
