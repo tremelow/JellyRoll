@@ -1,11 +1,19 @@
 \section*{Paradigme numérique}
 \addcontentsline{toc}{section}{Paradigme numérique}
 
-En général, on suppose $\eps \ll 1$, et donc le système~\eqref{sec:intro:eq:u} comporte une dynamique \textit{rapide} par rapport au temps d'étude. À cet égard, des méthodes d'\textit{analyse asymptotique} ont été développées, c'est-à-dire des méthodes qui permettent de caractériser le système dans cette limite $\eps$ \enquote{petit}, en général en découplant ces deux dynamiques. Pour les problèmes hautement-oscillants, trois exemples particulièrement célèbres sont les méthodes d'homogénéisation~\cite{goudon.2003.homogenization}, de moyennisation~\cite{perko.1969.higher,sanders.2007.averaging,lochak.1988.multiphase} et de formes normales~\cite{murdock.2006.normal,bambusi.2003.birkhoff}. Pour les problèmes à relaxation rapide, la littérature est moins fournie. Qu'il s'agisse de calculer la variété centrale comme précédemment ou d'un développement de Chapman-Enskog~\cite{santos.1986.divergence,degond.2004.macroscopic,chartier.2015.uniformly}, la phase transitoire n'est pas calculée. 
+En général, on suppose $\eps \ll 1$, et donc le système~\eqref{sec:intro:eq:u} comporte une dynamique \textit{rapide} par rapport au temps d'étude. À cet égard, des méthodes d'\textit{analyse asymptotique} ont été développées, c'est-à-dire des méthodes qui permettent de caractériser le système dans cette limite $\eps$ \enquote{petit}, en général en découplant ces deux dynamiques. Pour les problèmes hautement oscillants, trois exemples particulièrement célèbres sont les méthodes d'homogénéisation~\cite{goudon.2003.homogenization}, de moyennisation~\cite{perko.1969.higher,sanders.2007.averaging,lochak.1988.multiphase} et de formes normales~\cite{murdock.2006.normal,bambusi.2003.birkhoff}. Pour les problèmes à relaxation rapide, la littérature est moins fournie. Qu'il s'agisse de calculer la variété centrale comme précédemment ou d'un développement de Chapman-Enskog~\cite{santos.1986.divergence,degond.2004.macroscopic,chartier.2015.uniformly}, la phase transitoire n'est pas calculée. 
 
-Plus récemment dans \cite{castella.2016.formal}, les auteurs capturent aussi la phase transitoire, mais la méthode est très difficile à s'approprier et n'est valide que dans la limite $\eps \rightarrow 0$. Dans cette section, on étudie l'application de méthodes numériques \enquote{standards} de l'état de l'art, et on observe le comportement de l'erreur numérique non seulement en fonction du pas de temps $\Dt$, mais aussi en fonction du paramètre $\eps$. 
+Plus récemment dans \cite{castella.2016.formal}, les auteurs capturent
+aussi la phase transitoire, mais la méthode n'est valide que dans la
+limite $\eps \rightarrow 0$. Dans cette section, on étudie l'application
+de méthodes numériques \enquote{standards} de l'état de l'art, et on
+observe le comportement de l'erreur numérique non seulement en fonction
+du pas de temps $\Dt$, mais aussi en fonction du paramètre $\eps$. 
 
-Dans cette section, on commence par décrire ce qu'on entend par \enquote{méthode numérique} et le contexte dans lequel on va les étudier. Ensuite, on présente trois méthodes d'ordre 2 reconnues dans l'état de l'art~: le splitting de Strang, un schéma IMEX-BDF et une méthode de Runge-Kutta exponentielle. 
+On commence par décrire ce qu'on entend par \enquote{méthode numérique}
+et le contexte dans lequel on va les étudier. Ensuite, on présente trois
+méthodes d'ordre 2 de l'état de l'art~: le splitting de Strang, un
+schéma IMEX-BDF et une méthode de Runge-Kutta exponentielle. 
 
 
 
@@ -32,7 +40,7 @@ Cet exemple ressemble à certains problèmes hyperboliques avec relaxation, et s
         z(0) = 1 .
     \end{empheq}
 \end{subequations}
-Ce problème est linéaire et se diagonalise sans problème pour $\eps < 1/4$, ce qui génère
+Ce problème est linéaire et se diagonalise sans difficulté pour $\eps < 1/4$, ce qui génère
 \begin{equation*}
     \newcommand{\sqEps}{\sqrt{1 - 4\eps}}
     \tilde{u} = \underbrace{\begin{pmatrix}
@@ -44,7 +52,7 @@ Ce problème est linéaire et se diagonalise sans problème pour $\eps < 1/4$, c
         -r_\eps & 0 \\ 0 & -\frac{1}{\eps} + r_\eps
     \end{pmatrix} \tilde{u}
 \end{equation*}
-avec $r_\eps = \frac{1}{2\eps} \big( 1 - \sqrt{1 - 4\eps} \big)$. On obtient directement une expression explicite pour $u = \among{x}{z}$, qui est 
+avec $r_\eps = \frac{1}{2\eps} \big( 1 - \sqrt{1 - 4\eps} \big)$. On obtient ainsi une expression explicite pour $u = \among{x}{z}$ de la forme 
 \begin{equation*}
     u(t) = P^{-1} \begin{pmatrix}
         e^{-t r_\eps} & 0 \\ 0 & e^{-t/\eps} e^{t r_\eps}
@@ -59,9 +67,9 @@ où $P^{-1} = \frac{1}{\sqrt{1 - 4\eps}} \begin{pmatrix}
 \end{FRremark*}
 
 
-Dans les faits, on ne saura pas résoudre tous les systèmes de la forme~\eqref{sec:intro:eq:u} de manière exacte. Donc on va appliquer des méthodes d'\textit{approximation numérique} pour calculer une solution approchée. Plus spécifiquement, on va implémenter certains \textit{schémas numériques} et observer la qualité d'approximation sur l'exemple~\eqref{sec:intro:eq:jouet_xz}. Définissons ce qu'on entend par \enquote{schéma numérique}. 
+En pratique, on ne sait pas résoudre tous les systèmes de la forme~\eqref{sec:intro:eq:u} de manière exacte. On va donc appliquer des méthodes d'\textit{approximation numérique} pour calculer une solution approchée. Plus spécifiquement, on va implémenter certains \textit{schémas numériques} et observer la qualité d'approximation sur l'exemple~\eqref{sec:intro:eq:jouet_xz}. Définissons ce qu'on entend par \enquote{schéma numérique}. 
 
-On démarre par considérer une discrétisation de l'intervalle temporel $[0,T]$, c'est-à-dire qu'au lieu de considérer cet objet comme continu, on le considère comme une suite de $N+1$ points $(t_n)_{0 \leq n \leq N}$ avec $N \geq 1$. On choisit de se restreindre à une discrétisation uniforme, c'est-à-dire que l'intervalle de temps $[0,T]$ est divisé en $N$ intervalles de taille égale notée $\Dt$. 
+On démarre par considérer une discrétisation de l'intervalle temporel $[0,T]$, c'est-à-dire qu'au lieu de considérer cet objet comme continu, on le considère comme une suite de $N+1$ points $(t_n)_{0 \leq n \leq N}$ avec $N \geq 1$. On choisit de se restreindre à une discrétisation \textit{uniforme}, c'est-à-dire que l'intervalle de temps $[0,T]$ est divisé en $N$ intervalles de taille égale notée $\Dt$. 
 \begin{center}\begin{tikzpicture}
     \draw (0,0) -- (4,0);
     \foreach \x/\y in {0/$0$,1/$\Dt$,2/$2\Dt$} {
@@ -103,7 +111,7 @@ ou encore $t_n = \frac{n}{N}T$. À cette discrétisation, on peut associer une \
     \end{equation}
     Ces deux erreurs peuvent avoir des comportements différents.
 \end{FRdefinition*}
-Parfois, l'erreur est définie comme l'erreur au temps final, ce qui peut paraître moins contraignant mais a peu d'influence en pratique~: en général les estimations d'erreur sont croissantes avec l'indice~$n$. Ainsi ces deux définitions coïncident, du moins pour les résultats théoriques.
+Parfois, l'erreur est définie comme l'erreur au temps final, ce qui peut paraître moins contraignant mais a peu d'influence en pratique car les estimations d'erreur sont croissantes avec l'indice~$n$. Ainsi ces deux définitions coïncident pour les résultats théoriques.
 
 \begin{FRremark*}
     À partir d'une approximation $(u_n)$, on peut obtenir une approximation sur une discrétisation plus fine par interpolation (typiquement avec des splines cubiques ou de manière linéaire comme en Figure~\ref{sec:intro:fig:approx_sin}). Il semble alors naturel de se demander s'il est possible de réduire le coût de calcul en calculant une approximation sur une discrétisation grossière pour l'interpoler ensuite vers une discrétisation plus fine. Néanmoins, si l'erreur telle que définie en~\eqref{sec:intro:def:err} est mauvaise, on ne peut pas espérer l'améliorer par interpolation. C'est pourquoi ce manuscrit se concentre sur cette approche \enquote{simple} de l'erreur.
@@ -143,15 +151,15 @@ Dans le contexte d'un schéma qui dépend du paramètre~$\eps$, la constante d'e
 
 On présente les résultats associés à trois méthodes d'ordre 2, qui traitent la partie raide différemment de la partie non-raide. Les méthodes sont bien définies  dans la limite $\eps \rightarrow 0$, et on s'intéresse au comportement de l’erreur en fonction de $\Dt$ \textit{et} de $\eps$.
 
-On ne considère pas de méthodes complètement implicites parce qu'elles sont très coûteuses notamment dans un contexte d'EDP... Néanmoins la convergence de ces méthodes est souvent excellente et des implémentations très efficaces existent. La référence sur le sujet est~\cite{hairer.1996.solving}, et toutes les bonnes boîtes à outils de résolution d'EDO contiennent la méthode RadauII.\footnote{Attention cependant, la plupart de ces boîtes à outils masquent la difficulté associée aux méthodes implicites, qui sont la résolution d'un système et de l'erreur associée. En outre, il est parfois difficile de désactiver le pas de temps adaptatif, ce qui est problématique pour une étude de convergence.} On ne considère pas non plus de méthodes purement explicites demandent $\Dt < \eps$, ce qui est beaucoup trop coûteux. 
+On ne considèrera pas de méthodes complètement implicites parce qu'elles sont très coûteuses notamment dans un contexte d'EDP. Néanmoins la convergence de ces méthodes est souvent excellente et des implémentations très efficaces existent. La référence sur le sujet est~\cite{hairer.1996.solving}, et toutes les bonnes boîtes à outils de résolution d'EDO contiennent la méthode RadauII.\footnote{Attention cependant, la plupart de ces boîtes à outils masquent la difficulté associée aux méthodes implicites, à savoir la résolution d'un système et l'erreur associée. En outre, il est parfois difficile de désactiver le pas de temps adaptatif, ce qui est problématique pour une étude de convergence.} On ne considère pas non plus de méthodes purement explicites demandant $\Dt < \eps$, ce qui est beaucoup trop coûteux en pratique. 
 
-Il est important de noter que ce manuscrit ne présente pas une étude des schémas présentés. Il s'agit simplement d'une compilation non-exhaustive de résultats et d'observations rapides sur les propriétés de ces méthodes appliquées à~\eqref{sec:intro:eq:u} afin de contextualiser les contributions du manuscrit par la suite. Néanmoins, les schémas sont présentés plus en détails dans l'Annexe~\ref{chap:schemas}.
+Il est important de noter que cette introduction ne présente pas une étude des schémas présentés. Il s'agit d'une compilation non-exhaustive de résultats et d'observations sur les propriétés de ces méthodes appliquées à~\eqref{sec:intro:eq:u} afin de contextualiser les contributions du manuscrit par la suite. Néanmoins, les schémas sont présentés plus en détails dans l'Annexe~\ref{chap:schemas}.
 
 
 
 \paragraph{Splitting de Strang\\}
 
-Une approche courante est de séparer le problème~\eqref{sec:intro:eq:u} en deux parties, une raide et une non-raide. La manière naturelle de procéder fournit
+Une approche courante consiste à séparer le problème~\eqref{sec:intro:eq:u} en deux parties, l'une raide et l'autre non-raide. La manière naturelle de procéder fournit
 %
 \begin{empheq}[left=\left\lbrace, right=\right.]{align*} &
     \pa_t u^{(1)} = -\frac{1}{\eps}A u^{(1)} ,
@@ -159,15 +167,15 @@ Une approche courante est de séparer le problème~\eqref{sec:intro:eq:u} en deu
     \pa_t u^{(2)} = f(u^{(2)}) . \vphantom{\frac11}
 \end{empheq}
 %
-On note $\varphi_t$, $\varphi^{(1)}_t$ et $\varphi^{(2)}_t$ les $t$-flots associés aux problèmes en $u$, $u^{(1)}$ et $u^{(2)}$ espectivement. On remarque qu'il est simple de calculer $\varphi^{(1)}$ de manière exacte, et simple de calculer $\varphi^{(2)}$ de manière numérique. Cependant, ces deux dynamiques sont mélangées dans $\varphi$, ce qui rend le flot du problème d'origine difficile à calculer. Ainsi, on est en droit de se poser la question~: Est-il possible d'obtenir $\varphi$ à partir de $\varphi^{(1)}$ et de $\varphi^{(2)}$~? 
+On note $\varphi_t$, $\varphi^{(1)}_t$ et $\varphi^{(2)}_t$ les $t$-flots associés aux problèmes en $u$, $u^{(1)}$ et $u^{(2)}$ espectivement. On remarque qu'il est simple de calculer $\varphi^{(1)}$ de manière exacte, et simple de calculer $\varphi^{(2)}$ de manière numérique. Cependant, ces deux dynamiques sont mélangées dans $\varphi$, ce qui rend le flot du problème d'origine difficile à calculer. Ainsi, on est en droit de se poser la question~: est-il possible d'obtenir $\varphi$ à partir de $\varphi^{(1)}$ et de $\varphi^{(2)}$~? 
 
-La réponse est non en général, mais on peut \textit{approcher} $\varphi$ à partir des autres avec des compositions successives. C'est cette approche qu'on appelle \textit{splitting}. Le plus couramment utilisé est le splitting de Strang, qui s'écrit 
+La réponse est négative en général, mais on peut \textit{approcher} $\varphi$ à partir de~$\varphi^{(1)}$ et de~$\varphi^{(2)}$ à l'aide de compositions successives. C'est cette approche qu'on appelle \textit{splitting}. Le plus couramment utilisé est le splitting de Strang, qui s'écrit 
 \begin{equation*}
-    \varphi_t = \varphi^{(1)}_{t/2} \circ \varphi^{(2)}_{t} \circ \varphi^{(1)}_{t/2} + \bigO(t^3) .
+    \varphi_t = \varphi^{(1)}_{t/2} \circ \varphi^{(2)}_{t} \circ \varphi^{(1)}_{t/2} + \bigO(t^3) 
 \end{equation*}
-Pour la plupart des équations, l'ordre des opérations n'a pas d'importance, mais lorsque le système présente une partie de relaxation raide comme ici, il a été remarqué dans~\cite{sportisse.2000.analysis,descombes.2004.operator} qu'il vaut mieux \enquote{terminer} par la relaxation. 
+avec la constante d'erreur dans $\bigO(t^3)$ qui dépend du paramètre~$\eps$ de manière raide. Pour la plupart des équations, l'ordre des opérations n'a pas d'importance, mais lorsque le système présente une partie de relaxation raide comme ici, il a été remarqué dans~\cite{sportisse.2000.analysis,descombes.2004.operator} qu'il vaut mieux \enquote{terminer} par la relaxation. 
 
-Notons que le splitting de Strang peut être obtenu par symétrie à partir du splitting de Lie $\varphi^{(2)}_{t} \circ \varphi^{(1)}_{t}$, d'ordre 1. 
+Notons que le splitting de Strang peut être obtenu par \enquote{symétrisation} du splitting de Lie $\varphi^{(2)}_{t} \circ \varphi^{(1)}_{t}$, d'ordre 1. 
 % Attention, $\Phi_t$ n'est pas un $t$-flot au même sens que $\varphi_t$, c'est la solution particulière d'une EDO dans l'espace des morphismes. Dans le cas où $f$ est linéaire, on dispose de la formule de Baker-Campbell-Hausdorff (BCH),\todo{REF BCH}
 % \begin{equation*}
 %     \log \big( \Phi_t \big)
@@ -223,44 +231,47 @@ Dans ce cas, le splitting de Lie génère un flot qui coïncide avec $\varphi$. 
     \label{sec:intro:fig:strang}
 \end{figure}
 
-Dans cette figure, on observe que le comportement de la solution est le bon attendu pour $\Dt \ll \eps$. Néanmoins, lorsqu'on trace l'erreur en fonction de $\eps$, on voit qu'à $\Dt$ fixé, il y a toujours un seuil à partir duquel une réduction de $\eps$ entraîne une augmentation de l'erreur. Cette augmentation entraîne une \textit{réduction d'ordre}, c'est-à-dire qu'on ne peut pas avoir
+Dans cette figure, on observe que le comportement de la solution est celui attendu pour $\Dt \ll \eps$. Néanmoins, lorsqu'on trace l'erreur en fonction de $\eps$, on voit qu'à $\Dt$ fixé, il y a toujours un seuil à partir duquel une réduction de $\eps$ entraîne une augmentation de l'erreur. Cette augmentation entraîne une \textit{réduction d'ordre}, c'est-à-dire qu'on ne peut pas avoir
 \begin{equation*}
     \sup_{0 < \eps \leq \eps_0} \err \leq C \Dt^q ,
 \end{equation*}
 avec $q = 2$, ce n'est possible qu'avec $q = 1$. Cette réduction d'ordre a été notée dans différents contextes \cite{sportisse.2000.analysis,faou.2015.analysis}, et différentes méthodes ont été développées pour dépasser cette limite \cite{einkemmer.2015.overcoming,cano.2017.avoiding,bertoli.2020.strang}, même si la méthode reste au plus d'ordre~2.
 
-\todo[inline]{Expliquer un peu mieux les graphes}
-\todo[inline]{Faire une colormap d'erreur avec $\Dt$ et $\eps$ en coordonnées pour mieux discuter du comportement asymptotique $\eps \rightarrow 0$ du schéma.}
+% \todo[inline]{Expliquer un peu mieux les graphes}
+% \todo[inline]{Faire une colormap d'erreur avec $\Dt$ et $\eps$ en coordonnées pour mieux discuter du comportement asymptotique $\eps \rightarrow 0$ du schéma.}
 
 
 \paragraph{Méthodes exponentielles Runge-Kutta (expRK)\\}
 
-Ces méthodes exponentielles\footnote{À ne pas confondre avec les méthodes de Lawson (voir~\cite{lawson.1967.generalized,hochbruck.2020.convergence}) qui procèdent en applicant des méthodes de Runge-Kutta standards sur la variable filtrée $v(t) = e^{t A/\eps}u(t)$, puis en multipliant le résultat par $e^{-t A/\eps}$. Les résultats théoriques sur la convergence de ces dernières sont encore très récents.} proviennent de la formulation intégrale
+Ces méthodes exponentielles\footnote{À ne pas confondre avec les méthodes de Lawson (voir~\cite{lawson.1967.generalized,hochbruck.2020.convergence}) qui procèdent en applicant des méthodes de Runge-Kutta standards sur la variable filtrée $v(t) = e^{t A/\eps}u(t)$, puis en multipliant le résultat par $e^{-t A/\eps}$. Les résultats théoriques sur la convergence de ces dernières sont encore très récents.} proviennent de la formulation intégrale du problème~\eqref{sec:intro:eq:u}, 
 \begin{equation*}
     u(t) = e^{-\frac{t}{\eps}A}u_0 + \int_0^t e^{-\frac{t-\tau}{\eps}A} f(u(s)) \D s .
 \end{equation*}
-La partie du semi-groupe est gardée exacte tandis que la partie (possiblement) non-linéaire est approchée, ce qui engendre à l'ordre 1 le schéma
+La partie du semi-groupe est gardée exacte tandis que la partie (possiblement) non-linéaire est approchée, ce qui conduit au schéma d'ordre 1 suivant,
 \begin{equation} \label{sec:intro:eq:expEuler}
     u_{n+1} = e^{-\Dt A/\eps} u_n + \left(\int_0^{\Dt} e^{(\tau-\Dt) A/\eps} \D\tau \right) f(u_n) .
 \end{equation}
 Pour passer à l'ordre supérieur, les parties raide et non-raide sont liées, donc l'approche demande plus de subtilité, mais on peut obtenir des méthodes exponentielles Runge-Kutta (i.e. des méthodes à un pas, pour obtenir $u_{n+1} \approx u(t_{n+1})$ à partir de seulement $u_n \approx u(t_n)$) d'ordre arbitraire. Une grande classe de schémas de ce type est compilée dans~\cite{hochbruck.2005.explicit}, et dans un autre article les mêmes auteurs obtiennent une convergence théorique. 
-\begin{FRtheorem*}[Hochbruck, Ostermann - \cite{hochbruck.2004.exponential}]
-    Avec un schéma expRK d'ordre~$q \geq 1$, l'erreur vérifie la borne à une constante multiplicative près
-    \begin{equation*}
-        \left| 
-            \left( I + \frac{1}{\eps}A \right) \big( u_n - u(t_n) \big) 
-        \right|
-        \leq \Dt^{q} \left( 
-            \sup_{0 \leq t \leq t_n} \big| \pa_t^{\: q-1} \mathcal{U}(t) \big| 
-            + \int_0^{t_n} \big| \pa_t^{\: q} \mathcal{U}(t) \big| \D t 
-        \right) 
-    \end{equation*}
-    où $\mathcal{U} = \pa_t u + \frac{1}{\eps}Au$. 
-\end{FRtheorem*}
-\noindent%
-Ce théorème est en général évoqué dans un contexte fonctionnel de problème parabolique, mais cette version simplifiée est suffisante ici. Un intérêt remarquble de ces méthodes est que dans l'erreur, la composante~$z$ est renormalisée par~$\eps$. Dans notre cas, cela permet d'obtenir une sorte d'erreur relative puisque $z(t) = \eps h^\eps(x(t)) + \bigO(e^{-t/\eps})$. D'ailleurs, le schéma~\eqref{sec:intro:eq:expEuler} (parfois appelé \enquote{Euler exponentiel}) avait été proposé dans~\cite{verwer.1998.note} pour obtenir une meilleur convergence que le splitting de Strang en erreur relative. 
 
-\begin{figure}
+\medskip\noindent%
+\textit{Erreur de convergence} (Hochbruck, Ostermann - \cite{hochbruck.2004.exponential})
+
+Avec un schéma expRK d'ordre~$q \geq 1$, l'erreur vérifie la borne à une constante multiplicative près
+\begin{equation*}
+    \left| 
+        \left( I + \frac{1}{\eps}A \right) \big( u_n - u(t_n) \big) 
+    \right|
+    \leq \Dt^{q} \left( 
+        \sup_{0 \leq t \leq t_n} \big| \pa_t^{\: q-1} \mathcal{U}(t) \big| 
+        + \int_0^{t_n} \big| \pa_t^{\: q} \mathcal{U}(t) \big| \D t 
+    \right) 
+\end{equation*}
+où $\mathcal{U} = \pa_t u + \frac{1}{\eps}Au$. 
+
+\medskip%
+Ce résultat est généralement évoqué dans un contexte fonctionnel de problème parabolique, mais cette version simplifiée est suffisante ici. Un intérêt remarquble de ces méthodes est que dans l'erreur, la composante~$z$ est renormalisée par~$\eps$. Dans notre cas, cela permet d'obtenir une sorte d'erreur relative puisque $z(t) = \eps h^\eps(x(t)) + \bigO(e^{-t/\eps})$. D'ailleurs, le schéma~\eqref{sec:intro:eq:expEuler} (parfois appelé \enquote{Euler exponentiel}) avait été proposé dans~\cite{verwer.1998.note} pour obtenir une meilleure convergence que le splitting de Strang en erreur relative. 
+
+\begin{figure}[!h]
     \centering
     \includegraphics[width=\textwidth]{./Presentation/rk2_err_x.pdf}
     \includegraphics[width=\textwidth]{./Presentation/rk2_err_z.pdf}
@@ -268,43 +279,45 @@ Ce théorème est en général évoqué dans un contexte fonctionnel de problèm
     \label{sec:intro:fig:rk2}
 \end{figure}
 
-Cette renormalisation par~$\eps$ de la composante~$z$ se voit nettement en Figure~\ref{sec:intro:fig:rk2}. On remarque aussi qu'à $\eps$ fixé, l'erreur sur~$x$ en fonction de $\Dt$ semble présenter trois phases:
+Cette renormalisation par~$\eps$ de la composante~$z$ se voit nettement en Figure~\ref{sec:intro:fig:rk2} sur l'erreur en fonction de~$\eps$ est bornée par une fonction de la forme~$C\eps$. Sur~$x$, à $\eps$ fixé, on observe trois phases dans les variations d'erreur en fonction de $\Dt$:
 \begin{itemize}
-    \item une décroissance en $Dt^2$;
-    \item un plateau à partir de $Dt^2 \approx \eps$ jusqu'à $\Dt \approx \eps$;
+    \item une décroissance en $\Dt^2$;
+    \item un plateau à partir de $\Dt^2 \approx \eps$ jusqu'à $\Dt \approx \eps$;
     \item de nouveau une décroissance en $\Dt^2$.
 \end{itemize}
-Cette seconde phase engendre une réduction d'ordre, où l'ordre \enquote{uniforme} est 1. Pour la composante~$z$, il n'y a pas de première phase, mais la réduction d'ordre est la même. Malgré cela, la convergence est meilleure que pour le splitting de Strang~: si on reste dans le paradigme $\Dt^2 > \eps$ avec $\eps \rightarrow 0$, l'erreur sur~$x$ décroit comme $\Dt^2$ et l'erreur sur $z$ est presque nulle. Cette notion de convergence en $\Dt^2$ sans pouvoir passer à la limite $\Dt \rightarrow 0$ va à l'encontre des notions usuelles de convergence, et bien que ces précautions soient rarement prises dans la littérature. On dit que le schéma \enquote{préserve l'asymptote}.
+Cette deuxième phase engendre une réduction d'ordre, où l'ordre \enquote{uniforme} est 1, et la troisième phase présente l'ordre \enquote{naturel} du schéma. Pour la composante~$z$, il n'y a pas de première phase, mais la réduction d'ordre est la même. Malgré cela, la convergence est meilleure que pour le splitting de Strang~: dans le paradigme $\eps \rightarrow 0$, seule la première phase est observée et l'erreur décroit comme $\Dt^2$. On dit que le schéma \enquote{préserve l'asymptote}. Cette description ne permet pas de décrire le comportement de l'erreur dans les phases 1 et 3, mais pas dans la phase 2. 
 
-\todo[inline]{Faire une colormap d'erreur avec $\Dt$ et $\eps$ en coordonnées pour mieux discuter du comportement asymptotique $\eps \rightarrow 0$ du schéma. Notamment, si on pose $\eps = 0$ la convergence est d'ordre 2.}
+% \todo[inline]{Faire une colormap d'erreur avec $\Dt$ et $\eps$ en coordonnées pour mieux discuter du comportement asymptotique $\eps \rightarrow 0$ du schéma. Notamment, si on pose $\eps = 0$ la convergence est d'ordre 2.}
 
 
 
 \paragraph{Méthode IMEX-BDF\\}
 
 
-Le souci des méthodes exponentielles est qu'elles demandent une intégration très précise du semi-groupe $t \mapsto e^{-tA/\eps}$. On peut considérer des méthodes moins coûteuses, qui demandent seulement d'inverser un système linéaire. À cet égard, on peut considérer des méthodes implicite-explicites (IMEX), où la partie raide est implicite et la partie non-linéaire est explicite. Par exemple la méthode d'Euler implicite-explicite appliquée à~\eqref{sec:intro:eq:u} donne
+L'inconvénient des méthodes exponentielles est qu'elles demandent une intégration très précise du semi-groupe $t \mapsto e^{-tA/\eps}$. On peut considérer des méthodes moins coûteuses, qui demandent seulement d'inverser un système linéaire. C'est le cas par exemple des méthodes implicite-explicites (IMEX), où la partie raide est implicite et la partie non-linéaire est explicite. Ainsi la méthode d'Euler implicite-explicite appliquée à~\eqref{sec:intro:eq:u} s'écrit
 \begin{equation*}
     \frac{u_{n+1} - u_n}{\Dt} = -\frac{1}{\eps}A u_{n+1} + f(u_n) .
 \end{equation*}
 On se restreint ici aux méthodes multipas dénommées IMEX-BDF (\textit{backwards differentiation formula}), initialement développées dans~\cite{crouzeix.1980.methode}, puis dans~\cite{ascher.1995.implicit,akrivis.1999.implicit,hundsdorfer.2007.imex,dimarco.2017.implicit}. On a là aussi une erreur théorique.
 
-\begin{FRtheorem*}[Crouzeix - \cite{crouzeix.1980.methode}]
-    On peut borner l'erreur d'une méthode IMEX-BDF d'ordre~$q$ à~$s$ pas par
-    \begin{equation*}
-        \big| u_n - u(t_n) \big| \leq
-        \sum_{i = 0}^{s-1} \big| u_i - u(t_i) \big|
-        + \Dt^q \int_0^{t_n} \left( 
-            \big| \pa_t^{\: q+1} u(t) \big| 
-            + \frac{1}{\eps} \big| A \pa_t^{\: q} u(t) \big| 
-        \right) \D t 
-    \end{equation*}
-    à une constante multiplicative près.
-\end{FRtheorem*}
+\bigskip\noindent%
+\textit{Résultat sur l'erreur} (Crouzeix - \cite{crouzeix.1980.methode})
 
+Avec une méthode IMEX-BDF d'ordre~$q$ à~$s$ pas, si on suppose qu'on a pu obtenir les $(s-1)$-ièmes premiers pas avec une manière quelconque, l'erreur sur les pas suivants peut être bornée par 
+\begin{equation*}
+    \big| u_n - u(t_n) \big| \leq
+    \sum_{i = 0}^{s-1} \big| u_i - u(t_i) \big|
+    + \Dt^q \int_0^{t_n} \left( 
+        \big| \pa_t^{\: q+1} u(t) \big| 
+        + \frac{1}{\eps} \big| A \pa_t^{\: q} u(t) \big| 
+    \right) \D t 
+\end{equation*}
+à une constante multiplicative près.
+
+\medskip
 La différence principale de cette erreur avec celle des méthodes expRK est que la composante~$z$ n'est pas \enquote{normalisée}. On voit ainsi en Figure~\ref{sec:intro:fig:bdf2} que l'erreur uniforme sur $z$ dégénère à l'ordre \textit{zéro}. Il est même possible d'augmenter l'erreur en diminuant le pas de temps~$\Dt$. 
 
-\begin{figure}
+\begin{figure}[!h]
     \centering
     \includegraphics[width=\textwidth]{./Presentation/bdf2_err_x.pdf}
     \includegraphics[width=\textwidth]{./Presentation/bdf2_err_z.pdf}
@@ -317,11 +330,11 @@ Ces méthodes sont néanmoins très utilisées, notamment dans le contexte de mo
     \pa_t \rho + \pa_x j = 0, \qquad 
     \pa_t j + \frac{1}{\eps} \pa_x \rho = -\frac{1}{\eps}j 
 \end{equation*}
-prennent implicite la partie en~$j$ en gardant explicite la partie en~$\rho$. Cela permet d'avoir des schémas qui se comporte bien dans la limite $\eps \rightarrow 0$ malgré la raideur sur le transport en~$\rho$. 
+traitent de manière la partie en~$j$ en gardant explicite la partie en~$\rho$. Cela permet d'avoir des schémas qui se comportent bien dans la limite $\eps \rightarrow 0$ malgré la raideur sur le transport en~$\rho$. 
 
-En outre, si la donnée initiale se situe proche de l'équilibre $z = \eps h^\eps(x)$ de sorte que $\pa_t^{\: q+1} u$ reste bornée dans la limite~$\eps \rightarrow 0$, alors on peut obtenir une convergence uniforme. On peut voir une interprétation de ce résultat en Figure~\ref{sec:intro:fig:bdf2_z0} où l'erreur sur~$z$ est améliorée en prenant une donnée initiale nulle.\footnote{Le même phénomène est observé pour le schéma expRK.} Ainsi, il est fréquent de choisir une donnée initiale bien posée et d'annoncer que ce type de schéma est \enquote{uniformément précis}, par exemple dans~\cite{jin.2000.uniformly,hu.2021.uniform}. La même confusion est faite pour les schémas IMEX-RK dans~\cite{boscarino.2009.class,boscarino.2017.unified}, par exemple. 
+En outre, si la donnée initiale se situe proche de l'équilibre $z = \eps h^\eps(x)$ de sorte que $\pa_t^{\: q+1} u$ reste bornée dans la limite~$\eps \rightarrow 0$, alors on peut obtenir une convergence uniforme. On peut voir une interprétation de ce résultat en Figure~\ref{sec:intro:fig:bdf2_z0} où l'erreur sur~$z$ est améliorée en prenant une donnée initiale nulle.\footnote{Le même phénomène est observé pour le schéma expRK.} Ainsi, il est fréquent de choisir une donnée initiale bien préparée et d'annoncer que ce type de schéma est \enquote{uniformément précis}, par exemple dans~\cite{jin.2000.uniformly,hu.2021.uniform}. La même confusion est faite pour les schémas IMEX-RK dans~\cite{boscarino.2009.class,boscarino.2017.unified}, par exemple. 
 
-\begin{figure}
+\begin{figure}[!h]
     \centering
     \includegraphics[width=\textwidth]{./Presentation/bdf2_err_z0.pdf}
     \caption{Erreur sur $z$ en fonction de $\Dt$ (à gauche) et de $\eps$ (à droite) avec le schéma IMEX-BDF2, avec une donnée initiale~$z(0) = 0$. Sur les tracés de l'erreur en fonction de $\Dt$, les convergences théorique et uniforme sont tracées.}
@@ -333,12 +346,12 @@ En outre, si la donnée initiale se situe proche de l'équilibre $z = \eps h^\ep
 \subsection*{D'autres notions de convergence}
 \addcontentsline{toc}{subsection}{D'autres notions de convergence}
 
-On voit que toutes ces méthodes subissent une réduction d'ordre: on passe d'une convergence à l'ordre~2 à une convergence d'ordre~1, ou pire. Pourtant, les schémas sont bien \textit{d'ordre~2}, comme on l'observe pour $\eps = 2^{-3}$ en Figures~\ref{sec:intro:fig:strang}, \ref{sec:intro:fig:rk2} et~\ref{sec:intro:fig:bdf2}. On voit bien l'intérêt d'introduire des concepts de convergence qui diffèrent des définitions usuelles. 
+On voit que toutes ces méthodes subissent une réduction d'ordre: on passe d'une convergence d'ordre~2 à une convergence d'ordre~1, ou pire. Pourtant, les schémas sont bien \textit{d'ordre~2} au sens asymptotique $\Dt \rightarrow 0$, comme on l'observe pour $\eps = 2^{-3}$ en Figures~\ref{sec:intro:fig:strang}, \ref{sec:intro:fig:rk2} et~\ref{sec:intro:fig:bdf2}. Il apparaît donc nécessaire d'introduire des concepts de convergence qui diffèrent des définitions usuelles. 
 
 \begin{FRdefinition*}
     Considérons la solution $t \mapsto u^\eps(t)$ du problème~\eqref{sec:intro:eq:u} avec une donnée initiale~$u(0) = u_0$ indépendante de~$\eps$. On construit une solution approchée~$(u^\eps _n)$ en appliquant un schéma~$\Phi^\eps _{\Dt}$ d'ordre $q \geq 1$, et on suppose que $\Phi^\eps_{\Dt}$ admet une limite $\eps \rightarrow 0$, qu'on note~$\Phi^0_{\Dt}$. 
 
-    On dit que le schéma~$\Phi_{\Dt}^\eps$ est \emph{asymptotic preserving} (AP) si le schéma limite~$\Phi^0_{\Dt}$ existe et est du même ordre $q$ que le schéma d'origine. On dit en outre que le schéma est \emph{uniformly accurate} (UA) si l'erreur uniforme présente le même ordre de convergence que l'erreur \enquote{standard} du schéma. 
+    On dit que le schéma~$\Phi_{\Dt}^\eps$ est \emph{asymptotic preserving} (AP) ou qu'il préserve l'asymptote si le schéma limite~$\Phi^0_{\Dt}$ existe et est du même ordre $q$ que le schéma d'origine. On dit en outre que le schéma est \emph{uniformly accurate} (UA) ou uniformément précis si l'erreur uniforme présente le même ordre de convergence que l'erreur \enquote{standard} du schéma. 
 \end{FRdefinition*}
 
 On peut résumer ces propriétés sur le diagramme de commutation suivant~:

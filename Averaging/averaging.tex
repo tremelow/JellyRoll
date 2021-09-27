@@ -1,15 +1,13 @@
 
 \clearemptydoublepage
-\chapter{La moyennisation en bref}
+\chapter{Les propriétés revisitées de la moyennisation}
 \label{chap:avg}
 
-Lors de ma troisième année de thèse, j'ai eu l'occasion me pencher plus
-en détails sur les méthodes de moyennisation, et notamment de rédiger un
-mini-article compilant certains résultats du sujet. Les résultats sont
-connus, mais dans la littérature les preuves de ceux-ci sont
-laborieuses, en faisant appel soit à des récurrences, soit à des
-propriétés sur les arbres. En outre, ces preuves requièrent de
-construire les morphismes de moyennisation, ce qui réduit les
+Ce chapitre est un petit article qui offre une nouvelle approche sur des
+résultats connus de moyennisation. Dans la littérature les preuves de
+ces résultats sont laborieuses, faisant appel soit à des récurrences,
+soit à des propriétés sur les arbres. En outre, ces preuves requièrent
+de construire les morphismes de moyennisation, ce qui réduit les
 raisonnements à la construction en question. Dans cet article, on
 présente rapidement le cadre formel qui décrit ce qu'on entend par
 \enquote{moyennisation}, puis on prouve quelques propriétés en supposant
@@ -17,8 +15,6 @@ que les morphismes existent. En particulier, on s'intéresse aux
 propriétés géométrique de commutation, de conservation de volume et de
 structure hamiltonienne ou de Poisson. Dans une dernière partie, on
 adapte ces propriétés au cas de morphismes \textit{approchés}. 
-
-\todo[inline]{Ajouter quelques résultats numériques}
 
 % \section{Présentation d'une méthode}
 
@@ -678,6 +674,19 @@ preserved by stroboscopic averaging.
 
 \subsection{The geometry of stroboscopic averaging}
 
+If both~$G$ and~$K$ satisfy a geometric property (divergence-free, an
+invariant or $B$-Poisson) in the autonomous case, then this property is
+also satisfied by~$f_\theta$ for all $\theta \in \T$ in the associated
+forced problem. Indeed, since~$G$ and~$K$ satisfy the same property,
+they belong to the same Lie algebra, and the flow of~$G$ is in the
+generating group of the algebra. Because~$f_\theta$ is obtained by
+conjugating~$K$ by the flow of~$G$, i.e. by conjugating an element of
+the algebra by an element of the group, it still belongs to the algebra.
+As the averaged vector field of the autonomous case coincides with the
+averaged vector field of this forced case, any geometric reasoning
+conducted on the forced case can be extended to the autonomous case. For
+this reason, we only state the following result in the forced case.
+
 
 \begin{theorem} \label{sec:geometry:thm:conservation}
   If $\eps \pa_u F^\eps$ is bounded, then stroboscopic averaging is a
@@ -803,14 +812,6 @@ to Remark~\ref{sec:geometry:rmk:equiv_poisson}.
 
 \end{proof}
 
-
-\todo[inline]{\textbf{TODO~:} Préciser que si une propriété géométrique est
-vérifiée par $G$ et $K$ dans le cas autonome, elle est aussi vérifiée dans
-le cas filtré. Ça devrait être assez direct vu que $f_\theta$ est la
-conjugaison de $K$ par le flot de $G$~: la transformation est assez
-géométrique de base.} 
-
-
 \begin{remark}
   It may be of interest to note that in the linear autonomous case $\pa_t
   u = \frac{1}{\eps} Gu + Ku$, property (i) of volume-preservation does
@@ -836,7 +837,7 @@ géométrique de base.}
 
 
 
-\section{Considerations for approximations on bounded domains}
+\section{Approximations on bounded domains}
 \label{sec:approx}
 
 In this section we discuss what becomes of the previous results in actual

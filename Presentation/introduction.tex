@@ -3,13 +3,28 @@
 \chaptermark{Introduction}
 
 
-Le développement de modèles mathématiques en sciences naturelles bénéficie toujours d'avancées mathématiques qui permettent de vérifier la caractère bien posé des équations, ou le bon comportement des solutions. Une classe de modèles très prisés depuis quelques dizaines d'années sont les modèles multi-échelles, dont l'étude principale se penche sur les modèles double-échelle. Dans ces modèles, on distingue deux dynamiques: une d'échelle caractéristiques \enquote{rapide} $\eps$ et l'autre d'échelle $1$. Dans ce manuscrit, on s'intéresse principalement à une sous-classe de ces modèles~: ceux dont la dynamique rapide est une relaxation. Pour nos résultats, on s'inspire de méthodes développées pour les problèmes dont la dynamique rapide est oscillatoire. 
+Le développement de modèles mathématiques en sciences naturelles bénéficie d'avancées mathématiques qui permettent de vérifier le caractère bien posé des équations, ou le bon comportement des solutions. Une classe de modèles très prisés depuis quelques dizaines d'années sont les modèles multi-échelles, dont l'étude concerne principalement sur les modèles double-échelle. Dans ces modèles, on distingue deux dynamiques: une d'échelle caractéristique \enquote{rapide} $\eps$ et l'autre d'échelle $1$. Dans ce manuscrit, on s'intéresse essentiellement à une sous-classe de ces modèles~: ceux dont la dynamique rapide est une relaxation. Pour nos résultats, on s'inspire de méthodes développées pour les problèmes dont la dynamique rapide est oscillatoire. 
 
 
-Ces systèmes à relaxation rapide apparaissent en physique dans un cadre fonctionnel de modèles cinétiques~\cite{bhatnagar.1954.model,lemou.2008.new} ou des systèmes dérivés de problèmes non-linéaires~\cite{jin.1995.relaxation}. On les observe également en dynamiques des populations, e.g. dans~\cite{greiner.1994.singular,auger.1996.emergence,sanchez.2000.singular,castella.2018.analysis}. Les systèmes hautement oscillants sont également fréquents en physique. Certains exemples sont présentés dans l'ouvrage de référence~\cite[Chap.~I]{hairer.2006.geometric}, comme le modèle de Hénon-Heiles~\cite{henon.1964.applicability} dans un contexte de mouvements céleste, ou le problème de Fermi-Pasta-Ulam-Tsingou~\cite{ford.1992.fermi} en théorie du chaos. Si $E$ est un espace fonctionnel, on peut aussi étudier certains phénomènes de dynamique quantique non-linéaires, tels que le modèle de Klein-Gordon~\cite{bao.2012.analysis}, l'équation de Schrödinger~\cite{grebert.2011.energy} ou le modèle de Wigner en milieu périodique~\cite{crouseilles.2017.nonlinear,morandi.2011.wigner}.
+Ces systèmes à relaxation rapide apparaissent en physique dans un cadre
+fonctionnel de modèles cinétiques~\cite{bhatnagar.1954.model,
+lemou.2008.new} ou dans certains systèmes dérivés de problèmes
+non-linéaires~\cite{jin.1995.relaxation}. On les observe également en
+dynamique des populations, e.g. dans~\cite{greiner.1994.singular,
+auger.1996.emergence, sanchez.2000.singular, castella.2018.analysis}.
+Les systèmes hautement oscillants sont également fréquents en physique.
+Certains exemples sont présentés dans l'ouvrage de
+référence~\cite[Chap.~I]{hairer.2006.geometric}, comme le modèle de
+Hénon-Heiles~\cite{henon.1964.applicability} dans un contexte de
+mouvements célestes, ou le problème de
+Fermi-Pasta-Ulam-Tsingou~\cite{ford.1992.fermi} en théorie du chaos. On peut aussi étudier certains phénomènes
+de dynamique quantique non-linéaires, tels que le modèle de
+Klein-Gordon~\cite{bao.2012.analysis}, l'équation de
+Schrödinger~\cite{grebert.2011.energy} ou le modèle de Wigner en milieu
+périodique~\cite{crouseilles.2017.nonlinear, morandi.2011.wigner}.
 
 
-La simulation de tels systèmes présente des défis particulier, qui peuvent se ramener aux concepts de base des méthodes numériques de \textit{stabilité} et de \textit{convergence}. La stabilité consiste à déterminer une condition pour que la solution numérique soit bien définie, qu'elle ne diverge pas. La convergence trace un lien direct entre le coût de calcul et la précision de l'approximation numérique. Dans ce chapitre d'introduction, on introduit mathématiquement les modèles qui nous concernent, et on en fait une brève description du comportement. À cet égard, on introduit deux exemples de systèmes \enquote{jouet} qui nous suivrons tout au long du chapitre. Ensuite, on illustre les limitations des méthodes numériques de l'état de l'art, en introduisant certains concepts de convergence liés à la présence du paramètre~$\eps$. Enfin, on présente brièvement la contribution de ce travail de thèse, et on annonce le plan pour la suite du manuscrit. 
+La simulation de tels systèmes présente des défis particuliers, qui peuvent se ramener aux concepts de base des méthodes numériques de \textit{stabilité} et de \textit{convergence}. La stabilité consiste à déterminer une condition pour que la solution numérique soit bien définie, qu'elle ne diverge pas. La convergence trace un lien direct entre le coût de calcul et la précision de l'approximation numérique. Dans ce chapitre d'introduction, on introduit mathématiquement les modèles qui nous concernent, et on fait une brève description de leur comportement. À cet égard, on introduit deux exemples de systèmes \enquote{jouet} que nous suivrons tout au long du chapitre. Ensuite, on illustre les limitations des méthodes numériques de l'état de l'art, en introduisant certains concepts de convergence liés à la présence du paramètre~$\eps$. Enfin, on présente brièvement la contribution de ce travail de thèse, et on annonce le plan pour la suite du manuscrit. 
 
 
 \input{./Presentation/comportement.tex}
