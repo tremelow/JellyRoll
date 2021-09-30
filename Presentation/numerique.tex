@@ -254,7 +254,7 @@ La partie du semi-groupe est gardée exacte tandis que la partie (possiblement) 
 Pour passer à l'ordre supérieur, les parties raide et non-raide sont liées, donc l'approche demande plus de subtilité, mais on peut obtenir des méthodes exponentielles Runge-Kutta (i.e. des méthodes à un pas, pour obtenir $u_{n+1} \approx u(t_{n+1})$ à partir de seulement $u_n \approx u(t_n)$) d'ordre arbitraire. Une grande classe de schémas de ce type est compilée dans~\cite{hochbruck.2005.explicit}, et dans un autre article les mêmes auteurs obtiennent une convergence théorique. 
 
 \medskip\noindent%
-\textit{Erreur de convergence} (Hochbruck, Ostermann - \cite{hochbruck.2004.exponential})
+\textit{Estimations d'erreur} (Hochbruck, Ostermann - \cite{hochbruck.2004.exponential})
 
 Avec un schéma expRK d'ordre~$q \geq 1$, l'erreur vérifie la borne à une constante multiplicative près
 \begin{equation*}
@@ -301,7 +301,7 @@ L'inconvénient des méthodes exponentielles est qu'elles demandent une intégra
 On se restreint ici aux méthodes multipas dénommées IMEX-BDF (\textit{backwards differentiation formula}), initialement développées dans~\cite{crouzeix.1980.methode}, puis dans~\cite{ascher.1995.implicit,akrivis.1999.implicit,hundsdorfer.2007.imex,dimarco.2017.implicit}. On a là aussi une erreur théorique.
 
 \bigskip\noindent%
-\textit{Résultat sur l'erreur} (Crouzeix - \cite{crouzeix.1980.methode})
+\textit{Estimations d'erreur} (Crouzeix - \cite{crouzeix.1980.methode})
 
 Avec une méthode IMEX-BDF d'ordre~$q$ à~$s$ pas, si on suppose qu'on a pu obtenir les $(s-1)$-ièmes premiers pas avec une manière quelconque, l'erreur sur les pas suivants peut être bornée par 
 \begin{equation*}

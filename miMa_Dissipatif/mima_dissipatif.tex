@@ -211,22 +211,22 @@ and $z\eeps(t) \in \R^{d_z}$,
 \dot{z}\eeps = -\inveps A z\eeps + b(x\eeps, z\eeps), \quad & z\eeps(0) = z_0 , 
 \end{array} \right.
 \end{equation}
-with $\eps \in (0,1]$ a small parameter, $A$ a diagonal positive matrix
+with $\eps \in (0,1]$ a small parameter, $\Lambda$ a diagonal positive matrix
 with integer coefficients, and where $a,b$ are respectively the
 $x$-component and the $z$-component of an analytic map $f$ which smoothly
 depends on $\eps$. We look for a solution $x\eeps(t)$, $z\eeps(t)$,
 defined for $t \in [0,1]$, irrespectively of the value of $\eps$.  The
 exact value of the right bound of the interval of definition of the
 solution, here $1$, is somehow arbitrary, as it can be rescaled by
-changing the value of $\frac{1}{\eps}\Lambda$. In the limit when $\eps$
+changing the value of $\frac{1}{\eps} A$. In the limit when $\eps$
 goes to zero, the problem becomes stiff on the considered interval: in
 other words, the problem resorts to long-time integration as $1$ becomes
 large compared to $\eps$. In the sequel we shall more often write the
 equations in compact form as 
 \begin{equation} \label{intro-pb:full_pb_on_u}
-\dot{u}\eeps = -\inveps \Lambda u\eeps + f(u\eeps), \quad u\eeps(0) = u_0,
+\dot{u}\eeps = -\inveps  A u\eeps + f(u\eeps), \quad u\eeps(0) = u_0,
 \end{equation}
-where $u = \among xz$, $\Lambda = \begin{pmatrix} 0 & 0 \\ 0 & A
+where $u = \among xz$, $A = \begin{pmatrix} 0 & 0 \\ 0 & \Lambda
 \end{pmatrix}$ and $f(u) = \among{a(x,z)}{b(x,z)}$. We set $d = d_x + d_z$
 the dimension of $u$ such that $u \in \R^d$. Note that $x\eeps$ may be
 zero-dimensional without impacting our results, or that it may include a
@@ -245,7 +245,7 @@ required.
 
 Problems of the form \eqref{intro-pb:full_pb_on_u} recurrently appear in
 population dynamics (see \cite{greiner.1994.singular, auger.1996.emergence,
-sanchez.2000.singular, castella.2018.analysis}), where $A$ accounts for
+sanchez.2000.singular, castella.2018.analysis}), where $\Lambda$ accounts for
 migration (in space and/or age) and $a$ and $b$ account for both the
 demographic and inter-population dynamics. In this context, the factor
 $1/\eps$ accounts for the fact that the migration dynamics is quantifiably
@@ -321,7 +321,7 @@ composition of maps
 \end{equation}
 where $(\tau, u) \in \R_+ \times \R^d \mapsto \Omega^{\eps}_{\tau}(u) \in
 \R^d$ is a change of variable $\eps$-close to the map $(\tau, u) \mapsto
-e^{-\tau \Lambda} u$ and where $(t,u) \in [0,T] \times \R^d \mapsto
+e^{-\tau  A} u$ and where $(t,u) \in [0,T] \times \R^d \mapsto
 \Gamma^\eps_t (u)$ is the flow associated to a \textit{non-stiff}
 autonomous vector field $u \mapsto F^\eps (u)$, yet to be defined. The
 formal maps $\Omega^{\eps}$ and $F^\eps$ are approached at an arbitrary
@@ -366,7 +366,7 @@ their use is briefly discussed in Remark~\ref{mima_rq:imex}.
 \medskip
 The present work is related to the recent paper \cite{castella.2016.formal},
 where asymptotic expansions of the solution of~\eqref{intro-eq:xz_pb} are
-constructed for the special case where  $A$ is the identity matrix. The
+constructed for the special case where  $\Lambda$ is the identity matrix. The
 theory developed therein is however of no relevance for the construction
 of micro-macro decompositions as it relies heavily on trees and associated
 elementary differentials which can hardly be computed in practice. Our
@@ -406,7 +406,7 @@ aforementioned discretized PDEs.
 
 We start by considering the solution~$u$ of
 \begin{equation} \label{sec:mima:subsec:intro:pb:u}
-    \dpt u\ee = -\frac{1}{\e} \Lambda u\ee + f(u\ee), 
+    \dpt u\ee = -\frac{1}{\e}  A u\ee + f(u\ee), 
     \qquad
     u\ee(0) = u_0 \in \setR^d , 
 \end{equation}
@@ -434,17 +434,17 @@ All proofs are delayed until Section~\ref{sec:proofs}.
 
 \subsection{Definitions and assumptions} \label{sec:mima:subsec:def}
 
-Before proceeding, we must first state the assumptions on the vector field $u \mapsto f(u)$ and the operator $\Lambda$. 
+Before proceeding, we must first state the assumptions on the vector field $u \mapsto f(u)$ and the operator $ A$. 
 \begin{assumption} \label{sec:mima:subsec:hyp:integer}
-    The matrix~$\Lambda$ is diagonal with nonnegative integer eigenvalues, 
+    The matrix~$ A$ is diagonal with nonnegative integer eigenvalues, 
     and these values are nondecreasing when following the diagonal.
     In other words,
-    $ \Lambda = \textup{Diag}(\lambda_1, \ldots, \lambda_d) $
+    $  A = \textup{Diag}(\lambda_1, \ldots, \lambda_d) $
     with $(\lambda_i)_{1 \leq i \leq d} \in \setN^d$ and 
     $\lambda_1 \leq \dots \leq \lambda_d$. 
 \end{assumption}
 Thanks to this assumption, we write~$u = \among{x}{z}$, with $(x,z)$ 
-such that $\Lambda u = \among{0}{Az}$ for some $A$ positive definite.
+such that $A u = \among{0}{\Lambda z}$ for some $\Lambda$ positive definite.
 The dimension of $z$ may be zero without making our results invalid.
 
 
@@ -517,7 +517,7 @@ is in $\K_0$ at all time.
     \item A radius $0 < R < \frac{1}{2} ( \check{\rho} - \rho_1 )$ 
     \item An arbitrary rank $p$ and a positive constant $M$ 
           such that for all $0 \leq \alpha, \beta \leq p + 2$ and all
-          $\sigma \in \left[0, 6 \vertiii{\Lambda} \right]$, 
+          $\sigma \in \left[0, 6 \vertiii{ A} \right]$, 
           \[  \frac{\sigma^{\beta}}{\beta!} 
               \vertiii{ \vphantom{\frac11} (\rho_1 + 2R)^{\alpha}\dpu^{\alpha} f } 
               \leq M
@@ -550,14 +550,14 @@ We assume that the vector field in~\eqref{sec:mima:subsec:intro:eq:decomp} follo
 \end{equation}
 Injecting this and~\eqref{sec:mima:subsec:intro:eq:decomp} into~\eqref{sec:mima:subsec:intro:pb:u} and writing $v_0 = \big( \Omega\ee_0 \big)^{-1} (u_0)$
 \begin{equation*}
-    \big( \dptau + \Lambda \big) \Omega\ee_{t/\e} \lp \Gamma\ee_t (v_0) \rp 
+    \big( \dptau +  A \big) \Omega\ee_{t/\e} \lp \Gamma\ee_t (v_0) \rp 
     = \e \LP f \circ \Omega\ee_{t/\e} \lp \Gamma\ee_t (v_0) \rp
     - \dpu \Omega\ee_{t/\e}\lp \Gamma\ee_t (v_0) \rp \cdot F\ee \lp \Gamma\ee_t (v_0) \rp \RP
 \end{equation*}
 which by separation of scales $t$ and $t/\e$ generates the homological 
 equation on $\Omega\ee$, for all $(\tau, u) \in \setR_+ \times K_{\rho}$, 
 \begin{equation} \label{sec:mima:subsec:maps:eq:exact_homol}
-    \big( \dptau + \Lambda \big) \Omega\ee_{\tau} (u) = \e \big( f \circ \Omega\ee_{\tau}(u)  - \dpu \Omega\ee_{\tau}(u) \cdot F\ee(u) \big) . 
+    \big( \dptau +  A \big) \Omega\ee_{\tau} (u) = \e \big( f \circ \Omega\ee_{\tau}(u)  - \dpu \Omega\ee_{\tau}(u) \cdot F\ee(u) \big) . 
 \end{equation}
 
 It is furthermore possible to extract the vector field~$F\ee$ from this equation to get
@@ -568,7 +568,7 @@ It is furthermore possible to extract the vector field~$F\ee$ from this equation
 where $\langle\, \cdot \, \rangle$ is defined by  the following formula
 \begin{equation}
 \label{defcrochet}
-    \langle \psi \rangle := \frac{1}{2\pi} \int_0^{2\pi} e^{i\theta \Lambda} 
+    \langle \psi \rangle := \frac{1}{2\pi} \int_0^{2\pi} e^{i\theta  A} 
     \psi_{i\theta} \:\D\theta ,
 \end{equation}
 with the canonical definition $\psi_{i\theta} 
@@ -584,11 +584,11 @@ we can extract the coefficient $\hat{\psi}_k$ as the Fourier coefficient of  $\p
 \end{equation}
 Therefore,  we write equation (\ref{sec:mima:subsec:maps:eq:exact_homol}) as follows
 \begin{equation} 
-    \dptau  \big( e^{\tau \Lambda}  \Omega\ee_{\tau}\big) (u) = \e \big( e^{\tau \Lambda}  f \circ \Omega\ee_{\tau}(u)  -  e^{\tau\Lambda}  \dpu\Omega\ee_{\tau}(u) \cdot F\ee(u) \big), 
+    \dptau  \big( e^{\tau  A}  \Omega\ee_{\tau}\big) (u) = \e \big( e^{\tau  A}  f \circ \Omega\ee_{\tau}(u)  -  e^{\tau A}  \dpu\Omega\ee_{\tau}(u) \cdot F\ee(u) \big), 
 \end{equation}
 and apply the Fourier operator  (\ref{calculPsi_kHat}) to get
-$$\widehat{\dptau  \big( e^{\tau \Lambda}  \Omega\ee_{\tau}\big) (u) } _k 
-= \e \left(  \widehat{\big(e^{\tau \Lambda}f \circ \Omega\ee_{\tau}(u)\big)}_k -   \widehat{\big(\dpu\Omega\ee_{\tau}(u) \cdot F\ee(u)\big)}_k 
+$$\widehat{\dptau  \big( e^{\tau  A}  \Omega\ee_{\tau}\big) (u) } _k 
+= \e \left(  \widehat{\big(e^{\tau  A}f \circ \Omega\ee_{\tau}(u)\big)}_k -   \widehat{\big(\dpu\Omega\ee_{\tau}(u) \cdot F\ee(u)\big)}_k 
 \right) .
 $$
 Taking now $k=0$ and using definition (\ref{defcrochet}) we get the expression (\ref{expressionFeps}).
@@ -604,9 +604,9 @@ methods have been developed (see~\cite{murdock.2006.normal} for instance).
 %
 Here we only consider a basic method to compute approximations~$\Omega\rk{n}$ and~$F\rk{n}$ of~$\Omega\ee$ and~$F\ee$ at any rank $n \in \setN$ by setting 
 \begin{equation} \label{sec:mima:subsec:maps:eq:deriv_rec}
-    (\dptau + \Lambda) \Omega\rk{n+1}_{\tau} = \e \lp f\circ \Omega\rk{n}_{\tau} - \dpu \Omega\rk{n}_{\tau} \cdot F\rk{n} \rp .
+    (\dptau +  A) \Omega\rk{n+1}_{\tau} = \e \lp f\circ \Omega\rk{n}_{\tau} - \dpu \Omega\rk{n}_{\tau} \cdot F\rk{n} \rp .
 \end{equation}
-with initial condition $\Omega\rk{0}_{\tau} = e^{-\tau \Lambda}$. 
+with initial condition $\Omega\rk{0}_{\tau} = e^{-\tau  A}$. 
 %
 Because we want $\Omega\rk{n+1}$ to be an exponential series, it appears that necessarily, 
 \begin{equation} \label{sec:mima:subsec:maps:eq:Fn}
@@ -617,8 +617,8 @@ However these equations alone are not enough to obtain~$\Omega\rk{n}$ at any ord
 %
 Indeed, from~\eqref{sec:mima:subsec:maps:eq:deriv_rec}, one gets 
 \begin{equation} \label{sec:mima:subsec:maps:eq:rec}
-    \Omega\rk{n+1}_{\tau} = e^{-\tau\Lambda} \Omega\rk{n+1}_0 
-    + \e \int_0^{\tau} e^{(\sigma - \tau) \Lambda} \lp f\circ \Omega\rk{n}_{\sigma} - \dpu \Omega\rk{n}_{\sigma} \cdot F\rk{n} \rp \D\sigma
+    \Omega\rk{n+1}_{\tau} = e^{-\tau A} \Omega\rk{n+1}_0 
+    + \e \int_0^{\tau} e^{(\sigma - \tau)  A} \lp f\circ \Omega\rk{n}_{\sigma} - \dpu \Omega\rk{n}_{\sigma} \cdot F\rk{n} \rp \D\sigma
 \end{equation}
 %
 meaning a choice of initial data~$\Omega\rk{n+1}_0$ is needed. 
@@ -628,7 +628,7 @@ but computing~\eqref{sec:mima:subsec:maps:eq:Fn} requires an inversion of $\lang
 Therefore we choose $\Omega\rk{n+1}_0$ such that $\langle \Omega\rk{n+1} \rangle = \id$, 
 i.e. for all $n \in \setN$, 
 \begin{equation} \label{sec:mima:subsec:maps:eq:Omega0}
-  \Omega\rk{n+1}_0 = \id - \e \left\langle \int_0^{\,\bigcdot} e^{(\sigma - \,\bigcdot) \Lambda}
+  \Omega\rk{n+1}_0 = \id - \e \left\langle \int_0^{\,\bigcdot} e^{(\sigma - \,\bigcdot)  A}
   \lp f\circ \Omega\rk{n}_{\sigma} - \dpu \Omega\rk{n}_{\sigma} \cdot F\rk{n} \rp \D\sigma \right\rangle
   \qquad\text{thus}\quad
   F\rk{n} = \langle f \circ \Omega\rk{n} \rangle . 
@@ -639,7 +639,7 @@ of~\eqref{sec:mima:subsec:maps:eq:exact_homol},
 we introduce the error of approximation
 \begin{equation} \label{sec:mima:subsec:maps:eq:def_eta}
   \eta\rk{n}_{\tau} = 
-  \frac{1}{\eps}\left( \dptau + \Lambda \right) \Omega^{[n]}_{\tau} + \dpu \Omega^{[n]}_{\tau} \cdot F^{[n]} - f \circ \Omega^{[n]} . 
+  \frac{1}{\eps}\left( \dptau +  A \right) \Omega^{[n]}_{\tau} + \dpu \Omega^{[n]}_{\tau} \cdot F^{[n]} - f \circ \Omega^{[n]} . 
 \end{equation}
 With these definitions, the maps $(\tau,u) \mapsto \Omega\rk{n}_{\tau}(u)$, 
 $u \mapsto F\rk{n}(u)$ and $(\tau, u) \mapsto \eta\rk{n}_{\tau}$ 
@@ -661,18 +661,18 @@ by~\eqref{sec:mima:subsec:def:def:norm} and~\eqref{sec:mima:subsec:def:def:norm_
 the following bounds are satisfied for all $0 \leq \nu \leq p+1$, 
 \begin{align*}
 (i)\quad{}&{} 
-\left\| \Omega^{[n]} - e^{-\tau\Lambda} \right\|_{R} \leq 4\eps M, 
+\left\| \Omega^{[n]} - e^{-\tau A} \right\|_{R} \leq 4\eps M, 
 & 
 \quad(ii)\quad{}&{} 
 \left\| \dptheta^{\:\nu}  \big[ \Omega^{[n]} 
-- e^{-\tau \Lambda} \big] \right\|_{R} 
-\leq 8 \big( 1+\vertiii{\Lambda} \big)^{\nu} \eps M \, \nu! 
+- e^{-\tau  A} \big] \right\|_{R} 
+\leq 8 \big( 1+\vertiii{ A} \big)^{\nu} \eps M \, \nu! 
 \\
 (iii)\quad{}&{} 
 \| F^{[n]} \|_{R} \leq 2M 
 & 
 (iv)\quad{}&{} 
-\| \eta^{[n]}_{\tau}(u) \|_{R,p} \leq 2 M \big( 1 + \vertiii{\Lambda} \big)^{p} 
+\| \eta^{[n]}_{\tau}(u) \|_{R,p} \leq 2 M \big( 1 + \vertiii{ A} \big)^{p} 
 \left( 2\mathcal Q_p \frac{\eps}{\eps_n} \right)^n 
 \end{align*}
 where $\vertiii{\cdot}$ is the induced norm from $\R^d$ to $\R^d$, 
@@ -708,7 +708,7 @@ $$
 \dpt v^{[n]}(t) = F^{[n]}(v^{[n]}) ,
 \\ \displaystyle
 \dpt w^{[n]}(t) = 
-- \inveps \Lambda \left( \Omega^{[n]}_{t/\eps}(v^{[n]}) + w^{[n]} \right) 
+- \inveps  A \left( \Omega^{[n]}_{t/\eps}(v^{[n]}) + w^{[n]} \right) 
 + f\left( \Omega^{[n]}_{t/\eps}(v^{[n]}) + w^{[n]} \right) 
 - \frac{\D}{\D t} \Omega_{t/\eps}^{[n]} (v^{[n]} ), 
 \end{array}
@@ -721,7 +721,7 @@ By definition of $v^{[n]}$ and using~\eqref{sec:mima:subsec:maps:eq:def_eta},
 \frac{\D}{\D t} \Omega_{t/\eps}^{[n]}(v^{[n]}(t)) {}&{}
 = \inveps \dptau \Omega_{t/\eps}^{[n]}(v^{[n]}) + \dpu \Omega_{t/\eps}^{[n]}(v^{[n]}) \cdot F^{[n]}(v^{[n]})
 \\ {}&{}
-= -\inveps \Lambda \Omega^{[n]}_{t/\eps}(v^{[n]}) + \eta^{[n]}_{t/\eps}(v^{[n]}) + f\big( \Omega^{[n]}_{t/\eps}(v^{[n]}) \big) .
+= -\inveps  A \Omega^{[n]}_{t/\eps}(v^{[n]}) + \eta^{[n]}_{t/\eps}(v^{[n]}) + f\big( \Omega^{[n]}_{t/\eps}(v^{[n]}) \big) .
 \end{align*}
 We get the micro-macro problem 
 \begin{subequations} \label{sec:mima:subsec:ua:pb:vw}
@@ -730,7 +730,7 @@ We get the micro-macro problem
 &\dpt v^{[n]}(t) = F^{[n]}(v^{[n]}) ,
 \label{sec:mima:subsec:ua:pb:v}
 \\ \displaystyle
-&\dpt w^{[n]}(t) = - \inveps \Lambda w^{[n]} 
+&\dpt w^{[n]}(t) = - \inveps  A w^{[n]} 
 + f\left( \Omega^{[n]}_{t/\eps}(v^{[n]}) + w^{[n]} \right) 
 - f\left( \Omega^{[n]}_{t/\eps}(v^{[n]}) \right) 
 - \eta^{[n]}_{t/\eps}(v^{[n]}).
@@ -763,7 +763,7 @@ v^{[n]}(t) \in \K_{R} &
 (iv)\quad&
 \| \dpt^{\nu+1} E^{[n]} \|_{L^1} = \bigO( \eps^{n-\nu} )
 \end{align*}
-where $E^{[n]} = \dpt w^{[n]} + \inveps \Lambda w^{[n]}$.
+where $E^{[n]} = \dpt w^{[n]} + \inveps  A w^{[n]}$.
 \end{theorem}
 
 
@@ -810,7 +810,7 @@ where $E^{[n]} = \dpt w^{[n]} + \inveps \Lambda w^{[n]}$.
 \newcommand{\modnorm}[1]{\left\vert #1 \right\vert _{\eps} }
 
 Using a standard explicit scheme to solve Problem~\eqref{sec:mima:subsec:ua:pb:vw} 
-cannot work due to the term $\frac{1}{\eps}\Lambda w^{[n]}$. 
+cannot work due to the term $\frac{1}{\eps} A w^{[n]}$. 
 This is why we focus on exponential schemes, which render this term non-problematic in terms of stability (see~\cite{maset.2009.unconditional}). 
 Of course, the only use of these exponential schemes does not solve the problem of non-uniform order of accuracy however, as these schemes all reduce to order 1 when taking the supremum of the error for $\eps \in (0, \eps^*]$.  This is where our micr-macro formulation plays a crucial role since it allows standard numerical schemes (like exponential Runge-Kutta schemes for instance)  to {\em keep their order uniformly} in $\eps\in (0,1]$.
 It should be noted that exponential schemes are well-established 
@@ -819,15 +819,15 @@ and the formulas to implement them can be found for example in~\cite{hochbruck.2
 
 The first-order Euler method applied to~\eqref{intro-pb:full_pb_on_u} would yield 
 \begin{equation*}
-u_{i+1} = e^{- \frac{\Dt}{\eps} \Lambda} u_i + \Dt\ \varphi \left( -\frac{\Dt}{\eps} \Lambda \right) f(u_i) 
+u_{i+1} = e^{- \frac{\Dt}{\eps}  A} u_i + \Dt\ \varphi \left( -\frac{\Dt}{\eps}  A \right) f(u_i) 
 \end{equation*}
-with $\varphi(-h \Lambda) = \frac{1}{h} \int_0^h e^{-s \Lambda} \D s$. 
-Because $\Lambda$ is diagonal, this type of integral is easy to compute. 
+with $\varphi(-h  A) = \frac{1}{h} \int_0^h e^{-s  A} \D s$. 
+Because $ A$ is diagonal, this type of integral is easy to compute. 
 There is no computational drawback to exponential schemes in this case. 
 %
 Furthermore, for these schemes the error bound involves the ``modified'' norm 
 \begin{equation} \label{mima_def:modnorm}
-\modnorm{u} = \left | u + \inveps \Lambda u \right | . 
+\modnorm{u} = \left | u + \inveps  A u \right | . 
 \end{equation}
 This norm is interesting because after a short time $t \geq \eps \log(1/\eps)$, 
 the $z$-component of the solution $u\eeps$ of~\eqref{intro-pb:full_pb_on_u} 
@@ -864,7 +864,7 @@ IMEX-BDF schemes which are sometimes preferred (as in~\cite{hu.2021.uniform}).
 The reason for this is twofold. 
 
 First, as was mentioned already, iterations are easy to compute because 
-of the diagonal nature of $\Lambda$. 
+of the diagonal nature of $ A$. 
 Second, %
 the error bounds are generally better for these schemes. 
 Indeed, an IMEX-BDF scheme of order $q$ involves the $L^1$ norm of $\dpt^{q+1} w^{[n]}$, 
@@ -920,7 +920,7 @@ Differentiating $\Phi\rk{n+1}$ w.r.t.~$\theta$ and identifying the
 coeffients in~\eqref{sec:mima:subsec:maps:eq:deriv_rec}, we obtain a
 (still formal) homological equation on $\Phi\rk{n}$:
 \begin{equation}
-  \lp \dptheta - i \Lambda \rp \Phi\rk{n+1}_{\theta}
+  \lp \dptheta - i  A \rp \Phi\rk{n+1}_{\theta}
   = -i \e \left( f \circ \Phi\rk{n}_{\theta} - \dpu \Phi\rk{n}_{\theta}
   \cdot F\rk{n} \right) .
 \end{equation}
@@ -928,7 +928,7 @@ The periodic defect~$\delta\rk{n}_{\theta} = -i \eta\rk{n}_{-i\theta}$
 satisfies 
 \begin{equation} \label{sec:proofs:subsec:bounds:eq:def_delta}
   \delta\rk{n}_{\theta} 
-  = \frac{1}{\e} \lp \dptheta - i\Lambda \rp \Phi\rk{n}_{\theta} 
+  = \frac{1}{\e} \lp \dptheta - i A \rp \Phi\rk{n}_{\theta} 
   + i f \circ \Phi\rk{n}_{\theta} . 
   - i \dpu \Phi\rk{n}_{\theta} \cdot F\rk{n} 
 \end{equation}
@@ -945,13 +945,13 @@ equation to be well-defined for all $|\xi| \leq 1$.
 
 \newcommand{\filtPhi}{\widetilde{\Phi}}
 Setting the filtered map $\filtPhi\rk{n}_{\theta} = 
-e^{-i\theta\Lambda} \Phi\rk{n}_{\theta}$, it satisfies 
+e^{-i\theta A} \Phi\rk{n}_{\theta}$, it satisfies 
 \begin{equation} \label{sec:proofs:subsec:bounds:eq:diff_filtPhi} 
   \dptheta \filtPhi\rk{n+1}_{\theta} 
   = \e \left( g_{\theta} \circ \filtPhi\rk{n}_{\theta} 
   - \dpu \filtPhi\rk{n}_{\theta} \cdot G\rk{n} \right)
 \end{equation}
-with $g_{\theta}(u) = e^{-i\theta \Lambda} f \lp e^{i\theta\Lambda}u \rp$
+with $g_{\theta}(u) = e^{-i\theta  A} f \lp e^{i\theta A}u \rp$
 and $G\rk{n} = i F\rk{n}$. 
 %
 \begin{property}
@@ -981,7 +981,7 @@ the periodic change of variable would be defined~by
   \filtPhi\rk{n+1}_{\theta} 
   = \id + \e \lp T\rk{n}_{\theta} - \Pi(T\rk{n}) \rp
   \quad\text{and}\quad
-  \Phi\rk{n+1}_{\theta} = e^{i\theta\Lambda} \Phi\rk{n+1}_{\theta}
+  \Phi\rk{n+1}_{\theta} = e^{i\theta A} \Phi\rk{n+1}_{\theta}
 \end{equation}
 with $\Pi$ the average\footnote{
   Explicitely, $\Pi(\varphi) = \frac{1}{2\pi} \int_0^{2\pi}
@@ -1035,8 +1035,8 @@ differentiable w.r.t.~$\theta$. Then the following bounds are satisfied.
     \leq 2M \left( 2\mathcal Q_p \frac{\eps}{\eps_n} \right)^n 
   \end{align*}
   where $\filtPhi\rk{n}_{\theta} =
-  e^{-i\theta\Lambda}\Phi\rk{n}_{\theta}$ and $\widetilde{\delta}\rk{n} = 
-  e^{-i\theta\Lambda}\delta\rk{n}_{\theta}$ correspond to the filtered
+  e^{-i\theta A}\Phi\rk{n}_{\theta}$ and $\widetilde{\delta}\rk{n} = 
+  e^{-i\theta A}\delta\rk{n}_{\theta}$ correspond to the filtered
   equation~\eqref{sec:proofs:subsec:bounds:eq:diff_filtPhi}, and 
   $\mathcal Q_{p}$ is a $p$-dependent constant. 
 \end{theorem}
@@ -1045,29 +1045,29 @@ In order to prove Theorem~\ref{sec:mima:subsec:maps:thm:bounds}, we show
 that the previous calculations of this section are rigorous rather than
 formal. Let us work by induction and assume that the negative modes of
 $\Phi\rk{n}$ vanish (this is true for $\Phi\rk{0}_{\theta} =
-e^{i\theta\Lambda}$ since $\Lambda$ is positive semidefinite). Because
+e^{i\theta A}$ since $ A$ is positive semidefinite). Because
 $(\theta, u) \mapsto \Phi\rk{n}_{\theta}(u)$ is continuously
 differentiable w.r.t.~$\theta$, its Fourier series converges absolutely,
 thus $(\xi, u) \mapsto \Xi\rk{n}(\xi;u)$ is well-defined for all $|\xi|
 \leq 1$ and $u \in \K_R$. By maximum modulus principle,
 \begin{equation*}
-  \| \Omega\rk{n} - e^{-\tau\Lambda} \|_{R} 
+  \| \Omega\rk{n} - e^{-\tau A} \|_{R} 
   \leq \sup_{|\xi| \leq 1,\, u \in \K_R} 
-    | \Xi\rk{n}(\xi; u) - \xi^{\Lambda} | 
-  \leq \| \Phi\rk{n} - e^{i\theta\Lambda} \|_{\T, R}
+    | \Xi\rk{n}(\xi; u) - \xi^{ A} | 
+  \leq \| \Phi\rk{n} - e^{i\theta A} \|_{\T, R}
   \leq \| \filtPhi\rk{n} - \id \|_{\T, R}
 \end{equation*}
 %
 The reasoning also stands for all derivatives $1 \leq \nu \leq p+1$,
 \begin{equation*}
-  \left\| \dptau^{\nu} [\Omega\rk{n} - e^{-\tau\Lambda} ] \right\|
+  \left\| \dptau^{\nu} [\Omega\rk{n} - e^{-\tau A} ] \right\|
   \leq \sup_{\xi, u} \left| (\xi\partial_{\xi})^{\nu} 
-    [ \Xi\rk{n}(\xi ; u) - \xi^{\Lambda} ] \right| 
+    [ \Xi\rk{n}(\xi ; u) - \xi^{ A} ] \right| 
   \leq \left\| \dptheta^{\nu} 
-    [ \Phi\rk{n} - e^{i\theta\Lambda} ] \right\|_{\T, R}
+    [ \Phi\rk{n} - e^{i\theta A} ] \right\|_{\T, R}
 \end{equation*}
-and $\left\| \dptheta^{\nu} [ \Phi\rk{n} - e^{i\theta\Lambda} ] 
-\right\|_{\T, R} \leq \lp 1 + \vertiii{\Lambda} \rp^{\nu} \| 
+and $\left\| \dptheta^{\nu} [ \Phi\rk{n} - e^{i\theta A} ] 
+\right\|_{\T, R} \leq \lp 1 + \vertiii{ A} \rp^{\nu} \| 
 \dptheta^{\nu} \filtPhi\rk{n} \|_{\T, R, \nu}$. 
 %
 Furthermore, for $u \in \K_R$, let $x \in X_1$ s.t. $\left| u -
@@ -1077,7 +1077,7 @@ Furthermore, for $u \in \K_R$, let $x \in X_1$ s.t. $\left| u -
   \leq \left| \Phi\rk{n}_{\theta}(u) - \among{x}{0} \right|
   \leq \left| \filtPhi\rk{n}_{\theta}(u) - \among{x}{0} \right| ,
 \end{equation*}
-since a multiplication by $e^{-i\theta\Lambda}$ has no influence on the
+since a multiplication by $e^{-i\theta A}$ has no influence on the
 norm, nor on $\among{x}{0}$. 
 A triangle inequality yields
 \begin{equation*}
@@ -1147,21 +1147,21 @@ using a Cauchy estimate.
 The integral form then gives the bounds 
 \begin{align}
 \left| w^{[n]}(t) \right| \leq{}&{} 
-	\left| \int_0^t e^{\frac{s-t}{\eps}\Lambda} L^{[n]} \big(s/\eps, s, w^{[n]}(s) \big) w^{[n]}(s) \D s 
-			+ \int_0^t e^{\frac{s-t}{\eps}\Lambda} S^{[n]}(s/\eps, s) \D s \right| 
+	\left| \int_0^t e^{\frac{s-t}{\eps} A} L^{[n]} \big(s/\eps, s, w^{[n]}(s) \big) w^{[n]}(s) \D s 
+			+ \int_0^t e^{\frac{s-t}{\eps} A} S^{[n]}(s/\eps, s) \D s \right| 
 \notag
 \\
 \leq{}&{}
-	\int_0^t \frac{2M}{R} \left| w^{[n]}(s) \right| \D s + \left| \int_0^t e^{\frac{s-t}{\eps}\Lambda} S^{[n]}(s/\eps, s) \D s \right| 
+	\int_0^t \frac{2M}{R} \left| w^{[n]}(s) \right| \D s + \left| \int_0^t e^{\frac{s-t}{\eps} A} S^{[n]}(s/\eps, s) \D s \right| 
 \label{mima_eq:bnd_w}
 \end{align}
 %
 Using the notation of the previous subsection, $\widetilde{\delta} 
-\rk{n}_{\theta} = -i e^{-i\theta\Lambda} \eta\rk{n}_{-i\theta}$, from 
+\rk{n}_{\theta} = -i e^{-i\theta A} \eta\rk{n}_{-i\theta}$, from 
 which
 $$ 
 \eta^{[n]}_{\tau}(u) 
-= \sum_{k \in \setZ} e^{-(k+\Lambda)\tau} c\rk{n}_k(u)
+= \sum_{k \in \setZ} e^{-(k+ A)\tau} c\rk{n}_k(u)
 \quad\text{with}\quad
 c\rk{n}_k(u) = \frac{1}{2\pi} \int_0^{2\pi} e^{-ik\theta} 
 \widetilde{\delta}_{\theta}(u) \D\theta .
@@ -1169,8 +1169,8 @@ $$
 Since $\langle \eta\rk{n} \rangle = 0$, i.e. $c\rk{n}_0 = 0$, it is
 possible to bound the source term in $w\rk{n}$ by
 \begin{align*}
-\left| \int_0^t e^{\frac{s-t}{\e}\Lambda} S^{[n]}(s/\e, s) \D s \right|
-&\leq \vertiii{e^{-\frac{t}{\e}\Lambda}} \int_0^{t} \sum_{k \in \setZ^*}
+\left| \int_0^t e^{\frac{s-t}{\e} A} S^{[n]}(s/\e, s) \D s \right|
+&\leq \vertiii{e^{-\frac{t}{\e} A}} \int_0^{t} \sum_{k \in \setZ^*}
   \left( e^{-k\frac{s}{\e}} \| c\rk{n}_k \|_{\T,R} \right) \D s
 \\
 &\leq \sum_{k \in \setZ^*} \frac{\e}{k} \| c\rk{n}_k \|_{\T, R} 
@@ -1183,7 +1183,7 @@ by~\eqref{sec:proofs:subsec:bounds:eq:def_norm}. Using
 Theorem~\ref{approx-thm:period_bounds}, there exists a constant $M_n > 0$
 such that for all $t \in [0, T_v]$, 
 \begin{equation}
-\left| \int_0^t e^{\frac{s-t}{\eps}\Lambda} S^{[n]}(s/\eps, s) \D s \right| \leq M_n \left( \frac{\eps}{\eps_n} \right)^{n+1} . 
+\left| \int_0^t e^{\frac{s-t}{\eps} A} S^{[n]}(s/\eps, s) \D s \right| \leq M_n \left( \frac{\eps}{\eps_n} \right)^{n+1} . 
 \end{equation}
 %
 Using Gronwall's lemma in~\eqref{mima_eq:bnd_w} with this inequality
@@ -1253,17 +1253,17 @@ by
 \begin{equation} \label{mima_eq:err_on_w}
 \modnorm{ w^{[n]}(t_i) - w_i } \leq C \Dt^{q} \Big( \| \dpt^{q-1} E^{[n]} \|_{\infty} + \| \dpt^{q} E^{[n]} \|_{L^1} \Big) . 
 \end{equation}
-The bounds on $E^{[n]} = \dpt w^{[n]} + \frac{1}{\eps} \Lambda w^{[n]}$
+The bounds on $E^{[n]} = \dpt w^{[n]} + \frac{1}{\eps}  A w^{[n]}$
 and its derivatives w.r.t. $\eps$ can be found in
 Theorem~\ref{sec:mima:subsec:ua:thm:well_posed}, rendering the computation
 of bounds on the error of the micro part straightforward. 
 %
 From Theorem~\ref{sec:mima:subsec:maps:thm:bounds}.\textit{(i)},
-$\Omega^{[n]}_{\tau}(u) = e^{-\tau \Lambda} u + \bigO(\eps)$, therefore
+$\Omega^{[n]}_{\tau}(u) = e^{-\tau  A} u + \bigO(\eps)$, therefore
 the error on $\Omega^{[n]}_{t/\eps}(v^{[n]})$ is of the form 
 $$ 
 \Omega^{[n]}_{t_i/\eps} \big( v^{[n]}(t_i) \big) - \Omega^{[n]}(v_i) 
-= e^{-t_i \Lambda/\eps} \big(v^{[n]}(t_i) - v_i \big) + \eps r_i
+= e^{-t_i  A/\eps} \big(v^{[n]}(t_i) - v_i \big) + \eps r_i
 $$
 where $v^{[n]}(t_i) - v_i$ and $r_i$ are of size $t_i \cdot \Dt^q$. 
 %
@@ -1271,7 +1271,7 @@ The error can therefore be bounded, denoting $\vertiii{\cdot}$ the induced
 norm from $\R^d$ to $\R^d$,  
 $$
 \modnorm{ \Omega^{[n]}_{t_i/\eps} \big( v^{[n]}(t_i) \big) - \Omega^{[n]}(v_i) }
-\leq \left( 1 + \vertiii{ \frac{t_i}{\eps}\Lambda e^{-\frac{t_i}{\eps} \Lambda } } \right) | v^{[n]}(t_i) - v_i | + \left( \eps + \vertiii{\Lambda} \right) | r_i | .
+\leq \left( 1 + \vertiii{ \frac{t_i}{\eps} A e^{-\frac{t_i}{\eps}  A } } \right) | v^{[n]}(t_i) - v_i | + \left( \eps + \vertiii{ A} \right) | r_i | .
 $$
 From this we get the desired result on~$u\eeps$. 
 \vspace*{-6pt}
@@ -1404,8 +1404,8 @@ $$
 For stability reasons $\lambda$ must be positive, therefore we shall
 choose $\alpha \geq 1$. 
 
-Let us set $u_k = (\xvar_k, \zvar_k)^T$ and $\Lambda = \text{Diag}(0,1)$
-such that $\dpt u_k = -\frac{1}{\eps} \Lambda u_k + f(u_k)$ with 
+Let us set $u_k = (\xvar_k, \zvar_k)^T$ and $ A = \text{Diag}(0,1)$
+such that $\dpt u_k = -\frac{1}{\eps}  A u_k + f(u_k)$ with 
 \begin{equation} \label{pde_def:f_telegraph}
 \renewcommand{\arraystretch}{2}
   f(u) = \among{\displaystyle
@@ -1450,12 +1450,12 @@ solution of~\eqref{test_eq:cont_telegraph}, $u_k(t) =
 \Omega^{[0]}_{t/\eps} \left(v^{[0]}(t) \right) + w^{[0]}(t)$, we are only
 interested in $\Omega^{[0]}_{t/\eps} \left( v^{[0]}(t) \right)$ for the
 macro part, and $\eta^{[0]}_{t/\eps} \left( v^{[0]}(t) \right)$ for the
-micro part, which only depend on $e^{-\frac{t}{\eps}\Lambda} v^{[0]}(t)$
+micro part, which only depend on $e^{-\frac{t}{\eps} A} v^{[0]}(t)$
 as can be seen in the upcoming expression of $\eta^{[0]}$ and using
-$\Omega^{[0]}_{\tau}(u) = e^{-\tau \Lambda} u$. This means that the
+$\Omega^{[0]}_{\tau}(u) = e^{-\tau  A} u$. This means that the
 interesting quantity is 
 \begin{equation} \label{test_eq:tel_mac_zero}
-e^{-\frac{t}{\eps}\Lambda} v^{[0]}(t) = \begin{pmatrix} 
+e^{-\frac{t}{\eps} A} v^{[0]}(t) = \begin{pmatrix} 
 e^{ - \hat{k}^2 t } & 0 \\
 0 & e^{ -(1 - \eps \hat k^2) \frac{t}{\eps}} \end{pmatrix}
 v^{[0]}(0) .
@@ -1463,7 +1463,7 @@ v^{[0]}(0) .
 Recognizing $1 - \eps \hat{k}^2 = \lambda > 0$ in this expression, 
 it follows that $v^{[0]}_2$ is a decreasing function of time, 
 therefore it is bounded uniformly for all~$t$, $k$ and $\eps$. 
-Because the exact computation of $e^{-\frac{t}{\eps}\Lambda}v^{[0]}(t)$ 
+Because the exact computation of $e^{-\frac{t}{\eps} A}v^{[0]}(t)$ 
 is readily available, it is used during implementation, 
 leaving only $w^{[0]}$ to be computed numerically using ERK schemes. 
 Should the reader wish to conduct their own implementation, they should use the defect 
@@ -1477,9 +1477,9 @@ ik e^{-\tau} \zvar
 $$
 By linearity of $f$, the micro variable $w^{[0]}$ follows the differential equation 
 $$
-\dpt w^{[0]} = -\frac{1}{\eps}\Lambda w^{[0]} + f(w^{[0]}) - \eta^{[0]}_0\left( e^{-\frac{t}{\eps}\Lambda} v^{[0]}(t) \right), \qquad w^{[0]}(0) = 0. 
+\dpt w^{[0]} = -\frac{1}{\eps} A w^{[0]} + f(w^{[0]}) - \eta^{[0]}_0\left( e^{-\frac{t}{\eps} A} v^{[0]}(t) \right), \qquad w^{[0]}(0) = 0. 
 $$
-The rescaled macro variable $e^{-\frac{t}{\eps}\Lambda} v^{[0]}(t)$ 
+The rescaled macro variable $e^{-\frac{t}{\eps} A} v^{[0]}(t)$ 
 is given by relation~\eqref{test_eq:tel_mac_zero} with initial condition $v^{[0]}(0) = u(0) = (\xvar_k(0), \zvar_k(0) )^T$. 
 
 %
@@ -1499,7 +1499,7 @@ F^{[1]}(\xvar, \zvar) = \hat{k}^2 \left( 1 + \eps k^2 \left( \alpha + \frac{1}{\
 \among{-\xvar}{\zvar} .
 $$
 Following the same reasoning as before, one should study 
-the evolution of the $z$-component of the rescaled macro variable $e^{-\frac{t}{\eps}\Lambda}v^{[1]}(t)$. 
+the evolution of the $z$-component of the rescaled macro variable $e^{-\frac{t}{\eps} A}v^{[1]}(t)$. 
 This evolution is in $e^{-\widetilde{\lambda}t/\eps}$ 
 where $\widetilde{\lambda} = 1 - \eps \hat{k}^2 \left( 1 + \eps k^2 \left( \alpha + \frac{1}{\quot} \right) \right)$. 
 Studying $\widetilde{\lambda}$ as a function of $\eps k^2$ in $\R_+$ shows that 
@@ -1523,9 +1523,9 @@ from which we get the vector field
 $$ 
 F^{[1]}(\xvar,\zvar) = \hat{k}^2 \left( 1 + \eps \hat{k}^2 \left( \alpha + \frac{1}{\quot} \right) \right) \among{-\xvar}{\zvar} .
 $$
-This time also, the identities $\Omega^{[1]}_{\tau} (u) = \Omega^{[1]}_0 ( e^{-\tau \Lambda} u)$ 
-and $\eta^{[1]}_{\tau}(u) = \eta^{[1]}_0( e^{-\tau \Lambda} u)$ are satisfied, 
-therefore the interesting variable is $e^{-\frac{t}{\eps}\Lambda}v^{[1]}(t)$. 
+This time also, the identities $\Omega^{[1]}_{\tau} (u) = \Omega^{[1]}_0 ( e^{-\tau  A} u)$ 
+and $\eta^{[1]}_{\tau}(u) = \eta^{[1]}_0( e^{-\tau  A} u)$ are satisfied, 
+therefore the interesting variable is $e^{-\frac{t}{\eps} A}v^{[1]}(t)$. 
 The quantity dictating its growth is 
 $$
 \tilde{\lambda} = 1 - \eps \hat{k}^2 \left( 1 + \eps \hat{k}^2 \left( \alpha + \frac{1}{\quot} \right) \right)
@@ -1534,7 +1534,7 @@ which is positive for all $\eps k^2 \in \R_+$ if and only if $\alpha \geq 2$.
 As with the expansion of order 0, the macro variable should be rescaled and computed exactly. 
 The micro part $w^{[1]}$ is given by the differential equation 
 \begin{equation} \label{pde_eq:micro_telegraph}
-\dpt w^{[1]} = -\frac{1}{\eps}\Lambda w^{[1]} + f(w^{[1]}) - \eta^{[1]}_0 \left( e^{-\frac{t}{\eps}\Lambda} v^{[1]}(t) \right), 
+\dpt w^{[1]} = -\frac{1}{\eps} A w^{[1]} + f(w^{[1]}) - \eta^{[1]}_0 \left( e^{-\frac{t}{\eps} A} v^{[1]}(t) \right), 
 \quad w^{[1]}(0) = u_k(0) - \Omega^{[1]}_0 \left( v^{[1]}(0) \right) 
 \end{equation}
 where, writing $\hat{I} = (1 + \alpha \eps k^2)^{-1}$, 
@@ -1565,12 +1565,12 @@ as the map $ u \mapsto \Omega^{[1]}_0(u)$ is linear.
 Given a maximum frequency $k_{\max} > 0$ and a scalar $\alpha \geq 2$, and assuming $|k| \leq k_{\max}$, 
 the solution $u_k$ of problem~\eqref{pde_pb:telegraph} can be decomposed into 
 $$
-u_k(t) = \Omega^{[1]}_0 \left( e^{-\frac{t}{\eps}\Lambda} v^{[1]}(t) \right) + w^{[1]}(t) 
+u_k(t) = \Omega^{[1]}_0 \left( e^{-\frac{t}{\eps} A} v^{[1]}(t) \right) + w^{[1]}(t) 
 $$
 where $\Omega^{[1]}_0$ is given by~\eqref{pde_eq:cov_telegraph} and $w^{[1]}(t) = \bigO(\eps^2)$. 
 The macro component $v^{[1]}$ is given by 
 $$ 
-e^{-\frac{t}{\eps}\Lambda} v^{[1]}(t) = \begin{pmatrix}
+e^{-\frac{t}{\eps} A} v^{[1]}(t) = \begin{pmatrix}
 e^{-K^{[1]} t} & 0 \\ 0 & e^{-(1-\eps K^{[1]}) \frac{t}{\eps}} 
 \end{pmatrix} 
 v^{[1]}(0) 
@@ -1582,8 +1582,8 @@ or its approximation~\eqref{pde_def:init_1_telegraph}.
 The micro component $w^{[1]}$ is the solution to 
 $$
 \dpt w^{[1]} 
-= -\frac{1}{\eps} \Lambda w^{[1]} + f \left( w^{[1]} \right) 
-- \eta^{[1]}_0 \left( e^{-\frac{t}{\eps} \Lambda} v^{[1]}(t) \right) ,
+= -\frac{1}{\eps}  A w^{[1]} + f \left( w^{[1]} \right) 
+- \eta^{[1]}_0 \left( e^{-\frac{t}{\eps}  A} v^{[1]}(t) \right) ,
 \qquad 
 w^{[1]}(0) = u_k(0) - \Omega^{[k]}_0 \left( v^{[1]}(0) \right)
 $$
@@ -1622,7 +1622,7 @@ with smooth initial conditions $ u(0,x) $ and $ \rlxcont(0,x) $.
 This is a stiffly relaxed conservation law, as presented in~\cite{jin.1995.relaxation}. 
 
 \begin{remark} \label{sec:pde:rmk:space_dep}
-Note that the assumption that $\Lambda$ has integer coefficients is restrictive in this case. 
+Note that the assumption that $ A$ has integer coefficients is restrictive in this case. 
 One may want to consider the equation on the second coordinate to be 
 \begin{equation*}
   \dpt \rlxcont + \dpx u = \frac{\sigma(x)}{\eps} \big(b(x)u - \rlxcont \big)
@@ -1706,7 +1706,7 @@ by neglecting the terms of order $\eps$ and above in the expressions above.
 
 \begin{remark}
 Remember that for the telegraph equation, the macro variable $v^{[1]}(t)$ 
-needed to be rescaled by $e^{-t\Lambda/\eps}$. 
+needed to be rescaled by $e^{-t A/\eps}$. 
 This is not the case here: In the limit $\Dx \rightarrow 0$, 
 the macro variable $v^{[1]} = (\ol{u}_1, \ol{u}_2)^T$ is given by 
 $$ \newcommand{\macx}{\ol{u}_1}
@@ -1827,11 +1827,11 @@ which demonstrates a possible use of the method when studying non-linear problem
 \end{array} \right.
 \end{equation}
 with initial conditions $x_0 = (0.1, 0.7)^T$ and $z_0 = 0.05$, and final time $T = 1$. 
-This is of the form $\dpt u = -\inveps \Lambda u + f(u)$ when setting 
+This is of the form $\dpt u = -\inveps  A u + f(u)$ when setting 
 $$ 
 u = \begin{pmatrix} x \\ z \end{pmatrix}, 
 \qquad 
-\Lambda = 
+ A = 
 %\begin{pmatrix}
 %0 & 0 & 0 \\
 %0 & 0 & 0 \\
@@ -1850,14 +1850,14 @@ $$
 
 The macro part of our micro-macro decomposition is built by solving iterations on the homological equation
 \begin{equation} \label{subsec:oscill:eq:homol_test}
-\big( \dptau + \Lambda \big) \Omega^{[n+1]}_{\tau} 
+\big( \dptau +  A \big) \Omega^{[n+1]}_{\tau} 
 = \eps \left( f \circ \Omega^{[n]}_{\tau} - \dpu \Omega^{[n]}_{\tau} F^{[n]} \right) 
 \end{equation}
 where $F^{[n]} = \big \langle f \circ \Omega^{[n]} \big\rangle$ 
-with $\langle \, \cdot \, \rangle$ the projector on the $e^{-\tau \Lambda}$-component 
+with $\langle \, \cdot \, \rangle$ the projector on the $e^{-\tau  A}$-component 
 parallel to the other components of the exponential series. 
-We choose the initial condition $\Omega^{[0]}_{\tau} = e^{-\tau \Lambda}$ 
-and closure condition $\langle \Omega^{[0]} \rangle = e^{-\tau \Lambda}$. 
+We choose the initial condition $\Omega^{[0]}_{\tau} = e^{-\tau  A}$ 
+and closure condition $\langle \Omega^{[0]} \rangle = e^{-\tau  A}$. 
 %
 The first iteration yields 
 \begin{equation*}
@@ -1876,7 +1876,7 @@ F^{[1]}(x,z) = \begin{pmatrix}
 %
 In order to compute the second order decomposition, 
 one must compute the difference $T^{[1]} = f \circ \Omega^{[1]} - \dpu \Omega^{[1]} F^{[1]}$, 
-which is also used to compute the defect $\delta^{[1]} = \frac{1}{\eps} (\dptau + \Lambda) \Omega^{[1]} - T^{[1]}$. 
+which is also used to compute the defect $\delta^{[1]} = \frac{1}{\eps} (\dptau +  A) \Omega^{[1]} - T^{[1]}$. 
 From a direct calculation this writes, 
 \begin{equation*}
 T^{[1]}_{\tau}(x, z) = \begin{pmatrix}
@@ -1944,7 +1944,7 @@ $$
   %
   \\ \displaystyle
   %
-  \dpt w^{[k]}(t) = - \inveps \Lambda w^{[k]} 
+  \dpt w^{[k]}(t) = - \inveps  A w^{[k]} 
   + f\left( \Omega^{[k]}_{t/\eps}(v^{[k]}) + w^{[k]} \right) 
   - f\left( \Omega^{[k]}_{t/\eps}(v^{[k]}) \right) 
   - \eta^{[k]}_{t/\eps}(v^{[k]}) ,
@@ -2028,10 +2028,10 @@ to order~1,
   \end{pmatrix} .
 \end{equation*}
 Going to a higher order requires specific computations, as the expression
-of $\frac{1}{\e} (\dpt + \Lambda) \Omega\rk 2 _\tau(x,z)$ is verbose and
+of $\frac{1}{\e} (\dpt +  A) \Omega\rk 2 _\tau(x,z)$ is verbose and
 involves for instance $g(x + \e e^{-\tau}z) - g(x)$. 
 It can be checked by hand that this expression involves no~$e^{-\tau
-\Lambda}$-term with the above expressions of $\Omega\rk 1$ and $F\rk 1$.
+ A}$-term with the above expressions of $\Omega\rk 1$ and $F\rk 1$.
 For numerical testing, we chose~$g(x) = -x^3/3$, $u(0) = 1$ and
 $\tilde{u}(0) = 0$. The micro-macro problem was computed up to order~2. 
 
