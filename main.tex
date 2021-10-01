@@ -52,6 +52,7 @@
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
 % \renewcommand{\thetheorem}{\arabic{section}.\arabic{theorem}}
 
+
 \clearemptydoublepage
 \mainmatter
 \include{./Averaging/averaging}
@@ -66,6 +67,8 @@
 
 \clearemptydoublepage
 \backmatter\appendix
+\renewcommand{\theequation}{\thechapter.\arabic{equation}}
+\renewcommand{\thetheorem}{\thechapter.\arabic{theorem}}
 \include{Two-Scale/two-scale}
 
 \clearemptydoublepage
