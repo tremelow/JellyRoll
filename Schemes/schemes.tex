@@ -1,19 +1,115 @@
 
-\chapter{Présentation de schémas numériques}
+\chapter{Présentation de schémas exponentiels}
 \label{chap:schemas}
+\newcolumntype{C}{>{$}c<{$}}
 
-Méthodes composées
+On présente ici les schémas exponentiel Runge-Kutta utilisés en Chapitre~\ref{chap:dissip-mima}. Il ne s'agit pas de discuter des preuves de convergence des schémas, mais de fournir les outils nécessaires pour l'implémentation de ceux-ci. Tous les schémas décrits ici sont disponibles dans~\cite{hochbruck.2005.explicit}, on adapte seulement les notations de cet article au problème qui nous concerne, c'est-à-dire un problème de la forme
+\begin{equation*}
+    \pa_t u = -\frac{1}{\eps} A u + f(u), 
+    \qquad 
+    u(0) = u_0 \in \setR^d
+\end{equation*}
+avec $(-A)$ un qui engendre un semi-groupe $t \mapsto e^{-tA}$ uniformément borné pour $t \in \setR_+$ et $u \mapsto f(u)$ régulière. Il est à noter que dans~\cite{hochbruck.2005.explicit}, les auteurs mentionnent une problématique de réduction d'ordre. En particulier, ils décrivent les schémas de Cox \& Matthews dans~\cite{cox.2002.exponential} (d'ordres~3 et~4) comme pouvant entraîner une réduction à l'ordre~2 du fait d'un non-respect des conditions d'ordre des schémas. Cette notion est à distinguer de la réduction d'ordre qu'on observe en Introduction et en Chapitre~\ref{chap:dissip-mima}, qui provient d'une dégénérescence de l'erreur à cause des dérivées de la solution qui ne sont pas bornées.
 
-Tableaux de Butcher
 
-Spltting
-
-\todo[inline]{Stormer-Verlett est un cas particulier de Strang mélangé à Euler explicite. En effet avec $\dot q = v$ et $\dot v = F(q)$,}
-\vspace*{-2\bigskipamount}
+Entre un temps $t_n$ et un temps $t_{n+1} = t_n + \Dt$, on considère qu'on dispose d'une approximation $u_n \approx u(t_n)$ et on cherche à trouver $u_{n+1} \approx u(t_{n+1})$. La méthode utilisé est un schéma de Runge-Kutta explicite exponentiel à~$s$ étages, qui peut s'écrire
 \begin{align*}
-&   v_{n + 1/2} = v_n + \frac{\Dt}{2}F(q_n) \\
-&   q_{n+1} = q_n + \Dt v_{n+1/2} \\
-&   v_{n+1} = v_{n+1/2} + \frac{\Dt}{2}F(q_{n+1}) .
+& u_{n+1} = e^{-\Dt\, A/\eps} u_n + \Dt \sum_{i = 1}^s 
+    b_i({\textstyle -\frac{\Dt}{\eps} A}) f(U_{ni}) ,
+\\
+& U_{ni} = e^{-c_i \Dt\, A/\eps} u_n + \Dt \sum_{j = 1}^{i-1} 
+    a_{ij}({\textstyle -\frac{\Dt}{\eps} A}) f(U_{nj}),
+\qquad
+  i = 1, \ldots, s .
 \end{align*}
-\vspace*{-\medskipamount}
-\todo[inline]{Ce qui revient à séparer le système en $\pa_t (q,v) = (0, F(q))$ et $\pa_t (q,v) = (v, 0)$.}
+La différence par rapport à un schéma standard est que les coefficients du schéma dépendent de l'opérateur $A$ qui est \enquote{filtré}. 
+
+Étant donné que l'argument au sein des coefficients est toujours le même, on peut écrire ce schéma sous forme de tableau de Butcher, de la même manière que les méthodes de Runge-Kutta standards:
+\begin{center}
+    \begin{tabular}{C|CCCC}
+           0    &    0    \\
+          c_2   &  a_{21}   &     0     \\
+        \vdots  &  \vdots   &  \ddots   &  \ddots   \\
+          c_s   &  a_{s1}   &  \cdots   &  a_{s,s-1} & 0 \\ \hline
+                & b_1       &  \cdots   &  \cdots    & b_s 
+    \end{tabular}
+\end{center}
+Par exemple la méthode d'Euler explicite exponentielle
+\begin{equation*}
+    u_{n+1} = e^{-\Dt\, A/\eps} u_n 
+        + \left( 
+            \int_0^{\Dt} e^{(\Dt - \tau) A/\eps} \D\tau 
+        \right) f(u_n)
+\end{equation*}
+devient sous forme de tableau, en définissant $\varphi_1(-hA) = h^{-1} \int_0^{h} e^{(h-\tau)A} \D\tau$,
+\begin{center}
+    \begin{tabular}{C|C}
+        0 & 0 \\ \hline
+          & \varphi_1
+    \end{tabular}
+\end{center}
+avec le raccourci $\varphi_1 = \varphi_1(-\frac{\Dt}{\eps}A)$.
+%
+Pour les tableaux suivants, on définit 
+\begin{equation*}
+    \varphi_j(-hA) = h^{-j} 
+        \int_0^h \frac{\tau^{j-1}}{(j-1)!} e^{(h-\tau)A} \D\tau ,
+\end{equation*}
+ce qui correspond au reste intégral renormalisé dans le développement de l'exponentiel. De sorte à avoir des coefficients dont l'argument est toujours $-\frac{\Dt}{\eps} A$ dans les tableaux, on définit aussi 
+\begin{equation*}
+    \varphi_{i,j}(-hA) = \varphi_j(-c_i h A) .
+\end{equation*}
+
+On peut maintenant énoncer les tableaux de Butcher des schémas utilisés dans le Chapitre~\ref{chap:dissip-mima}. Le schéma d'ordre~2 est
+\begin{center}
+    \begin{tabular}{C|CC}
+        0  \\
+        \frac{1}{2} & \frac{1}{2}\varphi_{1,2} \\ \hline
+        & \varphi_1 - 2\varphi_2 & 2\varphi_2
+    \end{tabular}
+\end{center}
+Le schéma d'ordre~3 est celui de Cox et Matthews~\cite{cox.2002.exponential}, 
+\begin{center}
+    \begin{tabular}{C|CCC}
+        0  \\
+        \frac{1}{2} & \frac{1}{2}\varphi_{1,2} \\ 
+        1 & -\varphi_{1,3} & 2\varphi_{1,3}
+        \\ \hline
+        & 4\varphi_3 - 3\varphi_2 + \varphi_1 
+        & -8\varphi_3 + 4\varphi_2
+        & 4\varphi_3 - \varphi_2
+    \end{tabular}
+\end{center}
+de même que celui d'ordre~4,
+\begin{center}
+    \begin{tabular}{C|CCCC}
+        0  \\
+        \frac{1}{2} & \frac{1}{2}\varphi_{1,2} \\ 
+        \frac{1}{2} & 0 & \frac{1}{2}\varphi_{1,3} \\
+        1 & \frac{1}{3}\left(\varphi_{0,3} - 1\right) & 0 & \varphi_{1,3}
+        \\ \hline
+        & \varphi_1 - 3\varphi_2 + 4\varphi_3
+        & 2\varphi_2 - 4\varphi_3
+        & 2\varphi_2 - 4\varphi_3
+        & 4\varphi_3 - \varphi_2
+    \end{tabular}
+\end{center}
+
+% \clearpage
+% Méthodes composées
+
+% Tableaux de Butcher
+
+% Spltting
+
+% \todo[inline]{Stormer-Verlett est un cas particulier de Strang mélangé à Euler explicite. En effet avec $\dot q = v$ et $\dot v = F(q)$,}
+% \vspace*{-2\bigskipamount}
+% \begin{align*}
+% &   v_{n + 1/2} = v_n + \frac{\Dt}{2}F(q_n) \\
+% &   q_{n+1} = q_n + \Dt\: v_{n+1/2} \\
+% &   v_{n+1} = v_{n+1/2} + \frac{\Dt}{2}F(q_{n+1}) .
+% \end{align*}
+% \vspace*{-\medskipamount}
+% \todo[inline]{Ce qui revient à séparer le système en $\pa_t (q,v) = (0, F(q))$ et $\pa_t (q,v) = (v, 0)$.}
+
+
