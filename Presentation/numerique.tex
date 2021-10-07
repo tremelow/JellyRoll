@@ -4,11 +4,11 @@
 En général, on suppose $\eps \ll 1$, et donc le système~\eqref{sec:intro:eq:u} comporte une dynamique \textit{rapide} par rapport au temps d'étude. À cet égard, des méthodes d'\textit{analyse asymptotique} ont été développées, c'est-à-dire des méthodes qui permettent de caractériser le système dans cette limite $\eps$ \enquote{petit}, en général en découplant ces deux dynamiques. Pour les problèmes hautement oscillants, trois exemples particulièrement célèbres sont les méthodes d'homogénéisation~\cite{goudon.2003.homogenization}, de moyennisation~\cite{perko.1969.higher,sanders.2007.averaging,lochak.1988.multiphase} et de formes normales~\cite{murdock.2006.normal,bambusi.2003.birkhoff}. Pour les problèmes à relaxation rapide, la littérature est moins fournie. Qu'il s'agisse de calculer la variété centrale comme précédemment ou d'un développement de Chapman-Enskog~\cite{santos.1986.divergence,degond.2004.macroscopic,chartier.2015.uniformly}, la phase transitoire n'est pas calculée. 
 
 Plus récemment dans \cite{castella.2016.formal}, les auteurs capturent
-aussi la phase transitoire, mais la méthode n'est valide que dans la
-limite $\eps \rightarrow 0$. Dans cette section, on étudie l'application
-de méthodes numériques \enquote{standards} de l'état de l'art, et on
-observe le comportement de l'erreur numérique non seulement en fonction
-du pas de temps $\Dt$, mais aussi en fonction du paramètre $\eps$. 
+aussi la phase transitoire, mais la méthode est formelle. Dans cette
+section, on étudie l'application de méthodes numériques
+\enquote{standards} de l'état de l'art, et on observe le comportement de
+l'erreur numérique non seulement en fonction du pas de temps $\Dt$, mais
+aussi en fonction du paramètre $\eps$. 
 
 On commence par décrire ce qu'on entend par \enquote{méthode numérique}
 et le contexte dans lequel on va les étudier. Ensuite, on présente trois
@@ -354,7 +354,7 @@ On voit que toutes ces méthodes subissent une réduction d'ordre: on passe d'un
     On dit que le schéma~$\Phi_{\Dt}^\eps$ est \emph{asymptotic preserving} (AP) ou qu'il préserve l'asymptote si le schéma limite~$\Phi^0_{\Dt}$ existe et est du même ordre $q$ que le schéma d'origine. On dit en outre que le schéma est \emph{uniformly accurate} (UA) ou uniformément précis si l'erreur uniforme présente le même ordre de convergence que l'erreur \enquote{standard} du schéma. 
 \end{FRdefinition*}
 
-On peut résumer ces propriétés sur le diagramme de commutation suivant~:
+On peut résumer ces propriétés à l'aide diagramme de commutation suivant, où on distingue le régime non-raide $\eps = \eps_0 \sim 1$ et le régime asymptotique $\eps \rightarrow 0$~:
 \begin{center}
     \begin{tikzpicture}[baseline= (a).base]
         \node[scale=1.3] (a) at (0,0){
@@ -386,4 +386,4 @@ Parmi les méthodes précédentes, on a les propriétés suivantes
     expRK2    & \checkmark & \checkmark &    
 \end{tabular}
 \end{center}
-La colonne UA étant vide, on cherche à développer de telles méthodes. 
+La colonne UA étant vide pour ces schémas d'ordre~2, on cherche à développer de telles méthodes. 

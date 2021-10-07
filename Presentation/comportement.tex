@@ -74,7 +74,7 @@ Il est impossible d'espérer calculer le morphisme de variété centrale explici
 \begin{equation*}
     \pa_t z \approx \eps \pa_x h^\eps(x) \cdot \pa_t x
     \approx \eps \pa_x h^\eps(x) \cdot a(x, \eps h^\eps(x)) . 
-\end{equation*} Ainsi on peut poser $h\rk 0 = 0$ et itérer de manière explicite
+\end{equation*} Ainsi on peut poser $h\rk 0 = b(x,0)$ et itérer de manière explicite
 \begin{equation} \label{sec:intro:eq:iter_h}
     \eps \pa_x h\rk n(x) \cdot a(x, \eps h\rk n (x)) 
     = - h\rk{n+1}(x) + b(x, \eps h\rk n (x)) .
@@ -89,15 +89,52 @@ Le calcul de la donnée initiale de l'ombre $x^\eps_0$ n'est en revanche pas si 
 
 On remarque deux caractéristiques importantes de la méthode d'approximation de $h^\eps$: elle nécessite de calculer une dérivée, ce qui demande du calcul symbolique potentiellement coûteux, et la convergence de la méthode n'est pas assurée. Même dans l'exemple jouet~\eqref{sec:intro:pb:z_sin}, cette méthode génère
 \begin{equation*}
-    h\rk{n}(x) = R_n(\eps) \sin(x) + \eps R_{n-1}(\eps) \cos(x) 
+    h\rk{n}(x) = R_{n+1}(\eps) \sin(x) + \eps R_{n}(\eps) \cos(x) 
 \end{equation*}
-avec $R_n(\eps) = \sum_{k = 0}^{\left\lfloor n/2 \right\rfloor} \eps^{2k}$ et par convention $R_{-1} = 0$. En d'autres termes, on construit le développement en série entière en $\eps$ de la partie lente dans~\eqref{sec:intro:sol:z_sin}, i.e. $h\rk 1(x) = \sin(x)$, $h\rk 2 (x) = \sin(x) + \eps \cos(x)$ etc. Ainsi, le développement n'est convergent que pour $\eps < 1$, alors que la solution $z(t)$ converge vers la variété $\eps h^\eps(t)$ définie par~\eqref{sec:intro:eq:h_sin} pour tout $\eps > 0$. 
-%
+avec $R_n(\eps) = \sum_{k = 0}^{\left\lfloor n/2 \right\rfloor} \eps^{2k}$ et par convention $R_{-1} = 0$. En d'autres termes, on construit le développement en série entière en $\eps$ de la partie lente dans~\eqref{sec:intro:sol:z_sin}, i.e. $h\rk 0(x) = \sin(x)$, $h\rk 1 (x) = \sin(x) + \eps \cos(x)$ etc. Ainsi, le développement n'est convergent que pour $\eps < 1$, alors que la solution $z(t)$ converge vers la variété $\eps h^\eps(t)$ définie par~\eqref{sec:intro:eq:h_sin} pour tout $\eps > 0$. 
+
+
 Cette limitation apparaîtra couramment au cours de ce manuscrit sous le format plus contraignant
+\begin{equation} \label{sec:intro:eq:borne_eps}
+    \eps \leq \frac{\eps_0}{n+1} .
+\end{equation}
+Justifions cette borne à l'aide d'un exemple. On applique les itérations~\eqref{sec:intro:eq:iter_h} avec $a = 1$ et $b(x,z) = (1+x)^{-1}$, ce qui engendre
+\begin{equation} \label{sec:intro:eq:borne_h}
+    h\rk n(x) 
+    = (1+x)^{-1} \sum_{k = 0}^{n} k! \left( 
+        \frac{\eps}{(1+x)}
+    \right)^k .
+\end{equation}
+On cherche maintenant une condition sur~$\eps$ telle que $h\rk n(1) \leq 1$. Pour $n \geq 1$, en partant de~\eqref{sec:intro:eq:iter_h} on obtient 
 \begin{equation*}
-    \eps \leq \frac{\eps_0}{n+1} ,
+    |h\rk n(1)| \leq \frac{1}{2} + \eps \big| \pa_x h\rk{n-1}(1) \big| .
 \end{equation*}
-qu'on peut remarquer par exemple avec $b(x,z) = (1+x)^{-1}$ dont la taille des dérivées évolue de manière factorielle avec l'ordre de dérivation. 
+Pour borner la dérivée, on remarque que $x \mapsto h\rk{n-1}(x)$ est analytique autour de $x = 1$, et la série entière converge avec un rayon~$2$. Ainsi pour $0 < \delta < 2$, on a par formule de Cauchy 
+\begin{equation*}
+    \pa_x h\rk{n-1}(1) = \frac{1}{2\pi}
+        \int_{|\xi|=\delta} \frac{h\rk{n-1}(1+\xi)}{\xi^2} \D \xi ,
+\end{equation*}
+d'où par majoration et grâce à l'expression de $h\rk{n-1}(x)$, 
+\begin{equation*}
+    |\pa_x h\rk{n-1}(1)| 
+    \leq \frac{1}{\delta} \sup_{|\xi| \leq \delta} |h\rk{n-1}(1+\xi)|
+    \leq \frac{h\rk{n-1}(1-\delta)}{\delta} .
+\end{equation*}
+On peut alors injecter cette inégalité dans~\eqref{sec:intro:eq:borne_h} pour obtenir de proche en proche
+\begin{equation*}
+    |h\rk{n}(1)| \leq \sum_{k=0}^{n} 
+        \frac{1}{2-k\delta} \left(\frac{\eps}{\delta}\right)^k .
+\end{equation*}
+Pour que tous les termes $(2-k\delta)^{-1}$ soient bien définis, on choisit alors $\delta = 1/n$ et on applique une inégalité de Hölder dans la somme pour majorer 
+$
+    |h\rk{n}(1)| \leq (1 - n\eps)^{-1} .
+$
+Enfin, on trouve que cette grandeur est positive et inférieure à~$1$ si et seulement si  
+\begin{equation*}
+    \eps \leq \frac{1}{n}.
+\end{equation*}
+Ce même raisonnement peut être tenu dans le cas général si $a$ et $b$ sont analytiques de même rayon de convergence, d'où la borne~\eqref{sec:intro:eq:borne_eps}, valide aussi pour $n = 0$.
+
 
 
 

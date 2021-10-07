@@ -4,11 +4,11 @@
 \newcolumntype{C}{>{$}c<{$}}
 
 On présente ici les schémas exponentiel Runge-Kutta utilisés en Chapitre~\ref{chap:dissip-mima}. Il ne s'agit pas de discuter des preuves de convergence des schémas, mais de fournir les outils nécessaires pour l'implémentation de ceux-ci. Tous les schémas décrits ici sont disponibles dans~\cite{hochbruck.2005.explicit}, on adapte seulement les notations de cet article au problème qui nous concerne, c'est-à-dire un problème de la forme
-\begin{equation*}
+\begin{equation} \label{sch:pb:u}
     \pa_t u = -\frac{1}{\eps} A u + f(u), 
     \qquad 
     u(0) = u_0 \in \setR^d
-\end{equation*}
+\end{equation}
 avec $(-A)$ un qui engendre un semi-groupe $t \mapsto e^{-tA}$ uniformément borné pour $t \in \setR_+$ et $u \mapsto f(u)$ régulière. Il est à noter que dans~\cite{hochbruck.2005.explicit}, les auteurs mentionnent une problématique de réduction d'ordre. En particulier, ils décrivent les schémas de Cox \& Matthews dans~\cite{cox.2002.exponential} (d'ordres~3 et~4) comme pouvant entraîner une réduction à l'ordre~2 du fait d'un non-respect des conditions d'ordre des schémas. Cette notion est à distinguer de la réduction d'ordre qu'on observe en Introduction et en Chapitre~\ref{chap:dissip-mima}, qui provient d'une dégénérescence de l'erreur à cause des dérivées de la solution qui ne sont pas bornées.
 
 
@@ -60,7 +60,7 @@ ce qui correspond au reste intégral renormalisé dans le développement de l'ex
     \varphi_{i,j}(-hA) = \varphi_j(-c_i h A) .
 \end{equation*}
 
-On peut maintenant énoncer les tableaux de Butcher des schémas utilisés dans le Chapitre~\ref{chap:dissip-mima}. Le schéma d'ordre~2 est
+On peut maintenant énoncer les tableaux de Butcher des schémas utilisés dans le Chapitre~\ref{chap:dissip-mima}. Le schéma d'ordre~2 choisi est
 \begin{center}
     \begin{tabular}{C|CC}
         0  \\
@@ -68,7 +68,7 @@ On peut maintenant énoncer les tableaux de Butcher des schémas utilisés dans 
         & \varphi_1 - 2\varphi_2 & 2\varphi_2
     \end{tabular}
 \end{center}
-Le schéma d'ordre~3 est celui de Cox et Matthews~\cite{cox.2002.exponential}, 
+Pour le schéma d'ordre~3, on choisit celui de Cox et Matthews~\cite{cox.2002.exponential}, 
 \begin{center}
     \begin{tabular}{C|CCC}
         0  \\
@@ -94,6 +94,7 @@ de même que celui d'ordre~4,
         & 4\varphi_3 - \varphi_2
     \end{tabular}
 \end{center}
+Dans~\cite{hochbruck.2005.explicit}, d'autres schémas sont proposés, mais après implémentation le comportement de l'erreur lors de la résolution de~\eqref{sch:pb:u} est le même. 
 
 % \clearpage
 % Méthodes composées

@@ -3,18 +3,18 @@
 \chapter{Les propriétés revisitées de la moyennisation}
 \label{chap:avg}
 
-Ce chapitre est un petit article qui offre une nouvelle approche sur des
-résultats connus de moyennisation. Dans la littérature les preuves de
-ces résultats sont laborieuses, faisant appel soit à des récurrences,
-soit à des propriétés sur les arbres. En outre, ces preuves requièrent
-de construire les morphismes de moyennisation, ce qui réduit les
-raisonnements à la construction en question. Dans cet article, on
-présente rapidement le cadre formel qui décrit ce qu'on entend par
-\enquote{moyennisation}, puis on prouve quelques propriétés en supposant
-que les morphismes existent. En particulier, on s'intéresse aux
-propriétés géométrique de commutation, de conservation de volume et de
-structure hamiltonienne ou de Poisson. Dans une dernière partie, on
-adapte ces propriétés au cas de morphismes \textit{approchés}. 
+Ce chapitre propose une nouvelle approche sur des résultats connus de
+moyennisation. Dans la littérature les preuves de ces résultats font
+appel à des récurrences ou à des propriétés avancées sur les arbres, et
+requièrent de construire les applications de moyennisation, ce qui
+réduit les raisonnements à la construction en question. Dans cet
+article, on présente rapidement le cadre formel qui décrit ce qu'on
+entend par \enquote{moyennisation}, puis on prouve quelques propriétés
+en supposant que les applications existent. En particulier, on
+s'intéresse aux propriétés géométriques de commutation, de conservation
+de volume et de structure hamiltonienne ou de Poisson. Dans une dernière
+partie, on adapte ces propriétés au cas d'applications
+\textit{approchés}. 
 
 % \section{Présentation d'une méthode}
 
@@ -151,15 +151,12 @@ associated to \( F^\eps \), i.e. for $(t,u) \in [0,1] \times X$,
 We refer to Lochak-Meunier~\cite{lochak.1988.multiphase} and
 Sanders-Verhulst-Murdock~\cite{sanders.2007.averaging} for textbooks on
 these issues. Since the goal is to separate the fast periodic part in
-$\theta$ and the slow drift in $t$, averaging is can be seen as analogous
+$\theta$ and the slow drift in $t$, averaging can be seen as analogous
 to the two-scale expansion $u^\eps(t) = U^\eps(t, \theta) |_{\theta =
 t/\eps}$ often found in the context of high-frequency PDEs. It
 is also similar to WKB expansions~\cite{wentzel.1926.eine,kramers.1926.wellenmechanik,brillouin.1926.remarques}, since in some sense $\Phi^\eps$
 captures the rapid phase dynamics and $\Psi^\eps$ the slow amplitude
-changes. Admittedly, these dynamics are usually more intertwined in
-averaging than in WKB expansions, but this allows the preservation of
-geometric structures such as volume invariance or symplecticity. This is
-the subject of Section~\ref{sec:geometry}.
+changes. 
 
 In this work, we shall not discuss specific methods to compute the
 periodic change of variable or the averaged vector fields, the traditional
@@ -174,12 +171,13 @@ chartier.2012.formal, casas.2019.continuous}.
 Another approach is that of ``successive substitution'' dating back
 to~\cite{neishtadt.1984.separation} (albeit in a slightly different
 context), and more recently in~\cite{castella.2015.stroboscopic,
-chartier.2020.new}. This circumvents the ansatz and seems to yield better
-convergence properties. Both approaches coincide formally. 
+chartier.2020.new}. This circumvents the ansatz and yields an
+\textit{exponential} error, i.e. an error bounded by $Ce^{-\mu/\eps}$
+for some $C > 0$ and $\mu > 0$. Both approaches coincide formally. 
 %
-Our goal in this paper is to present known results in a new light, and
-offer original proofs without having to invoke any ansatz, formal series
-or construction process. 
+Our goal in this paper is to present known results under a new light,
+and to offer original proofs without having to invoke any ansatz, formal
+series or construction process. 
 
 \medskip%
 A particularly well-studied case is that of the autonomous problems with
@@ -199,7 +197,7 @@ this approach in Section~\ref{sec:autonomous:rmk:std_link}.
 Note that many of these works consider the setting of multiple
 non-resonant frequencies, which is akin to considering $f$ as a function
 of multiple phases $\theta_1, \theta_2, \ldots$
-in~\eqref{sec:intro:eq:ode_u}. This setting has also be studied with
+in~\eqref{sec:intro:eq:ode_u}. This setting has also been studied with
 averaging using diophantine approximations
 in~\cite{chartier.2017.convergence} and with $B$-series
 in~\cite{chartier.2012.higher}. 
@@ -211,8 +209,8 @@ averaging. In Section~\ref{sec:autonomous}, we present some remarkable
 properties of averaging in the autonomous case. In
 Section~\ref{sec:geometry}, we restrain ourselves to stroboscopic
 averaging, and present some of its geometric properties. Finally, in
-Section~\ref{sec:approx}, we discuss what becomes of the previous results
-in the case of a bounded domain. 
+Section~\ref{sec:approx}, we discuss what is retained from the previous
+results in the case of a bounded domain. 
 
 
 \section{A brief presentation of averaging} \label{sec:presentation}
@@ -257,7 +255,8 @@ in~\cite{chartier.2010.higher}. However the series converges in the
 case where $f_\theta$ is a linear and bounded operator, for $\eps$ small
 enough. 
 
-\bigskip
+\todo[inline]{Hypothèses sur $\Phi^\eps$ et $F^\eps$, du style bornées sur $E$ et smooth.}
+
 Perhaps the most straighforward approach to solve the homological equation
 is a fixed point method separating the right-hand side of the equation (of
 size $\eps$) and the left (of size $1$). It immediately appears that a
@@ -370,8 +369,8 @@ $\Phi^\eps_{\theta, \theta_1} = \chi_{-\theta + \theta_1} \circ
   _{\theta_1} (t) \big). $ %
 }
 \begin{equation} \label{sec:autonomous:eq:filt_homol}
-  \pa_\theta \Phi_{\theta, \theta_1} (u)
-  = \eps\Big( f_{\theta, \theta_1} \circ \Phi_{\theta, \theta_1}(u) - \pa_u \Phi_{\theta, \theta_1}(u) \, K^\eps(u) \Big) 
+  \pa_\theta \Phi^\eps_{\theta, \theta_1} (u)
+  = \eps\Big( f_{\theta, \theta_1} \circ \Phi^\eps_{\theta, \theta_1}(u) - \pa_u \Phi^\eps_{\theta, \theta_1}(u) \, K^\eps(u) \Big) 
 \end{equation}
 with $f_{\theta, \theta_1}(u) = \left(\partial_u \chi_{-\theta +
 \theta_1}\cdot K \right) \circ \chi_{\theta-\theta_1}(u)$. Note that we
@@ -385,7 +384,7 @@ Take now the average on $\theta$ of~\eqref{sec:autonomous:eq:filt_homol},
     - \pa_u \bLL \Phi_{\bigcdot, \theta_1} \bRR (u) \, K^\eps(u) 
   \Big) . 
 \end{equation}
-The standard choice of closure condition therefore seems to be $\LL
+The standard choice of closure condition is therefore $\LL
 \Phi_{\bigcdot, \theta_1} \RR = \id$, i.e. $\Omega^\eps_\theta$ close to
 $\chi_{\theta - \theta_1}$. Remember however that the phase shift
 $\theta_1$ is arbitrary, therefore there are an infinite number of
@@ -490,7 +489,7 @@ exploiting~\eqref{sec:autonomous:eq:filt_avg_map} with $\theta_1 =
 \chi_{-\theta + \theta_0} \circ \Omega^\eps _\theta \circ (\Omega^\eps
 _{\theta_0})^{-1} \bRR$. Exploiting then the phase invariance of the
 average, i.e. $\LL \varphi_{\theta} \RR = \LL \varphi_{\theta + \theta_0}
-\RR$, the identity appears 
+\RR$, the identity becomes 
 \begin{equation*}
   \widetilde{K}^\eps =
   \Big( \pa_u \bLL \chi_{-\theta} 
@@ -505,7 +504,7 @@ of the form~\eqref{sec:autonomous:eq:only_Omega_homol}. As we only
 consider stroboscopic averaging, $\widetilde{\Omega}^\eps$ also satisfies
 the same closure condition as $\Omega^\eps$, which is to say
 $\widetilde\Omega^\eps _0 = \Omega^\eps _0 = \id$. Therefore, the two maps
-coincide and the proof is over. 
+coincide and the proof is complete. 
 
 \end{proof}
 %
@@ -608,21 +607,21 @@ preserved by stroboscopic averaging.
   A smooth map $(\tau,u) \in \R \times \R^{2n} \mapsto  S_\tau(u) \in
   \R^{2n}$ is said to be symplectic iff
   \begin{align} \label{def:symplectif} %
-    \forall u \in \R^{2n}, \quad 
+    \forall (\tau, u) \in \R \times \R^{2n}, \quad 
     \left(\partial_u S_\tau(u)\right)^T J \left(\partial_u S_\tau(u)\right) = J,
   \end{align}
   or equivalently
   \begin{align} %
-    \forall u \in \R^{2n}, \quad 
+    \forall (\tau, u) \in \R \times \R^{2n}, \quad 
     \left(\partial_u S_\tau(u)\right) J^{-1} \left(\partial_u S_\tau(u)\right)^T = J^{-1} .
   \end{align}
 \end{definition}
 \begin{remark}
-  It is known that the $\tau$-flow of a canonically Hamiltonian system is
-  symplectic and that the reverse is also true, at least on connected
-  sets. This is proved by derivation and use of the integrability Lemma,
-  which asserts that a vector function derives from a gradient iff its
-  jacobian is symmetric (on a connected set at least).
+  It is known that the $\tau$-flow of a canonically Hamiltonian system
+  is symplectic and that the converse is also true on connected sets.
+  This is proved by differentiation and use of the integrability Lemma,
+  which asserts that, on a connected set, a vector function derives from
+  a gradient iff its jacobian is symmetric.
 \end{remark}
 \begin{definition}
   A vector field function $f:\R^{n} \mapsto \R^{n}$ is said to be
@@ -633,7 +632,8 @@ preserved by stroboscopic averaging.
   A smooth function $(\tau,u) \in \R \times \R^{n} \mapsto  S_\tau(u) \in
   \R^{n}$ is said to be volume-preserving iff
   \begin{align*}
-    \forall u \in \R^n, \quad \det\left (\partial_u S_\tau(u)\right)=1.
+    \forall (\tau, u) \in \R \times \R^n, 
+    \quad \det\left (\partial_u S_\tau(u)\right)=1.
   \end{align*}
 \end{definition}
 \begin{remark}
@@ -661,31 +661,35 @@ preserved by stroboscopic averaging.
 \end{definition}
 
 \begin{remark} \label{sec:geometry:rmk:equiv_poisson} The $\tau$-flow of a
-  Poisson system is a Poisson map symplectic, and the converse is locally
+  Poisson system is a Poisson map, and the converse is locally
   true if in addition the Casimirs (spanning the null space of $B$) are
   preserved by the flow. This result is found for instance in~\cite[Chap.
-  VII, Thm. 4.5]{hairer.2006.geometric}. The proof consists in separating
-  the null space and the invertible space of $B$ with a change of
-  variable. The invertible space can be treated as in the Hamiltonian
-  case, and the null space is preserved by definition of the Casimirs. 
+  VII, Thm. 4.5]{hairer.2006.geometric}. 
+  % The proof consists in separating
+  % the null space and the invertible space of $B$ with a change of
+  % variable. The invertible space can be treated as in the Hamiltonian
+  % case, and the null space is preserved by definition of the Casimirs. 
 \end{remark}
 
 
 
 \subsection{The geometry of stroboscopic averaging}
 
-If both~$G$ and~$K$ satisfy a geometric property (divergence-free, an
-invariant or $B$-Poisson) in the autonomous case, then this property is
-also satisfied by~$f_\theta$ for all $\theta \in \T$ in the associated
-forced problem. Indeed, since~$G$ and~$K$ satisfy the same property,
-they belong to the same Lie algebra, and the flow of~$G$ is in the
-generating group of the algebra. Because~$f_\theta$ is obtained by
-conjugating~$K$ by the flow of~$G$, i.e. by conjugating an element of
-the algebra by an element of the group, it still belongs to the algebra.
-As the averaged vector field of the autonomous case coincides with the
-averaged vector field of this forced case, any geometric reasoning
-conducted on the forced case can be extended to the autonomous case. For
-this reason, we only state the following result in the forced case.
+If both~$G$ and~$K$ satisfy a geometric property (i.e. are
+divergence-free or $B$-Poisson, or have an invariant) in the autonomous
+case, then this property is also satisfied by~$f_\theta$ for all $\theta
+\in \T$ in the associated filtered problem with forced oscillations.
+Indeed, since~$G$ and~$K$ satisfy the same property, they belong to the
+same Lie algebra, and the flow of~$G$ is in the generating group of the
+algebra. Because~$f_\theta$ is obtained by conjugating~$K$ by the flow
+of~$G$, i.e. by conjugating an element of the algebra by an element of
+the group, it still belongs to the algebra. 
+\todo[inline]{À clarifier}
+As the averaged vector field
+of the autonomous case coincides with the averaged vector field of this
+forced case, any geometric reasoning conducted on the forced case can be
+extended to the autonomous case. For this reason, we only state the
+following result in the case of forced oscillations.
 
 
 \begin{theorem} \label{sec:geometry:thm:conservation}
