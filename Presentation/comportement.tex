@@ -50,7 +50,7 @@ On observe que la solution comporte deux parties de natures différentes, la pha
     \caption{Comportement de la solution~\eqref{sec:intro:sol:z_sin} pour différentes valeurs de~$\eps$, avec chaque variété centrale associée en pointillés.}
 \end{figure}
 
-En fait, dans le cas d'un système de la forme~\eqref{sec:intro:eq:xz}, la dynamique en temps long est déterminé entièrement par la variable $x$. Il y a une réduction de dimension, qui est traduite dans le théorème de variété centrale. 
+En fait, dans le cas d'un système de la forme~\eqref{sec:intro:eq:xz}, la dynamique en temps long est déterminée entièrement par la variable $x$. Il y a une réduction de dimension, qui est traduite dans le théorème de variété centrale. 
 \begin{FRtheorem*}[Variété centrale, \cite{carr.1982.applications}]
     En supposant que le champ $f$ est dans $C^\infty(E)$ et que la donnée initiale $u_0 \in E$ du problème~\eqref{sec:intro:eq:u} est bornée, il existe un temps final $T > 0$ et un paramètre limite $\eps_0$ tels que le problème~\eqref{sec:intro:eq:u} est bien posé sur $[0,T]$. En outre, il existe une application régulière $x \mapsto z = \eps h^\eps(x)$, un taux $\mu > 0$ et une constante $c > 0$ tels que pour tout $t \in [0,T]$, 
     \begin{equation*}
@@ -65,12 +65,12 @@ En fait, dans le cas d'un système de la forme~\eqref{sec:intro:eq:xz}, la dynam
     où $\varphi^\eps_t$ est le $t$-flot associé au champ de vecteurs $x \mapsto a\big(x, \eps h^\eps(x) \big)$. On appelle l'ensemble des $\big( x, \eps h^\eps(x) \big)$ la variété centrale, qui est stable et \enquote{attire} la solution. 
 \end{FRtheorem*}
 
-Par exemple dans le cas~\eqref{sec:intro:pb:z_sin}, le morphisme de variété centrale $\eps h^\eps$ est donné par 
+Par exemple dans le cas~\eqref{sec:intro:pb:z_sin}, l'application de variété centrale $\eps h^\eps$ est donné par 
 \begin{equation} \label{sec:intro:eq:h_sin}
     h^\eps(x) 
     = \frac{1}{1 + \eps^2} \big( \sin(x) - \eps \cos(x) \big) .
 \end{equation}
-Il est impossible d'espérer calculer le morphisme de variété centrale explicitement en général. On peut néanmoins appliquer une méthode de point fixe en remarquant qu'en temps long, $z \approx \eps h^\eps(x)$, d'où 
+Il est impossible d'espérer calculer cette application explicitement en général. On peut néanmoins appliquer une méthode de point fixe en remarquant qu'en temps long, $z \approx \eps h^\eps(x)$, d'où 
 \begin{equation*}
     \pa_t z \approx \eps \pa_x h^\eps(x) \cdot \pa_t x
     \approx \eps \pa_x h^\eps(x) \cdot a(x, \eps h^\eps(x)) . 
@@ -81,7 +81,7 @@ Il est impossible d'espérer calculer le morphisme de variété centrale explici
 \end{equation}
 Le calcul de la donnée initiale de l'ombre $x^\eps_0$ n'est en revanche pas si simple. La calculer demande de faire des développements sur l'intégralité du système et demande un certain investissement. Dans~\cite{castella.2016.formal}, les auteurs font appel à des B-séries\footnote{
     Les B-séries sont des séries formelles qui décrivent les solutions d'EDO. Cet outil, souvent utilisé pour développer des schémas numériques, est présenté en détails dans~\cite[Chap.~III]{hairer.2006.geometric} ou de manière plus concise dans~\cite{chartier.2010.algebraic}. Malgré une apparence encombrante, les B-séries possédent une structure algébrique élégante basée sur des opérations sur les arbres.
-} pour obtenir un modèle asymptotique sur l'intégralité du problème~\eqref{sec:intro:eq:u}, à partir duquel ils trouvent en particulier cette donnée initiale modifiée, mais les calculs sont bien plus compliqués que~\eqref{sec:intro:eq:iter_h}.
+} pour obtenir un modèle asymptotique sur l'intégralité du problème~\eqref{sec:intro:eq:u}, à partir duquel ils trouvent en particulier cette donnée initiale modifiée, mais les calculs sont bien plus compliqués que pour la variété centrale en~\eqref{sec:intro:eq:iter_h}, et il n'est pas pertinent de les présenter ici.
 
 \begin{FRremark*}
     Le phénomène de donnée initiale de l'ombre n'est cependant pas visible sur cet exemple, puisque la variable $x$ ne dépend pas de la dynamique sur $z$ (pour rappel, on a $x(t) = t$). L'interdépendance entre $x$ et $z$ apparaîtra dans le cas test de la section suivante.
@@ -91,7 +91,7 @@ On remarque deux caractéristiques importantes de la méthode d'approximation de
 \begin{equation*}
     h\rk{n}(x) = R_{n+1}(\eps) \sin(x) + \eps R_{n}(\eps) \cos(x) 
 \end{equation*}
-avec $R_n(\eps) = \sum_{k = 0}^{\left\lfloor n/2 \right\rfloor} \eps^{2k}$ et par convention $R_{-1} = 0$. En d'autres termes, on construit le développement en série entière en $\eps$ de la partie lente dans~\eqref{sec:intro:sol:z_sin}, i.e. $h\rk 0(x) = \sin(x)$, $h\rk 1 (x) = \sin(x) + \eps \cos(x)$ etc. Ainsi, le développement n'est convergent que pour $\eps < 1$, alors que la solution $z(t)$ converge vers la variété $\eps h^\eps(t)$ définie par~\eqref{sec:intro:eq:h_sin} pour tout $\eps > 0$. 
+avec $R_n(\eps) = \sum_{k = 0}^{\left\lfloor n/2 \right\rfloor} (-\eps^2)^{k}$ et par convention $R_{-1} = 0$. En d'autres termes, on construit le développement en série entière en $\eps$ de la partie lente dans~\eqref{sec:intro:sol:z_sin}, i.e. $h\rk 0(x) = \sin(x)$, $h\rk 1 (x) = \sin(x) + \eps \cos(x)$ etc. Ainsi, le développement n'est convergent que pour $\eps < 1$, alors que la solution $z(t)$ converge vers la variété $\eps h^\eps(t)$ définie par~\eqref{sec:intro:eq:h_sin} pour tout $\eps > 0$. 
 
 
 Cette limitation apparaîtra couramment au cours de ce manuscrit sous le format plus contraignant

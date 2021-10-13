@@ -3,18 +3,18 @@
 \chapter{Les propriétés revisitées de la moyennisation}
 \label{chap:avg}
 
-Ce chapitre propose une nouvelle approche sur des résultats connus de
-moyennisation. Dans la littérature les preuves de ces résultats font
-appel à des récurrences ou à des propriétés avancées sur les arbres, et
-requièrent de construire les applications de moyennisation, ce qui
-réduit les raisonnements à la construction en question. Dans cet
-article, on présente rapidement le cadre formel qui décrit ce qu'on
-entend par \enquote{moyennisation}, puis on prouve quelques propriétés
-en supposant que les applications existent. En particulier, on
-s'intéresse aux propriétés géométriques de commutation, de conservation
-de volume et de structure hamiltonienne ou de Poisson. Dans une dernière
-partie, on adapte ces propriétés au cas d'applications
-\textit{approchés}. 
+Ce chapitre propose une nouvelle approche permettant une obtention
+directe de certains résultats connus de moyennisation. Dans la
+littérature les preuves de ces résultats font appel à des récurrences ou
+à des propriétés avancées sur les arbres, et requièrent de construire
+les applications de moyennisation, ce qui réduit les raisonnements à la
+construction en question. Dans cet article, on présente rapidement le
+cadre formel qui décrit ce qu'on entend par \enquote{moyennisation},
+puis on prouve quelques propriétés en supposant seulement que ces
+applications existent. En particulier, on s'intéresse aux propriétés
+géométriques de commutation, de conservation de volume et de structure
+hamiltonienne ou de Poisson. On présente aussi ce qu'il advient de la de
+ces structures géométriques dans un contexte de moyennisation approchée.
 
 % \section{Présentation d'une méthode}
 
@@ -105,9 +105,9 @@ castella.2015.stroboscopic}.
 Mathematically speaking, we consider problems with forced oscillations of
 the form 
 \begin{equation} \label{sec:intro:eq:ode_u}
-  \pa_t u(t) = f_{t/\eps}\big( u(t) \big) , 
+  \pa_t u^\eps(t) = f_{t/\eps}\big( u^\eps(t) \big) , 
   \qquad 
-  u(0) = u_0 \in X, 
+  u^\eps(0) = u_0 \in X, 
   \qquad
   t \in [0, 1] 
 \end{equation}
@@ -122,7 +122,9 @@ square-integrable function \( L^2(\R) \).
 Note that this type of equation can result from the \textit{filtering} of
 an autonomous equation
 \begin{equation} \label{sec:intro:eq:ode_auto}
-  \dot v^\eps = \frac{1}{\eps} G(v) + K(v), \quad v^\eps(0)=v_0 \in X
+  \dot v^\eps = \frac{1}{\eps} G(v^\eps) + K(v^\eps), 
+  \quad 
+  v^\eps(0)=v_0 \in X
 \end{equation}
 if $G$ generates a $1$-periodic flow $(\theta, u) \mapsto \chi_\theta(u)$.
 It links to~\ref{sec:intro:eq:ode_u} using the filtered variable 
@@ -134,11 +136,11 @@ $f_{\theta}(u) = \left(\partial_u \chi_{-\theta}\cdot K \right) \circ
 %
 
 The approach of averaging can be summarized as the decomposition of the
-solution \( u(t) \) into a \textit{near-identity, rapidly oscillating}
+solution \( u^\eps(t) \) into a \textit{near-identity, rapidly oscillating}
 change of variable \(\Phi^\eps_{t/\eps} \) and the dynamics of an
 \textit{average} autonomous vector field \( F^\eps \). This can be written
 \begin{equation} \label{sec:intro:eq:decomp_u}
-  u(t) = \Phi^\eps_{t/\eps} \circ \Psi^\eps_t \circ 
+  u^\eps(t) = \Phi^\eps_{t/\eps} \circ \Psi^\eps_t \circ 
     \big( \Phi^\eps_0 \big)^{-1} (u_0), 
 \end{equation}
 where \( (\theta,u) \mapsto \Phi^\eps_\theta(u) \) is 1-periodic w.r.t.
@@ -205,12 +207,14 @@ in~\cite{chartier.2012.higher}.
 \bigskip %
 In Section~\ref{sec:presentation}, we present some general properties of
 averaging, detailing the differences between standard and stroboscopic
-averaging. In Section~\ref{sec:autonomous}, we present some remarkable
-properties of averaging in the autonomous case. In
-Section~\ref{sec:geometry}, we restrain ourselves to stroboscopic
-averaging, and present some of its geometric properties. Finally, in
-Section~\ref{sec:approx}, we discuss what is retained from the previous
-results in the case of a bounded domain. 
+averaging. In Section~\ref{sec:hyp}, we enounce two assumptions which
+describe what we mean by exact and approximate averaging. In
+Section~\ref{sec:autonomous}, we present some remarkable properties of
+averaging in the autonomous case, both for exact and approximate
+averaging. In Section~\ref{sec:geometry}, we restrain ourselves to
+stroboscopic averaging, and present some of its geometric properties
+first in the linear exact case, then in the general case of approximate
+averaging.
 
 
 \section{A brief presentation of averaging} \label{sec:presentation}
@@ -222,10 +226,10 @@ Differentiating~\eqref{sec:intro:eq:decomp_u} w.r.t. \( t \) generates
   = \frac{1}{\eps} \pa_\theta \Phi^\eps_{t/\eps} \big( v(t) \big)
   + \pa_u \Phi^\eps_{t/\eps}\big( v(t) \big) \cdot F^\eps \big( v(t) \big)
 \end{equation*}
-with \( v(t) = \Psi^\eps_t \circ \big( \Phi^\eps_0 \big)^{-1} (u_0) \) the
-average dynamics. By separating the rapid oscillations in $t/\eps$ and the
-slow drift in $t$, one obtains the homological equation, which is for
-$(\theta, u) \in \T \times X$, 
+with \( v(t) = \Psi^\eps_t \circ \big( \Phi^\eps_0 \big)^{-1} (u_0) \)
+the average dynamics. By separating the rapid oscillations in $t/\eps$
+and the slow drift in $t$, one obtains the \textit{homological
+equation}, which is for $(\theta, u) \in \T \times X$, 
 \begin{equation} \label{sec:presentation:eq:homol}
   \pa_\theta \Phi^\eps_{\theta} (u)
   = \eps \left( f_{\theta} \circ \Phi^\eps_{\theta} (u) 
@@ -255,8 +259,6 @@ in~\cite{chartier.2010.higher}. However the series converges in the
 case where $f_\theta$ is a linear and bounded operator, for $\eps$ small
 enough. 
 
-\todo[inline]{Hypothèses sur $\Phi^\eps$ et $F^\eps$, du style bornées sur $E$ et smooth.}
-
 Perhaps the most straighforward approach to solve the homological equation
 is a fixed point method separating the right-hand side of the equation (of
 size $\eps$) and the left (of size $1$). It immediately appears that a
@@ -269,15 +271,17 @@ $\pa_\theta$. Two choices are often considered.
 $ \LL \Phi^\eps \RR = \id ,$ 
 
 \noindent\hfil\parbox[t]{0.85\textwidth}{%
-also called the Chapmann-Enskog method in the
-context of kinetic theory (see~\cite{chartier.2020.averaging}). This
-choice circumvents the computation of an inverse, as then $F^\eps = \LL f
-\circ \Phi^\eps \RR$, therefore computations are not too costly. As
-highlighted in~\cite{chartier.2020.derivative}, in numerical contexts
-the $\pa_u \Phi^\eps \cdot F^\eps$-term can be replaced by a
-finite-differences approximation up to some order in $\eps$, thereby 
-removing the need to compute an exact derivative and making automatic 
-computations much simpler.
+which circumvents the computation of an inverse, as then $F^\eps = \LL f
+\circ \Phi^\eps \RR$, thereby making computations less costly. In this
+case, the method shares similarities with the so-called Chapmann-Enskog
+method in the context of kinetic theory
+(see~\cite{chartier.2020.averaging}). As highlighted
+in~\cite{chartier.2020.derivative}, in numerical contexts the $\pa_u
+\Phi^\eps \cdot F^\eps$-term can be replaced by a finite-differences
+approximation up to some order in $\eps$, which removes the need to
+compute an exact derivative and makes automatic computations much
+simpler.
+%
 }\hfil%
 
 \medskip\noindent
@@ -287,15 +291,16 @@ computations much simpler.
 \noindent\hfil\parbox[t]{0.85\textwidth}{%
 for which the solution \( u(t) \) coincides with
 the average \( \Psi^\eps_t(u_0) \) at ``stroboscopic'' times \( t \in \eps
-\N \). This produces more complex computations but renders fairly
-straighforward the conservation of geometric properties, such as energy
-preservation or symplectic structure. 
+\N \). This produces more complex computations but allows for the preservation of geometric properties, such as energy
+conservation or symplectic structure. 
 }\hfil%
 
+
 \medskip\noindent %
-We shall focus on the properties of stroboscopic averaging in the upcoming
-section, but it is important to keep in mind that these choices are
-conjugate. Indeed, the latter can be obtained from the former by setting 
+We shall mainly focus on the properties of stroboscopic averaging in the
+upcoming sections, but it is important to keep in mind that these
+choices are conjugate. Indeed, the latter can be obtained from the
+former by setting 
 \begin{equation*}
   \Phi^{strob} = \Phi^{std} \circ \big( \Phi_0^{std} \big)^{-1} 
   \quad
@@ -318,6 +323,183 @@ obtained from stroboscopic averaging with the relations
 \end{equation}
 Thus some properties of standard averaging will also be discussed. 
 
+
+\section{Mathematical setting}
+\label{sec:hyp}
+
+We consider two different settings~: one of \textit{exact} averaging,
+and an other of \textit{approximate} averaging. The first is on the
+entire space~$X$ and corresponds to the behaviour of linear problems.
+The second is on a possibly-bounded subspace~$\mathcal{K}$ and
+corresponds to the behaviour of analytic problems. The results are
+stronger in the first setting, but the second is more general, therefore
+we treat them separately in the sequel.
+
+\begin{assumption} \label{hyp:exist_avg_lin}
+  There exists an upper bound~$\eps_0 > 0$ such that for all $u_0 \in X$
+  and~$\eps \in (0, \eps_0]$, Problem~\eqref{sec:intro:eq:ode_u} is
+  well-posed for $t \in [0,1]$. Furthermore for all $\eps \in (0,
+  \eps_0]$, the averaging maps $(\theta, u) \in \T \times X \mapsto
+  \Phi^\eps_\theta(u)$ and $u \in X \mapsto F^\eps (u)$ are well-defined
+  and smooth w.r.t.~$u$. In addition,~$\pa_u F^\eps$ is bounded on~$X$
+  uniformly w.r.t. $\eps$ and~$F^\eps$ is linearly bounded, which is to
+  say
+  \begin{equation*}
+    \exists M, \kappa \geq 0,\ \forall \eps \in (0, \eps_0],\ 
+    \forall (u,v) \in X, \quad
+    |F^\eps(u)| \leq M + \kappa |u|
+    \quad\text{and}\quad
+    |\pa_u F^\eps (u)\, v| \leq \kappa |v| .
+  \end{equation*}
+  For all $\theta \in \T$, the inverse $u \mapsto \big(\Phi^\eps _\theta
+  \big)^{-1}(u)$ and~$v \mapsto \big( \pa_u \Phi^\eps _\theta(u)
+  \big)^{-1} v$ are well-defined. The same is true of the average of
+  $\Phi^\eps$, i.e. by replacing $\Phi^\eps _\theta$ by $\LL \Phi^\eps
+  \RR$ in the previous expressions. 
+\end{assumption}
+This setting corresponds to the behaviour of problems where $(\theta, u)
+\mapsto f_\theta(u)$ is linear w.r.t.~$u$. It follows from this
+assumption that the $t$-flow of~$F^\eps$, namely~$(t,u) \mapsto
+\Psi^\eps _t(u)$ is defined for all $t \in \setR$. Note that this
+assumption does not involve the closure condition on~$\Phi^\eps$.
+
+
+Before discussing the other setting, if~$X$ is a \textit{real} Banach
+space, let us introduce~$X_{\setC}$ the complexification of~$X$, defined
+as 
+\begin{equation*}
+  X_{\setC} := \{ z = u + iv,\ (u,v) \in X^2 \} .
+\end{equation*}
+We denote $u = \Re(z) \in X$ and $v = \Im(z) \in X$ the real and
+imaginary parts of~$z$ respectively. The complexified space~$X_{\C}$ is a
+Banach space when endowed with the norm 
+\begin{equation*}
+  |z|_{X_\C} := \sup_{|\xi| = 1} |\Re(\xi z)|. 
+\end{equation*}
+Note that for $u \in X$, this norm $|u|_{X_\C}$ coincides with the norm
+of the real space $|u|$, thus in the sequel, we write $|\cdot|$ to
+denote the norm on the complexified space $X_\C$ indiscriminately.
+Denote now~$\mathcal{K}$ a subspace of~$X$ on which we shall conduct our
+study. Given a radius $\rho > 0$, we denote 
+\begin{equation*}
+  \mathcal{K}_{\rho} := \big\{
+    u + \tilde{u}, \quad 
+      (u,\tilde{u}) \in \mathcal{K} \times X_\C, 
+      |\tilde{u}| \leq \rho
+  \big\} ,
+\end{equation*}
+i.e.~$\mathcal{K}_\rho$ is the extension of $\mathcal{K}$ in $X_\C$ by a
+radius~$\rho$. We also define the norm, given a map $\varphi$ from
+$\mathcal{K}_\rho$ to some Banach space $(E, |\cdot|)$, 
+\begin{equation*}
+  \| \varphi \|_\rho = \sup_{u \in \mathcal{K}_\rho} |\varphi(u) |.
+\end{equation*}
+In particular for maps $\varphi: X \rightarrow X$, we have $E = X$, and
+for their derivatives $E = \mathcal{L}(X,X)$ endowed with the operator
+norm $\vertiii{\cdot}$. 
+
+\begin{assumption} \label{hyp:exist_avg_nl} %
+  There exists an upper parameter~$\eps_0$ such that
+  Problem~\eqref{sec:intro:eq:ode_u} is well-posed for $t \in [0,1]$
+  with an initial condition $u(0) \in \mathcal{U}_0 \subset
+  \mathcal{K}$. For some radius~$R > 0$, the vector field $(\theta ,
+  u) \mapsto f_\theta(u)$ and its derivative are bounded (uniformly
+  w.r.t. $\theta$) on $\mathcal{K}_{3R}$. Given a rank $n \in \N$,
+  for~$\eps \leq \eps_n := \eps_0 / (n+1)$, there are approximations
+  $(\theta, u) \in \T \times \mathcal{K}_{3R} \mapsto \Phi\rk{n}_\theta
+  (u)$ and $u \in \mathcal{K}_{3R} \mapsto F\rk n (u)$ which are
+  well-defined and respect the bounds
+  \begin{equation*}
+    \sup_{\theta \in \T} \| \Phi\rk n_\theta - \id \| _{3R} 
+      \leq \frac{\eps}{\eps_n}\, \frac R 2
+    \qquad\text{and}\qquad
+    \| F\rk n \|_{3R} \leq M 
+  \end{equation*}
+  for some $M > 0$ independent of~$\eps$. Both maps are analytic
+  w.r.t.~$u$, with a radius of convergence everywhere greater than~$R$.
+  In addition, the error of approximation is of size $\eps^{n+1}$, i.e.
+  writing $\Psi\rk n _t$ the $t$-flow of $F\rk n$, for all $u_0 \in
+  \mathcal{U}_0$ and $t \in [0,1]$, 
+  \begin{equation} \label{sec:approx:def:avg_approx}
+    u(t) = \Phi\rk n _{t/\eps} \circ \Psi\rk n _t \circ \big( \Phi\rk n _0
+    \big)^{-1} (u_0) + \bigO(\eps^{n+1}) .
+  \end{equation}
+\end{assumption}
+
+This assumption matches the behaviour generally observed with averaging
+when assuming $(\theta,u) \mapsto f_\theta(u)$ analytic w.r.t. $u$,
+found for instance in~\cite{castella.2015.stroboscopic}. As noted
+in~\cite{chartier.2015.higher}, if such approximations exist for all~$n
+\in \setN$, this is enough to ensure the historical optimal
+``exponential'' error bound of~\cite{neishtadt.1984.separation}, which
+can be stated as such: there exist two positive constants $C$ and $\nu$
+such that for all $\eps > 0$ one can choose an integer $n$ such that for
+all $t$,
+\begin{equation*}
+  \left| u(t) - \Phi\rk n _{t/\eps} \circ \Psi\rk n_t 
+  \circ \big( \Phi\rk n _0 \big)^{-1} (u_0) \right| 
+  \leq C e^{-\nu/\eps} .
+\end{equation*}
+This reflects the fact that the maps $\Phi^\eps$ and $F^\eps$ can only
+be obtained as diverging power series in $\eps$, therefore the error is
+\textit{formal}, or up to a flat function. Indeed, in order to increase
+the order of the approximation, $\eps$ must get smaller and smaller,
+such that an error $\bigO( \eps^\infty )$ is impossible with $\eps \neq
+0$. The error of approximation is caracterised by the defect $\delta\rk
+n$ defined by
+\begin{equation*} 
+  \delta\rk n _{\theta} 
+  = \frac{1}{\eps} \pa_\theta \Phi\rk n _\theta
+    - f_\theta \circ \Phi\rk n _\theta 
+    + \pa_u \Phi\rk n _\theta \cdot F\rk n , 
+\end{equation*}
+which corresponds to the error in the homological
+equation~\eqref{sec:presentation:eq:homol}. The previous assumptions
+corresponds to the situation
+\begin{equation} \label{sec:approx:hyp:delta}
+  \sup_{\theta \in \T} \| \delta\rk n \| _{3R} = \bigO( \eps^n )
+  \qquad\text{and}\qquad
+  \LL \delta\rk n \RR = \bigO( \eps^{n+1} ) .
+\end{equation}
+%
+
+The assumption of analyticity allows the use of \textit{Cauchy
+estimates}, which admit the following wording~: given a function $u
+\mapsto \varphi(u)$ which is analytic around some $u \in \mathcal{K}_R$
+with a radius of convergence $\rho > 0$, then for all $0 < \delta <
+\rho$, 
+\begin{equation*}
+  \pa_u \varphi(u) \cdot v = \frac{1}{2i\pi}
+    \int_{|\xi| = \delta/|v|} \frac{\varphi(u+\xi v)}{\xi^2} \D \xi ,
+\end{equation*}
+where $\varphi(u + \xi v)$ is defined by the power series around $u$.
+From this we deduce the so-called Cauchy estimate,
+\begin{equation} \label{sec:intro:eq:cauchy}
+  \big| \pa_u \varphi(u) \cdot v \big| 
+  \leq \frac{|v|}{\delta} 
+    \sup_{|\xi| = \delta/|v|} |\varphi(u + \xi v)| .
+\end{equation}
+Along with Assumption~\ref{hyp:exist_avg_nl}, this estimate is
+sufficient to show that $\Phi^\eps _\theta$ (for any $\theta \in \T$)
+and $\LL \Phi^\eps \RR$ are invertible for $\eps$ small enough. Indeed,
+given $u \in X$ and denoting $\Phi^\eps$ any of the previously cited
+maps, the function $\varphi_u(v) = u + v - \Phi^\eps(u+v)$ is a
+contraction on the ball $\{ v \in X_\C;\ |v| \leq R \}$. From the
+identity
+\begin{equation*}
+  \varphi_u(v) - \varphi_u(w)
+  = \int_0^1 \Big(
+    \id - \pa_u \Phi^\eps \big(u + \mu v + (1 - \mu) w \big)
+  \Big) \cdot (v - w) \D\mu 
+\end{equation*}
+in which $(u + \mu v + (1-\mu)w)$ is in $\mathcal{K}_{2R}$, it is
+possible to apply a Cauchy estimate with~$\delta = R$ to obtain
+$\displaystyle \big| \varphi_u (v) - \varphi_u (w) \big| \leq
+\frac{\eps}{2\eps_n} |v-w|$, from which the Banach fixed-point theorem
+can be applied. Then, there exists a unique $|v^*| \leq R$ such that
+$\varphi_u(v^*) = v^*$, i.e. such that $\Phi^\eps(u + v^*) = u$. We may
+therefore set $\big(\Phi^\eps \big) ^{-1} (u) = u + v^* \in
+\mathcal{K}_{2R}$.
 
 
 \section{Commutation of flows in the autonomous case} 
@@ -357,11 +539,12 @@ hold, as $\LL \chi \RR = 0$.
 %
 Rather than discarding standard averaging altogether, we may
 \textit{filter} the equation, which is to say transform it into a
-forcibly-oscillating problem by left-multiplying it by $\pa_u
-\chi_{-\theta+\theta_1} \big(\Omega^\eps_\theta \big)$ for some arbitrary
-phase $\theta_1$. Define the filtered change of variable
-$\Phi^\eps_{\theta, \theta_1} = \chi_{-\theta + \theta_1} \circ
-\Omega^\eps_{\theta}$, it satisfies\footnote{ %
+problem of the form~\eqref{sec:intro:eq:ode_u} (i.e. with forced
+oscillations) by left-multiplying it by $\pa_u \chi_{-\theta+\theta_1}
+\big(\Omega^\eps_\theta \big)$ for some arbitrary phase $\theta_1$.
+Define the filtered change of variable $\Phi^\eps_{\theta, \theta_1} =
+\chi_{-\theta + \theta_1} \circ \Omega^\eps_{\theta}$, it
+satisfies\footnote{ %
   This homological equation can also be obtained directly by considering
   the filtered problem of form~\eqref{sec:intro:eq:ode_u} satisfied by
   $u^\eps_{\theta_1}(t) = \chi_{-t/\eps+\theta_1}(v^\eps(t))$, which is $
@@ -387,22 +570,30 @@ Take now the average on $\theta$ of~\eqref{sec:autonomous:eq:filt_homol},
 The standard choice of closure condition is therefore $\LL
 \Phi_{\bigcdot, \theta_1} \RR = \id$, i.e. $\Omega^\eps_\theta$ close to
 $\chi_{\theta - \theta_1}$. Remember however that the phase shift
-$\theta_1$ is arbitrary, therefore there are an infinite number of
-standard closure conditions, the canonical one being $\LL \chi_{-\theta}
-\circ \Omega^\eps_\theta \RR = \id$. 
+$\theta_1$ is arbitrary, therefore there are infinitely many standard
+closure conditions, the canonical one being $\LL \chi_{-\theta} \circ
+\Omega^\eps_\theta \RR = \id$. 
 
-Whatever the closure condition, it is possible to obtain $K^\eps$
-from~\eqref{sec:autonumous:eq:filt_homol_avg}, since $\pa_u \LL
-\Phi^\eps_{\bigcdot, \theta_1} \RR$ is invertible. Indeed, assuming that
-$\Omega^\eps_\theta$ is close to $\chi_{\theta + \theta_0}$, all filtered
-changes of variable satisfy
+
+\subsection{The case of exact averaging}
+
+Assuming that $\Omega^\eps_\theta$ is close to $\chi_{\theta +
+\theta_0}$, all filtered changes of variable satisfy
 \begin{equation*}
   \Phi^\eps_{\theta, \theta_1} 
   = \chi_{-\theta + \theta_1} 
     \circ \big( \chi_{\theta + \theta_0} + \bigO( \eps ) \big)
   = \chi_{\theta_1 + \theta_0} + \bigO(\eps) .
 \end{equation*}
-This generates the identity
+Consider now that the averaging maps of the filtered homological
+equation~\eqref{sec:autonomous:eq:filt_homol}, namely~$\Phi^\eps
+_{\theta, \theta_1}$ and~$K^\eps$, satisfy
+Assumption~\ref{hyp:exist_avg_lin} up to replacing~$\id$
+by~$\chi_{\theta_1 + \theta_0}$, and assume furthermore that the
+operator $\pa_u \chi_\theta(u)$ is uniformly bounded for all~$(\theta,
+u) \in \T \times X$. Then $\pa_u \LL \Phi^\eps _{\theta, \theta_1} \RR$
+is invertible for~$\eps$ small enough, and we may write
+from~\eqref{sec:autonumous:eq:filt_homol_avg}, 
 \begin{equation} \label{sec:autonomous:eq:filt_avg_map}
   K^\eps(u) = 
   \Big( \pa_u \bLL \chi_{-\theta+\theta_1} 
@@ -410,7 +601,7 @@ This generates the identity
   \BLL (\pa_u \chi_{-\theta+\theta_1} \cdot K) 
     \circ \Omega^\eps _\theta \BRR (u) .
 \end{equation}
-Defining an operator extracting the average behaviour 
+Defining an operator which extracts the average behaviour 
 \begin{equation} \label{sec:autonomous:def:avg_op}
   \mathcal{A}^{\theta_1}[\varphi] := 
   \big( \pa_u \bLL \chi_{-\theta+\theta_1} 
@@ -428,8 +619,9 @@ defined as the unique solution to the homological equation
 \end{equation}
 that is 1-periodic and satisfies some closure condition. Note that the
 above equation is considered with fixed $\theta_1$, but modifying this
-phase has no impact on the definition of $\Omega^\eps$. Linking
-with~\eqref{sec:autonomous:eq:homol}, this may be restated as
+phase has no impact on the definition of $\Omega^\eps$. Using the
+original homological equation~\eqref{sec:autonomous:eq:homol}, this may
+be restated as
 \begin{equation*}
   \forall \theta_1 \in \T, \qquad
   K^\eps = \mathcal{A}^{\theta_1}[\Omega^\eps] 
@@ -441,8 +633,12 @@ stroboscopic averaging, summarized by the following proposition.
 %
 
 \begin{proposition} \label{sec:autonomous:prop:phigroup} %
-  When considering stroboscopic averaging, for all $\theta$ and all
-  $\theta_0$, the following group relation is satisfied 
+  If the averaging maps of the filtered problem, namely the change of
+  variable $(\theta,u) \mapsto \chi_{-\theta} \circ \Omega^\eps
+  _\theta(u)$ and $u \mapsto K^\eps(u)$ satisfy
+  Assumption~\ref{hyp:exist_avg_lin}, then when considering stroboscopic
+  averaging, for all $\theta$ and all $\theta_0$, the following group
+  relation is satisfied 
   $$
     \Omega^\eps_{\theta} \circ \Omega^\eps_{\theta_0} 
     = \Omega^\eps_{\theta + \theta_0}.
@@ -508,9 +704,13 @@ coincide and the proof is complete.
 
 \end{proof}
 %
-\begin{proposition} \label{sec:autonomous:prop:commut}
-  The flows $\theta \mapsto \Omega^\eps_\theta$ and $t \mapsto
-  \Psi^\eps_t$ commute with each other, i.e.
+\begin{proposition} \label{sec:autonomous:prop:commut} If the averaging
+  maps of the filtered problem, namely the change of variable
+  $(\theta,u) \mapsto \chi_{-\theta} \circ \Omega^\eps _\theta(u)$ and
+  $u \mapsto K^\eps(u)$ satisfy Assumption~\ref{hyp:exist_avg_lin}, then
+  when considering stroboscopic averaging, the flows $\theta \mapsto
+  \Omega^\eps_\theta$ and $t \mapsto \Psi^\eps_t$ commute with each
+  other, i.e.
   $$
   \forall \theta, \quad \forall t, \qquad \Omega^\eps_\theta \circ \Psi^\eps_{t} = \Psi^\eps_{t} \circ \Omega^\eps_\theta.
   $$
@@ -571,378 +771,15 @@ i.e. $K^\eps$ is invariant when conjugated by $\Omega^\eps_{\theta_0}$.
   \end{equation*}
   with $\mathbb S (F) = \big( \pa_u \Phi_0^{std} \cdot F \big) \circ
   \big( \Phi_0^{std} \big)^{-1}$. In other words, the change of variable
-  $\big( \Omega^{std}_0 \big)^{-1}$ transforms the perturbed vector field
-  $G + \eps K$ into $G + \eps K^{std}$, where $G$ and $K^{std}$ commute.
-  This links to the vision of normal forms as presented in~\cite[Chap.
-  IX]{sanders.2007.averaging}.
+  $\big( \Omega^{std}_0 \big)^{-1}$ transforms the perturbed vector
+  field $G + \eps K$ into $G + \eps K^{std}$, where $G$ and $K^{std}$
+  commute. This corresponds to the approach of normal forms as presented
+  in~\cite[Chap.~IX]{sanders.2007.averaging}.
 \end{remark}
 
 
 
-\section{Stroboscopic averaging and geometry}
-\label{sec:geometry}
-
-We start by introducing some geometric properties, then prove they are
-preserved by stroboscopic averaging.
-
-
-\subsection{Definitions of geometric properties}
-
-\begin{definition}
-  Define the matrix $J \in {\cal M}(\R^{2n})$ as the block matrix
-  $$
-  J = \left(
-  \begin{array}{cc}
-    0 & I_n \\
-    -I_n & 0
-  \end{array}
-  \right).
-  $$
-  A vector field function $f:\R^{2n} \mapsto \R^{2n}$ is said to be
-  canonically  Hamiltonian if there exists a scalar smooth function
-  $H:\R^{2n} \mapsto \R$ such that 
-  \begin{align*}
-    \forall u \in \R^{2n}, \quad f(u) = J^{-1} \nabla_u H(u).
-  \end{align*}
-  A smooth map $(\tau,u) \in \R \times \R^{2n} \mapsto  S_\tau(u) \in
-  \R^{2n}$ is said to be symplectic iff
-  \begin{align} \label{def:symplectif} %
-    \forall (\tau, u) \in \R \times \R^{2n}, \quad 
-    \left(\partial_u S_\tau(u)\right)^T J \left(\partial_u S_\tau(u)\right) = J,
-  \end{align}
-  or equivalently
-  \begin{align} %
-    \forall (\tau, u) \in \R \times \R^{2n}, \quad 
-    \left(\partial_u S_\tau(u)\right) J^{-1} \left(\partial_u S_\tau(u)\right)^T = J^{-1} .
-  \end{align}
-\end{definition}
-\begin{remark}
-  It is known that the $\tau$-flow of a canonically Hamiltonian system
-  is symplectic and that the converse is also true on connected sets.
-  This is proved by differentiation and use of the integrability Lemma,
-  which asserts that, on a connected set, a vector function derives from
-  a gradient iff its jacobian is symmetric.
-\end{remark}
-\begin{definition}
-  A vector field function $f:\R^{n} \mapsto \R^{n}$ is said to be
-  divergence free 
-  \begin{align*}
-    \forall u \in \R^{2n}, \quad \sum_{i=1}^n \partial_i f_i(u) = \Tr(\partial_u f)=0.
-  \end{align*}
-  A smooth function $(\tau,u) \in \R \times \R^{n} \mapsto  S_\tau(u) \in
-  \R^{n}$ is said to be volume-preserving iff
-  \begin{align*}
-    \forall (\tau, u) \in \R \times \R^n, 
-    \quad \det\left (\partial_u S_\tau(u)\right)=1.
-  \end{align*}
-\end{definition}
-\begin{remark}
-  By differentiation of the determinant, it is straightforward that the
-  $\tau$-flow of a divergence-free vector field is volume preserving. The
-  converse is true as well. 
-\end{remark}
-\begin{definition}
-  A matrix $B(u) \in {\cal M}(\R^{n})$ is said to be a Poisson matrix if
-  it is skew-symmetric and satisfies the Jacobi relation
-  $$
-  \forall i,j,k \in \{1,\ldots,n\}, \quad \sum_{l=1}^n (\partial_l b_{ij}) b_{lk} +(\partial_l b_{jk}) b_{li}+(\partial_l b_{ki}) b_{lj} = 0. 
-  $$
-  A vector field function $f:\R^{n} \mapsto \R^{n}$ is said to be Poisson
-  if there exists a scalar smooth function $H:\R^{n} \mapsto \R$ and a
-  Poisson matrix $B(u)$ such that 
-  \begin{align*}
-    \forall u \in \R^{n}, \quad f(u) = B(u) \nabla_u H(u).
-  \end{align*}
-  A smooth function $(\tau,u) \in \R \times \R^{n} \mapsto  S_\tau(u) \in
-  \R^{n}$ is said to be a Poisson map  iff
-  \begin{align*}
-    \forall u \in \R^{n}, \quad \left(\partial_u S_\tau(u)\right) B(u) \left(\partial_u S_\tau(u)\right)^T = B(S_\tau(u)).
-  \end{align*}
-\end{definition}
-
-\begin{remark} \label{sec:geometry:rmk:equiv_poisson} The $\tau$-flow of a
-  Poisson system is a Poisson map, and the converse is locally
-  true if in addition the Casimirs (spanning the null space of $B$) are
-  preserved by the flow. This result is found for instance in~\cite[Chap.
-  VII, Thm. 4.5]{hairer.2006.geometric}. 
-  % The proof consists in separating
-  % the null space and the invertible space of $B$ with a change of
-  % variable. The invertible space can be treated as in the Hamiltonian
-  % case, and the null space is preserved by definition of the Casimirs. 
-\end{remark}
-
-
-
-\subsection{The geometry of stroboscopic averaging}
-
-If both~$G$ and~$K$ satisfy a geometric property (i.e. are
-divergence-free or $B$-Poisson, or have an invariant) in the autonomous
-case, then this property is also satisfied by~$f_\theta$ for all $\theta
-\in \T$ in the associated filtered problem with forced oscillations.
-Indeed, since~$G$ and~$K$ satisfy the same property, they belong to the
-same Lie algebra, and the flow of~$G$ is in the generating group of the
-algebra. Because~$f_\theta$ is obtained by conjugating~$K$ by the flow
-of~$G$, i.e. by conjugating an element of the algebra by an element of
-the group, it still belongs to the algebra. 
-\todo[inline]{À clarifier}
-As the averaged vector field
-of the autonomous case coincides with the averaged vector field of this
-forced case, any geometric reasoning conducted on the forced case can be
-extended to the autonomous case. For this reason, we only state the
-following result in the case of forced oscillations.
-
-
-\begin{theorem} \label{sec:geometry:thm:conservation}
-  If $\eps \pa_u F^\eps$ is bounded, then stroboscopic averaging is a
-  geometric procedure. More precisely, for $\eps$ small enough, if for all
-  $\theta \in \T$, 
-  \begin{enumerate}[(i)]
-    \item $f_\theta$ is a divergence-free vector field and $X$ is of
-    dimension $d < \infty$, then $F^\eps$ is also divergence-free.
-    \item the functional $I$ is preserved by the flow of $f_\theta$,
-    then it is an invariant of $F^\eps$.
-    \item $f_\theta$ is a Hamiltonian vector field, then $F^\eps$ is
-    Hamiltonian.
-    \item $f_\theta$ is a $B$-Poisson vector field, then $F^\eps$ is
-    $B$-Poisson.
-  \end{enumerate}
-\end{theorem}
-\begin{proof}%
-%
-For the sake of the upcoming proofs, we shall denote for any map $(t,u)
-\mapsto \varphi_t(u) \in E$ with $(E, | \cdot |)$ a Banach space, 
-at fixed $t$, 
-\begin{equation*}
-  \| \varphi_t \| = \sup_{u \in X} | \varphi_t(u) | 
-  \qquad\text{and}\qquad
-  \| \varphi \|_\eps = \sup_{t \leq \eps } \| \varphi_t \| .
-\end{equation*}
-We also set $C = \sup_\eps \eps \| \pa_u F^\eps \|$. 
-%
-
-\medskip\noindent%
-\textit{(i)}\indent%
-For $(t,u) \in [0,\eps] \times X$, write $R_t(u)$ the deviation from
-volume preservation,
-\begin{equation*}
-  R_t(u) = \det \big( \pa_u \Psi^\eps_t(u) \big) - 1 .
-\end{equation*}
-Setting $L_t(u) = S_t(u) = \Tr ( \pa_u F^\eps ) \circ \Psi^\eps_t(u)$, it
-satisfies
-\begin{equation} \label{sec:geometry:eq:ode_R}
-  \frac{\dd}{\dd t} R_t = L_t\, R_t + S_t,
-  \quad\text{i.e.}\quad
-  R_t = \int_0^t L_\tau\, R_\tau \dd \tau 
-    + \int_0^t S_\tau \, \dd \tau .
-\end{equation}
-Taylor's theorem with integral remainder generates the identity 
-\begin{equation*}
-  R_\eps = R_0 + \eps S_0 + \int_0^\eps (\eps - t) \dot{R}_t \dd t ,
-\end{equation*}
-which can be simplified thanks the periodicity of~$\Phi^\eps$, as then
-$R_\eps = R_0 = 0$. Hence the bound 
-\begin{equation*}
-  \| S_0 \| \leq \frac{\eps}{2} \| \dot{R} \|_\eps
-  \leq \frac{\eps}{2} \left( \| L \|_\eps \, \| R \|_\eps 
-    + \| S \|_\eps \right) . 
-\end{equation*}
-Now applying Gronwall's lemma to the integral form of $R$ yields
-$
-  \| R_t \| \leq t \|S\|_\eps \, e^{t \|L\|_\eps} , 
-$
-which injects into the previous bound 
-\begin{equation*}
-  \| S_0 \| 
-    \leq \eps\left( \eps \|L\|_\eps e^{\eps \|L\|_\eps} + 1\right) 
-      \| S \|_\eps .
-\end{equation*}
-Since $S_t = S_0 \circ \Psi_t^\eps$, it appears by one-to-one property of
-$\Psi^\eps_t$ that $\|S_0\| = \| S \|_\eps$. The same can be said for $L$,
-thus $\eps \| L \|_\eps \leq d C$. We finally obtain 
-\begin{equation*}
-  \| S \|_\eps \leq \eps \left(1 + d C e^{d C}\right) \| S \|_\eps
-\end{equation*}
-therefore for $\eps < \left(1 + d C e^{d C}\right)^{-1}$, the source term
-in~\eqref{sec:geometry:eq:ode_R} is zero, and the $t$-flow $\Psi^\eps_t$
-is volume-preserving. Equivalently, the averaged vector field~$F^\eps$ is
-divergence-free. 
-
-%
-
-\medskip\noindent%
-\textit{(ii)}\indent%
-From the identity 
-\begin{equation*}
-  \frac{\dd}{\dd t} \left[I \circ \Psi^\eps_t\right] 
-  = \left( \pa_u I \cdot F^\eps \right) \circ \Psi^\eps_t , 
-\end{equation*}
-Taylor's theorem generates 
-\begin{equation*}
-  I \circ \Psi^\eps_\eps 
-  = I + \eps \pa_u I \cdot F^\eps + \int_0^\eps (\eps - t) 
-    \left(\pa_u I \cdot F^\eps\right) \circ \Psi^\eps_t \dd t .
-\end{equation*}
-By periodicity of $\Phi^\eps$, $I \circ \Psi^\eps_\eps = I$, therefore $\|
-\pa_u I \cdot F^\eps \| \leq \frac{\eps}{2} \| (\pa_u I \cdot F^\eps)
-\circ \Psi^\eps \|_\eps$. By one-to-one property of $\Psi^\eps_t$ at all
-$t$, both norms are equal, therefore for $\eps < 2$, 
-\begin{equation*}
-  \| \pa_u I \cdot F^\eps \| = 0, 
-\end{equation*}
-i.e. $I$ is an invariant of $F^\eps$. 
-
-%
-
-\medskip\noindent%
-\textit{(iii)}\indent%
-Writing $R_t$ the deviation from simplecticity, 
-\begin{equation*}
-  R_t = \pa_u \Psi_t^\eps J^{-1} \left( \pa_u \Psi_t^\eps \right) ^T 
-  - J^{-1} ,
-\end{equation*}
-it satisfies an equation of the form~\eqref{sec:geometry:eq:ode_R} with
-$L_t M = \pa_u F^\eps ( \Psi_t^\eps ) M + M \left( \pa_u F^\eps
-(\Psi_t^\eps ) \right)^T $ and $S_t = L_t J^{-1}$. 
-Exactly the same reasoning can be made as in~\textit{(i)}, therefore the
-$t$-flow $\Psi^\eps_t$ is symplectic, i.e. the averaged vector field
-$F^\eps$ is Hamiltonian. 
-
-%
-
-\medskip\noindent%
-\textit{(iv)}\indent%
-This follows from \textit{(ii)} and \textit{(iii)} thanks
-to Remark~\ref{sec:geometry:rmk:equiv_poisson}. 
-
-\end{proof}
-
-\begin{remark}
-  It may be of interest to note that in the linear autonomous case $\pa_t
-  u = \frac{1}{\eps} Gu + Ku$, property (i) of volume-preservation does
-  not involve the dimension. Indeed differentiating the filtered change of
-  variable $\Phi_\theta = e^{-\theta G} e^{\theta G^\eps}$ and taking
-  the average yields 
-  \begin{equation*}
-    G^\eps = \LL \Phi \RR^{-1} G \LL \Phi \RR .
-  \end{equation*}
-  In the homological equation $\pa_\theta \Omega_\theta = \eps (
-  K \Omega_\theta - \Omega_\theta K^\eps )$, we obtain 
-  \begin{equation*}
-    K^\eps = \LL \Phi \RR^{-1} K \LL \Phi \RR .
-  \end{equation*}
-  The involvement of the dimension in our proof actually
-  seems purely technical, since the averaged vector field $F^\eps$ can be
-  expressed as a power series in $\eps$ which converges for $\eps$ small
-  enough. Our result shows that every term of the series must be
-  divergence-free, but the radius of convergence of the series $\eps_0$ may
-  be independent of the dimension of the space.
-\end{remark}
-
-
-
-
-\section{Approximations on bounded domains}
-\label{sec:approx}
-
-In this section we discuss what becomes of the previous results in actual
-applications, which is to say when the maps $\Phi^\eps$ and $F^\eps$ of
-averaging are not known exactly, but only up to error terms of size
-$\eps^{n+1}$ for some order $n \in \N$. We also get rid of the assumption
-that the vector field $(\theta , u) \mapsto f_\theta(u)$ is uniformly
-bounded on the entire space $X$, and conduct our study on a
-possibly-bounded open subset~$\mathcal{K} \subset X$. 
-
-\subsection{Assumptions}
-
-For technical purposes, define $\mathcal{K}_\rho$ this subset extended by
-a radius of $\rho \geq 0$, i.e.
-\begin{equation*}
-  \mathcal{K}_\rho = \left\{u \in X \quad \text{s.t.}\quad 
-                      \exists\ v \in \mathcal{K}, |u - v| \leq \rho 
-                  \right\} .
-\end{equation*}
-We also define, given a map $\varphi$ from $\mathcal{K}_\rho$ to some
-Banach space $(E, |\cdot|)$, the norm 
-\begin{equation*}
-  \| \varphi \|_\rho = \sup_{u \in \mathcal{K}_\rho} |\varphi(u) |.
-\end{equation*}
-In particular for the vector fields and morphisms $E = X$, and for their
-derivatives $E = \mathcal{L}(E,E)$. 
-
-
-\begin{assumption} \label{hyp:exist_avg_nl} %
-  The vector field $(\theta , u) \mapsto f_\theta(u)$ and its derivative
-  are bounded (uniformly w.r.t. $\theta$) on $K_{3R}$ for some radius $R >
-  0$. There exist positive constants $\eps_0$ and $C$ such that for
-  any rank $n \in \N$, there is a continuous near-identity 1-periodic
-  change of variable $\Phi\rk{n}$ and a near-averaged vector field $F\rk
-  n$, both well-defined on $\mathcal{K}_{3R}$ for~$\eps \leq \eps_n :=
-  \eps_0 / (n+1)$. Precisely,
-  \begin{equation*}
-    \sup_{\theta \in \T} \| \Phi\rk n_\theta - \id \| _{3R} 
-      \leq \frac{\eps}{\eps_n} R
-    \qquad\text{and}\qquad
-    \| F\rk n \|_{3R} \leq C .
-  \end{equation*}
-  Furthermore, the error of approximation is of size $\eps^{n+1}$, i.e.
-  writing $\Psi\rk n _t$ the $t$-flow of $F\rk n$, 
-  \begin{equation} \label{sec:approx:def:avg_approx}
-    u(t) = \Phi\rk n _{t/\eps} \circ \Psi\rk n _t \circ \big( \Phi\rk n _0
-    \big)^{-1} (u_0) + \bigO(\eps^{n+1}) 
-  \end{equation}
-  until some time $T_R > 0$. 
-\end{assumption}
-The error of approximation is caracterised by the defect $\delta\rk n$
-defined by 
-\begin{equation*} 
-  \delta\rk n _{\theta} 
-  = \frac{1}{\eps} \pa_\theta \Phi\rk n _\theta
-    - f_\theta \circ \Phi\rk n _\theta 
-    + \pa_u \Phi\rk n _\theta \cdot F\rk n , 
-\end{equation*}
-which corresponds to the error in the homological
-equation~\eqref{sec:presentation:eq:homol}. The previous assumptions
-corresponds to the situation
-\begin{equation} \label{sec:approx:hyp:delta}
-  \sup_{\theta \in \T} \| \delta\rk n \| _{3R} = \bigO( \eps^n )
-  \qquad\text{and}\qquad
-  \LL \delta\rk n \RR = \bigO( \eps^{n+1} ) .
-\end{equation}
-%
-This assumption matches the behaviour generally observed with averaging,
-found for instance in~\cite{castella.2015.stroboscopic} when assuming
-$(\theta,u) \mapsto f_\theta(u)$ analytic w.r.t. $u$. As noted
-in~\cite{chartier.2015.higher}, this is enough to ensure the historical
-optimal ``exponential'' error bound of~\cite{neishtadt.1984.separation},
-which can be stated as such: There is a positive constant $c$ such that for
-all $\eps > 0$ there is an integer $n$ such that for all $t$,
-\begin{equation*}
-  \left| u(t) - \Phi\rk n _{t/\eps} \circ \Psi\rk n_t 
-  \circ \big( \Phi\rk n _0 \big)^{-1} (u_0) \right| 
-  \leq c e^{-c/\eps} .
-\end{equation*}
-This reflects the fact that the maps $\Phi^\eps$ and $F^\eps$ can only be
-obtained as diverging power series in $\eps$, therefore the error is
-\textit{formal}, up to a flat function. Indeed, in order to increase the
-order of the approximation, $\eps$ must get smaller and smaller, such that
-an error $\bigO( \eps^\infty )$ is impossible with $\eps \neq 0$. 
-
-%
-
-Note furthermore that this assumption is enough to ensure that $\Phi\rk n
-_0$ and $\LL \Phi\rk n \RR$ are invertible from $\mathcal{K}_\rho$ to
-$\mathcal{K}_{\rho + R}$ for any $\rho \in [0, 3R]$. Indeed for $u \in
-\mathcal{K}_\rho$, the map $\varphi(v) = u + v - \Phi\rk n _0(u+v)$ maps
-the closed ball of radius $R$ onto itself,\footnote{%
-If $\eps \leq \alpha \eps_n$ for $\alpha \in (0,1]$, then this
-radius becomes $\alpha R$, therefore $\Phi\rk n _0$ injects
-$\mathcal{K}_\rho$ into $\mathcal{K}_{\rho + \alpha R}$. } %
-thus admits a fixed point by Brouwer's fixed point theorem. Therefore
-there exists $u^* = u + v^* \in \mathcal{K}_{\rho + R}$ such that $u =
-\Phi\rk n _0 (u^*)$. The same reasoning holds for $\LL \Phi\rk n \RR$. 
-
-
-\subsection{Autonomous case}
+\subsection{The case of approximations}
 
 Consider the autonomous problem~\eqref{sec:autonomous:eq:pb_v} of
 Section~\ref{sec:autonomous}, 
@@ -986,7 +823,7 @@ and the link is made with the filtered averaging with the formula
 
 
 
-\begin{theorem}[Adaptation of
+\begin{proposition}[Adaptation of
 Propositions~\ref{sec:autonomous:prop:phigroup} 
 and~\ref{sec:autonomous:prop:commut}] \label{sec:approx:thm:commut} \hspace*{1em} 
 \\
@@ -999,7 +836,7 @@ and~\ref{sec:autonomous:prop:commut}] \label{sec:approx:thm:commut} \hspace*{1em
   $\Omega\rk n _\theta$ is the $\theta$-flow of a vector field $G\rk n$
   defined on $\mathcal{K}_R$ up to $\bigO(\eps^{n+2})$. Furthermore, $G\rk
   n$ and $K\rk n$ commute up to $\bigO(\eps^{n+2})$ on $\mathcal{K}_{R}$. 
-\end{theorem}
+\end{proposition}
 
 \begin{proof}
 The first step of the proof is to show 
@@ -1097,38 +934,345 @@ The second part of the theorem stems from the identity $K\rk n =
 \end{equation*}
 \end{proof}
 
-Note that the exact flow of $G\rk n$ may not be 1-periodic depending on
-its definition. Think for instance of the one-dimensional converging
-example $G\rk n = i(1-\eps) \sum_{k = 0}^{n} \eps^k = i( 1 - \eps^{n+1}
-)$. 
+Note that defined as such, the exact flow of $G\rk n$ may not be
+1-periodic depending on its definition. Think for instance of the
+one-dimensional example $G\rk n = 2i\pi(1-\eps) \sum_{k = 0}^{n} \eps^k =
+2i\pi( 1 - \eps^{n+1})$, which does not generate a $1$-periodic flow
+while its limit $(n \rightarrow \infty)$ does. 
 
 
-\subsection{Geometric properties}
+
+\section{Stroboscopic averaging and geometry}
+\label{sec:geometry}
+
+In this section, we start by defining some geometric properties on
+vector fields (namely, being divergence-free, Hamiltonian or
+$B$-Poisson, or having an invariant). We then consider a problem with
+forced oscillations, i.e. of the form~\eqref{sec:intro:eq:ode_u}, and
+show that if for all~$\theta \in \T$, $u \mapsto f_\theta(u)$ satisfies
+one of the geometric properties previously presented, then the averaged
+vector field~$F^\eps$ satisfies the same property; first in an exact
+setting, then when considering approximations.
+
+This result extends to autonomous problems of the
+form~\eqref{sec:intro:eq:ode_auto}. Indeed, if both~$G$ and~$K$ satisfy
+a geometric property, then this property is also satisfied by~$f_\theta$
+for all $\theta \in \T$ in the associated filtered problem, since by
+definition,
+\begin{equation*}
+  f_\theta(u) = \big( \pa_u \chi_{\theta}(u) \big)^{-1} 
+    \cdot K \circ \chi_{\theta}(u) .
+\end{equation*}
+In other words, $f_\theta$ is obtained by conjugating $K$ with
+$\chi_\theta$, with~$K$ in a Lie algebra and~$\chi_\theta$ in the
+associated Lie group. The algebra being stable by
+conjugation,~$f_\theta$ satisfies the same geometric property. 
+%
+Since the averaged vector field of the autonomous
+case~\eqref{sec:autonomous:eq:pb_v} coincides with the averaged vector
+field of the filtered case (as seen in Section~\ref{sec:autonomous}),
+there is no need to distinguish the autonomous case from the case with
+forced oscillations.
+
+
+\subsection{Definitions of geometric properties}
+\label{sec:geom:subsec:def}
+
+
+\begin{definition}
+  A vector field function $f:\R^d \mapsto \R^d$ is said to be
+  divergence free 
+  \begin{align*}
+    \forall u \in \R^d, \quad \sum_{i=1}^d \partial_i f_i(u) = \Tr(\partial_u f)=0.
+  \end{align*}
+  A smooth function $(\tau,u) \in \R \times \R^d \mapsto  S_\tau(u) \in
+  \R^d$ is said to be volume-preserving iff
+  \begin{align*}
+    \forall (\tau, u) \in \R \times \R^d, 
+    \quad \det\left (\partial_u S_\tau(u)\right)=1.
+  \end{align*}
+\end{definition}
+
+
+\begin{remark}
+  By differentiation of the determinant, it is straightforward that the
+  $\tau$-flow of a divergence-free vector field is volume preserving. The
+  converse is true as well. 
+\end{remark}
+
+
+\begin{definition}
+  A smooth functional $I: X \rightarrow \setR$ is said to be an
+  invariant of a vector field function $f: X \rightarrow X$ iff
+  \begin{equation*}
+    \forall u \in X, \quad \pa_u I(u) f(u) = 0 .
+  \end{equation*}
+  A smooth map $(\tau, u) \in \setR \times X \mapsto S_\tau(u)$ is said
+  to preserve the functional~$I$ iff
+  \begin{equation*}
+    \forall (\tau, u) \in \setR \times X, \qquad
+    I(u) = I \circ S_\tau (u) .
+  \end{equation*}
+\end{definition}
+
+\begin{remark}
+  It follows from a straightforward $\tau$-differentiation of $I \circ
+  S_{\tau}$ that a vector field $f$ admits an invariant if and only if
+  its $\tau$-flow $S_\tau$ preserves that invariant.  
+\end{remark}
+
+
+\begin{definition}
+  Define the matrix $J \in {\cal M}(\R^{2d})$ as the block matrix
+  $$
+  J = \left(
+  \begin{array}{cc}
+    0 & I_n \\
+    -I_n & 0
+  \end{array}
+  \right).
+  $$
+  A vector field function $f:\R^{2d} \mapsto \R^{2d}$ is said to be
+  canonically  Hamiltonian if there exists a scalar smooth function
+  $H:\R^{2d} \mapsto \R$ such that 
+  \begin{align*}
+    \forall u \in \R^{2d}, \quad f(u) = J^{-1} \nabla_u H(u).
+  \end{align*}
+  A smooth map $(\tau,u) \in \R \times \R^{2d} \mapsto  S_\tau(u) \in
+  \R^{2d}$ is said to be symplectic iff
+  \begin{align} \label{def:symplectif} %
+    \forall (\tau, u) \in \R \times \R^{2d}, \quad 
+    \left(\partial_u S_\tau(u)\right)^T J \left(\partial_u S_\tau(u)\right) = J,
+  \end{align}
+  or equivalently
+  \begin{align} %
+    \forall (\tau, u) \in \R \times \R^{2d}, \quad 
+    \left(\partial_u S_\tau(u)\right) J^{-1} \left(\partial_u S_\tau(u)\right)^T = J^{-1} .
+  \end{align}
+\end{definition}
+
+
+\begin{remark}
+  It is known that the $\tau$-flow of a canonically Hamiltonian system
+  is symplectic and that the converse is also true on connected sets.
+  This is proved by differentiation and use of the integrability Lemma,
+  which asserts that, on a connected set, a vector function derives from
+  a gradient iff its jacobian is symmetric.
+\end{remark}
+
+
+\begin{definition}
+  A matrix $B(u) \in {\cal M}(\R^{d})$ is said to be a Poisson matrix if
+  it is skew-symmetric and satisfies the Jacobi relation
+  $$
+  \forall i,j,k \in \{1,\ldots,n\}, \quad \sum_{l=1}^d (\partial_l b_{ij}) b_{lk} +(\partial_l b_{jk}) b_{li}+(\partial_l b_{ki}) b_{lj} = 0. 
+  $$
+  A vector field function $f:\R^{d} \mapsto \R^{d}$ is said to be Poisson
+  if there exists a scalar smooth function $H:\R^{d} \mapsto \R$ and a
+  Poisson matrix $B(u)$ such that 
+  \begin{align*}
+    \forall u \in \R^{d}, \quad f(u) = B(u) \nabla_u H(u).
+  \end{align*}
+  A smooth function $(\tau,u) \in \R \times \R^{d} \mapsto  S_\tau(u) \in
+  \R^{d}$ is said to be a Poisson map  iff
+  \begin{align*}
+    \forall u \in \R^{d}, \quad \left(\partial_u S_\tau(u)\right) B(u) \left(\partial_u S_\tau(u)\right)^T = B(S_\tau(u)).
+  \end{align*}
+\end{definition}
+
+\begin{remark} \label{sec:geometry:rmk:equiv_poisson} The $\tau$-flow of a
+  Poisson system is a Poisson map, and the converse is locally
+  true if in addition the Casimirs (spanning the null space of $B$) are
+  preserved by the flow. This result is found for instance in~\cite[Chap.
+  VII, Thm. 4.5]{hairer.2006.geometric}. 
+  % The proof consists in separating
+  % the null space and the invertible space of $B$ with a change of
+  % variable. The invertible space can be treated as in the Hamiltonian
+  % case, and the null space is preserved by definition of the Casimirs. 
+\end{remark}
+
+
+
+\subsection{The linear case}
+
+
+\begin{theorem} \label{sec:geometry:thm:conservation} %
+  If $(\theta,u) \mapsto f_\theta(u)$ is linear w.r.t.~$u$, then
+  Assumption~\ref{hyp:exist_avg_lin} is met, and $(\theta,u) \mapsto
+  \Phi^\eps _\theta(u)$ and $u \mapsto F^\eps(u)$ are linear w.r.t.~$u$.
+  In that case, stroboscopic averaging is a geometric procedure. More
+  precisely, for $\eps$ small enough, if for all $\theta \in \T$, 
+  \begin{enumerate}[(i)]
+    \item $f_\theta$ is a divergence-free vector field and $X$ is of
+    dimension $d < \infty$, then $F^\eps$ is also divergence-free;
+    \item the quadratic form $I$ is an invariant of $f_\theta$, then it
+    is an invariant of $F^\eps$;
+    \item $f_\theta$ is a Hamiltonian vector field, then $F^\eps$ is
+    Hamiltonian;
+    \item $f_\theta$ is a $B$-Poisson vector field, then $F^\eps$ is
+    $B$-Poisson.
+  \end{enumerate}
+\end{theorem}
+
+Note that since $\Phi^\eps _{t/\eps} \Psi^\eps _t$ is exactly the
+$t$-flow of Problem~\eqref{sec:intro:eq:ode_u}, the change of variable
+also has geometric properties. Every property can be proven using the
+following lemma:
+
+\begin{lemma} \label{lemma:lin_loop} %
+  At fixed $\eps > 0$, consider the linear Cauchy problem 
+  \begin{equation} \label{lemma:lin_loop:pb}
+    \pa_t y^\eps = L^\eps y^\eps, 
+    \qquad
+    y^\eps(0) = y_0 \in E ,
+  \end{equation}
+  in some Banach space $E$. If $\vertiii{L^\eps} < 2\pi/\eps$, then
+  $y^\eps(\eps) = y_0$ if and only if $y^\eps$ is constant. 
+\end{lemma}
+
+\begin{proof}
+  If~$y^\eps$ is constant, then in particular~$y^\eps(\eps) = y_0$.
+  Conversly, invoking the $\eps$-periodicity of~$t \mapsto y^\eps(t)$,
+  it is possible to write~$y^\eps(t)$ as a Fourier series, $y^\eps(t) =
+  \sum_k y_k e^{ik \frac{2\pi}{\eps}t}$. The equation on $y^\eps$ can be
+  separated into $\frac{2k\pi}{\eps} y_k = L^\eps y_k$ for all~$k \in
+  \setZ$. It follows that $y_k$ is zero for all $k \neq 0$. 
+\end{proof}
+
+\begin{proof}
+  From~Assumption~\ref{hyp:exist_avg_lin}, we set $\kappa > 0$ such that
+  \begin{equation*}
+    \vertiii{F^\eps} \leq \kappa .
+  \end{equation*}
+  Writing~$\varphi^\eps_t$ the $t$-flow associated with
+  Problem~\eqref{sec:intro:eq:ode_u}, and we will often use the
+  identity for stroboscopic times $t = \eps k$ with $k \in \setZ$, 
+  \begin{equation} \label{eq:strobo_lin}
+    \varphi^\eps _{\eps k} = \Psi^\eps _{\eps k} .
+  \end{equation}
+
+  \medskip\noindent%
+  \textit{(i)}\indent%
+  By differentiation of the determinant,
+  \begin{equation*}
+    \frac{\D}{\D t}\det(\Psi^\eps _t) = \tr(F^\eps) \det(\Psi^\eps _t) ,
+  \end{equation*}
+  with $\det(\Psi^\eps _\eps) = \det(\Psi^\eps _0) = 1$ thanks
+  to~\eqref{eq:strobo_lin}, and $|\tr(F^\eps)| \leq d\kappa$ with $d$
+  the dimension of~$X$. From a direct application of
+  Lemma~\ref{lemma:lin_loop}, the determinant is constant for $\eps$
+  small enough, i.e. $F^\eps$ is divergence-free.
+
+
+  \medskip\noindent%
+  \textit{(ii)}\indent%
+  Since $I$ is a normal form, we may find a matrix $Q$ such that for all
+  $u \in X$, 
+  \begin{equation}
+    I(u) = u^T Q u .
+  \end{equation}
+  Using~\eqref{eq:strobo_lin}, the quantity $I \circ \Psi^\eps _t$ is
+  preserved at stroboscopic times, i.e. $I \circ \Psi^\eps _\eps = I$.
+  Furthermore, exploiting the commutativity $\Psi^\eps _t F^\eps =
+  F^\eps \Psi^\eps _t$, a differentiation yields 
+  \begin{equation}
+    \frac{\D}{\D t} \left( I \circ \Psi^\eps _t \right)
+    = \big( F^\eps \big)^T I\circ \Psi^\eps _t
+    + (I\circ \Psi^\eps _t) F^\eps ,
+  \end{equation}
+  which is of the form~\eqref{lemma:lin_loop:pb} with $L^\eps M =
+  (F^\eps )^T M + M F^\eps$, of norm bounded by~$2\kappa$. For~$\eps$
+  small enough, Lemma~\ref{lemma:lin_loop} can be applied, therefore~$I$
+  is preserved by $\Psi^\eps$, i.e. it is an invariant of~$F^\eps$.
+
+  \medskip\noindent%
+  \textit{(iii)}\indent%
+  Considering the symplectic structure $\Psi^\eps _t J^{-1} (\Psi^\eps
+  _t)^T$, the same reasoning can be conducted, therefore $\Psi^\eps _t$
+  is symplectic for $\eps$ small enough, i.e. $F^\eps$ is Hamiltonian.
+
+  \medskip\noindent%
+  \textit{(iv)}\indent%
+  Up to a change of variable, we assume that the Poisson matrix~$B$ is
+  of the block form 
+  \begin{equation*}
+    B = \left(\begin{array}{c|c}
+      0 & 0 \\ \hline 0 & \Lambda
+    \end{array}\right)
+  \end{equation*}
+  with~$\Lambda$ invertible skew-symmetric. Therefore a vector field~$G$
+  is $B$-Poisson if and only if it is of the form
+  \begin{equation*}
+    G = \left(\begin{array}{c|c}
+      0 & 0 \\ \hline * & \Lambda S
+    \end{array}\right)
+  \end{equation*}
+  with $S$ symmetric. From~\textit{(ii)}, we know that the Casimirs (the
+  zero-subspace) is preserved by~$F^\eps$, therefore the top row
+  of~$F^\eps$ has to be zero. From~\textit{(iii)}, the lower-right block
+  of $F^\eps$ generates a $\Lambda$-symplectic flow, which means this
+  block must be of the form~$\Lambda S$. Thus,~$F^\eps$ is $B$-Poisson. 
+
+\end{proof}
+
+
+\begin{remark}
+  It may be of interest to note that in the linear autonomous case $\pa_t
+  u = \frac{1}{\eps} Gu + Ku$, property (i) of volume-preservation does
+  not involve the dimension. Indeed differentiating the filtered change of
+  variable $\Phi_\theta = e^{-\theta G} e^{\theta G^\eps}$ and taking
+  the average yields 
+  \begin{equation*}
+    G^\eps = \LL \Phi \RR^{-1} G \LL \Phi \RR .
+  \end{equation*}
+  In the homological equation $\pa_\theta \Omega_\theta = \eps (
+  K \Omega_\theta - \Omega_\theta K^\eps )$, we obtain 
+  \begin{equation*}
+    K^\eps = \LL \Phi \RR^{-1} K \LL \Phi \RR .
+  \end{equation*}
+  The involvement of the dimension in our proof actually
+  seems purely technical, since the averaged vector field $F^\eps$ can be
+  expressed as a power series in $\eps$ which converges for $\eps$ small
+  enough. Our result shows that every term of the series must be
+  divergence-free, but the radius of convergence of the series $\eps_0$ may
+  be independent of the dimension of the space.
+\end{remark}
+
+
+
+
+\subsection{Approximations on bounded domains}
+\label{sec:approx}
+
+
 Here is what the preservation of geometric properties presented in
 Section~\ref{sec:geometry} becomes. 
 
 \begin{theorem}[Adaptation of Theorem~\ref{sec:geometry:thm:conservation}]
 \hspace*{1em} \\
-  Consider Assumption~\ref{hyp:exist_avg_nl} met and denote $\varphi^\eps
-  _t$ the $t$-flow associated to Problem~\eqref{sec:intro:eq:ode_u}. Up to
-  a reduction of~$\eps_0$, the following properties are satisfied up to an
-  error of size $\bigO(\eps^{n+1})$~: if for all $t \in [0, T_R]$, 
+  Consider Assumption~\ref{hyp:exist_avg_nl} met and denote
+  $\varphi^\eps _t$ the $t$-flow associated to
+  Problem~\eqref{sec:intro:eq:ode_u}. Up to a reduction of~$\eps_0$, the
+  following properties are satisfied up to an error of size
+  $\bigO(\eps^{n+1})$~: if for all $t \in [0, T_R]$, 
   \begin{enumerate}[(i)]
-    \item $u \mapsto \varphi^\eps _t(u)$ is volume-preserving on $\mathcal{2R}$, then
-    $\Psi\rk n _t$ is volume-preserving on $\mathcal{K}_R$~;
+    \item $u \mapsto \varphi^\eps _t(u)$ is volume-preserving on
+    $\mathcal{K}_{2R}$, then $\Psi\rk n _t$ is volume-preserving on
+    $\mathcal{K}_R$~;
     \item the functional $I$ is preserved by $\varphi^\eps _t$ on
-    $K_{2R}$, then it is preserved by $\Psi\rk n _t$ on
-    $\mathcal{K}_R$~; 
+    $\mathcal{K}_{2R}$ with $\mathcal{K}$ bounded, then it is preserved
+    by $\Psi\rk n _t$ on $\mathcal{K}_R$~; 
     \item $\varphi^\eps _t$ is symplectic on $\mathcal{K}_{2R}$, then
     $\Psi\rk n _t$ is symplectic on $\mathcal{K}_R$~;
     \item $\varphi^\eps _t$ is $B$-symplectic and preserves Casimirs on
-    $\mathcal{K}_{2R}$, then $\Psi\rk n _t$ also does on $\mathcal{K}_R$.
+    $\mathcal{K}_{2R}$, then $\Psi\rk n _t$ is $B$-symplectic and
+    preserves Casimirs on $\mathcal{K}_R$.
   \end{enumerate}
   Note that since $\Phi\rk n _\theta = \varphi^\eps _{\eps\theta} \circ
-  \Psi\rk n _{\eps\theta} + \bigO(\eps^{n+1})$, these properties are also
-  true for $\Phi\rk n _\theta$. It is therefore possible to modify $\Phi\rk
-  n$ and $F\rk n$ and have these properties met exactly, altough the
-  impact of this process on the well-posedness of the maps is unclear.
+  \Psi\rk n _{-\eps\theta} + \bigO(\eps^{n+1})$, these properties are
+  also true for $\Phi\rk n _\theta$, up to terms of
+  size~$\bigO(\eps^{n+1})$. It is therefore possible to modify $\Phi\rk
+  n$ and $F\rk n$ and have these properties met exactly.
 \end{theorem}
 
 \begin{proof}
@@ -1157,10 +1301,11 @@ T_R$, since $\Psi\rk n _{\eps k} = \varphi^\eps _{\eps k} + \bigO(
     - J^{-1} + \bigO( \eps^{n+1} )
   = \bigO( \eps^{n+1} ) .
 \end{equation*}
-Setting $L_t M = \pa_u F\rk n ( \Psi_t\rk n ) M + M \big( \pa_u F\rk n
-(\Psi_t\rk n ) \big)^T $ and $S_t = L_t J^{-1}$, it satisfies
-\begin{equation} \label{sec:approx:eq:ode_R}
-  \pa_u \Delta_t = L_t\, \Delta_t + S_t,
+For now let us conduct our reasoning on $(t,u) \in [0,\eps] \times
+\K_R$. Setting $L_t M = \pa_u F\rk n ( \Psi_t\rk n ) M + M \big( \pa_u
+F\rk n (\Psi_t\rk n ) \big)^T $ and $S_t = L_t J^{-1}$, it satisfies
+\begin{equation} \label{sec:geometry:eq:ode_Delta}
+  \pa_t \Delta_t = L_t\, \Delta_t + S_t,
   \quad\text{i.e.}\quad
   \Delta_t = \Delta_0 + \int_0^t L_\tau\, \Delta_\tau \dd \tau 
     + \int_0^t S_\tau \, \dd \tau .
@@ -1171,7 +1316,9 @@ radii~$R_k$,
 \begin{equation*}
   \| g \|_{\eps, \rho} = \sup_{0 \leq t \leq \eps} \| g_{t} \|_{\rho}
   \qquad\text{and}\qquad
-  R_k = R + \frac{k}{n+1}R ,
+  R_k = R + k r_n
+  \quad\text{with}\quad
+  r_n = \frac{R}{n+1} ,
 \end{equation*}
 and set $\alpha > 0$ such that $\| \Delta_0 \|_{2R}, \| \Delta_\eps
 \|_{2R} \leq \alpha \eps^{n+1}$. Gronwall's lemma in the integral form of
@@ -1181,51 +1328,81 @@ $\Delta_t$ yields
   \leq \big( \alpha \eps^{n+1} + \eps \| S \|_{\eps, R} \big)
     e^{\eps \| L \|_{\eps, R}} ,
 \end{equation}
-therefore we want to show $\| S \|_{\eps, R} = \bigO( \eps^{n+1} )$.
-Because $S$ is transported by $F\rk n$, i.e. $S_t = S_0 \circ \Psi\rk n
-_t$, it is possible to bound $S_t$ on some space $\mathcal{K}_\rho$ by the
-norm of $S_0$ on a larger space. In particular, assuming $\eps_0 \leq
-R/C$, 
-\begin{equation} \label{sec:approx:eq:transported_bound}
-  \| S \|_{\eps, R_k} \leq \| S_0 \| _{R_{k+1}}
+therefore we want to show $\| S \|_{\eps, R} = \bigO( \eps^{n} )$ so
+that $\Delta_t = \bigO(\eps^{n+1})$. Because $S$ is transported by $F\rk
+n$, i.e. $S_t = S_0 \circ \Psi\rk n _t$, it is possible to bound $S_t$
+on some space $\mathcal{K}_\rho$ by the norm of $S_0$ on a larger space.
+In particular, assuming $\eps_0 \leq R/(2M)$, i.e. $\eps \leq r_n/(2M)$,
+\begin{equation} \label{sec:geom:eq:transported_bound}
+  \| S \|_{\eps, R_k} 
+  \leq \| S_0 \| _{R_k + r_n/2} 
+  \leq \| S_0 \| _{R_{k+1}}
 \end{equation}
-since $\| \Psi\rk n _t - \id \|_{R_n} \leq t C $. This bound is fairly
-useful, as Taylor's theorem with integral remainder generates the identity
-\begin{equation*} \label{sec:approx:eq:taylor}
-  \Delta_\eps = \Delta_0 + \eps S 
-    + \int_0^\eps (\eps - t) \, \pa_t \Delta _t \dd t ,
-\end{equation*}
-from which a Cauchy inequality yields 
+since $\| \Psi\rk n _t - \id \|_{R_n} \leq t M $. Additionally
+from~\eqref{sec:geometry:eq:ode_Delta} evaluated at $t = \eps$, we
+gather 
+\begin{equation} \label{sec:geom:eq:avg_S}
+  \left| \int_0^\eps S_t \D t \right|
+  \leq 2\alpha \eps^{n+1} 
+    + \int_0^\eps \|L_t\|_{R} \D t \ \| \Delta \|_{\eps, R} .
+\end{equation}
+An integration by parts transforms the left integral, $\int_0^\eps S_t
+\D t = \eps S_0 + \int_0^\eps (\eps - t) \pa_t S_t \D t$, and because
+$S_t$ is transported by $F\rk n$, we may use a Cauchy estimate 
 \begin{equation*}
-  \| S_0 \|_{R_1} 
-  \leq \frac{\eps}{2} \| \pa_t \Delta \|_{\eps, R_1} 
-    + 2 \alpha \eps^{n}
-  \leq \frac{\eps}{2} \left( \| L \|_{\eps, R_1} \, \| \Delta \|_{\eps, R_1} 
-    + \| S \|_{\eps, R_1} \right) + 2\alpha\eps^{n} . 
+  \| \pa_t S_t \|_R 
+  \leq \left\| (\pa_u S_0 \cdot F\rk n) \circ \Psi^\eps _t \right\|_R
+  \leq \left\| \pa_u S_0 \cdot F\rk n \right\|_{R+r_n/2}
+  \leq \frac{M}{r_n/2} \| S_0 \|_{R_1} 
+  \leq \frac{1}{\eps_n} \| S_0 \|_{R_1} .
 \end{equation*}
-Injecting~\eqref{sec:approx:eq:gronwall}
-and~\eqref{sec:approx:eq:transported_bound} into the right-hand term, we
-obtain 
-\begin{equation*}
-  \| S_0 \|_{R_1} 
-  \leq \frac{\eps}{2} (1 + C_L) \| S_0 \|_{R_2}
-    + ( 2 + \eps C_L ) \alpha \eps^{n} .
-\end{equation*} 
-where $C_L = \eps \| L_0 \|_{2R} e^{\eps \| L_0 \|_{2R}}$ (exploiting the
-fact that $L$ is transported by $F\rk n$). We set $\kappa = \frac{1}{2}( 1
-+ C_L)$ and $q = \alpha (2 + \eps C_L)$ for brevity, and successive
-applications of this reasoning on $\| S_0 \|_{R_k}$ generate 
-\begin{equation*}
-  \| S_0 \| _{R_1} 
-  \leq (\eps \kappa)^n \| S_0 \|_{2R}
-    + \sum_{k = 0}^{n-1} (\eps \kappa) q \eps^n
-  \leq \left(\frac{\eps}{2\eps_0}\right)^n \| S_0 \|_{2R} 
-    + 2q \eps^n
+Using the integration by parts along with this estimate
+in~\eqref{sec:geom:eq:avg_S}, we obtain
+\begin{equation*} \label{sec:geom:eq:tmp_S0}
+  \eps \| S_0 \|_R
+  \leq \frac{\eps}{2\eps_n}\| S_0 \|_{R_1}
+    + 2\alpha \eps^{n+1} 
+    + \int_0^\eps \|L_t\|_{R} \D t \ \| \Delta \|_{\eps, R} .
 \end{equation*}
-assuming $\eps_0 \leq 1/(2\kappa)$. Finally, $\| S_0 \|_{R_1} =
-\bigO(\eps^{n+1})$ thus $\| \Delta \|_{\eps, R} = \bigO( \eps^{n+1} )$.
-This reasoning can be conducted on any time interval of the form $[\eps k,
-\eps (k+1)]$, proving that $R$ is of size $\big( \eps^{n+1})$ at all
-times. 
+Since $L_t$ is also transported by $F\rk n$, the integral can also be
+bounded, $\int_0^\eps \| L_t \|_R \D t \leq \eps \| L \|_{\eps, R} \leq
+\eps \| L_0 \|_{R + r_n/2}$, and by definition along with a Cauchy
+estimate, 
+\begin{equation*}
+  \| L_0 \| _{R + r_n/2} 
+  \leq 2 \| \pa_u F^\eps \|_{R + r_n/2}
+  \leq \frac{1}{r_n/2} M \leq \frac{1}{\eps_n} .
+\end{equation*}
+This bound, as well as~\eqref{sec:approx:eq:gronwall} can be injected
+into~\eqref{sec:geom:eq:tmp_S0} to yield 
+\begin{equation*}
+  \| S_0 \|_R
+  \leq \frac{\eps}{\eps_n} \left(
+    \frac{1}{2} + e^{\eps/\eps_n} 
+  \right) \| S_0 \|_{R_1} 
+  + (2 + e^{\eps/\eps_n}\eps/\eps_n) \alpha \eps^n
+  \leq \frac{4\eps}{\eps_n} \| S_0 \|_{R_1} + 5\alpha \eps^n .
+\end{equation*}
+The same reasoning can be conducted on any $\mathcal{K}_{R_k}$ to obtain
+\begin{equation*}
+  \| S_0 \| _{R_k} 
+  \leq \frac{4\eps}{\eps_n} \| S_0 \|_{R_{k+1}} + 5\alpha \eps^n
+\end{equation*}
+therefore, by successive injections,
+\begin{equation*}
+  \| S_0 \| _R \leq \left( \frac{4\eps}{\eps_n} \right)^{n+1} \|S_0\| _{2R}
+  + 5\alpha \eps^n \sum_{k = 0}^n \left(\frac{4\eps}{\eps_n}\right)^k
+\end{equation*}
+therefore, because $\| S_0 \|_{2R}$ is bounded by definition, if $\eps$
+is small enough, 
+\begin{equation*}
+  \| S_0 \|_{R_1} = \bigO(\eps^n),
+  \qquad\text{and in turn}\qquad
+  \| \Delta \|_{\eps, R} = \bigO(\eps^{n+1}) .
+\end{equation*}
+This result is also true on all intervals of the form $[k\eps,
+(k+1)\eps]$, therefore $(t,u) \mapsto \Psi^\eps _t(u)$ is symplectic up
+to terms of order~$\bigO(\eps^{n+1})$. 
+
 
 \end{proof}

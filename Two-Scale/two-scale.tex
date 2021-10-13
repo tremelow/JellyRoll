@@ -1,24 +1,24 @@
 \chapter{Autour d'un développement double-échelle}
 \label{chap:two-scale}
 
-Dans ce chapitre, on discute rapidement d'une démarche de développement double-échelle pour les problèmes à relaxation rapide de la forme
+Dans ce chapitre, on introduit une démarche de développement double-échelle pour les problèmes à relaxation rapide de la forme
 \begin{equation} \label{2s:pb:u}
     \pa_t u = -\frac{1}{\eps}Au + f(u), 
     \qquad
-    u(0) = u_0 \in \setR^d
+    u(0) = u_0 \in \setR^d , 
 \end{equation}
 avec $A$ un opérateur de relaxation et $u \mapsto f(u)$ un champ de vecteurs régulier. L'idée du développement double-échelle est d'écrire $t \mapsto u(t)$ comme une évaluation particulière d'une fonction à deux variables 
 \begin{equation} \label{2s:eq:defU}
     u(t) = U(t,\tau)|_{\tau = t/\eps} .
 \end{equation}
-Cette approche a été un succès dans le contexte de problèmes hautement oscillants (voir~\cite{chartier.2015.uniformly, chartier.2020.derivative}), et est à la base des méthodes d'homogénéisation~\cite{allaire.1992.homogenization}. Dans ce contexte, on suppose que la nouvelle quantité $(t,\tau) \mapsto U(t,\tau)$ est périodique par rapport à la seconde variable $\tau$. 
+Cette approche a été un succès dans le cas des problèmes hautement oscillants (voir~\cite{chartier.2015.uniformly, chartier.2020.derivative}), et est à la base des méthodes d'homogénéisation~\cite{allaire.1992.homogenization}. Dans ce contexte, on suppose que la nouvelle quantité $(t,\tau) \mapsto U(t,\tau)$ est périodique par rapport à la seconde variable $\tau$. 
 
 Dans le cadre de problèmes à relaxation rapide, on suppose $\tau \in \setR_+$, et on injecte~\eqref{2s:eq:defU} dans~\eqref{2s:pb:u} pour obtenir le problème de transport pour $(t,\tau) \in [0,T] \times \setR_+$ 
 \begin{equation} \label{2s:pb:trsp_U}
     \pa_t U + \frac{1}{\eps} \left(\pa_\tau + A \right) U
     = f(U) .
 \end{equation}
-De part la structure du problème, il faut définir une donnée initiale $\tau \mapsto U_I(\tau) := U(0,\tau)$ et une donnée au bord $t \mapsto U_B(t) := U(t,0)$, tel que sur le diagramme suivant: 
+De par la structure du problème, il faut définir une donnée initiale $\tau \mapsto U_I(\tau) := U(0,\tau)$ et une donnée au bord $t \mapsto U_B(t) := U(t,0)$, telles que sur le diagramme suivant: 
 
 \usetikzlibrary{decorations.markings}
 \begin{center}
@@ -66,9 +66,9 @@ Les valeurs qui nous intéressent sont sur la ligne caractéristique $t = \eps\t
 
 
 \paragraph{Caractère bien posé du problème \\}
-Discutons d'abord du caractère bien posé d'un problème de la forme~\eqref{2s:pb:trsp_U}. Le caractère bien posé de ce problème se fait naturellement le long des caractéristiques, qui s'écrivent $t = t_0 + \eps\tau$ au-dessus de la diagonale $t = \eps\tau$, et $t = \eps(\tau - \tau_0)$ en-dessous, avec $(t_0,\tau_0) \in [0,T] \times \setR_+$. Ainsi, si les données $U_I$ et $U_B$ sont bornées, quitte à réduire le temps d'existence $T$, le problème est bien posé. Cependant, avec cette approche, on ne précise pas la régularité de la solution obtenue, le problème est bien posé dans $L^{\infty}([0,T] \times \setR_+)$. Si en outre $U_B$ et $U_I$ sont continues avec $U_B(0) = U_I(0) = u_0$, le problème est bien posé dans $C^0([0,T] \times \setR_+)$. 
+Discutons d'abord du caractère bien posé d'un problème de la forme~\eqref{2s:pb:trsp_U}. Cette question s'étudie au moyen des caractéristiques, qui s'écrivent $t = t_0 + \eps\tau$ au-dessus de la diagonale $t = \eps\tau$, et $t = \eps(\tau - \tau_0)$ en-dessous, avec $(t_0,\tau_0) \in [0,T] \times \setR_+$. Ainsi, si les données $U_I$ et $U_B$ sont bornées, quitte à réduire le temps d'existence $T$, le problème est bien posé. Cependant, avec cette approche, on ne précise pas la régularité de la solution obtenue, le problème est bien posé dans $L^{\infty}([0,T] \times \setR_+)$. Si en outre $U_B$ et $U_I$ sont continues avec $U_B(0) = U_I(0) = u_0$, le problème est bien posé dans $C^0([0,T] \times \setR_+)$. 
 
-Si on veut que le problème soit bien posé dans $C^1$, il faut que $U_B$ et $U_I$ soient continues, mais aussi qu'à la limite $t \rightarrow 0$ et $\tau \rightarrow 0$, ces données soient compatibles. En effet, dans~\eqref{2s:pb:trsp_U}, on a en $(t,\tau) = (0,0)$, 
+Si on veut que le problème soit bien posé dans $C^1$, il faut que $U_B$ et $U_I$ soient de classe $C^1$, mais aussi qu'à la limite $t \rightarrow 0$ et $\tau \rightarrow 0$, ces données soient compatibles. En effet, dans~\eqref{2s:pb:trsp_U}, on a en $(t,\tau) = (0,0)$, 
 \begin{equation*}
     \pa_t U_B(0) + \frac{1}{\eps}(\pa_\tau + A)U_I(0) = f(u_0) .
 \end{equation*}
@@ -76,7 +76,7 @@ Si cette condition est respectée, on remarque que la dérivée $V = \pa_t U$ v�
 \begin{equation*}
     \pa_t V + \frac{1}{\eps}(\pa_\tau + A) V = f'(U)V .
 \end{equation*}
-Les conditions initiales et au bord associé à ce problème sont continues, donc cette dérivée est continue. Le même raisonnement peut être tenu pour $\pa_\tau U$, si bien que la fonction $(t,\tau) \mapsto U(t,\tau)$ est de classe~$C^1$. À l'ordre~2, on trouve
+Les conditions initiales et au bord associées à ce problème sont continues, donc cette dérivée est continue. Le même raisonnement peut être tenu pour $\pa_\tau U$, si bien que la fonction $(t,\tau) \mapsto U(t,\tau)$ est de classe~$C^1$. À l'ordre~2, on trouve
 \begin{equation*}
     \pa_t^{\: 2} U_B(0) - \frac{1}{\eps^2}(\pa_\tau + A)^2 U_I(0)
     = f'(u_0)\pa_t U_B(0) 
@@ -143,7 +143,7 @@ Ainsi on retrouve le premier terme,
 \begin{equation*}
     U_0(t,\tau) = e^{-\tau A} \widetilde{u}_0(t)
 \end{equation*}
-et si on néglige les termes d'ordre $\eps$ et au-delà dans la série, on peut choisir $t \mapsto u_0(t)$ librement. Si on cherche à étendre le développement, en revanche, on trouve 
+et si on néglige les termes d'ordre $\eps$ et au-delà dans la série, on peut choisir $t \mapsto \tilde{u}_0(t)$ librement tant que~$\tilde{u}_0(0) = u_0$. Si on cherche à étendre le développement, en revanche, on trouve 
 \begin{equation*}
     U_1(t,\tau) = e^{-\tau A} \widetilde{u}_1(t)
     + \int_0^{\tau} e^{(\sigma-\tau)A} \left(
@@ -175,4 +175,4 @@ On retrouve ainsi formellement la même construction que dans le Chapitre~\ref{c
 \begin{equation*}
     U_I(\tau) = \Omega^\eps_\tau \circ \big( \Omega^\eps _0 \big)^{-1} .
 \end{equation*}
-Ce lien entre décomposition micro-macro et décomposition double-échelle est également soulevé dans le cadre périodique chez~\cite{chartier.2020.derivative}. La nouveauté par rapport à ce cadre est la donnée au bord $t \mapsto U_B(t)$, et on a vu que la bonne détermination de cette donnée est problématique. Tracer un lien entre cette donnée au bord et la construction micro-macro donnerait certainement des pistes pour déterminer les valeurs initiales $\widetilde{u}_k(0)$ associées au problèmes au bord. 
+Ce lien entre décomposition micro-macro et décomposition double-échelle est également évoqué dans le cadre périodique chez~\cite{chartier.2020.derivative}. La nouveauté par rapport à ce cadre est la donnée au bord $t \mapsto U_B(t)$, et on a vu que la bonne détermination de cette donnée est problématique. Tracer un lien entre cette donnée au bord et la construction micro-macro donnerait certainement des pistes pour déterminer les valeurs initiales $\widetilde{u}_k(0)$ associées au problèmes au bord. 

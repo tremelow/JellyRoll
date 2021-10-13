@@ -12,13 +12,13 @@
 
 
 
-Ce chapitre sert d'ouverture, il présente un éventail de pistes de réflexions, d'extensions des résultats sur les problèmes à relaxation rapide du chapitre précédent. Rappelons d'abord le contexte: on considère la solution~$t \mapsto u^\eps(t)$ du problème
+Ce chapitre présente un éventail de pistes de réflexions, d'extensions des résultats sur les problèmes à relaxation rapide du chapitre précédent. Rappelons d'abord le contexte: on considère la solution~$t \mapsto u^\eps(t)$ du problème
 \begin{equation} \label{ext:pb:u}
     \pa_t u^\eps = -\frac{1}{\eps}A u^\eps + f(u^\eps),
     \qquad
     u^\eps(0) = u_0 \in \setR^d
 \end{equation}
-avec $A$ une matrice diagonale positive à valeurs propres entières, et $u \mapsto f(u)$ un champ de vecteurs régulier. Pour tout ordre $n \in \setN$, on construit d'un changement de variable $(\tau, u) \mapsto \Omega\rk n _\tau (u)$ proche de $e^{-\tau A}$ et d'un champ de vecteurs non-raide $u \mapsto F\rk n (u)$. Cela permet de décomposer la solution $t \mapsto u^\eps(t)$ en une partie \textit{macro} $v\rk n(t)$ et une partie \textit{micro} $w\rk n(t) = \bigO(\eps^{n+1})$, de sorte que 
+avec $A$ une matrice diagonale positive à valeurs propres entières, et $u \mapsto f(u)$ un champ de vecteurs régulier. Pour tout ordre $n \in \setN$, on construit un changement de variable $(\tau, u) \mapsto \Omega\rk n _\tau (u)$ proche de $e^{-\tau A}$ et un champ de vecteurs non-raide $u \mapsto F\rk n (u)$. Cela permet de décomposer la solution $t \mapsto u^\eps(t)$ en une partie \textit{macro} $v\rk n(t)$ et une partie \textit{micro} $w\rk n(t) = \bigO(\eps^{n+1})$, de sorte que 
 \begin{equation} \label{ext:eq:decomp}
     u^\eps (t) = \Omega\rk n _{t/\eps} \big( v\rk n (t) \big) 
         + w\rk n (t) .
@@ -46,7 +46,7 @@ avec $\eta\rk n$ le défaut définit par
 \end{equation}
 La donnée initiale est $v\rk n (0) = \big( \Omega\rk n _0 \big)^{-1} (u_0)$, $w\rk n (0) = 0$. Ce problème est bien posé et on peut le résoudre avec une \textit{précision uniforme} à l'ordre $n+1$ en utilisant un schéma exponentiel Runge-Kutta. 
 
-Dans ce chapitre, on discute de nombreux sujets ouverts qui pourraient faire le sujet d'études futures. En particulier, en Section~\ref{ext:sec:direct} on discute de problématiques d'implémentation, comme le coût de calcul, l'accumulation d'erreurs, et le besoin d'une dérivée exacte. En Section~\ref{ext:sec:auto} on définit un problème micro-macro autonome, ce qui permet d'expliquer le gain d'ordre remarqué en fin de Chapitre~\ref{chap:dissip-mima} et de définir une approche~\enquote{pullback} comme ce qui avait pu être fait dans le cadre hautement oscillant. Enfin en Section~\ref{ext:sec:telegraphe}, on présente une piste basée sur des développements de Padé pour traiter l'équation du télégraphe de manière rigoureuse à tout ordre. 
+Dans ce chapitre, on discute de quelques sujets ouverts qui pourraient faire l'objet d'études futures. En particulier, en Section~\ref{ext:sec:direct} on discute de problématiques d'implémentation, comme le coût de calcul, l'accumulation d'erreurs, et le besoin d'une dérivée exacte. En Section~\ref{ext:sec:auto} on définit un problème micro-macro autonome, ce qui permet d'expliquer le gain d'ordre remarqué en fin de Chapitre~\ref{chap:dissip-mima} et de définir une approche~\enquote{pullback} comme ce qui avait pu être fait dans le cadre hautement oscillant. Enfin en Section~\ref{ext:sec:telegraphe}, on présente une piste basée sur des développements de Padé pour traiter l'équation du télégraphe de manière rigoureuse à tout ordre. 
 
 
 \section{Extensions directes du micro-macro}
@@ -105,9 +105,13 @@ function eta2(x,z,epsil)
 end
 \end{lstlisting}
 %
-Cette implémentation voit $\eta\rk n(x,z)$ comme un polynôme en $\eps$ et applique la méthode d'Horner, ce qui permet d'avoir un résultat pertinent dans le cas où $\eps^2$ est proche de l'erreur machine. 
+Cette implémentation voit $\eta\rk n(x,z)$ comme un polynôme en $\eps$ et applique la méthode d'Horner (voir~\cite[Sec.~4.6.4]{knuth.2014.art}), ce qui permet d'avoir un résultat pertinent dans le cas où $\eps^2$ est proche de l'erreur machine. 
 
-On voit cependant apparaître des termes jusqu'à $x^{13}$, ce qui peut vite être problématique du point de vue de la stabilité numérique, dès lors que $x$ prend des valeurs élevées. Sur le problème d'origine, la non-linéarité est cubique seulement, et $g(5) \leq 100$, donc il ne serait pas surprenant que $x$ prenne des valeurs de cette taille. Cependant, on a alors $x^{13} \sim 10^9$, ce qui peut engendrer des erreurs importantes dans le calcul du défaut, surtout si~$\eps$ est grand. 
+On voit cependant apparaître des termes jusqu'à $x^{13}$, ce qui peut vite être problématique du point de vue de la stabilité numérique, dès lors que $x$ prend des valeurs élevées. Sur le problème d'origine, la non-linéarité est cubique seulement, et $g(5) \leq 100$, donc on pourrait choisir $x(0) = 5$ dans le problème d'origine sans s'inquiéter de problèmes d'erreur numérique. Cependant, on a alors $x^{13} \sim 10^9$, ce qui peut engendrer des erreurs importantes dans le calcul du défaut, surtout si~$\eps$ est grand. On peut voir cela comme une illustration de la condition de bonne-définition des développements, 
+\begin{equation*}
+    (n+1) \eps \leq \frac{\rho}{\sup_{|v| \leq \rho} |f(u+v)|}
+\end{equation*}
+avec $n$ l'ordre du développement. 
 
 En outre, une évaluation de $\eta\rk n (x,z)$ avec l'implémentation ci-dessus demande 24.5~$\mu$s, ce qui est 35 fois supérieur aux 699~ns que demande une évaluation du champ de vecteurs d'origine $f(x,z) = \left(\frac{1}{3}x^3 - z \right) \among{1}{x^2}$. Il paraît donc évident qu'une fois la phase transitoire passée, il vaut mieux utiliser un schéma \enquote{UA à l'équilibre} sur le système d'origine pour éviter les calculs coûteux.
 
@@ -125,7 +129,7 @@ Dans le Chapitre~\ref{chap:dissip-mima}, la décomposition micro-macro est const
 \end{equation}
 On utilise donc des outils de calcul formel pour construire les applications~$(\tau, u) \mapsto \Omega\rk n _\tau(u)$ et $u \mapsto F\rk n (u)$ \textit{a priori} de l'implémentation du problème micro-macro. Cette approche présente une difficulté: la traduction entre le calcul formel et l'implémentation est difficile à automatiser car les expressions obtenues sont trop longues, et la transcription manuelle peut être source d'erreur. On peut donc souhaiter calculer le problème micro-macro \enquote{à la volée} sans calcul formel. 
 
-Étant donné que notre construction micro-macro est équivalente à celle pour les problèmes hautement oscillants de~\cite{chartier.2020.new}, on peut prendre se tourner vers cette catégorie de problèmes pour réaliser ce souhait. Dans~\cite{chartier.2020.derivative}, les auteurs remplacent les dérivées $\pa_u \Omega\rk n _\tau$ par des différences finies 
+Étant donné que notre construction micro-macro est équivalente à celle pour les problèmes hautement oscillants de~\cite{chartier.2020.new}, on peut se tourner vers cette catégorie de problèmes pour réaliser ce souhait. Dans~\cite{chartier.2020.derivative}, les auteurs remplacent les dérivées $\pa_u \Omega\rk n _\tau$ par des différences finies 
 \begin{equation*}
     \pa_u \Omega\rk n _\tau (u) \cdot v
     = \frac{1}{\eps^{n+1}} \left( 
@@ -177,7 +181,7 @@ De prime abord, la résolution de~\eqref{ext:eq:unfilt_v} semble présenter les 
 \end{FRremark}
 
 
-Il est à noter que cette formulation autonome est incompatible avec l'application directe de méthodes exponentielles Runge-Kutta (expRK), puisque la variable $\tilde{v}$ est raide. Ceci met en évidence une limite importante de ces méthodes. L'approche avec le problème non-autonome revient à appliquer une méthode de Lawson\footnote{Pour rappel, les méthodes de Lawson consistent à appliquer un schéma Runge-Kutta standard sur la variable filtrée $e^{tA/\eps} u^\eps(t)$ et d'exprimer ce schéma en fonction de la variable non-filtrée $u^\eps(t)$. Des estimations d'erreur sont présentées dans~\cite{hochbruck.2020.convergence}.} sur $v\rk n$ combinée à une méthode expRK sur $w\rk n$. Une comparaison de ces méthodes est faite dans~\cite{crouseilles.2020.exponential} dans le cadre de champs qui commutent, bien que le contexte surjacent soit différent.
+Il est à noter que cette formulation autonome est incompatible avec l'application directe de méthodes exponentielles Runge-Kutta (expRK), puisque la variable $\tilde{v}$ est raide. Ceci met en évidence une limite importante de ces méthodes. L'approche avec le problème non-autonome revient à appliquer une méthode de Lawson\footnote{Pour rappel, les méthodes de Lawson consistent à appliquer un schéma Runge-Kutta standard sur la variable filtrée $e^{tA/\eps} u^\eps(t)$ et d'exprimer ce schéma en fonction de la variable non-filtrée $u^\eps(t)$. Des estimations d'erreur sont présentées dans~\cite{hochbruck.2020.convergence}.} sur $v\rk n$ combinée à une méthode expRK sur $w\rk n$. Une comparaison de ces méthodes est faite dans~\cite{crouseilles.2020.exponential} dans le cadre de champs qui commutent, dans un contexte de modèles cinétiques avec solutions hautement oscillantes.
 
 
 \subsection{Interprétation du gain d'ordre}
