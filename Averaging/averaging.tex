@@ -155,10 +155,34 @@ Sanders-Verhulst-Murdock~\cite{sanders.2007.averaging} for textbooks on
 these issues. Since the goal is to separate the fast periodic part in
 $\theta$ and the slow drift in $t$, averaging can be seen as analogous
 to the two-scale expansion $u^\eps(t) = U^\eps(t, \theta) |_{\theta =
-t/\eps}$ often found in the context of high-frequency PDEs. It
-is also similar to WKB expansions~\cite{wentzel.1926.eine,kramers.1926.wellenmechanik,brillouin.1926.remarques}, since in some sense $\Phi^\eps$
-captures the rapid phase dynamics and $\Psi^\eps$ the slow amplitude
-changes. 
+t/\eps}$ often found in the context of high-frequency PDEs. It is also
+similar to WKB expansions~\cite{wentzel.1926.eine,
+kramers.1926.wellenmechanik, brillouin.1926.remarques}, since in some
+sense $\Phi^\eps$ captures the rapid phase dynamics and $\Psi^\eps$ the
+slow amplitude changes. 
+
+A particularly well-studied case is that of the autonomous problems with
+linearly-generated oscillations (i.e. linear $G$), for which the problem
+of averaging can often be reduced to finding some $\theta$-independent
+change of variable $\big( \Phi^\eps_0 \big) ^{-1}$, or some equivalent.
+It is then possible to consider the problem on this new variable
+$\big(\Phi^\eps_0 \big)^{-1} (u(t))$. As such, averaging in this context
+is linked to normal forms, in particular Birkhoff's forms have been
+considered in this context by Bambusi~\cite{bambusi.2003.birkhoff,
+bambusi.2005.birkhoff-lewis, bambusi.2006.birkhoff,
+bambusi.2008.birkhoff}, Bourgain~\cite{bourgain.1996.construction},
+Colliander~\cite{colliander.2010.transfer, colliander.2012.remark} and
+Grébert~\cite{bambusi.2006.birkhoff, grebert.2011.energy,
+grebert.2012.resonant}, to mention only a few. 
+%
+Note that many of these works on normal forms consider the setting of
+multiple non-resonant frequencies, which is akin to considering $f$ as a
+function of multiple phases $\theta_1, \theta_2, \ldots$
+in~\eqref{sec:intro:eq:ode_u}. This setting has also been studied with
+averaging using diophantine approximations
+in~\cite{chartier.2017.convergence} and with $B$-series
+in~\cite{chartier.2012.higher}. 
+
 
 In this work, we shall not discuss specific methods to compute the
 periodic change of variable or the averaged vector fields, the traditional
@@ -174,47 +198,36 @@ Another approach is that of ``successive substitution'' dating back
 to~\cite{neishtadt.1984.separation} (albeit in a slightly different
 context), and more recently in~\cite{castella.2015.stroboscopic,
 chartier.2020.new}. This circumvents the ansatz and yields an
-\textit{exponential} error, i.e. an error bounded by $Ce^{-\mu/\eps}$
-for some $C > 0$ and $\mu > 0$. Both approaches coincide formally. 
+\textit{exponential} error, i.e. an error bounded by $Ce^{-\nu/\eps}$
+for some $C > 0$ and $\nu > 0$. Both approaches coincide formally. 
 %
 Our goal in this paper is to present known results under a new light,
 and to offer original proofs without having to invoke any ansatz, formal
 series or construction process. 
 
-\medskip%
-A particularly well-studied case is that of the autonomous problems with
-linearly-generated oscillations (i.e. linear $G$), for which the problem
-of averaging can often be reduced to finding some $\theta$-independent
-change of variable $\big( \Phi^\eps_0 \big) ^{-1}$, or some equivalent. It
-is then possible to consider the problem on this new variable
-$\big(\Phi^\eps_0 \big)^{-1} (u(t))$. As such, a link can be made with
-normal forms, and specifically Birkhoff's forms technique have been
-considered in this context by Bambusi~\cite{bambusi.2003.birkhoff, bambusi.2005.birkhoff-lewis, bambusi.2006.birkhoff, bambusi.2008.birkhoff},
-Bourgain~\cite{bourgain.1996.construction},
-Colliander~\cite{colliander.2010.transfer, colliander.2012.remark} and
-Grébert~\cite{bambusi.2006.birkhoff, grebert.2011.energy,
-grebert.2012.resonant}, to mention only a few. We offer some insight on
-this approach in Section~\ref{sec:autonomous:rmk:std_link}.
 %
-Note that many of these works consider the setting of multiple
-non-resonant frequencies, which is akin to considering $f$ as a function
-of multiple phases $\theta_1, \theta_2, \ldots$
-in~\eqref{sec:intro:eq:ode_u}. This setting has also been studied with
-averaging using diophantine approximations
-in~\cite{chartier.2017.convergence} and with $B$-series
-in~\cite{chartier.2012.higher}. 
 
-\bigskip %
 In Section~\ref{sec:presentation}, we present some general properties of
 averaging, detailing the differences between standard and stroboscopic
 averaging. In Section~\ref{sec:hyp}, we enounce two assumptions which
 describe what we mean by exact and approximate averaging. In
 Section~\ref{sec:autonomous}, we present some remarkable properties of
-averaging in the autonomous case, both for exact and approximate
-averaging. In Section~\ref{sec:geometry}, we restrain ourselves to
-stroboscopic averaging, and present some of its geometric properties
-first in the linear exact case, then in the general case of approximate
-averaging.
+averaging in the autonomous case, namely that the change of variable is
+the flow of an autonomous problem, and it commutes with~$\Psi^\eps$. In
+Section~\ref{sec:geometry}, we restrain ourselves to stroboscopic
+averaging, and show that it preserves geometric properties. For each
+context we consider different assumptions, summarized by the following
+table 
+\begin{center}
+  \begin{tabular}{c|c|c|}
+                  & autonomous &  geometry  \\ \hline
+    exact         & \checkmark &            \\
+    linear exact  & \checkmark & \checkmark \\
+    approximate   & \checkmark & \checkmark 
+  \end{tabular}
+\end{center}
+In the context of approximate averaging, the properties of averaging are
+shown up to an error of the same order as the error of approximation.
 
 
 \section{A brief presentation of averaging} \label{sec:presentation}
@@ -335,27 +348,17 @@ corresponds to the behaviour of analytic problems. The results are
 stronger in the first setting, but the second is more general, therefore
 we treat them separately in the sequel.
 
-\begin{assumption} \label{hyp:exist_avg_lin}
+\begin{assumption}[Exact averaging] \label{hyp:exist_avg_lin}
   There exists an upper bound~$\eps_0 > 0$ such that for all $u_0 \in X$
   and~$\eps \in (0, \eps_0]$, Problem~\eqref{sec:intro:eq:ode_u} is
   well-posed for $t \in [0,1]$. Furthermore for all $\eps \in (0,
   \eps_0]$, the averaging maps $(\theta, u) \in \T \times X \mapsto
   \Phi^\eps_\theta(u)$ and $u \in X \mapsto F^\eps (u)$ are well-defined
-  and smooth w.r.t.~$u$. In addition,~$\pa_u F^\eps$ is bounded on~$X$
-  uniformly w.r.t. $\eps$ and~$F^\eps$ is linearly bounded, which is to
-  say
-  \begin{equation*}
-    \exists M, \kappa \geq 0,\ \forall \eps \in (0, \eps_0],\ 
-    \forall (u,v) \in X, \quad
-    |F^\eps(u)| \leq M + \kappa |u|
-    \quad\text{and}\quad
-    |\pa_u F^\eps (u)\, v| \leq \kappa |v| .
-  \end{equation*}
-  For all $\theta \in \T$, the inverse $u \mapsto \big(\Phi^\eps _\theta
-  \big)^{-1}(u)$ and~$v \mapsto \big( \pa_u \Phi^\eps _\theta(u)
-  \big)^{-1} v$ are well-defined. The same is true of the average of
-  $\Phi^\eps$, i.e. by replacing $\Phi^\eps _\theta$ by $\LL \Phi^\eps
-  \RR$ in the previous expressions. 
+  and smooth w.r.t.~$u$. In addition, the $t$-flow $(t,u) \mapsto
+  \Psi^\eps_t(u)$ is well-defined for $t \in [0,1]$ and the change of
+  variable $u \mapsto \Phi^\eps _\theta(u)$ is invertible for all
+  $\theta \in \T$. The linear map $\pa_u \Phi^\eps _\theta(u)$ is
+  invertible for all $(\theta,u) \in \T \times X$.
 \end{assumption}
 This setting corresponds to the behaviour of problems where $(\theta, u)
 \mapsto f_\theta(u)$ is linear w.r.t.~$u$. It follows from this
@@ -379,7 +382,7 @@ Banach space when endowed with the norm
 Note that for $u \in X$, this norm $|u|_{X_\C}$ coincides with the norm
 of the real space $|u|$, thus in the sequel, we write $|\cdot|$ to
 denote the norm on the complexified space $X_\C$ indiscriminately.
-Denote now~$\mathcal{K}$ a subspace of~$X$ on which we shall conduct our
+Denote now~$\mathcal{K}$ a subset of~$X$ on which we shall conduct our
 study. Given a radius $\rho > 0$, we denote 
 \begin{equation*}
   \mathcal{K}_{\rho} := \big\{
@@ -389,7 +392,7 @@ study. Given a radius $\rho > 0$, we denote
   \big\} ,
 \end{equation*}
 i.e.~$\mathcal{K}_\rho$ is the extension of $\mathcal{K}$ in $X_\C$ by a
-radius~$\rho$. We also define the norm, given a map $\varphi$ from
+radius~$\rho$. We also define the norm, given a bounded map $\varphi$ from
 $\mathcal{K}_\rho$ to some Banach space $(E, |\cdot|)$, 
 \begin{equation*}
   \| \varphi \|_\rho = \sup_{u \in \mathcal{K}_\rho} |\varphi(u) |.
@@ -398,7 +401,7 @@ In particular for maps $\varphi: X \rightarrow X$, we have $E = X$, and
 for their derivatives $E = \mathcal{L}(X,X)$ endowed with the operator
 norm $\vertiii{\cdot}$. 
 
-\begin{assumption} \label{hyp:exist_avg_nl} %
+\begin{assumption}[Approximate averaging] \label{hyp:exist_avg_nl} %
   There exists an upper parameter~$\eps_0$ such that
   Problem~\eqref{sec:intro:eq:ode_u} is well-posed for $t \in [0,1]$
   with an initial condition $u(0) \in \mathcal{U}_0 \subset
@@ -417,24 +420,28 @@ norm $\vertiii{\cdot}$.
   \end{equation*}
   for some $M > 0$ independent of~$\eps$. Both maps are analytic
   w.r.t.~$u$, with a radius of convergence everywhere greater than~$R$.
-  In addition, the error of approximation is of size $\eps^{n+1}$, i.e.
+  Additionally, the error of approximation is of size $\eps^{n+1}$, i.e.
   writing $\Psi\rk n _t$ the $t$-flow of $F\rk n$, for all $u_0 \in
   \mathcal{U}_0$ and $t \in [0,1]$, 
   \begin{equation} \label{sec:approx:def:avg_approx}
-    u(t) = \Phi\rk n _{t/\eps} \circ \Psi\rk n _t \circ \big( \Phi\rk n _0
-    \big)^{-1} (u_0) + \bigO(\eps^{n+1}) .
+    \left| u(t) - \Phi\rk n _{t/\eps} \circ \Psi\rk n _t \circ \big( \Phi\rk n _0
+    \big)^{-1} (u_0) \right| 
+    \leq  C \left( \frac{\eps}{\eps_n}\right)^{n+1} 
   \end{equation}
+  with $C$ independent of $n,\ \eps$ and $t$.
 \end{assumption}
 
 This assumption matches the behaviour generally observed with averaging
 when assuming $(\theta,u) \mapsto f_\theta(u)$ analytic w.r.t. $u$,
-found for instance in~\cite{castella.2015.stroboscopic}. As noted
+found for instance in~\cite{castella.2015.stroboscopic}, and is
+sufficient to have $\Phi\rk n _\theta$, $\LL \Phi \rk n \RR$ and their
+derivatives invertible for all $\theta \in \T$. In addition, as noted
 in~\cite{chartier.2015.higher}, if such approximations exist for all~$n
 \in \setN$, this is enough to ensure the historical optimal
 ``exponential'' error bound of~\cite{neishtadt.1984.separation}, which
 can be stated as such: there exist two positive constants $C$ and $\nu$
-such that for all $\eps > 0$ one can choose an integer $n$ such that for
-all $t$,
+such that for all $\eps > 0$ one can choose an integer $n$
+\textit{depending on}~$\eps$, such that for all $t$,
 \begin{equation*}
   \left| u(t) - \Phi\rk n _{t/\eps} \circ \Psi\rk n_t 
   \circ \big( \Phi\rk n _0 \big)^{-1} (u_0) \right| 
@@ -461,45 +468,6 @@ corresponds to the situation
   \qquad\text{and}\qquad
   \LL \delta\rk n \RR = \bigO( \eps^{n+1} ) .
 \end{equation}
-%
-
-The assumption of analyticity allows the use of \textit{Cauchy
-estimates}, which admit the following wording~: given a function $u
-\mapsto \varphi(u)$ which is analytic around some $u \in \mathcal{K}_R$
-with a radius of convergence $\rho > 0$, then for all $0 < \delta <
-\rho$, 
-\begin{equation*}
-  \pa_u \varphi(u) \cdot v = \frac{1}{2i\pi}
-    \int_{|\xi| = \delta/|v|} \frac{\varphi(u+\xi v)}{\xi^2} \D \xi ,
-\end{equation*}
-where $\varphi(u + \xi v)$ is defined by the power series around $u$.
-From this we deduce the so-called Cauchy estimate,
-\begin{equation} \label{sec:intro:eq:cauchy}
-  \big| \pa_u \varphi(u) \cdot v \big| 
-  \leq \frac{|v|}{\delta} 
-    \sup_{|\xi| = \delta/|v|} |\varphi(u + \xi v)| .
-\end{equation}
-Along with Assumption~\ref{hyp:exist_avg_nl}, this estimate is
-sufficient to show that $\Phi^\eps _\theta$ (for any $\theta \in \T$)
-and $\LL \Phi^\eps \RR$ are invertible for $\eps$ small enough. Indeed,
-given $u \in X$ and denoting $\Phi^\eps$ any of the previously cited
-maps, the function $\varphi_u(v) = u + v - \Phi^\eps(u+v)$ is a
-contraction on the ball $\{ v \in X_\C;\ |v| \leq R \}$. From the
-identity
-\begin{equation*}
-  \varphi_u(v) - \varphi_u(w)
-  = \int_0^1 \Big(
-    \id - \pa_u \Phi^\eps \big(u + \mu v + (1 - \mu) w \big)
-  \Big) \cdot (v - w) \D\mu 
-\end{equation*}
-in which $(u + \mu v + (1-\mu)w)$ is in $\mathcal{K}_{2R}$, it is
-possible to apply a Cauchy estimate with~$\delta = R$ to obtain
-$\displaystyle \big| \varphi_u (v) - \varphi_u (w) \big| \leq
-\frac{\eps}{2\eps_n} |v-w|$, from which the Banach fixed-point theorem
-can be applied. Then, there exists a unique $|v^*| \leq R$ such that
-$\varphi_u(v^*) = v^*$, i.e. such that $\Phi^\eps(u + v^*) = u$. We may
-therefore set $\big(\Phi^\eps \big) ^{-1} (u) = u + v^* \in
-\mathcal{K}_{2R}$.
 
 
 \section{Commutation of flows in the autonomous case} 
@@ -833,9 +801,17 @@ and~\ref{sec:autonomous:prop:commut}] \label{sec:approx:thm:commut} \hspace*{1em
   satisfies~\eqref{sec:approx:hyp:delta}, define the change of variable
   $(\theta, u) \mapsto \Omega\rk n _\theta(u) = \chi _{-\theta} \circ
   \Phi\rk n _\theta(u)$ for autonomous averaging. With this definition,
-  $\Omega\rk n _\theta$ is the $\theta$-flow of a vector field $G\rk n$
-  defined on $\mathcal{K}_R$ up to $\bigO(\eps^{n+2})$. Furthermore, $G\rk
-  n$ and $K\rk n$ commute up to $\bigO(\eps^{n+2})$ on $\mathcal{K}_{R}$. 
+  there exists a vector field~$u \mapsto G\rk n(u)$ defined on $\K_R$
+  such that
+  \begin{equation*}
+    \frac{\D}{\D \theta} \Omega\rk n _\theta 
+    = G\rk n \circ \Omega\rk n _\theta + \bigO(\eps^{n+1})
+    \quad\text{and}\quad
+    [G\rk n, K\rk n] = \bigO(\eps^{n+1}) .
+  \end{equation*}
+  In particular,~$\Omega\rk n$, $G\rk n$ and $K\rk n$ may be modified by
+  terms of order $\eps^{n+1}$ to have these identities met with no
+  error.
 \end{proposition}
 
 \begin{proof}
@@ -1254,7 +1230,8 @@ Section~\ref{sec:geometry} becomes.
   $\varphi^\eps _t$ the $t$-flow associated to
   Problem~\eqref{sec:intro:eq:ode_u}. Up to a reduction of~$\eps_0$, the
   following properties are satisfied up to an error of size
-  $\bigO(\eps^{n+1})$~: if for all $t \in [0, T_R]$, 
+  $\bigO(\eps^{n+1})$ for all $(n+1)\eps \leq \eps_0$~: if for all $t
+  \in [0, T_R]$, 
   \begin{enumerate}[(i)]
     \item $u \mapsto \varphi^\eps _t(u)$ is volume-preserving on
     $\mathcal{K}_{2R}$, then $\Psi\rk n _t$ is volume-preserving on
@@ -1348,10 +1325,31 @@ gather
 \end{equation}
 An integration by parts transforms the left integral, $\int_0^\eps S_t
 \D t = \eps S_0 + \int_0^\eps (\eps - t) \pa_t S_t \D t$, and because
-$S_t$ is transported by $F\rk n$, we may use a Cauchy estimate 
+$S_t$ is transported by $F\rk n$, its derivative w.r.t.~$t$ may be
+bounded as
 \begin{equation*}
   \| \pa_t S_t \|_R 
-  \leq \left\| (\pa_u S_0 \cdot F\rk n) \circ \Psi^\eps _t \right\|_R
+  = \left\| (\pa_u S_0 \cdot F\rk n) \circ \Psi^\eps _t \right\|_R
+  \leq \left\| \pa_u S_0 \cdot F\rk n \right\|_{R+r_n/2}
+\end{equation*}
+We may then use a so-called \textit{Cauchy estimate}~: since the
+function $u \mapsto S_0(u)$ is analytic around any $u \in \mathcal{K}_{R
++ r_n/2}$ with a radius of convergence $\rho > R$, then for all $0 <
+\delta \leq R$, 
+\begin{equation*}
+  \pa_u S_0(u) \cdot v = \frac{1}{2i\pi}
+    \int_{|\xi| = \delta/|v|} \frac{S_0(u+\xi v)}{\xi^2} \D \xi ,
+\end{equation*}
+where $S_0(u + \xi v)$ is defined by the power series around $u$.
+From this we deduce the so-called Cauchy estimate,
+\begin{equation} \label{sec:intro:eq:cauchy}
+  \big| \pa_u S_0(u) \cdot v \big| 
+  \leq \frac{|v|}{\delta} 
+    \sup_{|\xi| = \delta/|v|} |S_0(u + \xi v)| .
+\end{equation}
+In particular with $\delta = r_n/2$, we obtain 
+\begin{equation*}
+  \| \pa_t S_t \|_R 
   \leq \left\| \pa_u S_0 \cdot F\rk n \right\|_{R+r_n/2}
   \leq \frac{M}{r_n/2} \| S_0 \|_{R_1} 
   \leq \frac{1}{\eps_n} \| S_0 \|_{R_1} .
@@ -1360,7 +1358,7 @@ Using the integration by parts along with this estimate
 in~\eqref{sec:geom:eq:avg_S}, we obtain
 \begin{equation*} \label{sec:geom:eq:tmp_S0}
   \eps \| S_0 \|_R
-  \leq \frac{\eps}{2\eps_n}\| S_0 \|_{R_1}
+  \leq \frac{\eps^2}{2\eps_n}\| S_0 \|_{R_1}
     + 2\alpha \eps^{n+1} 
     + \int_0^\eps \|L_t\|_{R} \D t \ \| \Delta \|_{\eps, R} .
 \end{equation*}
@@ -1403,6 +1401,5 @@ is small enough,
 This result is also true on all intervals of the form $[k\eps,
 (k+1)\eps]$, therefore $(t,u) \mapsto \Psi^\eps _t(u)$ is symplectic up
 to terms of order~$\bigO(\eps^{n+1})$. 
-
 
 \end{proof}

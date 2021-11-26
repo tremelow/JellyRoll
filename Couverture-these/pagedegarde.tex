@@ -30,12 +30,14 @@
 
 %Indiquer la date et le lieu de soutenance de la th\`{e}se 
 %indicates the date and the place of the defense 
-\date{« date »}
-\lieu{« Lieu »}
+\date{08/12/2021\smallskip}
+\lieu{Rennes}
 
 %Indiquer le nom du (ou des) laboratoire (s) dans le(s)quel(s) le travail de th\`{e}se a \'{e}t\'{e} effectu\'{e}, indiquer aussi si souhait\'{e} le nom de la (les) facult\'{e}(s) (UFR, \'{e}cole(s), Institut(s), Centre(s)...), son (leurs) adresse(s)... 
 %Indicates the name (or names) of research laboratories where the work has been done as well as (if desired) the names of faculties (UFR, Schools, institution...
-\uniterecherche{« voir liste sur le site de votre \'{e}cole doctorale »}
+\uniterecherche{\parbox[t]{\linewidth}{Inria, Centre Inria Rennes-Bretagne Atlantique 
+\smallskip\\ 
+IRMAR, UMR CNRS 6625 Institut de Recherche Mathématique de Rennes}}
 
 %Indiquer le Numero de th\`{e}se, si cela est opportun, ou laisser vide pour faire disparaitre cet ligne de la couverture
 %Indicate the number of the thesis if there is one. otherwise leave empty so the line disappeurs on the cover
@@ -52,34 +54,45 @@
  %S’il n’y a pas de co-direction, faire disparaitre cet item de la couverture  
  %In there is no co-director, remove the item from the cover
 \jury{
+    \vspace*{.5cm}
 {\normalTwelve \textbf{Rapporteurs avant soutenance :}}\\ \newline
 \footnotesizeTwelve
+\renewcommand{\arraystretch}{1.2}
 \begin{tabular}{@{}ll}
 Pauline \textsc{Lafitte} & Professeur des universités -- CentraleSupélec \\
 Katharina \textsc{Schratz} & Professeur des universités -- Sorbonne Université \\
 \end{tabular}
 
+\vspace*{.5cm}
 \vspace{\baselineskip}
-{\normalTwelve \textbf{Composition du Jury :}}\\
-{\fontsize{9.5}{11}\selectfont {\textcolor{red}{\textit{Attention, en cas d’absence d’un des membres du Jury le jour de la soutenance, la composition du jury doit être revue pour s’assurer qu’elle est conforme et devra être répercutée sur la couverture de thèse}}}}\\ \newline
+{\normalTwelve \textbf{Composition du Jury :}}\bigskip\\
+% {\fontsize{9.5}{11}\selectfont {\textcolor{red}{\textit{Attention, en cas d’absence d’un des membres du Jury le jour de la soutenance, la composition du jury doit être revue pour s’assurer qu’elle est conforme et devra être répercutée sur la couverture de thèse}}}}\\ \newline
 \footnotesizeTwelve
+\renewcommand{\arraystretch}{1.2}
 \begin{tabular}{@{}lll}
-
-Pr\'{e}sident :        & Pr\'{e}nom NOM & Fonction et \'{e}tablissement d'exercice \textit{(à préciser après la soutenance)} \\
-Examinateurs :         & Pr\'{e}nom NOM & Fonction et \'{e}tablissement d'exercice \\
-                       & Pr\'{e}nom NOM & Fonction et \'{e}tablissement d'exercice \\
-                       & Pr\'{e}nom NOM & Fonction et \'{e}tablissement d'exercice \\
-                       & Pr\'{e}nom NOM & Fonction et \'{e}tablissement d'exercice \\
-Dir. de th\`{e}se :    & Philippe \textsc{Chartier} & Fonction et \'{e}tablissement d'exercice \\
-Co-dir. de th\`{e}se : & Mohammed \textsc{Lemou}    & Fonction et \'{e}tablissement d'exercice \textit{(si pertinent)} \\
+{\color{gray}Rapporteurs :}           
+    & Pauline \textsc{Lafitte} & Professeur des universités -- CentraleSupélec \\
+    & Katharina \textsc{Schratz} & Professeur des universités -- Sorbonne Université 
+\medskip\\
+% Pr\'{e}sident :         & François \textsc{Castella} & Professeur des universités -- Université de Rennes 1 \\
+{\color{gray}Examinateurs :}        
+    & Gilles \textsc{Vilmart} & Maître d'enseignement et de recherche -- Université de Genève \\
+    & François \textsc{Castella} & Professeur des universités -- IRMAR Université de Rennes 1 
+\medskip\\
+                    %    & Pr\'{e}nom NOM & Fonction et \'{e}tablissement d'exercice \\
+{\color{gray}Dir. de th\`{e}se :}
+    & Philippe \textsc{Chartier} & Directeur de recherche -- Inria, IRMAR Université de Rennes 1 \\
+    & Mohammed \textsc{Lemou}    & Directeur de recherche -- CNRS, IRMAR Université de Rennes 1 \\
+\vspace*{1cm}
+% Co-dir. de th\`{e}se : & Mohammed \textsc{Lemou}    & Fonction et \'{e}tablissement d'exercice \textit{(si pertinent)} \\
 \end{tabular}
 
-\vspace{\baselineskip}
-{\normalTwelve \textbf{Invit\'{e}(s) :}}\\ \newline
-\footnotesizeTwelve
-\begin{tabular}{@{}ll}
-Pr\'{e}nom NOM & Fonction et \'{e}tablissement d'exercice \\
-\end{tabular}
+% \vspace{\baselineskip}
+% {\normalTwelve \textbf{Invit\'{e}(s) :}}\\ \newline
+% \footnotesizeTwelve
+% \begin{tabular}{@{}ll}
+% Pr\'{e}nom NOM & Fonction et \'{e}tablissement d'exercice \\
+% \end{tabular}
 }
 
 

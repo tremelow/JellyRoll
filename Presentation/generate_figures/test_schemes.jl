@@ -52,6 +52,16 @@ end
 
 imexExpA = c -> [   BigFloat(1)             0           ; 
                         0           1/(BigFloat(1) + c*h/ε) ]
+function imex_custom(u)
+    x,z = u
+    fx,fz = f*u
+    z1 = (z - h*x) / (BigFloat(1) + h/ε - h)
+    
+    fx,fz = f*[x;z1]
+    x1 = x + h*fx
+
+    [x1,z1]
+end
 function imex_bdf1(u)
     imexExpA(1)*(u + h*f*u)
 end
@@ -63,25 +73,26 @@ function imex_bdf2(u1, u)
 end
 
 uRef, uNum = u0[:], u0[:]
-uRef1, uNum1 = exact_flow(uRef), imex_bdf1(uNum)
-uNumTmp = uNum1[:]
-uRef  .= uRef1
-uNum1 .= uNum
-uNum  .= uNumTmp
+# uRef1, uNum1 = exact_flow(uRef), imex_bdf1(uNum)
+# uNumTmp = uNum1[:]
+# uRef  .= uRef1
+# uNum1 .= uNum
+# uNum  .= uNumTmp
 
 err = abs.(uRef - uNum)
 for _ in Iterators.drop(t,1)
     uRef .= exact_flow(uRef)
 
+    uNum .= imex_custom(uNum)
     # uNum .= exp_rk2(uNum)
     # uNum .= strang(uNum)
-    uNumTmp .= imex_bdf2(uNum1, uNum)
-    uNum1 .= uNum
-    uNum .= uNumTmp
+    # uNumTmp .= imex_bdf1(uNum)
+    # uNum1 .= uNum
+    # uNum .= uNumTmp
 
     err[1] = max(err[1], abs(uRef[1] - uNum[1]))
     err[2] = max(err[2], abs(uRef[2] - uNum[2]))
 end
 
-print(err[1])
+print(err[2])
 print(" , ")

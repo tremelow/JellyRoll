@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-FNAME="error_strang_x_v2.csv"
+FNAME="error_custom_z.csv"
 echo "Generating $FNAME"
 
 touch "$FNAME"

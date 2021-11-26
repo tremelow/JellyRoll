@@ -1,59 +1,61 @@
 using DelimitedFiles
-using Plots
+using PyPlot
 using LaTeXStrings
+using CircularArrays
 
 
-matFull = readdlm("error_strang_x_v2.csv", ',')
+matFull = readdlm("error_custom_z.csv", ',')
+fileName = "../custom_err_z.pdf"
 
 log2dt = matFull[1,2:end-1]
 log2eps = matFull[2:end,1]
-matErr = matFull[2:end, 2:end-1]
+matErr = Float64.(matFull[2:end, 2:end-1])
 
+
+ymarkers = CircularArray(["D", "o", "s", "^", "p", "v"])
 
 arrDt = 2.0.^-log2dt
 arrEps = 2.0.^-log2eps
 # matErr .= matErr ./ arrEps
 nDt, nEps = length(arrDt), length(arrEps)
 
-p1 = plot()
-for iEps in 1:6:nEps
-    plot!(arrDt, matErr[iEps,:], 
+subplots(figsize=(7,3))
+
+subplot(121)
+for iEps in 1:5:nEps
+    loglog(arrDt, matErr[iEps,:], 
         label=L"\varepsilon = 2^{-%$(log2eps[iEps])}",
-        marker=:auto, 
-        legend=:bottomright
+        marker=ymarkers[div(iEps,6)+1]
     )
 end
-xlabel!(L"\Delta t")
-ylabel!(L"\mathrm{err}_{\infty}\ \mathrm{on}\ z")
-plot!(arrDt, 0.1*arrDt.^2, linestyle=:dash, color=:grey, 
+xlabel(L"\Delta t")
+ylabel(L"\mathrm{err}_{\infty}\ \mathrm{on}\ z")
+loglog(arrDt, arrDt.^2, linestyle="dashed", color="grey", 
     label=L"C\: \Delta t ^2")
-plot!(arrDt, 0.5*arrDt, linestyle=:dot, color=:grey, 
+loglog(arrDt, 0.5*arrDt, linestyle="dotted", color="grey", 
     label=L"C\: \Delta t")
+# loglog(arrDt, 0.000001*arrDt .^-1, linestyle="dotted", color="grey", 
+#     label=L"C\: \Delta t")
 
-p2 = plot()
+xticks(fontsize=8)
+yticks(fontsize=8)
+legend(fontsize=9)
+
+
+subplot(122)
 for iDt in 1:4:nDt
-    plot!(arrEps, matErr[:,iDt],
+    loglog(arrEps, matErr[:,iDt],
     label=L"\Delta t = 2^{-%$(log2dt[iDt])}",
-    marker=:auto, legend=:bottomleft
+    marker=ymarkers[div(iDt,4)+1]
     )
 end
-xlabel!(L"\varepsilon")
+xlabel(L"\varepsilon")
+xticks(fontsize=8)
+yticks(fontsize=8)
+legend(fontsize=9)
 
 
-plotParam = Dict(
-    :size => (360, 150),
-    :layout => (1,2),
-    :xaxis => :log10,
-    :yaxis => :log10,
-    :thickness_scaling => 0.25,
-    :linewidth => 5,
-    :markersize => 12,
-    :legendfontsize => 20,
-    :tickfontsize => 14,
-    :labelfontsize => 20,
-    :left_margin => 24Plots.mm,
-    :bottom_margin => 16Plots.mm
-)
-plot(p1, p2; plotParam...)
-savefig("toto.pdf")
-# savefig("rk2_err_z.pdf")
+
+
+tight_layout()
+savefig(fileName)
