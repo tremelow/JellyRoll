@@ -172,3 +172,34 @@
 \newcommand{\dpx}{\partial_{x}}
 \newcommand{\dpz}{\partial_{z}}
 \newcommand{\dpy}{\partial_{y}}
+
+
+\makeatletter
+\newsavebox{\parboxins}
+\newif\ifglobalfootnotes
+
+\newcommand{\copyinserts}{\insert\footins{\unvbox\parboxins}%
+  \globalfootnotesfalse}% should be redundant
+
+\newcommand{\global@insert}[2]% #1=box number, #2=vertical list
+{\bgroup
+  \setbox\@tempboxa=\box#1
+  \global\setbox#1=\vbox{\unvbox\@tempboxa #2}
+\egroup}
+
+\long\def\@footnotetext#1{%
+ \protected@edef\@currentlabel{\csname p@footnote\endcsname\@thefnmark}%
+ \ifglobalfootnotes \global@insert\parboxins{\@@footnotetext{#1}}%
+ \else \insert\footins{\@@footnotetext{#1}}%
+ \fi}
+
+\long\def\@@footnotetext#1{%
+ \color@begingroup
+ \reset@font\footnotesize
+ \interlinepenalty\interfootnotelinepenalty
+ \splittopskip\footnotesep
+ \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+ \hsize\columnwidth \@parboxrestore
+ \@makefntext{\rule\z@\footnotesep\ignorespaces#1\@finalstrut\strutbox}%
+ \color@endgroup}
+\makeatother

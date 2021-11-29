@@ -70,13 +70,15 @@
 % This command will generate the front cover
 \frontmatter
 \clearemptydoublepage
-\renewcommand{\contentsname}{Table of Contents}
+\renewcommand{\contentsname}{Table des matières}
 \tableofcontents %sommaire %table of content
 %\shorttableofcontents{Sommaire}{0}
 
 \clearemptydoublepage
 \include{./Presentation/introduction}
 
+% \counterwithin*{equation}{section}
+% \counterwithin*{equation}{subsection}
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
 % \renewcommand{\thetheorem}{\arabic{section}.\arabic{theorem}}
 
